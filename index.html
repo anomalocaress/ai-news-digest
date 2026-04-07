@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🤖 AI News Digest - 2026-03-20</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0f172a; --surface: #1e293b; --card: #1e293b;
+      --card-hover: #263548; --border: #334155;
+      --text-primary: #f1f5f9; --text-secondary: #94a3b8; --text-muted: #64748b;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Noto Sans JP', sans-serif; background: var(--bg); color: var(--text-primary); padding-bottom: 60px; }
+    header { background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #0f172a 100%); border-bottom: 1px solid var(--border); padding: 36px 20px 30px; text-align: center; }
+    header .logo { font-size: 2.4rem; margin-bottom: 6px; }
+    header h1 { font-size: 1.6rem; font-weight: 700; background: linear-gradient(90deg, #60a5fa, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    header .date { color: var(--text-secondary); font-size: 0.9rem; margin-top: 8px; }
+    header .tagline { color: var(--text-muted); font-size: 0.78rem; margin-top: 4px; }
+    .summary-bar { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; padding: 14px 20px; background: var(--surface); border-bottom: 1px solid var(--border); }
+    .summary-item { display: flex; align-items: center; gap: 5px; font-size: 0.82rem; color: var(--text-secondary); }
+    .summary-count { font-weight: 700; color: #60a5fa; }
+    .container { max-width: 960px; margin: 0 auto; padding: 28px 16px; }
+    .grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
+    @media (min-width: 600px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 20px; display: flex; flex-direction: column; gap: 10px; transition: background 0.2s, transform 0.15s, border-color 0.2s; }
+    .card:hover { background: var(--card-hover); transform: translateY(-3px); border-color: #4b6085; }
+    .card-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
+    .badge { display: inline-flex; align-items: center; gap: 4px; padding: 4px 10px; border-radius: 999px; font-size: 0.72rem; font-weight: 700; white-space: nowrap; }
+    .badge-model    { background: rgba(59,130,246,0.15); color: #60a5fa; border: 1px solid rgba(59,130,246,0.3); }
+    .badge-research { background: rgba(139,92,246,0.15); color: #a78bfa; border: 1px solid rgba(139,92,246,0.3); }
+    .badge-business { background: rgba(16,185,129,0.15); color: #34d399; border: 1px solid rgba(16,185,129,0.3); }
+    .badge-policy   { background: rgba(245,158,11,0.15); color: #fbbf24; border: 1px solid rgba(245,158,11,0.3); }
+    .badge-tools    { background: rgba(6,182,212,0.15); color: #22d3ee; border: 1px solid rgba(6,182,212,0.3); }
+    .stars { color: #fbbf24; font-size: 0.88rem; flex-shrink: 0; }
+    .card-title-ja { font-size: 0.98rem; font-weight: 700; line-height: 1.45; color: var(--text-primary); }
+    .card-title-en { font-size: 0.73rem; color: var(--text-muted); line-height: 1.4; }
+    .card-summary { font-size: 0.855rem; color: var(--text-secondary); line-height: 1.75; flex: 1; }
+    .card-link { display: inline-flex; align-items: center; gap: 4px; margin-top: 6px; padding: 7px 14px; background: rgba(59,130,246,0.08); border: 1px solid rgba(59,130,246,0.25); border-radius: 8px; color: #60a5fa; font-size: 0.78rem; font-weight: 500; text-decoration: none; align-self: flex-start; }
+    footer { text-align: center; padding: 36px 20px 20px; color: var(--text-muted); font-size: 0.78rem; border-top: 1px solid var(--border); }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">🤖</div>
+    <h1>AI News Digest</h1>
+    <div class="date">2026年3月20日（金）</div>
+    <div class="tagline">世界のAIニュースを毎朝お届け · Powered by Claude</div>
+  </header>
+  <div class="summary-bar">
+    <div class="summary-item">📰 本日 <span class="summary-count">12</span> 本</div>
+    <div class="summary-item">🚀 <span class="summary-count">3</span></div>
+    <div class="summary-item">🔬 <span class="summary-count">2</span></div>
+    <div class="summary-item">💼 <span class="summary-count">4</span></div>
+    <div class="summary-item">📜 <span class="summary-count">2</span></div>
+    <div class="summary-item">🛠️ <span class="summary-count">1</span></div>
+  </div>
+  <div class="container">
+    <div class="grid">
+
+      <!-- 1 -->
+      <div class="card">
+        <div class="card-top">
+          <span class="badge badge-model">🚀 モデル・製品リリース</span>
+          <span class="stars">★★★</span>
+        </div>
+        <div class="card-title-ja">OpenAI、最新フラッグシップモデル「GPT-5.2」を発表</div>
+        <div class="card-title-en">OpenAI announces its latest flagship model, GPT-5.2</div>
+        <div class="card-summary">OpenAIがGPT-5.1に続く新たな最上位モデル「GPT-5.2」を発表しました。推論能力・コーディング・マルチモーダル処理がさらに向上しており、API経由でも提供される予定です。業界全体の競争激化を受け、リリースサイクルが加速しています。</div>
+        <a href="https://llm-stats.com/ai-news" class="card-link" target="_blank">元記事を読む →</a>
+      </div>
+
+      <!-- 2 -->
+      <div class="card">
+        <div class="card-top">
+          <span class="badge badge-policy">📜 政策・規制</span>
+          <span class="stars">★★★</span>
+        </div>
+        <div class="card-title-ja">AnthropicのDOD訴訟にOpenAI・Google社員30名超が支持声明</div>
+        <div class="card-title-en">OpenAI and Google employees rush to Anthropic's defense in DOD lawsuit</div>
+        <div class="card-summary">国防省（DOD）がAnthropicを「サプライチェーンリスク」と指定したことに対し、Anthropicは訴訟を提起しました。これはAIを大量監視や自律的な兵器運用に使用させないというAnthropicの方針に端を発しており、GoogleのJeff Dean氏を含むOpenAI・Google社員30名以上が連名でAnthropicを支持する声明を発表しました。AIの軍事利用をめぐるガバナンス論争として業界の注目を集めています。</div>
+        <a href="https://techcrunch.com/2026/03/09/openai-and-google-employees-rush-to-anthropics-defense-in-dod-lawsuit/" class="card-link" target="_blank">元記事を読む →</a>
+      </div>
+
+      <!-- 3 -->
+      <div class="card">
+        <div class="card-top">
+          <span class="badge badge-model">🚀 モデル・製品リリース</span>
+          <span class="stars">★★★</span>
+        </div>
+        <div class="card-title-ja">NVIDIA、次世代AIプラットフォーム「Vera Rubin」を正式発表</div>
+        <div class="card-title-en">NVIDIA officially unveils "Vera Rubin" — next-generation AI platform</div>
+        <div class="card-summary">NVIDIAがBlackwellアーキテクチャの後継となる「Vera Rubin」を発表しました。処理能力とメモリ帯域幅を大幅に向上させており、大規模なAIモデルのトレーニングと推論の両方で圧倒的な性能を誇ります。データセンター向けに設計されており、AIインフラ投資の加速を後押しする製品として注目されています。</div>
+        <a href="https://www.crescendo.ai/news/latest-ai-news-and-updates" class="card-link" target="_blank">元記事を読む →</a>
+      </div>
+
+      <!-- 4 -->
+      <div class="card">
+        <div class="card-top">
+          <span class="badge badge-model">🚀 モデル・製品リリース</span>
+          <span class="stars">★★★</span>
+        </div>
+        <div class="card-title-ja">Google、Gemini 3.1 Pro（100万トークン対応）＆ Flash-Lite を発表</div>
+        <div class="card-title-en">Google introduces Gemini 3.1 Pro with 1M context &amp; Flash-Lite</div>
+        <div class="card-summary">GoogleがGemini 3.1シリーズとして2モデルを発表しました。Proは100万トークンのコンテキストウィンドウとマルチモーダル推論を備え、ARC-AGI-2で77.1%を達成。Flash-Liteは旧版比2.5倍の高速化を実現しながら100万入力トークンあたり$0.25という低価格を実現し、AI活用コストの民主化を推進しています。</div>
+        <a href="https://danielquinteros.medium.com/google-openai-anthropic-updates-edc94fc6f10e" class="card-link" target="_blank">元記事を読む →</a>
+      </div>
+
+      <!-- 5 -->
+      <div class="card">
+        <div class="card-top">
+          <span class="badge badge-business">💼 ビジネス・産業</span>
+          <span class="stars">★★★</span>
+        </div>
+        <div class="card-title-ja">AnthropicがClaude全ユーザーに「メモリ機能」を提供開始</div>
+        <div class="card-title-en">Anthropic rolls out memory features to all Claude users</div>
+        <div class="card-summary">Anthropicは3月初旬、Claudeのメモリ機能をすべてのユーザーに展開しました。会話を超えてユーザーの好みやコンテキストを保持できるようになり、パーソナライズされた体験が実現します。また、AI の経済・社会・安全保障への影響を研究する「Anthropic Institute」の設立も発表し、ガバナンス強化に向けた取り組みを示しました。</div>
+        <a href="https://danielquinteros.medium.com/google-openai-anthropic-updates-edc94fc6f10e" class="card-link" target="_blank">元記事を読む →</a>
+      </div>
+
+      <!-- 6 -->
+      <div class="card">
+        <div class="card-top">
+          <span class="badge badge-business">💼 ビジネス・産業</span>
+          <span class="stars">★★</span>
+        </div>
+        <div class="card-title-ja">IBMがリアルタイムデータ基盤企業「Confluent」の買収を完了</div>
+        <div class="card-title-en">IBM completes acquisition of Confluent, making real-time data the engine of enterprise AI</div>
+        <div class="card-summary">IBMがデータストリーミングプラットフォームのConfluentを買収完了しました。フォーチュン500企業の40%が利用するこのプラットフォームを取り込むことで、IBMはリアルタイムデータをエンタープライズAI・エージェントのコア基盤として位置づける戦略を強化します。AI活用に向けたデータインフラ統合の大型動向として注目されます。</div>
+        <a href="https://newsroom.ibm.com/2026-03-17-ibm-completes-acquisition-of-confluent,-making-real-time-data-the-engine-of-enterprise-ai-and-agents" class="card-link" target="_blank">元記事を読む →</a>
+      </div>
+
+      <!-- 7 -->
+      <div class="card">
+        <div class="card-top">
+          <span class="badge badge-policy">📜 政策・規制</span>
+          <span class="stars">★★</span>
+        </div>
+        <div class="card-title-ja">Google、米国防省300万人規模の職員にAIエージェントを提供へ</div>
+        <div class="card-title-en">Google set to provide AI agents to the Pentagon's 3-million-person workforce</div>
+        <div class="card-summary">GoogleがペンタゴンとAIエージェント導入の契約を締結し、非機密業務を担う300万人規模の職員向けに展開することが明らかになりました。AnthropicへのDOD指定直後にOpenAIとの契約も発表されており、政府向けAI市場での競争が一気に激化しています。軍・政府機関へのAI普及という観点で歴史的な転換点となる可能性があります。</div>
+        <a href="https://www.axios.com/2026/03/11/openai-anthropic-pentagon-google" class="card-link" target="_blank">元記事を読む →</a>
+      </div>
+
+      <!-- 8 -->
+      <div class="card">
+        <div class="card-top">
+          <span class="badge badge-research">🔬 研究・論文</span>
+          <span class="stars">★★</span>
+        </div>
+        <div class="card-title-ja">MITがLLMの学習効率を70〜210%向上させる新手法を開発</div>
+        <div class="card-title-en">New method could increase LLM training efficiency 70–210% | MIT News</div>
+        <div class="card-summary">MITの研究チームが、計算処理の空き時間を活用してLLM（大規模言語モデル）の推論モデル学習を大幅に効率化する手法を発表しました。モデルの精度を保ちつつ学習速度を最大2倍以上に向上でき、AIトレーニングにかかる電力・コスト・時間の削減に直結する成果として注目されます。</div>
+        <a href="https://news.mit.edu/2026/new-method-could-increase-llm-training-efficiency-0226" class="card-link" target="_blank">元記事を読む →</a>
+      </div>
+
+      <!-- 9 -->
+      <div class="card">
+        <div class="card-top">
+          <span class="badge badge-research">🔬 研究・論文</span>
+          <span class="stars">★★</span>
+        </div>
+        <div class="card-title-ja">MITがAIの「説明可能性」を高める新アプローチを発表</div>
+        <div class="card-title-en">Improving AI models' ability to explain their predictions | MIT News</div>
+        <div class="card-summary">MITのコンピュータサイエンス研究者が、AIモデルが自分の予測を人間にわかりやすく説明できるようにする手法を開発しました。モデルが学習済みの内部概念を引き出すことで、精度と説明の簡潔さを同時に向上させることができます。AIの「ブラックボックス問題」に取り組む研究として、医療・法律・金融分野での応用が期待されます。</div>
+        <a href="https://news.mit.edu/2026/improving-ai-models-ability-explain-predictions-0309" class="card-link" target="_blank">元記事を読む →</a>
+      </div>
+
+      <!-- 10 -->
+      <div class="card">
+        <div class="card-top">
+          <span class="badge badge-tools">🛠️ ツール・開発</span>
+          <span class="stars">★★</span>
+        </div>
+        <div class="card-title-ja">NVIDIA、エージェントAI向けオープンモデル「Nemotron 3 Super」公開</div>
+        <div class="card-title-en">NVIDIA releases Nemotron 3 Super — open model for agentic AI</div>
+        <div class="card-summary">NVIDIAが1200億パラメータ規模のハイブリッドアーキテクチャ（Mamba-Transformer MoE）を採用したオープンモデル「Nemotron 3 Super」を公開しました。アクティブパラメータは120億で100万トークンのコンテキストを処理でき、GPT-OSS-120Bと比べ2.2倍のスループットを実現。産業特化型のエージェントAI構築向けに設計されており、商用利用も可能です。</div>
+        <a href="https://llm-stats.com/llm-updates" class="card-link" target="_blank">元記事を読む →</a>
+      </div>
+
+      <!-- 11 -->
+      <div class="card">
+        <div class="card-top">
+          <span class="badge badge-business">💼 ビジネス・産業</span>
+          <span class="stars">★★</span>
+        </div>
+        <div class="card-title-ja">楽天、商用利用可能な日本語LLM「Rakuten AI 3.0」を公開</div>
+        <div class="card-title-en">Rakuten releases "Rakuten AI 3.0" Japanese LLM with commercial license</div>
+        <div class="card-summary">楽天が日本語に特化した大規模言語モデル「Rakuten AI 3.0」を公開し、商用利用も解放しました。国内企業が独自のAIシステムを構築しやすくなる選択肢が広がり、海外モデルへの依存を減らす動きとして注目されます。日本語処理の精度向上と低コストでの利用が期待されます。</div>
+        <a href="https://www.itmedia.co.jp/aiplus/subtop/news/index.html" class="card-link" target="_blank">元記事を読む →</a>
+      </div>
+
+      <!-- 12 -->
+      <div class="card">
+        <div class="card-top">
+          <span class="badge badge-business">💼 ビジネス・産業</span>
+          <span class="stars">★</span>
+        </div>
+        <div class="card-title-ja">ヤン・ルカン率いるAMI、「世界モデル」AI開発に1600億円超調達</div>
+        <div class="card-title-en">Yann LeCun's AMI raises $1B+ for "World Model" AI development</div>
+        <div class="card-summary">Meta AIの主席研究者であるヤン・ルカン氏が共同設立したフランスのAIスタートアップ「Advanced Machine Intelligence（AMI）」が、NVIDIAやトヨタなどから約10億ドル（約1600億円）の資金調達を完了しました。同社は現実世界を物理的に理解する「世界モデル」と呼ばれるAIの開発を目指しており、LLMとは異なるアプローチでAGI実現を狙っています。</div>
+        <a href="https://www.itmedia.co.jp/aiplus/articles/2603/10/news109.html" class="card-link" target="_blank">元記事を読む →</a>
+      </div>
+
+    </div>
+  </div>
+  <footer>🤖 Generated by Claude · AI News Digest · 2026年3月20日（金）</footer>
+</body>
+</html>
