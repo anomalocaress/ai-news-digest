@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI News Digest — 2026.04.10</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --col-model:#1d4ed8; --col-research:#6d28d9;
+      --col-business:#065f46; --col-policy:#92400e; --col-tools:#0e7490;
+    }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    body { font-family:'Noto Sans JP','Inter',-apple-system,sans-serif; background:#f7f7f5; color:#111; -webkit-font-smoothing:antialiased; }
+
+    /* ===== FLUID CONTAINER ===== */
+    .container { width:100%; max-width:1440px; margin:0 auto; padding:0 48px; }
+
+    /* ===== HEADER ===== */
+    .site-header { background:#111; color:#fff; }
+    .site-header .container { display:flex; align-items:center; justify-content:space-between; height:72px; }
+    .site-title { display:flex; align-items:center; gap:16px; }
+    .site-title h1 { font-family:'Inter',sans-serif; font-size:0.82rem; font-weight:700; letter-spacing:0.22em; text-transform:uppercase; color:#fff; }
+    .vdivider { width:1px; height:20px; background:#444; }
+    .site-title .sub { font-family:'Inter',sans-serif; font-size:0.74rem; letter-spacing:0.1em; text-transform:uppercase; color:#888; }
+    .site-meta { display:flex; align-items:center; gap:24px; }
+    .site-date { font-family:'Inter',sans-serif; font-size:0.8rem; letter-spacing:0.06em; color:#aaa; }
+    .site-count { font-family:'Inter',sans-serif; font-size:0.72rem; letter-spacing:0.06em; color:#666; }
+
+    /* ===== CATEGORY BAR ===== */
+    .cat-bar { background:#fff; border-bottom:1px solid #e8e8e8; }
+    .cat-bar .container { display:flex; gap:36px; height:48px; align-items:center; overflow-x:auto; scrollbar-width:none; }
+    .cat-bar .container::-webkit-scrollbar { display:none; }
+    .cat-tag { font-family:'Inter',sans-serif; font-size:0.64rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:#999; display:flex; align-items:center; gap:7px; white-space:nowrap; flex-shrink:0; }
+    .cat-tag .dot { width:7px; height:7px; border-radius:50%; flex-shrink:0; }
+    .cat-tag.model .dot { background:var(--col-model); }
+    .cat-tag.research .dot { background:var(--col-research); }
+    .cat-tag.business .dot { background:var(--col-business); }
+    .cat-tag.policy .dot { background:var(--col-policy); }
+    .cat-tag.tools .dot { background:var(--col-tools); }
+    .cat-tag .num { color:#111; font-weight:700; }
+
+    /* ===== MAIN ===== */
+    .main { padding:36px 0 88px; }
+
+    /* 2カラムグリッド（デスクトップ） */
+    .articles-grid { display:grid; grid-template-columns:repeat(2, 1fr); gap:12px; }
+
+    /* ===== ARTICLE CARD ===== */
+    .article { background:#fff; border:1px solid #e8e8e8; border-left:4px solid #ddd; padding:26px 30px 22px; display:flex; flex-direction:column; }
+    .article.model    { border-left-color:var(--col-model); }
+    .article.research { border-left-color:var(--col-research); }
+    .article.business { border-left-color:var(--col-business); }
+    .article.policy   { border-left-color:var(--col-policy); }
+    .article.tools    { border-left-color:var(--col-tools); }
+
+    .article-top { display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; }
+    .article-cat { font-family:'Inter',sans-serif; font-size:0.6rem; font-weight:700; letter-spacing:0.16em; text-transform:uppercase; }
+    .model    .article-cat { color:var(--col-model); }
+    .research .article-cat { color:var(--col-research); }
+    .business .article-cat { color:var(--col-business); }
+    .policy   .article-cat { color:var(--col-policy); }
+    .tools    .article-cat { color:var(--col-tools); }
+
+    .article-importance { display:flex; gap:3px; }
+    .article-importance span { display:block; width:6px; height:6px; border-radius:50%; background:#ddd; }
+    .article-importance span.on { background:#111; }
+
+    .article-title-ja { font-size:1.05rem; font-weight:700; line-height:1.55; color:#111; margin-bottom:6px; }
+    .article-title-en { font-family:'Inter',sans-serif; font-size:0.74rem; color:#bbb; line-height:1.45; margin-bottom:8px; }
+    .article-source { font-family:'Inter',sans-serif; font-size:0.7rem; color:#aaa; margin-bottom:14px; }
+    .article-source strong { color:#888; font-weight:600; }
+    .article-body { font-size:0.9rem; line-height:1.85; color:#444; flex:1; margin-bottom:16px; }
+
+    .article-footer { display:flex; align-items:center; justify-content:flex-end; padding-top:12px; border-top:1px solid #f0f0f0; margin-top:auto; }
+    .article-link { font-family:'Inter',sans-serif; font-size:0.72rem; font-weight:600; color:#111; text-decoration:none; letter-spacing:0.04em; border-bottom:1px solid #ccc; padding-bottom:1px; transition:border-color 0.15s; }
+    .article-link:hover { border-bottom-color:#111; }
+
+    /* ===== FOOTER ===== */
+    .site-footer { border-top:1px solid #e0e0e0; }
+    .site-footer .container { padding-top:28px; padding-bottom:56px; }
+    .site-footer p { font-family:'Inter',sans-serif; font-size:0.68rem; letter-spacing:0.06em; text-transform:uppercase; color:#bbb; text-align:center; }
+
+    /* ===== TABLET（≤1100px）: 1カラムに切り替え ===== */
+    @media (max-width:1100px) {
+      .container { padding:0 32px; }
+      .articles-grid { grid-template-columns:1fr; }
+      .article { padding:24px 26px 20px; }
+    }
+
+    /* ===== MOBILE（≤640px）===== */
+    @media (max-width:640px) {
+      .container { padding:0 16px; }
+      .site-header .container { height:auto; flex-direction:column; align-items:flex-start; gap:8px; padding-top:16px; padding-bottom:16px; }
+      .site-meta { gap:14px; }
+      .site-title h1 { font-size:0.72rem; }
+      .site-title .sub { font-size:0.66rem; }
+      .cat-bar .container { gap:22px; height:44px; }
+      .main { padding:20px 0 64px; }
+      .articles-grid { gap:8px; }
+      .article { padding:18px 18px 16px; }
+      .article-title-ja { font-size:0.95rem; }
+      .article-body { font-size:0.855rem; line-height:1.8; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container">
+      <div class="site-title">
+        <h1>AI News Digest</h1>
+        <div class="vdivider"></div>
+        <span class="sub">Daily Briefing</span>
+      </div>
+      <div class="site-meta">
+        <span class="site-count">12 stories</span>
+        <span class="site-date">2026.04.10 Fri</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="cat-bar">
+    <div class="container">
+      <div class="cat-tag model"><span class="dot"></span>Model <span class="num">5</span></div>
+      <div class="cat-tag research"><span class="dot"></span>Research <span class="num">2</span></div>
+      <div class="cat-tag business"><span class="dot"></span>Business <span class="num">1</span></div>
+      <div class="cat-tag policy"><span class="dot"></span>Policy <span class="num">2</span></div>
+      <div class="cat-tag tools"><span class="dot"></span>Tools <span class="num">2</span></div>
+    </div>
+  </div>
+
+  <main class="main">
+    <div class="container">
+      <div class="articles-grid">
+
+        <!-- 1. Claude Opus 4.6 -->
+        <div class="article model">
+          <div class="article-top">
+            <span class="article-cat">Model Release</span>
+            <div class="article-importance">
+              <span class="on"></span><span class="on"></span><span class="on"></span>
+            </div>
+          </div>
+          <div class="article-title-ja">Claude Opus 4.6、LMSYSチャットボットアリーナで首位を獲得</div>
+          <div class="article-title-en">Claude Opus 4.6 Tops LMSYS Chatbot Arena, Surpasses GPT-5.4 and Gemini 3.1 Pro</div>
+          <div class="article-source"><strong>LLM Stats / AI Flash Report</strong> &nbsp;·&nbsp; 2026/04/10</div>
+          <div class="article-body">AnthropicのClaude Opus 4.6が、世界最大のAIモデル評価プラットフォームLMSYSチャットボットアリーナでトップに立ち、GPT-5.4やGemini 3.1 Proを上回ることが確認された。特にソフトウェアエンジニアリングの自動化ベンチマーク「SWE-bench Verified」で65.3%という記録的スコアを達成しており、AIエージェントとしての実践的な能力において大幅な向上を示している。コーディング・推論・長文理解の各領域で総合的な性能改善が見られ、開発者コミュニティから高い評価を受けている。</div>
+          <div class="article-footer">
+            <a href="https://llm-stats.com/llm-updates" class="article-link" target="_blank">Read more</a>
+          </div>
+        </div>
+
+        <!-- 2. Meta Muse Spark -->
+        <div class="article model">
+          <div class="article-top">
+            <span class="article-cat">Model Release</span>
+            <div class="article-importance">
+              <span class="on"></span><span class="on"></span><span class="on"></span>
+            </div>
+          </div>
+          <div class="article-title-ja">Meta、新AI「Muse Spark」を発表 — Superintelligence Labs初の主力モデル</div>
+          <div class="article-title-en">Meta Debuts Muse Spark, First Major AI Model from Superintelligence Labs</div>
+          <div class="article-source"><strong>CNBC / ITmedia AI+</strong> &nbsp;·&nbsp; 2026/04/08</div>
+          <div class="article-body">Metaは8日、新設したMeta Superintelligence Labsが開発した初のAIモデル「Muse Spark」を発表し、Meta AIアプリおよびWeb版での提供を開始した。コードネーム「Avocado」として開発されていた同モデルは、Llama 4 Maverickと同等のマルチモーダル推論能力を低コストで実現するのが特徴。軽量設計ながら視覚認識に優れており、MetaのARグラス「Orion」にも統合が予定されている。Google・OpenAIを追いかけるMetaにとって、Alexandr Wang氏の参画後初の大型モデルリリースとして注目を集めている。</div>
+          <div class="article-footer">
+            <a href="https://www.cnbc.com/2026/04/08/meta-debuts-first-major-ai-model-since-14-billion-deal-to-bring-in-alexandr-wang.html" class="article-link" target="_blank">Read more</a>
+          </div>
+        </div>
+
+        <!-- 3. Gemini 3.1 -->
+        <div class="article model">
+          <div class="article-top">
+            <span class="article-cat">Model Release</span>
+            <div class="article-importance">
+              <span class="on"></span><span class="on"></span><span class="on"></span>
+            </div>
+          </div>
+          <div class="article-title-ja">Google DeepMind、Gemini 3.1を発表 — リアルタイム音声・画像解析に対応</div>
+          <div class="article-title-en">Google DeepMind Releases Gemini 3.1 with Real-Time Voice and Image Analysis</div>
+          <div class="article-source"><strong>AI Model Release News</strong> &nbsp;·&nbsp; 2026/04/09</div>
+          <div class="article-body">Google DeepMindはGemini 3.1を正式リリースし、リアルタイムの音声入力と画像解析への対応を新たに追加した。推論ベンチマーク「GPQA Diamond」では94.3%という高スコアを記録し、科学・論理推論の分野で最高水準の性能を示している。また、GoogleはAIモデルの圧縮アルゴリズムも同時に公開しており、メモリ使用量を最大6分の1に削減することでAI運用コストの大幅な低下が期待される。エンタープライズ向けのAPI提供も強化され、法人利用への本格展開が進む。</div>
+          <div class="article-footer">
+            <a href="https://renovateqr.com/blog/ai-models-april-2026" class="article-link" target="_blank">Read more</a>
+          </div>
+        </div>
+
+        <!-- 4. DeepSeek R2 -->
+        <div class="article model">
+          <div class="article-top">
+            <span class="article-cat">Model Release</span>
+            <div class="article-importance">
+              <span class="on"></span><span class="on"></span><span></span>
+            </div>
+          </div>
+          <div class="article-title-ja">DeepSeek R2、OpenAI o3に匹敵する推論性能を70%安い価格で提供</div>
+          <div class="article-title-en">DeepSeek R2 Released: Rivals OpenAI o3 Reasoning at 70% Lower API Cost</div>
+          <div class="article-source"><strong>LLM Stats</strong> &nbsp;·&nbsp; 2026/04/09</div>
+          <div class="article-body">中国のDeepSeekが最新推論モデル「R2」をリリースし、数学オリンピック問題集AIME 2025で92.7%、MATH-500で89.4%を達成してOpenAI o3に匹敵する性能を示した。APIの価格は同等の西側モデルと比べ約70%安く設定されており、コスト効率の高さが注目されている。オープンウェイトの蒸留版（320億パラメータ）も同時に公開され、企業やリサーチャーが自社環境で利用できる。DeepSeekの競争力は引き続き業界に価格・性能面での圧力をかけている。</div>
+          <div class="article-footer">
+            <a href="https://llm-stats.com/ai-news" class="article-link" target="_blank">Read more</a>
+          </div>
+        </div>
+
+        <!-- 5. Llama 4 Scout -->
+        <div class="article model">
+          <div class="article-top">
+            <span class="article-cat">Model Release</span>
+            <div class="article-importance">
+              <span class="on"></span><span class="on"></span><span></span>
+            </div>
+          </div>
+          <div class="article-title-ja">Meta、エッジ向けビジョン言語モデル「Llama 4 Scout」をオープンソースで公開</div>
+          <div class="article-title-en">Meta Open-Sources Llama 4 Scout: 17B Vision-Language Model for Edge Devices</div>
+          <div class="article-source"><strong>LLM Stats / AI Flash Report</strong> &nbsp;·&nbsp; 2026/04/08</div>
+          <div class="article-body">Metaは170億パラメータのビジョン言語モデル「Llama 4 Scout」をオープンソースとして公開した。コンシューマ向けGPU（VRAM 24GB）やApple M4 Proでも単体で動作するよう最適化されており、エッジデバイスでのローカルAI実行を可能にする。画像・動画フレーム・PDFを入力として受け付けるマルチモーダル対応で、Llama 4コミュニティライセンスの下で提供される。ローカル実行できるビジョンモデルとして実用的な性能を持ち、開発者やスタートアップに広く活用されることが期待される。</div>
+          <div class="article-footer">
+            <a href="https://lmmarketcap.com/new-ai-models" class="article-link" target="_blank">Read more</a>
+          </div>
+        </div>
+
+        <!-- 6. AI Energy Research -->
+        <div class="article research">
+          <div class="article-top">
+            <span class="article-cat">Research</span>
+            <div class="article-importance">
+              <span class="on"></span><span class="on"></span><span class="on"></span>
+            </div>
+          </div>
+          <div class="article-title-ja">AIのエネルギー消費を100分の1に削減しつつ精度も向上させる手法を研究者が発表</div>
+          <div class="article-title-en">AI Breakthrough Cuts Energy Use by 100× While Boosting Accuracy</div>
+          <div class="article-source"><strong>ScienceDaily</strong> &nbsp;·&nbsp; 2026/04/05</div>
+          <div class="article-body">研究者たちが、AIのエネルギー消費を最大100倍削減しながら精度も向上させる画期的な手法を発表した。ニューラルネットワークと人間が行うような記号的推論（シンボリック推論）を組み合わせることで、モデルの計算効率を劇的に高めることに成功した。AI普及に伴う電力消費の急増が世界的な課題となる中、この研究は持続可能なAI開発に向けた重要な突破口として注目されている。この技術が実用化されれば、データセンターの電力問題への対応としても大きな意義を持つ。</div>
+          <div class="article-footer">
+            <a href="https://www.sciencedaily.com/releases/2026/04/260405003952.htm" class="article-link" target="_blank">Read more</a>
+          </div>
+        </div>
+
+        <!-- 7. PaperOrchestra -->
+        <div class="article research">
+          <div class="article-top">
+            <span class="article-cat">Research</span>
+            <div class="article-importance">
+              <span class="on"></span><span class="on"></span><span></span>
+            </div>
+          </div>
+          <div class="article-title-ja">Google、AI研究論文を自動執筆するマルチエージェントフレームワーク「PaperOrchestra」を開発</div>
+          <div class="article-title-en">Google Researchers Develop PaperOrchestra: Multi-Agent AI Framework That Writes Research Papers</div>
+          <div class="article-source"><strong>arXiv / Hugging Face Trending</strong> &nbsp;·&nbsp; 2026/04/09</div>
+          <div class="article-body">Googleの研究者が「PaperOrchestra」と呼ばれるマルチエージェントAIフレームワークを開発した。雑然としたプレライティング素材（メモ・データ・参考文献など）を入力として受け取り、投稿可能なAI研究論文を自動生成する。シミュレーション上の採択率はCVPRで84%、ICLRで81%に達したという。研究の自動化・加速化ツールとして大きな可能性を秘める一方、論文の品質管理や学術倫理についての議論も呼んでいる。</div>
+          <div class="article-footer">
+            <a href="https://huggingface.co/papers/trending" class="article-link" target="_blank">Read more</a>
+          </div>
+        </div>
+
+        <!-- 8. Meta $115-135B capex -->
+        <div class="article business">
+          <div class="article-top">
+            <span class="article-cat">Business</span>
+            <div class="article-importance">
+              <span class="on"></span><span class="on"></span><span class="on"></span>
+            </div>
+          </div>
+          <div class="article-title-ja">Meta、2026年のAI設備投資を最大約20兆円規模に拡大 — 前年比ほぼ2倍</div>
+          <div class="article-title-en">Meta Plans $115–135 Billion AI Capex in 2026, Nearly Double Last Year's Spending</div>
+          <div class="article-source"><strong>CNBC</strong> &nbsp;·&nbsp; 2026/04/08</div>
+          <div class="article-body">Metaは2026年のAI関連設備投資額を1,150億〜1,350億ドル（約17〜20兆円）と見込んでいることを明らかにした。これは前年の投資額のほぼ2倍に相当し、AIインフラへの積極的な資本配分を示している。データセンターの拡充、AIチップの大規模調達、そしてAI研究人材への投資が主な使途とされる。この規模の投資はGoogle・Microsoftとの競争を意識したものであり、AI覇権争いが企業の財務戦略にも深刻な影響を与えていることを示している。</div>
+          <div class="article-footer">
+            <a href="https://www.cnbc.com/2026/04/08/meta-debuts-first-major-ai-model-since-14-billion-deal-to-bring-in-alexandr-wang.html" class="article-link" target="_blank">Read more</a>
+          </div>
+        </div>
+
+        <!-- 9. OpenAI/Anthropic/Google vs China -->
+        <div class="article policy">
+          <div class="article-top">
+            <span class="article-cat">Policy</span>
+            <div class="article-importance">
+              <span class="on"></span><span class="on"></span><span class="on"></span>
+            </div>
+          </div>
+          <div class="article-title-ja">OpenAI・Anthropic・Google、中国によるAIモデル盗用に対し初の共同防衛体制を構築</div>
+          <div class="article-title-en">OpenAI, Anthropic and Google Unite Against Chinese AI Model Copying via Frontier Model Forum</div>
+          <div class="article-source"><strong>RoboRhythms / OpenTools AI</strong> &nbsp;·&nbsp; 2026/04/07</div>
+          <div class="article-body">OpenAI、Anthropic、Googleの3社は4月6〜7日、Frontier Model Forumを通じて情報を共有し、中国のAI企業による「敵対的蒸留」（adversarial distillation）を用いたモデル盗用に対抗する初の協調防衛作戦を開始したと発表した。競合する3大フロンティアラボが共同でセキュリティ対策を講じるのは前例のない取り組みであり、AI知的財産の保護が業界全体の課題として浮上していることを示している。具体的な技術的防衛策の詳細は非公開とされているが、モデルの出力からの知識転移を困難にする手法が含まれると見られる。</div>
+          <div class="article-footer">
+            <a href="https://www.roborhythms.com/openai-anthropic-google-fight-chinese-ai-copying-2026/" class="article-link" target="_blank">Read more</a>
+          </div>
+        </div>
+
+        <!-- 10. India AI Governance Summit -->
+        <div class="article policy">
+          <div class="article-top">
+            <span class="article-cat">Policy</span>
+            <div class="article-importance">
+              <span class="on"></span><span class="on"></span><span></span>
+            </div>
+          </div>
+          <div class="article-title-ja">インドがニューデリーでAIガバナンス国際サミットを開催 — 統一フレームワーク構築を議論</div>
+          <div class="article-title-en">India Hosts Global AI Governance Summit in New Delhi, Seeks Unified International Framework</div>
+          <div class="article-source"><strong>AI News / ScienceDaily</strong> &nbsp;·&nbsp; 2026/04/09</div>
+          <div class="article-body">インドがニューデリーでAIガバナンスに関する国際サミットを主催し、AI安全性の統一国際フレームワークの構築と、途上国への公平な恩恵分配を主要議題として議論した。主要国の政策立案者や研究機関が参加し、特に開発途上国がAI競争から取り残されないよう包摂的な制度設計を求める声が高まった。欧米主導のAI規制論議にアジア・グローバルサウスの視点を取り込む動きとして注目されており、今後の多国間協議の方向性に影響を与える可能性がある。</div>
+          <div class="article-footer">
+            <a href="https://www.artificialintelligence-news.com/" class="article-link" target="_blank">Read more</a>
+          </div>
+        </div>
+
+        <!-- 11. Grok 3 updates -->
+        <div class="article tools">
+          <div class="article-top">
+            <span class="article-cat">Tools</span>
+            <div class="article-importance">
+              <span class="on"></span><span class="on"></span><span></span>
+            </div>
+          </div>
+          <div class="article-title-ja">xAI、Grok 3にリアルタイム画像生成と永続記憶機能「Grok Memory」を追加</div>
+          <div class="article-title-en">xAI Updates Grok 3 with Real-Time Image Generation and Persistent Cross-Session Memory</div>
+          <div class="article-source"><strong>LLM Stats</strong> &nbsp;·&nbsp; 2026/04/08</div>
+          <div class="article-body">xAI（イーロン・マスク氏率いるAI企業）は、Grok 3に2つの新機能を追加した。1つ目は自社開発の拡散モデルを組み込んだリアルタイム画像生成で、チャットUI上で直接画像を作成できる。2つ目は「Grok Memory」と呼ばれる永続的な会話間コンテキスト機能で、ユーザーの好みや過去のプロジェクト・重要情報を記憶して次回の会話に活かす。現在Grok 3はX（旧Twitter）Premium+会員向けだが、基盤となるAPIはエンタープライズ顧客向けに提供が開始されている。</div>
+          <div class="article-footer">
+            <a href="https://llm-stats.com/ai-news" class="article-link" target="_blank">Read more</a>
+          </div>
+        </div>
+
+        <!-- 12. Claude Code standalone -->
+        <div class="article tools">
+          <div class="article-top">
+            <span class="article-cat">Tools</span>
+            <div class="article-importance">
+              <span class="on"></span><span class="on"></span><span></span>
+            </div>
+          </div>
+          <div class="article-title-ja">Anthropic、AIコーディングエージェント「Claude Code」をスタンドアロン製品として正式ローンチ</div>
+          <div class="article-title-en">Anthropic Launches Claude Code as Standalone Product — Terminal-Native AI Dev Agent</div>
+          <div class="article-source"><strong>LLM Stats / AI Flash Report</strong> &nbsp;·&nbsp; 2026/04/07</div>
+          <div class="article-body">AnthropicはターミナルネイティブのAI開発エージェント「Claude Code」をスタンドアロン製品として正式にローンチした。Claude Codeはリポジトリのクローン、テストの作成と実行、失敗したCIパイプラインの修正、プルリクエストの自動作成など、ソフトウェア開発の一連のタスクを自律的に処理できる。これまでのClaude.aiへの統合機能から独立した製品へと進化したことで、より本格的な開発ワークフローへの組み込みが可能になる。開発者の生産性向上ツールとして、GitHub Copilotなどの既存サービスと真っ向から競合する形となる。</div>
+          <div class="article-footer">
+            <a href="https://aiflashreport.com/model-releases.html" class="article-link" target="_blank">Read more</a>
+          </div>
+        </div>
+
+      </div><!-- /articles-grid -->
+    </div><!-- /container -->
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>AI News Digest &nbsp;·&nbsp; Generated by Claude &nbsp;·&nbsp; 2026.04.10</p>
+    </div>
+  </footer>
+
+</body>
+</html>
