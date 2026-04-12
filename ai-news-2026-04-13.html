@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI News Digest — 2026.04.13</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --model: #1d4ed8;
+    --research: #6d28d9;
+    --business: #065f46;
+    --policy: #92400e;
+    --tools: #0e7490;
+    --bg: #f8fafc;
+    --card-bg: #ffffff;
+    --text: #1e293b;
+    --text-muted: #64748b;
+    --border: #e2e8f0;
+  }
+  body {
+    font-family: 'Noto Sans JP', 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  header {
+    background: #0f172a;
+    color: #fff;
+    padding: 2rem 1.5rem;
+  }
+  .header-inner {
+    max-width: 1440px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .header-title {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+  .header-title span { color: #60a5fa; }
+  .header-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.2rem;
+  }
+  .header-date {
+    font-size: 0.95rem;
+    color: #94a3b8;
+    font-family: 'Inter', sans-serif;
+  }
+  .header-count {
+    background: #1d4ed8;
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.2rem 0.7rem;
+    border-radius: 999px;
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* CATEGORY BAR */
+  .cat-bar {
+    background: #1e293b;
+    padding: 0.75rem 1.5rem;
+    overflow-x: auto;
+  }
+  .cat-bar-inner {
+    max-width: 1440px;
+    margin: 0 auto;
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+  .cat-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.3rem 0.9rem;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    color: #fff;
+    letter-spacing: 0.03em;
+    white-space: nowrap;
+  }
+  .cat-pill.model    { background: var(--model); }
+  .cat-pill.research { background: var(--research); }
+  .cat-pill.business { background: var(--business); }
+  .cat-pill.policy   { background: var(--policy); }
+  .cat-pill.tools    { background: var(--tools); }
+
+  /* MAIN */
+  main {
+    max-width: 1440px;
+    margin: 2rem auto;
+    padding: 0 1.5rem;
+  }
+  .section-label {
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* GRID */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+    margin-bottom: 2.5rem;
+  }
+  @media (max-width: 900px) {
+    .grid { grid-template-columns: 1fr; }
+ %}
+
+  /* CARD */
+  .card {
+    background: var(--card-bg);
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    padding: 1.25rem 1.4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    transition: box-shadow 0.2s, transform 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .card:hover {
+    box-shadow: 0 8px 24px rgba(0,0,0,0.09);
+    transform: translateY(-2px);
+  }
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+  }
+  .card.model::before    { background: var(--model); }
+  .card.research::before { background: var(--research); }
+  .card.business::before { background: var(--business); }
+  .card.policy::before   { background: var(--policy); }
+  .card.tools::before    { background: var(--tools); }
+
+  .card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+  .card-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    padding: 0.18rem 0.6rem;
+    border-radius: 4px;
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+  }
+  .card-label.model    { background: var(--model); }
+  .card-label.research { background: var(--research); }
+  .card-label.business { background: var(--business); }
+  .card-label.policy   { background: var(--policy); }
+  .card-label.tools    { background: var(--tools); }
+
+  .stars {
+    display: flex;
+    gap: 2px;
+  }
+  .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: #cbd5e1;
+  }
+  .dot.filled { background: #f59e0b; }
+
+  .card-title-ja {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.45;
+  }
+  .card-title-en {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    font-family: 'Inter', sans-serif;
+    font-style: italic;
+    line-height: 1.4;
+  }
+  .card-source {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .card-source::before {
+    content: '';
+    display: inline-block;
+    width: 4px; height: 4px;
+    background: #94a3b8;
+    border-radius: 50%;
+  }
+  .card-body {
+    font-size: 0.88rem;
+    color: #334155;
+    line-height: 1.7;
+  }
+  .card-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    text-decoration: none;
+    margin-top: auto;
+  }
+  .card-link.model    { color: var(--model); }
+  .card-link.research { color: var(--research); }
+  .card-link.business { color: var(--business); }
+  .card-link.policy   { color: var(--policy); }
+  .card-link.tools    { color: var(--tools); }
+  .card-link:hover { text-decoration: underline; }
+
+  /* FOOTER */
+  footer {
+    background: #1e293b;
+    color: #94a3b8;
+    text-align: center;
+    padding: 1.5rem;
+    font-size: 0.8rem;
+    font-family: 'Inter', sans-serif;
+  }
+  footer strong { color: #e2e8f0; }
+
+  @media (max-width: 640px) {
+    header { padding: 1.25rem 1rem; }
+    main { padding: 0 0.85rem; margin: 1.25rem auto; }
+    .cat-bar { padding: 0.6rem 0.85rem; }
+    .card { padding: 1rem 1.1rem; }
+    .header-title { font-size: 1.25rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="header-title">📰 AI <span>News Digest</span></div>
+    <div class="header-meta">
+      <div class="header-date">2026年4月13日（月）</div>
+      <div class="header-count">12 articles</div>
+    </div>
+  </div>
+</header>
+
+<div class="cat-bar">
+  <div class="cat-bar-inner">
+    <span class="cat-pill model">● Model (2)</span>
+    <span class="cat-pill research">● Research (5)</span>
+    <span class="cat-pill business">● Business (4)</span>
+    <span class="cat-pill policy">● Policy (1)</span>
+  </div>
+</div>
+
+<main>
+
+  <!-- MODEL -->
+  <div class="section-label">Model</div>
+  <div class="grid">
+
+    <article class="card model">
+      <div class="card-top">
+        <span class="card-label model">Model</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+        </div>
+      </div>
+      <div class="card-title-ja">MetaがMuse Sparkモデルを発表 — WhatsApp・Instagram・Facebookで利用可能</div>
+      <div class="card-title-en">Meta Releases Muse Spark AI Model</div>
+      <div class="card-source">CNBC · 2026-04-09</div>
+      <div class="card-body">MetaがマルチモーダルAIモデル「Muse Spark」を正式リリース。同社の主要SNSプラットフォームで即日利用可能になり、従来比わずか1/10のコンピューティングリソースで同等の性能を実現するとされる。</div>
+      <a class="card-link model" href="https://www.cnbc.com/2026/04/09/metas-long-awaited-ai-model-is-finally-here-but-can-it-make-money/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card model">
+      <div class="card-top">
+        <span class="card-label model">Model</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+        </div>
+      </div>
+      <div class="card-title-ja">NVIDIAが次世代ロボット向け物理AIモデルを一斉公開</div>
+      <div class="card-title-en">NVIDIA Releases New Physical AI Models for Robotics</div>
+      <div class="card-source">NVIDIA · 2026-04-13</div>
+      <div class="card-body">NVIDIAが物理世界と相互作用するロボット専用の新AIモデル群を発表。グローバルパートナー各社と連携し、自律移動・把持・協調動作など次世代ロボット製品への統合を推進。</div>
+      <a class="card-link model" href="https://nvidianews.nvidia.com/news/nvidia-releases-new-physical-ai-models-as-global-partners-unveil-next-generation-robots" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+  </div>
+
+  <!-- RESEARCH -->
+  <div class="section-label">Research</div>
+  <div class="grid">
+
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">Research</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+        </div>
+      </div>
+      <div class="card-title-ja">AIのエネルギー消費を100倍削減する新手法が登場</div>
+      <div class="card-title-en">AI Energy Efficiency Breakthrough Cuts Usage by 100x</div>
+      <div class="card-source">ScienceDaily · 2026-04-05</div>
+      <div class="card-body">ニューラルネットワークと記号推論を組み合わせたハイブリッドアーキテクチャにより、AIの消費電力を最大100倍削減しつつ精度も向上することに成功。エッジデバイスやロボティクスへの応用が期待される。</div>
+      <a class="card-link research" href="https://www.sciencedaily.com/releases/2026/04/260405003952.htm" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">Research</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+        </div>
+      </div>
+      <div class="card-title-ja">ミシガン大学、脳MRIを数秒で解析するAIシステムを開発</div>
+      <div class="card-title-en">University of Michigan AI Interprets Brain MRI in Seconds</div>
+      <div class="card-source">ScienceDaily · 2026-04-10</div>
+      <div class="card-body">ミシガン大学の研究チームが、脳MRI画像から神経学的疾患を数秒で特定できるAIシステムを発表。脳卒中などの緊急症例にも対応可能で、放射線科医の診断支援ツールとして実用化が近い。</div>
+      <a class="card-link research" href="https://www.sciencedaily.com/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">Research</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div>
+        </div>
+      </div>
+      <div class="card-title-ja">生成AIが人間の平均を上回る創造性テスト結果が判明</div>
+      <div class="card-title-en">Generative AI Beats Humans on Creativity Tests</div>
+      <div class="card-source">Multiple Sources · 2026-Q1</div>
+      <div class="card-body">10万人以上を対象にした大規模調査で、最先端の生成AIが「発散的思考」テストの人間平均スコアを上回ることが統計的に確認された。AIの創造性評価手法に関する議論が活発化している。</div>
+      <a class="card-link research" href="https://www.crescendo.ai/news/latest-ai-news-and-updates" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">Research</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div>
+        </div>
+      </div>
+      <div class="card-title-ja">人間の脳とAI言語モデルの情報処理が驚くほど類似</div>
+      <div class="card-title-en">Brain-AI Alignment Discovery</div>
+      <div class="card-source">Multiple Sources · 2026-Q1</div>
+      <div class="card-body">科学者らが、人間の脳が話し言葉を処理する神経パターンが、最先端のAI言語モデルの内部表現と高い類似性を持つことを発見。脳科学とAI研究の融合が新局面を迎えつつある。</div>
+      <a class="card-link research" href="https://www.crescendo.ai/news/latest-ai-news-and-updates" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">Research</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div>
+        </div>
+      </div>
+      <div class="card-title-ja">AIロボットがトマト収穫の成功率を81%に向上</div>
+      <div class="card-title-en">AI Robot Improves Tomato Harvesting to 81% Success Rate</div>
+      <div class="card-source">Multiple Sources · 2026-Q1</div>
+      <div class="card-body">農業AIロボットが個々のトマトの収穫難易度をリアルタイムで予測し、アプローチを自動調整することで収穫成功率を81%まで向上。スマート農業分野への実用展開が加速している。</div>
+      <a class="card-link research" href="https://www.crescendo.ai/news/latest-ai-news-and-updates" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+  </div>
+
+  <!-- BUSINESS -->
+  <div class="section-label">Business</div>
+  <div class="grid">
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">Business</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+        </div>
+      </div>
+      <div class="card-title-ja">OpenAIが過去最大の1,220億ドル資金調達を完了</div>
+      <div class="card-title-en">OpenAI Closes Record $122 Billion Funding Round</div>
+      <div class="card-source">OpenAI / CNBC · 2026-03-31</div>
+      <div class="card-body">OpenAIが史上最大規模となる1,220億ドルの資金調達ラウンドを完了し、企業価値は8,520億ドルに到達。IPOへの期待がさらに高まっており、AGI開発への投資加速を宣言。</div>
+      <a class="card-link business" href="https://openai.com/index/accelerating-the-next-phase-ai/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">Busi.ess</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+        </div>
+      </div>
+      <div class="card-title-ja">AnthropicがシリーズGで300億ドルを調達・企業価値3,800億ドルに</div>
+      <div class="card-title-en">Anthropic Secures $30 Billion Series G Funding</div>
+      <div class="card-source">Crunchbase · 2026-Q1</div>
+      <div class="card-body">Anthropicが3,800億ドルの評価額でGICとCoatueをリードインベスターとするシリーズGを完了。安全性重視のAI開発路線を維持しながら、Claudeの機能拡張と商業展開を加速させる方針。</div>
+      <a class="card-link business" href="https://news.crunchbase.com/venture/foundational-ai-startup-funding-doubled-openai-anthropic-xai-q1-2026/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">Business</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div>
+        </div>
+      </div>
+      <div class="card-title-ja">xAIがシリーズEで200億ドルを確保</div>
+      <div class="card-title-en">xAI Secures $20 Billion Series E Funding</div>
+      <div class="card-source">Crunchbase · 2026-Q1</div>
+      <div class="card-body">Elon MuskのxAIが200億ドルのシリーズE資金調達を完了。GrokチャットボットおよびGrok APIのさらなる拡充を予定しており、OpenAI・Anthropicとの競争がより激化している。</div>
+      <a class="card-link business" href="https://news.crunchbase.com/venture/foundational-ai-startup-funding-doubled-openai-anthropic-xai-q1-2026/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">Business</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+        </div>
+      </div>
+      <div class="card-title-ja">2026年Q1のAIスタートアップ資金調達額が前年全体の2倍超に</div>
+      <div class="card-title-en">Q1 2026 AI Venture Funding Doubles Previous Full Year</div>
+      <div class="card-source">Crunchbase · 2026-Q1</div>
+      <div class="card-body">2026年第1四半期だけで基盤AIスタートアップへのVC投資総額が2025年通年の2倍超を記録。OpenAI・Anthropic・xAIの巨大調達ラウンドが牽引し、業界全体の投資熱が続いている。</div>
+      <a class="card-link business" href="https://news.crunchbase.com/venture/foundational-ai-startup-funding-doubled-openai-anthropic-xai-q1-2026/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+  </div>
+
+  <!-- POLICY -->
+  <div class="section-label">Policy</div>
+  <div class="grid">
+
+    <article class="card policy">
+      <div class="card-top">
+        <span class="card-label policy">Policy</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+        </div>
+      </div>
+      <div class="card-title-ja">OpenAI、市民へのAI株配分を含む「公的資産基金」を提案</div>
+      <div class="card-title-en">OpenAI Proposes Public Wealth Fund for AI Economy</div>
+      <div class="card-source">TechCrunch · 2026-04-06</div>
+      <div class="card-body">OpenAIがAI超知能がもたらす経済格差への対策として「公的AI資産基金」の設立を提言。全市民に自動的にAI企業株を付与する仕組みや、週4日労働制・ロボット税の導入も視野に入れた大胆な政策ビジョンを公開。</div>
+      <a class="card-link policy" href="https://techcrunch.com/2026/04/06/openais-vision-for-the-ai-economy-public-wealth-funds-robot-taxes-and-a-four-day-work-week/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+  </div>
+
+</main>
+
+<footer>
+  <strong>AI News Digest</strong> — 2026年4月13日（月）自動生成 | 12記事収録<br>
+  <span style="font-size:0.72rem; margin-top:0.3rem; display:block;">Model: 2 · Research: 5 · Business: 4 · Policy: 1</span>
+</footer>
+
+</body>
+</html>
