@@ -1,500 +1,434 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AI News Digest — 2026.04.12</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI News Digest — 2026.04.12</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    :root {
-      --model:    #1d4ed8;
-      --model-bg: #eff6ff;
-      --research: #6d28d9;
-      --research-bg: #f5f3ff;
-      --business: #065f46;
-      --business-bg: #ecfdf5;
-      --policy:   #92400e;
-      --policy-bg: #fffbeb;
-      --tools:    #0e7490;
-      --tools-bg: #ecfeff;
-      --border:   #e5e7eb;
-      --text-main:#111827;
-      --text-sub: #6b7280;
-      --text-src: #9ca3af;
-    }
+  :root {
+    --model:    #1d4ed8;
+    --research: #6d28d9;
+    --business: #065f46;
+    --policy:   #92400e;
+    --tools:    #0e7490;
+    --bg:       #f8fafc;
+    --card-bg:  #ffffff;
+    --text:     #1e293b;
+    --muted:    #64748b;
+    --border:   #e2e8f0;
+  }
 
-    body {
-      font-family: 'Noto Sans JP', 'Inter', sans-serif;
-      background: #f3f4f6;
-      color: var(--text-main);
-      min-height: 100vh;
-    }
+  body {
+    font-family: 'Inter', 'Noto Sans JP', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+  }
 
-    /* ── HEADER ── */
-    header {
-      background: #0a0a0a;
-      color: #fff;
-      padding: 32px 24px 28px;
-    }
-    .header-inner {
-      max-width: 1440px;
-      margin: 0 auto;
-      display: flex;
-      align-items: flex-end;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 16px;
-    }
-    .header-title {
-      font-family: 'Inter', sans-serif;
-      font-size: clamp(22px, 4vw, 36px);
-      font-weight: 700;
-      letter-spacing: -0.03em;
-    }
-    .header-title span { color: #60a5fa; }
-    .header-meta {
-      font-size: 13px;
-      color: #9ca3af;
-      line-height: 1.8;
-      text-align: right;
-    }
-    .header-meta strong { color: #e5e7eb; font-weight: 600; }
+  /* ── HEADER ── */
+  header {
+    background: #0f172a;
+    color: #fff;
+    padding: 2.5rem 1.5rem 2rem;
+    text-align: center;
+  }
+  header .logo {
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #94a3b8;
+    margin-bottom: 0.5rem;
+  }
+  header h1 {
+    font-size: clamp(1.6rem, 4vw, 2.6rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.5rem;
+  }
+  header h1 span { color: #60a5fa; }
+  .header-meta {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    font-size: 0.85rem;
+    color: #94a3b8;
+    flex-wrap: wrap;
+    margin-top: 0.75rem;
+  }
+  .header-meta .badge {
+    background: #1e3a5f;
+    border-radius: 99px;
+    padding: 0.2rem 0.75rem;
+  }
 
-    /* ── CATEGORY BAR ── */
-    .cat-bar {
-      background: #fff;
-      border-bottom: 1px solid var(--border);
-      padding: 0 24px;
-      position: sticky;
-      top: 0;
-      z-index: 10;
-    }
-    .cat-bar-inner {
-      max-width: 1440px;
-      margin: 0 auto;
-      display: flex;
-      gap: 6px;
-      overflow-x: auto;
-      padding: 10px 0;
-      scrollbar-width: none;
-    }
-    .cat-bar-inner::-webkit-scrollbar { display: none; }
-    .cat-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 5px 14px;
-      border-radius: 999px;
-      font-size: 12px;
-      font-weight: 600;
-      white-space: nowrap;
-      border: 1.5px solid;
-      cursor: default;
-      font-family: 'Inter', sans-serif;
-    }
-    .cat-pill .dot { width:7px; height:7px; border-radius:50%; }
-    .pill-model    { color:var(--model);    border-color:var(--model);    background:var(--model-bg); }
-    .pill-research { color:var(--research); border-color:var(--research); background:var(--research-bg); }
-    .pill-business { color:var(--business); border-color:var(--business); background:var(--business-bg); }
-    .pill-policy   { color:var(--policy);   border-color:var(--policy);   background:var(--policy-bg); }
-    .pill-tools    { color:var(--tools);    border-color:var(--tools);    background:var(--tools-bg); }
+  /* ── CATEGORY BAR ── */
+  .cat-bar {
+    background: #fff;
+    border-bottom: 1px solid var(--border);
+    padding: 0.75rem 1.5rem;
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .cat-pill {
+    border-radius: 99px;
+    padding: 0.25rem 0.85rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: #fff;
+    letter-spacing: 0.03em;
+  }
+  .cat-pill.model    { background: var(--model); }
+  .cat-pill.research { background: var(--research); }
+  .cat-pill.business { background: var(--business); }
+  .cat-pill.policy   { background: var(--policy); }
+  .cat-pill.tools    { background: var(--tools); }
 
-    /* ── GRID ── */
-    .main {
-      max-width: 1440px;
-      margin: 0 auto;
-      padding: 28px 24px 60px;
-    }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 20px;
-    }
-    @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
+  /* ── GRID ── */
+  .container {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+  }
+  @media (max-width: 900px) {
+    .grid { grid-template-columns: 1fr; }
+  }
 
-    /* ── CARD ── */
-    .card {
-      background: #fff;
-      border-radius: 12px;
-      border: 1px solid var(--border);
-      padding: 22px 24px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      transition: box-shadow 0.18s;
-    }
-    .card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+  /* ── CARD ── */
+  .card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.4rem 1.6rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+  .card:hover {
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    transform: translateY(-2px);
+  }
 
-    .card-top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-    .cat-label {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      padding: 3px 10px;
-      border-radius: 999px;
-      font-family: 'Inter', sans-serif;
-      text-transform: uppercase;
-    }
-    .label-model    { color:var(--model);    background:var(--model-bg); }
-    .label-research { color:var(--research); background:var(--research-bg); }
-    .label-business { color:var(--business); background:var(--business-bg); }
-    .label-policy   { color:var(--policy);   background:var(--policy-bg); }
-    .label-tools    { color:var(--tools);    background:var(--tools-bg); }
+  .card-top {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+  }
+  .cat-label {
+    border-radius: 6px;
+    padding: 0.18rem 0.6rem;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #fff;
+  }
+  .cat-label.model    { background: var(--model); }
+  .cat-label.research { background: var(--research); }
+  .cat-label.business { background: var(--business); }
+  .cat-label.policy   { background: var(--policy); }
+  .cat-label.tools    { background: var(--tools); }
 
-    .importance { display:flex; gap:3px; }
-    .dot-imp { width:8px; height:8px; border-radius:50%; background:#d1d5db; }
-    .dot-imp.on { background:#f59e0b; }
+  .importance {
+    display: flex;
+    gap: 3px;
+  }
+  .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: #cbd5e1;
+  }
+  .dot.active { background: #f59e0b; }
 
-    .card-title-ja {
-      font-size: 16px;
-      font-weight: 700;
-      line-height: 1.5;
-      color: var(--text-main);
-    }
-    .card-title-en {
-      font-size: 12px;
-      font-weight: 500;
-      color: var(--text-sub);
-      line-height: 1.4;
-      font-family: 'Inter', sans-serif;
-    }
-    .card-source {
-      font-size: 11px;
-      color: var(--text-src);
-      font-family: 'Inter', sans-serif;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .card-source::before {
-      content: '';
-      display: inline-block;
-      width: 14px; height: 14px;
-      background: #e5e7eb;
-      border-radius: 3px;
-      flex-shrink: 0;
-    }
-    .card-body {
-      font-size: 14px;
-      line-height: 1.75;
-      color: #374151;
-    }
-    .card-footer {
-      margin-top: 4px;
-    }
-    .read-more {
-      font-size: 12px;
-      font-weight: 600;
-      font-family: 'Inter', sans-serif;
-      text-decoration: none;
-      padding: 5px 14px;
-      border-radius: 6px;
-      display: inline-block;
-      transition: opacity 0.15s;
-    }
-    .read-more:hover { opacity: 0.75; }
-    .rm-model    { color:var(--model);    background:var(--model-bg); }
-    .rm-research { color:var(--research); background:var(--research-bg); }
-    .rm-business { color:var(--business); background:var(--business-bg); }
-    .rm-policy   { color:var(--policy);   background:var(--policy-bg); }
-    .rm-tools    { color:var(--tools);    background:var(--tools-bg); }
+  .card h2 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    line-height: 1.45;
+    color: var(--text);
+  }
+  .card .en-title {
+    font-size: 0.8rem;
+    color: var(--muted);
+    font-style: italic;
+    line-height: 1.4;
+  }
+  .source-row {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.75rem;
+    color: var(--muted);
+  }
+  .source-row .source-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--muted);
+    flex-shrink: 0;
+  }
+  .card p {
+    font-size: 0.88rem;
+    color: #475569;
+    line-height: 1.7;
+    flex: 1;
+  }
+  .read-more {
+    align-self: flex-start;
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-decoration: none;
+    padding: 0.3rem 0.8rem;
+    border-radius: 6px;
+    border: 1px solid currentColor;
+    margin-top: 0.25rem;
+    transition: background 0.15s, color 0.15s;
+  }
+  .read-more:hover { color: #fff !important; }
+  .read-more.model    { color: var(--model); }
+  .read-more.model:hover    { background: var(--model); }
+  .read-more.research { color: var(--research); }
+  .read-more.research:hover { background: var(--research); }
+  .read-more.business { color: var(--business); }
+  .read-more.business:hover { background: var(--business); }
+  .read-more.policy   { color: var(--policy); }
+  .read-more.policy:hover   { background: var(--policy); }
+  .read-more.tools    { color: var(--tools); }
+  .read-more.tools:hover    { background: var(--tools); }
 
-    /* ── FOOTER ── */
-    footer {
-      background: #0a0a0a;
-      color: #6b7280;
-      text-align: center;
-      padding: 24px 16px;
-      font-size: 12px;
-      font-family: 'Inter', sans-serif;
-    }
-    footer a { color: #60a5fa; text-decoration: none; }
-
-    @media (max-width: 640px) {
-      header { padding: 20px 16px; }
-      .main { padding: 16px 12px 40px; }
-      .card { padding: 16px; }
-      .cat-bar { padding: 0 12px; }
-    }
-  </style>
+  /* ── FOOTER ── */
+  footer {
+    background: #0f172a;
+    color: #94a3b8;
+    text-align: center;
+    padding: 2rem 1.5rem;
+    font-size: 0.8rem;
+    margin-top: 2rem;
+  }
+  footer strong { color: #cbd5e1; }
+</style>
 </head>
 <body>
 
-<!-- HEADER -->
 <header>
-  <div class="header-inner">
-    <div>
-      <div class="header-title">AI News <span>Digest</span></div>
-      <div style="font-size:13px;color:#9ca3af;margin-top:6px;font-family:'Inter',sans-serif;">自動生成 by Claude · Powered by Anthropic</div>
-    </div>
-    <div class="header-meta">
-      <strong>2026年4月12日（日）</strong><br>
-      12記事 ·  Model / Research / Business / Policy / Tools
-    </div>
+  <div class="logo">Daily Digest</div>
+  <h1>🤖 AI News <span>Digest</span></h1>
+  <div class="header-meta">
+    <span>📅 2026年4月12日（日）</span>
+    <span class="badge">📰 12本</span>
+    <span class="badge">🌐 最新AIニュース</span>
   </div>
 </header>
 
-<!-- CATEGORY BAR -->
-<nav class="cat-bar">
-  <div class="cat-bar-inner">
-    <span class="cat-pill pill-model"><span class="dot" style="background:var(--model)"></span>Model (5)</span>
-    <span class="cat-pill pill-research"><span class="dot" style="background:var(--research)"></span>Research (3)</span>
-    <span class="cat-pill pill-business"><span class="dot" style="background:var(--business)"></span>Business (2)</span>
-    <span class="cat-pill pill-policy"><span class="dot" style="background:var(--policy)"></span>Policy (1)</span>
-    <span class="cat-pill pill-tools"><span class="dot" style="background:var(--tools)"></span>Tools (1)</span>
-  </div>
-</nav>
+<div class="cat-bar">
+  <span class="cat-pill model">Model</span>
+  <span class="cat-pill research">Research</span>
+  <span class="cat-pill business">Business</span>
+  <span class="cat-pill policy">Policy</span>
+  <span class="cat-pill tools">Tools</span>
+</div>
 
-<!-- GRID -->
-<main class="main">
+<div class="container">
   <div class="grid">
 
-    <!-- 1: Claude Mythos Preview -->
-    <article class="card">
+    <!-- 1. GPT-5.4 コンピューター使用 -->
+    <div class="card">
       <div class="card-top">
-        <span class="cat-label label-model">Model</span>
+        <span class="cat-label model">Model</span>
         <div class="importance">
-          <div class="dot-imp on"></div><div class="dot-imp on"></div><div class="dot-imp on"></div>
+          <span class="dot active"></span><span class="dot active"></span><span class="dot active"></span>
         </div>
       </div>
-      <div class="card-title-ja">Anthropic、Claude Mythos Previewを発表 — SWE-bench 93.9%・USAMO 97.6%</div>
-      <div class="card-title-en">Anthropic Announces Claude Mythos Preview — Record SWE-bench & Math Scores</div>
-      <div class="card-source">Anthropic / crescendo.ai · 2026-04-07</div>
-      <div class="card-body">
-        Anthropicは2026年最大のモデルリリースとして「Claude Mythos Preview」を発表。SWE-bench Verifiedで93.9%、USAMO 2026で97.6%を達成し、競合他社を大きく上回る。現在はProject Glasswingパートナー限定での公開となっており、一般提供は追って予定されている。
-      </div>
-      <div class="card-footer">
-        <a class="read-more rm-model" href="https://www.crescendo.ai/news/latest-ai-news-and-updates" target="_blank" rel="noopener">Read more →</a>
-      </div>
-    </article>
+      <h2>OpenAI、GPT-5.4でネイティブなコンピューター操作機能を実装</h2>
+      <p class="en-title">OpenAI releases GPT-5.4 with native computer-use capabilities</p>
+      <div class="source-row"><span class="source-dot"></span>llm-stats.com &nbsp;·&nbsp; 2026-04-08</div>
+      <p>OpenAIがリリースしたGPT-5.4は、業界初となるネイティブなコンピューター操作機能を搭載した汎用AIモデル。複数のアプリケーションをまたいだ複雑なワークフローを自律的にこなすエージェントとして機能し、アプリ操作・ファイル管理・ブラウジングを単一モデルで実行可能になった。</p>
+      <a class="read-more model" href="https://llm-stats.com/ai-news" target="_blank">Read more →</a>
+    </div>
 
-    <!-- 2: Meta Muse Spark -->
-    <article class="card">
+    <!-- 2. DeepSeek V4 -->
+    <div class="card">
       <div class="card-top">
-        <span class="cat-label label-model">Model</span>
+        <span class="cat-label model">Model</span>
         <div class="importance">
-          <div class="dot-imp on"></div><div class="dot-imp on"></div><div class="dot-imp on"></div>
+          <span class="dot active"></span><span class="dot active"></span><span class="dot active"></span>
         </div>
       </div>
-      <div class="card-title-ja">Meta、独自プロプライエタリAI「Muse Spark」発表 — Llama路線から転換</div>
-      <div class="card-title-en">Meta Debuts Muse Spark — Shifts from Open-Source Llama to Proprietary Model</div>
-      <div class="card-source">CNBC · 2026-04-08</div>
-      <div class="card-body">
-        Metaは14億ドルの大型投資後初となるAIモデル「Muse Spark」を発表。従来のオープンソース路線（Llamaシリーズ）から転換し、画像・映像処理に特化したプロプライエタリモデルとして提供。一部オープンソース版のリリースも将来的に予定されているとしている。
-      </div>
-      <div class="card-footer">
-        <a class="read-more rm-model" href="https://www.cnbc.com/2026/04/08/meta-debuts-first-major-ai-model-since-14-billion-deal-to-bring-in-alexandr-wang.html" target="_blank" rel="noopener">Read more →</a>
-      </div>
-    </article>
+      <h2>DeepSeek V4、1兆パラメータのMoEモデルをApache 2.0でオープンリリース</h2>
+      <p class="en-title">DeepSeek V4: 1T-parameter MoE model released with fully open weights</p>
+      <div class="source-row"><span class="source-dot"></span>renovateqr.com &nbsp;·&nbsp; 2026-04-10</div>
+      <p>中国のDeepSeekが1兆パラメータのMixture-of-Expertsモデルをオープンウェイトで公開。Claude Opus 4.6などの米国フロンティアモデルと同等の性能を、わずか約520万ドルの学習コストで達成したと報告。コスト効率の高さが業界に衝撃を与えている。</p>
+      <a class="read-more model" href="https://renovateqr.com/blog/ai-models-april-2026" target="_blank">Read more →</a>
+    </div>
 
-    <!-- 3: Gemini 3.1 Ultra -->
-    <article class="card">
+    <!-- 3. Meta Muse Spark -->
+    <div class="card">
       <div class="card-top">
-        <span class="cat-label label-model">Model</span>
+        <span class="cat-label model">Model</span>
         <div class="importance">
-          <div class="dot-imp on"></div><div class="dot-imp on"></div><div class="dot-imp on"></div>
+          <span class="dot active"></span><span class="dot active"></span><span class="dot"></span>
         </div>
       </div>
-      <div class="card-title-ja">Google、Gemini 3.1 Ultraを発表 — 200万トークンのネイティブマルチモーダル文脈窓</div>
-      <div class="card-title-en">Google Launches Gemini 3.1 Ultra with 2M Native Multimodal Context Window</div>
-      <div class="card-source">crescendo.ai / llm-stats.com · 2026-04-10</div>
-      <div class="card-body">
-        Googleは年内最大のモデルリリースとして「Gemini 3.1 Ultra」を発表。200万トークンのコンテキストウィンドウをテキスト・画像・音声・映像にネイティブ対応し、転写を経ずに全モダリティを暪断した推論が可能。前Geminiバージョンとは設計思想が根本的に異なる。
-      </div>
-      <div class="card-footer">
-        <a class="read-more rm-model" href="https://llm-stats.com/ai-news" target="_blank" rel="noopener">Read more →</a>
-      </div>
-    </article>
+      <h2>Meta、Superintelligence Labs初の大型モデル「Muse Spark」をデビュー</h2>
+      <p class="en-title">Meta debuts Muse Spark, first major AI model from its Superintelligence Labs</p>
+      <div class="source-row"><span class="source-dot"></span>Bloomberg / CNBC &nbsp;·&nbsp; 2026-04-08</div>
+      <p>MetaがAlexandr Wang率いる社内Superintelligence Labsから初の大型AIモデル「Muse Spark」を発表。同ラボは140億ドルの大型投資によって9ヶ月前に設立され、今回がその最初の大型成果となる。GoogleやOpenAIに追いつくための重要な一歩とみられている。</p>
+      <a class="read-more model" href="https://www.cnbc.com/2026/04/08/meta-debuts-first-major-ai-model-since-14-billion-deal-to-bring-in-alexandr-wang.html" target="_blank">Read more →</a>
+    </div>
 
-    <!-- 4: Gemma 4 -->
-    <article class="card">
+    <!-- 4. Google Gemini 3.1 / Gemma 4 -->
+    <div class="card">
       <div class="card-top">
-        <span class="cat-label label-model">Model</span>
+        <span class="cat-label model">Model</span>
         <div class="importance">
-          <div class="dot-imp on"></div><div class="dot-imp on"></div><div class="dot-imp"></div>
+          <span class="dot active"></span><span class="dot active"></span><span class="dot active"></span>
         </div>
       </div>
-      <div class="card-title-ja">Google、オープンソース「Gemma 4」公開 — 推論・エージェント向けApache 2.0</div>
-      <div class="card-title-en">Google Releases Gemma 4 Open-Source — Built for Reasoning and Agentic Workflows</div>
-      <div class="card-source">Google / crescendo.ai · 2026-04-10</div>
-      <div class="card-body">
-        GoogleはApache 2.0ライセンスで「Gemma 4」を公開。高度な推論・エージェント型ワークフローに特化して設計されており、パラメータ効率に優れた「インテリジェンス・パー・パラメータ」の高さをGoogleは強調。研究・商用問わず幅広い用途に利用可能。
-      </div>
-      <div class="card-footer">
-        <a class="read-more rm-model" href="https://llm-stats.com/llm-updates" target="_blank" rel="noopener">Read more →</a>
-      </div>
-    </article>
+      <h2>Google、Gemini 3.1をGA化——200万トークンコンテキストと動画理解を提供</h2>
+      <p class="en-title">Google makes Gemini 3.1 Pro generally available on Vertex AI with 2M token context</p>
+      <div class="source-row"><span class="source-dot"></span>llm-stats.com &nbsp;·&nbsp; 2026-04-09</div>
+      <p>Google DeepMindがGemini 3.1 ProをVertex AIで正式提供開始。200万トークンコンテキスト・ドキュメントキャッシュ・1fps動画理解などエンタープライズ向け機能を搭載。同時にオープンモデルGemma 4もApache 2.0でリリースし、高度な推論とエージェントワークフロー向けに最適化された。</p>
+      <a class="read-more model" href="https://llm-stats.com/ai-news" target="_blank">Read more →</a>
+    </div>
 
-    <!-- 5: Qwen 3.6 Plus -->
-    <article class="card">
+    <!-- 5. Claude Mythos 5 非公開 -->
+    <div class="card">
       <div class="card-top">
-        <span class="cat-label label-model">Model</span>
+        <span class="cat-label model">Model</span>
         <div class="importance">
-          <div class="dot-imp on"></div><div class="dot-imp on"></div><div class="dot-imp"></div>
+          <span class="dot active"></span><span class="dot active"></span><span class="dot active"></span>
         </div>
       </div>
-      <div class="card-title-ja">Alibaba、Qwen 3.6 Plusを発表 — 100万トークン文脈・自律エージェント挙動</div>
-      <div class="card-title-en">Alibaba Launches Qwen 3.6 Plus — 1M Token Context and Autonomous Agent Behavior</div>
-      <div class="card-source">renovateqr.com / mean.ceo · 2026-04-02</div>
-      <div class="card-body">
-        Alibabaの「Qwen 3.6 Plus」が4月2日にリリース。100万トークンのネイティブコンテキストウィンドウ（Qwen 3.5の4倍）を持ち、過剰思考問題を改善。初期ベンチマークではチャットボットよりも自律エージェントに近い挙動を示し、エージェンティックAI分野での強力な競合として注目される。
-      </div>
-      <div class="card-footer">
-        <a class="read-more rm-model" href="https://renovateqr.com/blog/ai-models-april-2026" target="_blank" rel="noopener">Read more →</a>
-      </div>
-    </article>
+      <h2>Anthropic、10兆パラメータ「Claude Mythos 5」を安全上の理由で一般公開せず</h2>
+      <p class="en-title">Anthropic's Claude Mythos 5 (10T params) will not be publicly released due to cybersecurity risks</p>
+      <div class="source-row"><span class="source-dot"></span>renovateqr.com &nbsp;·&nbsp; 2026-04-07</div>
+      <p>Anthropicが10兆パラメータの超大型モデル「Claude Mythos 5」の存在を認めつつ、サイバーセキュリティリスクを理由に一般公開しないと発表。「Project Glasswing」の下で選ばれたパートナーのみに提供される方針。AIの安全性と公開可否に関する議論を改めて加速させている。</p>
+      <a class="read-more model" href="https://renovateqr.com/blog/ai-models-april-2026" target="_blank">Read more →</a>
+    </div>
 
-    <!-- 6: DeepSeek V4 -->
-    <article class="card">
+    <!-- 6. AI エネルギー効率100倍 -->
+    <div class="card">
       <div class="card-top">
-        <span class="cat-label label-research">Research</span>
+        <span class="cat-label research">Research</span>
         <div class="importance">
-          <div class="dot-imp on"></div><div class="dot-imp on"></div><div class="dot-imp on"></div>
+          <span class="dot active"></span><span class="dot active"></span><span class="dot active"></span>
         </div>
       </div>
-      <div class="card-title-ja">DeepSeek V4発表 — 1兆パラメータMoEで米フロンティアモデルに匹敵、訓練コスト520万ドル</div>
-      <div class="card-title-en">DeepSeek V4: 1T-Parameter MoE Rivals US Frontier Models at $5.2M Training Cost</div>
-      <div class="card-source">crescendo.ai / nextbigfuture.com · 2026-04-10</div>
-      <div class="card-body">
-        DeepSeekが1兆パラメータのMixture-of-Expertsモデル「V4」を発表。HumanEval 94.7%を達成しClaudeやGPTなど米国フロンティアモデルに匹敵する性能を、わずか520万ドルの訓練コストで実現。長文脈推論とコーディングに特に強みを持ち、AIの民主化に向けた重要な指標となっている。
-      </div>
-      <div class="card-footer">
-        <a class="read-more rm-research" href="https://www.nextbigfuture.com/2026/04/2026-is-breakthrough-year-for-reliable-ai-world-models-and-continual-learning-prototypes.html" target="_blank" rel="noopener">Read more →</a>
-      </div>
-    </article>
+      <h2>ニューラル×シンボリック推論の融合でAIエネルギー消費を100分の1に削減</h2>
+      <p class="en-title">Hybrid neural-symbolic AI slashes energy use by 100× while improving accuracy</p>
+      <div class="source-row"><span class="source-dot"></span>ScienceDaily &nbsp;·&nbsp; 2026-04-05</div>
+      <p>研究チームがニューラルネットワークと人間的なシンボリック推論を組み合わせた新アーキテクチャを発表。ロボットが試行錯誤に頼らず論理的に思考できるようにすることで、エネルギー消費を最大100分の1に抑えつつ精度を向上させることに成功。AIの省エネ化に向けた画期的な成果として注目される。</p>
+      <a class="read-more research" href="https://www.sciencedaily.com/releases/2026/04/260405003952.htm" target="_blank">Read more →</a>
+    </div>
 
-    <!-- 7: Energy efficiency breakthrough -->
-    <article class="card">
+    <!-- 7. NVIDIA Cosmos ロボティクス -->
+    <div class="card">
       <div class="card-top">
-        <span class="cat-label label-research">Research</span>
+        <span class="cat-label research">Research</span>
         <div class="importance">
-          <div class="dot-imp on"></div><div class="dot-imp on"></div><div class="dot-imp on"></div>
+          <span class="dot active"></span><span class="dot active"></span><span class="dot"></span>
         </div>
       </div>
-      <div class="card-title-ja">Tufts大、AIエネルギー消費を100分の1に削減する手法を発表 — 精度も向上</div>
-      <div class="card-title-en">Tufts University: AI Energy Use Cut 100× with Higher Accuracy via Neuro-Symbolic Reasoning</div>
-      <div class="card-source">ScienceDaily · 2026-04-05</div>
-      <div class="card-body">
-        タフツ大学の研究チームが、ニューラルネットワークと人間的な記号推論を組み合わせた新手法を発表。ロボットがブルートフォース試行錯誤に頼らず論理的思考を行えるようにすることで、AIのエネルギー消費を最大100分の1に削減しつつ精度を向上させることに成功した。
-      </div>
-      <div class="card-footer">
-        <a class="read-more rm-research" href="https://www.sciencedaily.com/releases/2026/04/260405003952.htm" target="_blank" rel="noopener">Read more →</a>
-      </div>
-    </article>
+      <h2>NVIDIA Cosmos、ロボット訓練向け合成データ生成用ワールドモデルを公開</h2>
+      <p class="en-title">NVIDIA Cosmos world models for generating synthetic training data for robotics at scale</p>
+      <div class="source-row"><span class="source-dot"></span>NVIDIA Blog &nbsp;·&nbsp; 2026-04-07</div>
+      <p>NVIDIAがNational Robotics Weekに合わせ、フィジカルAI向けワールドモデル「Cosmos」シリーズを発表。リアルタイム物理シミュレーションを活用した合成データを大量生成し、ロボットが多様な環境へ汎化学習できる基盤を提供。具現化AIの開発効率を大幅に向上させると期待される。</p>
+      <a class="read-more research" href="https://blogs.nvidia.com/blog/national-robotics-week-2026/" target="_blank">Read more →</a>
+    </div>
 
-    <!-- 8: OpenAI $122B -->
-    <article class="card">
+    <!-- 8. 脳MRI AI -->
+    <div class="card">
       <div class="card-top">
-        <span class="cat-label label-business">Business</span>
+        <span class="cat-label research">Research</span>
         <div class="importance">
-          <div class="dot-imp on"></div><div class="dot-imp on"></div><div class="dot-imp on"></div>
+          <span class="dot active"></span><span class="dot active"></span><span class="dot"></span>
         </div>
       </div>
-      <div class="card-title-ja">OpenAI、1220億ドル調達完了 — Amazon・Nvidia・SoftBankが主導、評価額8520億ドル</div>
-      <div class="card-title-en">OpenAI Closes $122B Round at $852B Valuation Led by Amazon, Nvidia, SoftBank</div>
-      <div class="card-source">Bloomberg / TechCrunch · 2026-03-31</div>
-      <div class="card-body">
-        OpenAIは史上最大の資金調達ラウンドを完了し、評価額8520億ドルに到達。Amazonが500億ドル、NvidiaとSoftBankがそれぞれ300億ドルを出資。初めて個人投資家にも開放し30億ドルを小口で調達。非上場企業としては前例のない規模の資金調達となった。
-      </div>
-      <div class="card-footer">
-        <a class="read-more rm-business" href="https://www.bloomberg.com/news/articles/2026-03-31/openai-valued-at-852-billion-after-completing-122-billion-round" target="_blank" rel="noopener">Read more →</a>
-      </div>
-    </article>
+      <h2>ミシガン大、脳MRIを数秒で解析し神経疾患を診断するAIシステムを開発</h2>
+      <p class="en-title">University of Michigan AI system interprets brain MRIs in seconds for neurological conditions</p>
+      <div class="source-row"><span class="source-dot"></span>crescendo.ai &nbsp;·&nbsp; 2026-04-08</div>
+      <p>ミシガン大学の研究チームが脳MRIスキャンを数秒で解釈し、幅広い神経疾患を正確に特定するAIシステムを開発。緊急ケアが必要な症例を自動でフラグ付けする機能も備え、放射線科医の診断支援・医療アクセス格差の解消に貢献できる可能性が高いと注目されている。</p>
+      <a class="read-more research" href="https://www.crescendo.ai/news/latest-ai-news-and-updates" target="_blank">Read more →</a>
+    </div>
 
-    <!-- 9: Q1 2026 VC record -->
-    <article class="card">
+    <!-- 9. OpenAI $122B調達 -->
+    <div class="card">
       <div class="card-top">
-        <span class="cat-label label-business">Business</span>
+        <span class="cat-label business">Business</span>
         <div class="importance">
-          <div class="dot-imp on"></div><div class="dot-imp on"></div><div class="dot-imp on"></div>
+          <span class="dot active"></span><span class="dot active"></span><span class="dot active"></span>
         </div>
       </div>
-      <div class="card-title-ja">2026年Q1VC投資が過去最高3000億ドル — AI分野が全体の80%・2420億ドルを占める</div>
-      <div class="card-title-en">Q1 2026 VC Sets All-Time Record at $300B — AI Takes 80% at $242B</div>
-      <div class="card-source">Crunchbase News · 2026-04-07</div>
-      <div class="card-body">
-        2026年第1四半期のグローバルベンチャー投資額が6000社超に対し3000億ドルに達し、史上最高を更新。AIへの投資は2420億ドルで全体の80%を占める。前四半期比・前年同期比ともに150%以上の増加で、AIバブル懸念も一方で高まっている。
-      </div>
-      <div class="card-footer">
-        <a class="read-more rm-business" href="https://news.crunchbase.com/venture/record-breaking-funding-ai-global-q1-2026/" target="_blank" rel="noopener">Read more →</a>
-      </div>
-    </article>
+      <h2>OpenAI、評価額8,520億ドルで1,220億ドルの超大型資金調達を完了</h2>
+      <p class="en-title">OpenAI closes $122B funding round at $852B valuation backed by Amazon, Nvidia, SoftBank</p>
+      <div class="source-row"><span class="source-dot"></span>Bloomberg / TechCrunch &nbsp;·&nbsp; 2026-03-31</div>
+      <p>OpenAIがAmazon（500億ドル）、Nvidia・SoftBank（各300億ドル）などから総額1,220億ドルの資金調達を完了し、評価額は8,520億ドルに達した。年間売上は250億ドルを突破し、2026年後半にも上場を検討中とされる。AIへのVC投資がQ1だけで3,000億ドルを超えた記録的な四半期の象徴。</p>
+      <a class="read-more business" href="https://www.bloomberg.com/news/articles/2026-03-31/openai-valued-at-852-billion-after-completing-122-billion-round" target="_blank">Read more →</a>
+    </div>
 
-    <!-- 10: OpenAI policy -->
-    <article class="card">
+    <!-- 10. Q1 2026 VC記録 -->
+    <div class="card">
       <div class="card-top">
-        <span class="cat-label label-policy">Policy</span>
+        <span class="cat-label business">Business</span>
         <div class="importance">
-          <div class="dot-imp on"></div><div class="dot-imp on"></div><div class="dot-imp"></div>
-      </div>
-      <div class="card-title-ja">OpenAI、パブリックウェルスファンド・ロボット税・週4日労働を提言 — AI経済の新構想</div>
-      <div class="card-title-en">OpenAI Proposes Public Wealth Fund, Robot Tax, and 4-Day Workweek for AI Economy</div>
-      <div class="card-source">TechCrunch · 2026-04-06</div>
-      <div class="card-body">
-        OpenAIが「インテリジェンス時代」における富と労働の再設計を提言。市民がAI企業・インフラへの公的持分を自動取得できる「パブリックウェルスファンド」の設立、ロボット税の導入、週4日労働制の検討を提案。資本主義的な市場原理と社会的安全網の拡充を組み合わせた政策ビジョンを示した。
-      </div>
-      <div class="card-footer">
-        <a class="read-more rm-policy" href="https://techcrunch.com/2026/04/06/openais-vision-for-the-ai-economy-public-wealth-funds-robot-taxes-and-a-four-day-work-week/" target="_blank" rel="noopener">Read more →</a>
-      </div>
-    </article>
-
-    <!-- 11: NVIDIA Isaac GR00T -->
-    <article class="card">
-      <div class="card-top">
-        <span class="cat-label label-tools">Tools</span>
-        <div class="importance">
-          <div class="dot-imp on"></div><div class="dot-imp on"></div><div class="dot-imp"></div>
+          <span class="dot active"></span><span class="dot active"></span><span class="dot"></span>
         </div>
       </div>
-      <div class="card-title-ja">NVIDIA、Isaac GR00T & Cosmosを発表 — ロボット向け汎用オープンモデルと世界シミュレータ</div>
-      <div class="card-title-en">NVIDIA Launches Isaac GR00T Open Models and Cosmos World Simulator for Robotics</div>
-      <div class="card-source">NVIDIA Blog · 2026-04-11</div>
-      <div class="card-body">
-        NVIDIAはNational Robotics Weekに合わせ、自然言語指示を理解し複雑なマルチステップタスクを実行できるロボット向けオープンモデル「Isaac GR00T」と、合成データ生成・物理シミュレーションを行う世界モデル「Cosmos」を発表。身体化AIの訓練効率を大幅に向上させる。
-      </div>
-      <div class="card-footer">
-        <a class="read-more rm-tools" href="https://blogs.nvidia.com/blog/national-robotics-week-2026/" target="_blank" rel="noopener">Read more →</a>
-      </div>
-    </article>
+      <h2>2026年Q1、世界VC投資が3,000億ドルを突破——AI関連が80%を占める</h2>
+      <p class="en-title">Q1 2026 shatters venture records: $300B globally, AI accounts for 80% of all investment</p>
+      <div class="source-row"><span class="source-dot"></span>Crunchbase News &nbsp;·&nbsp; 2026-04-02</div>
+      <p>2026年第1四半期のグローバルベンチャー投資が3,000億ドルを超え、四半期・年次ともに過去最高を記録。うちAI関連が2,420億ドル（全体の80%）を占め、その大半がOpenAI・Anthropic・xAIなど一握りの基盤モデル企業に集中。2025年通年のAI投資額をすでに上回ったことも判明した。</p>
+      <a class="read-more business" href="https://news.crunchbase.com/venture/record-breaking-funding-ai-global-q1-2026/" target="_blank">Read more →</a>
+    </div>
 
-    <!-- 12: LLM Leaderboard -->
-    <article class="card">
+    <!-- 11. OpenAI 政策提言 -->
+    <div class="card">
       <div class="card-top">
-        <span class="cat-label label-research">Research</span>
+        <span class="cat-label policy">Policy</span>
         <div class="importance">
-          <div class="dot-imp on"></div><div class="dot-imp on"></div><div class="dot-imp"></div>
+          <span class="dot active"></span><span class="dot active"></span><span class="dot active"></span>
         </div>
       </div>
-      <div class="card-title-ja">LLMリーダーボード4月版 — Claude Mythos Previewがコーディング首位、Kimi K2.5がHumanEval 99.0%</div>
-      <div class="card-title-en">April LLM Leaderboard: Claude Mythos Preview #1 in Coding; Kimi K2.5 HumanEval 99.0%</div>
-      <div class="card-source">llm-stats.com / benchlm.ai · 2026-04-12</div>
-      <div class="card-body">
-        4月のLLMリーダーボード暫定版によると、コーディング部門はClaude Mythos Preview（100.0%）、Gemini 3.1 Pro（94.3%）、Claude Opus 4.6（90.8%）の順。総合知性ではGemini 3.1 Pro PreviewとGPT-5.4が最高位。オープンソースではKimi K2.5のHumanEval 99.0%が過去最高水準。
+      <h2>OpenAI、AI時代の富の再分配に向け「公共富ファンド」「ロボット税」などを提言</h2>
+      <p class="en-title">OpenAI proposes public wealth funds, robot taxes, and four-day workweek for the AI economy</p>
+      <div class="source-row"><span class="source-dot"></span>TechCrunch &nbsp;·&nbsp; 2026-04-06</div>
+      <p>OpenAIが「インテリジェンス時代」の経済政策提言書を公開。AIインフラへの公共投資持分を自動的に市民に還元する「Public Wealth Fund」の創設、ロボット化による労働移転への対応策として「ロボット税」「週4日労働制」「拡充された社会保障」などを提案。左派的施策と市場主義を融合した独自の立場が注目される。</p>
+      <a class="read-more policy" href="https://techcrunch.com/2026/04/06/openais-vision-for-the-ai-economy-public-wealth-funds-robot-taxes-and-a-four-day-work-week/" target="_blank">Read more →</a>
+    </div>
+
+    <!-- 12. HuggingFace ベンチマーク刷新 -->
+    <div class="card">
+      <div class="card-top">
+        <span class="cat-label tools">Tools</span>
+        <div class="importance">
+          <span class="dot active"></span><span class="dot active"></span><span class="dot"></span>
+        </div>
       </div>
-      <div class="card-footer">
-        <a class="read-more rm-research" href="https://llm-stats.com/leaderboards/llm-leaderboard" target="_blank" rel="noopener">Read more →</a>
-      </div>
-    </article>
+      <h2>HuggingFace、汚染耐性の高い新ベンチマークセットでOpen LLM Leaderboardを刷新</h2>
+      <p class="en-title">HuggingFace revamps Open LLM Leaderboard with contamination-resistant benchmarks for 2026</p>
+      <div class="source-row"><span class="source-dot"></span>benchlm.ai &nbsp;·&nbsp; 2026-04-08</div>
+      <p>HuggingFaceがOpen LLM Leaderboardを大幅更新。従来の汚染問題に対処するため、IFEval-Hard・MATH-Verify・LiveCodeBench-2026・マルチターン会話ベンチマークを新たに導入。最新ランキングではClaude Mythos Preview（99点）がトップ、Gemini 3.1 ProとGPT-5.4が94点で並ぶ。オープンウェイトモデルも上位に進出し、競争がより拮抗している。</p>
+      <a class="read-more tools" href="https://benchlm.ai/blog/posts/state-of-llm-benchmarks-2026" target="_blank">Read more →</a>
+    </div>
 
   </div>
-</main>
+</div>
 
 <footer>
-  <p>AI News Digest · 2026-04-12 · 自動生成 by <a href="https://claude.ai">Claude</a> (Anthropic)</p>
-  <p style="margin-top:6px;">掲載情報は自動収集によるものです。詳細は各ソースをご確認ください。</p>
+  <strong>AI News Digest</strong> &nbsp;|&nbsp; 2026年4月12日（日）&nbsp;|&nbsp; 自動生成 by Claude &nbsp;|&nbsp;
+  <a href="https://anomalocaress.github.io/ai-news-digest/" style="color:#60a5fa;">anomalocaress.github.io/ai-news-digest</a>
 </footer>
 
 </body>
-</html>
-/body>
 </html>
