@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI News Digest — 2026.04.14</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Noto Sans JP', 'Inter', sans-serif;
+    background: #f3f4f6;
+    color: #111827;
+    min-height: 100vh;
+  }
+
+  /* ── Header ── */
+  .header {
+    background: #000;
+    color: #fff;
+    padding: 2rem 1.5rem;
+  }
+  .header-inner {
+    max-width: 1440px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 1rem;
+    justify-content: space-between;
+  }
+  .header h1 {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(1.5rem, 3vw, 2.4rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+  .header h1 span { color: #a3e635; }
+  .header-meta {
+    font-size: 0.85rem;
+    color: #9ca3af;
+    text-align: right;
+  }
+  .header-meta strong { color: #e5e7eb; font-size: 1rem; }
+
+  /* ── Category Bar ── */
+  .cat-bar {
+    background: #111;
+    border-bottom: 1px solid #222;
+  }
+  .cat-bar-inner {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0.6rem 1.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .cat-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #fff;
+    letter-spacing: 0.03em;
+    font-family: 'Inter', sans-serif;
+  }
+  .cat-pill .dot { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,0.6); }
+
+  /* ── Main Grid ── */
+  .container { max-width: 1440px; margin: 0 auto; padding: 2rem 1.5rem; }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+  }
+
+  /* ── Article Card ── */
+  .card {
+    background: #fff;
+    border-radius: 12px;
+    border: 1px solid #e5e7eb;
+    padding: 1.25rem 1.4rem 1.1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+  .card:hover { box-shadow: 0 6px 24px rgba(0,0,0,0.1); transform: translateY(-2px); }
+
+  .card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+  .cat-label {
+    display: inline-block;
+    padding: 0.18rem 0.6rem;
+    border-radius: 6px;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+  }
+  .importance {
+    display: flex;
+    gap: 3px;
+  }
+  .importance .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: #d1d5db;
+  }
+  .importance .dot.on { background: #facc15; }
+
+  .card-title-ja {
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.45;
+    color: #111827;
+  }
+  .card-title-en {
+    font-size: 0.78rem;
+    color: #6b7280;
+    font-family: 'Inter', sans-serif;
+    line-height: 1.35;
+  }
+  .card-source {
+    font-size: 0.72rem;
+    color: #9ca3af;
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .card-source::before {
+    content: '';
+    display: inline-block;
+    width: 14px; height: 2px;
+    background: #d1d5db;
+    border-radius: 2px;
+  }
+  .card-body {
+    font-size: 0.875rem;
+    line-height: 1.65;
+    color: #374151;
+    flex: 1;
+  }
+  .card-link {
+    align-self: flex-start;
+    font-size: 0.75rem;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    color: #2563eb;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.15s;
+  }
+  .card-link:hover { border-color: #2563eb; }
+
+  /* Colors */
+  .c-model   { background: #1d4ed8; }
+  .c-research{ background: #6d28d9; }
+  .c-business{ background: #065f46; }
+  .c-policy  { background: #92400e; }
+  .c-tools   { background: #0e7490; }
+
+  /* ── Footer ── */
+  .footer {
+    background: #000;
+    color: #6b7280;
+    text-align: center;
+    padding: 1.5rem 1rem;
+    font-size: 0.78rem;
+    font-family: 'Inter', sans-serif;
+    margin-top: 3rem;
+  }
+  .footer a { color: #9ca3af; text-decoration: none; }
+
+  /* ── Responsive ── */
+  @media (max-width: 900px) {
+    .grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 640px) {
+    .header { padding: 1.25rem 1rem; }
+    .container { padding: 1rem; }
+    .header-meta { text-align: left; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="header">
+  <div class="header-inner">
+    <h1>AI News <span>Digest</span></h1>
+    <div class="header-meta">
+      <strong>2026.04.14 (火)</strong><br>
+      12本のトップ記事
+    </div>
+  </div>
+</header>
+
+<!-- Category Bar -->
+<nav class="cat-bar">
+  <div class="cat-bar-inner">
+    <span class="cat-pill" style="background:#1d4ed8"><span class="dot"></span>Model</span>
+    <span class="cat-pill" style="background:#6d28d9"><span class="dot"></span>Research</span>
+    <span class="cat-pill" style="background:#065f46"><span class="dot"></span>Business</span>
+    <span class="cat-pill" style="background:#92400e"><span class="dot"></span>Policy</span>
+    <span class="cat-pill" style="background:#0e7490"><span class="dot"></span>Tools</span>
+  </div>
+</nav>
+
+<!-- Main -->
+<main class="container">
+  <div class="grid">
+
+    <!-- 1: Meta Muse Spark -->
+    <article class="card">
+      <div class="card-top">
+        <span class="cat-label c-model">Model</span>
+        <div class="importance">
+          <span class="dot on"></span><span class="dot on"></span><span class="dot on"></span>
+        </div>
+      </div>
+      <p class="card-title-ja">MetaがMuse Sparkを発表 — 初の「個人向け超知能」モデル</p>
+      <p class="card-title-en">Introducing Muse Spark: Scaling Towards Personal Superintelligence</p>
+      <p class="card-source">Meta AI Blog · 2026-04-08</p>
+      <p class="card-body">MetaのMeta Superintelligence Labs（MSL）が開発したMuse Sparkは、ネイティブマル推論・ツール使用・ビジュアルチェーンオブソートに対応した旗艦モデル。WhatsApp、Instagram、Facebook、Messenger、AIグラスへ順次展開予定。Metaにとって14億ドルのAlexandr Wang獲得後、初の大型モデルリリースとなる。</p>
+      <a class="card-link" href="https://ai.meta.com/blog/introducing-muse-spark-msl/" target="_blank">Read more →</a>
+    </article>
+
+    <!-- 2: Google Gemini 3.1 Ultra -->
+    <article class="card">
+      <div class="card-topclass="card-top">
+        <span class="cat-label c-model">Model</span>
+        <div class="importance">
+          <span class="dot on"></span><span class="dot on"></span><span class="dot on"></span>
+        </div>
+      </div>
+      <p class="card-title-ja">Google Gemini 3.1 Ultra リリース — 200万トークン文脈窓を実現</p>
+      <p class="card-title-en">Google Launches Gemini 3.1 Ultra with 2M Token Native Multimodal Context</p>
+      <p class="card-source">Crescendo AI News · 2026-04</p>
+      <p class="card-body">Googleが今年最大のモデルアップデートとしてGemini 3.1 Ultraをリリース。200万トークンというコンテキストウィンドウを持ち、テキスト・画像・音声・動画をトランスクリプション不要でネイティブ処理。同時にオープンモデルシリーズGemma 4もApache 2.0ライセンスで公開された。</p>
+      <a class="card-link" href="https://www.crescendo.ai/news/latest-ai-news-and-updates" target="_blank">Read more →</a>
+    </article>
+
+    <!-- 3: OpenAI GPT-5.3 Instant Mini -->
+    <article class="card">
+      <div class="card-top">
+        <span class="cat-label c-model">Model</span>
+        <div class="importance">
+          <span class="dot on"></span><span class="dot on"></span><span class="dot"></span>
+        </div>
+      </div>
+      <p class="card-title-ja">OpenAI、GPT-5.3 Instant Miniを静かにリリース</p>
+      <p class="card-title-en">OpenAI Releases GPT-5.3 Instant Mini as New Fallback Model in ChatGPT</p>
+      <p class="card-source">Releasebot · 2026-04</p>
+      <p class="card-body">ChatGPTの新フォールバックモデルとしてGPT-5.3 Instant Miniが追加された。より自然な会話、強化されたライティング能力、コンテキスト認識の向上が特徴。軽量・高速な応答を維持しつつ品質を底上げするポジショニングのモデル。</p>
+      <a class="card-link" href="https://releasebot.io/updates/openai" target="_blank">Read more →</a>
+    </article>
+
+    <!-- 4: Qwen 3.6 Plus -->
+    <article class="card">
+      <div class="card-top">
+        <span class="cat-label c-model">Model</span>
+        <div class="importance">
+          <span class="dot on"></span><span class="dot on"></span><span class="dot"></span>
+        </div>
+      </div>
+      <p class="card-title-ja">Qwen 3.6 Plus — 100万トークンのネイティブ文脈窓で登場</p>
+      <p class="card-title-en">Qwen 3.6 Plus Released with 1M Token Native Context Window</p>
+      <p class="card-source">LLM Stats · 2026-04-02</p>
+      <p class="card-body">中国Alibaba傘下のQwenチームがQwen 3.6 Plusをリリース。ハイブリッドアーキテクチャを採用し、前バージョン（Qwen 3.5）の4倍となる100万トークンのネイティブコンテキストウィンドウを実現。長文書処理・コードリポジトリ全体への対応が強化された。</p>
+      <a class="card-link" href="https://llm-stats.com/ai-news" target="_blank">Read more →</a>
+    </article>
+
+    <!-- 5: AI Energy Efficiency -->
+    <article class="card">
+      <div class="card-top">
+        <span class="cat-label c-research">Research</span>
+        <div class="importance">
+          <span class="dot on"></span><span class="dot on"></span><span class="dot on"></span>
+        </div>
+      </div>
+      <p class="card-title-ja">消費電力100分の1へ — AIの神経記号的推論が実用段階に</p>
+      <p class="card-title-en">AI Breakthrough Cuts Energy Use by 100x While Boosting Accuracy</p>
+      <p class="card-source">ScienceDaily · 2026-04-05</p>
+      <p class="card-body">タフツ大学の研究チームが、ニューラルネットワークと記号的推論を組み合わせた「神経記号的AI」によってモデルのエネルギー消費を最大100分の1に削減しつつ精度を向上させる手法を発表。ロボット分野への応用を中心に、ブルートフォース型AIに代わるアプローチとして注目を集めている。</p>
+      <a class="card-link" href="https://www.sciencedaily.com/releases/2026/04/260405003952.htm" target="_blank">Read more →</a>
+    </article>
+
+    <!-- 6: NVIDIA Physical AI -->
+    <article class="card">
+      <div class="card-top">
+        <span class="cat-label c-research">Research</span>
+        <div class="importance">
+          <span class="dot on"></span><span class="dot on"></span><span class="dot"></span>
+        </div>
+      </div>
+      <p class="card-title-ja">NVIDIA、Physical AI向けオープンモデル「Isaac GR00T」を拡張</p>
+      <p class="card-title-en">NVIDIA Expands Isaac GR00T Open Models for Physical AI & Robotics</p>
+      <p class="card-source">NVIDIA Blog · 2026-04</p>
+      <p class="card-body">NVIDIAはNational Robotics Week 2026に合わせて、ロボットが自然言語命令を理解し複雑なマルチステップタスクを実行するためのIsaac GR00Tオープンモデルを拡充。さらにCosmos世界モデルにより合成データ生成やロボット学習の効率化が進む。</p>
+      <a class="card-link" href="https://blogs.nvidia.com/blog/national-robotics-week-2026/" target="_blank">Read more →</a>
+    </article>
+
+    <!-- 7: Brain MRI AI -->
+    <article class="card">
+      <div class="card-top">
+        <span class="cat-label c-research">Research</span>
+        <div class="importance">
+          <span class="dot on"></span><span class="dot on"></span><span class="dot"></span>
+        </div>
+      </div>
+      <p class="card-title-ja">脳MRIを数秒で解析するAIシステム — ミシガン大学が開発</p>
+      <p class="card-title-en">University of Michigan AI Interprets Brain MRI Scans in Seconds</p>
+      <p class="card-source">InfoWorld · 2026-04</p>
+      <p class="card-body">ミシガン大学の研究者が、脳MRIスキャンをわずか数秒で解析し広範な神経疾患を高精度で識別するAIシステムを発表。緊急性の高いケースを自動フラグ付けする機能も搭載。放射線科医の業務負荷軽減と早期診断の実現が期待される。</p>
+      <a class="card-link" href="https://www.infoworld.com/article/4108092/6-ai-breakthroughs-that-will-define-2026.html" target="_blank">Read more →</a>
+    </article>
+
+    <!-- 8: OpenAI $122B -->
+    <article class="card">
+      <div class="card-top">
+        <span class="cat-label c-business">Business</span>
+        <div class="importance">
+          <span class="dot on"></span><span class="dot on"></span><span class="dot on"></span>
+        </div>
+      </div>
+      <p class="card-title-ja">OpenAI、1220億ドル調達完了 — 評価額8520億ドルに到達</p>
+      <p class="card-title-en">OpenAI Raises $122B at $852B Valuation; Amazon, Nvidia, SoftBank Back the Round</p>
+      <p class="card-source">Bloomberg / TechCrunch · 2026-03-31</p>
+      <p class="card-body">OpenAIが史上最大のベンチャーラウンドを完了。評価額は8520億ドルで、Amazon（500億ドル）、Nvidia（300億ドル）、SoftBank（300億ドル）が主要投資家。個人投資家向け30億ドルも含む。月次収益は20億ドル（年換算240億ドル超）に達し、IPO準備も進行中。</p>
+      <a class="card-link" href="https://techcrunch.com/2026/03/31/openai-not-yet-public-raises-3b-from-retail-investors-in-monster-122b-fund-raise/" target="_blank">Read more →</a>
+    </article>
+
+    <!-- 9: Q1 2026 VC Records -->
+    <article class="card">
+      <div class="card-top">
+        <span class="cat-label c-business">Business</span>
+        <div class="importance">
+          <span class="dot on"></span><span class="dot on"></span><span class="dot on"></span>
+        </div>
+      </div>
+      <p class="card-title-ja">2026年Q1VC投資が世界記録 — AI分野に3000億ドルの8割集中</p>
+      <p class="card-title-en">Q1 2026 Shatters Venture Records: $300B Total, 80% Flowing to AI</p>
+      <p class="card-source">Crunchbase News · 2026-04</p>
+      <p class="card-body">Crunchbaseの集計によると2026年Q1のグローバルVC投資総額は3000億ドルに達し、そのうち2420億ドル（80%）がAI分野へ。OpenAI、Anthropic、xAI、Waymoの4社で世界投資額の65%（1880億ドル）を占めるという、前例のない資本集中が起きている。</p>
+      <a class="card-link" href="https://news.crunchbase.com/venture/record-breaking-funding-ai-global-q1-2026/" target="_blank">Read more →</a>
+    </article>
+
+    <!-- 10: OpenAI IPO -->
+    <article class="card">
+      <div class="card-top">
+        <span class="cat-label c-business">Business</span>
+        <div class="importance">
+          <span class="dot on"></span><span class="dot on"></span><span class="dot"></span>
+        </div>
+      </div>
+      <p class="card-title-ja">OpenAI、2026年後半のIPOに向け初期検討を開始</p>
+      <p class="card-title-en">OpenAI Takes Early Steps Toward Public Listing as Soon as Late 2026</p>
+      <p class="card-source">Crescendo AI News · 2026-04</p>
+      <p class="card-body">月間収益20億ドルを達成したOpenAIが、2026年後半をめどに上場の初期検討を開始。SpaceXも4月1日に時価総額1.75兆ドルを目標に非公開でIPO書類を提出しており、AI・テック大型IPOの波が到来しようとしている。</p>
+      <a class="card-link" href="https://www.crescendo.ai/news/latest-ai-news-and-updates" target="_blank">Read more →</a>
+    </article>
+
+    <!-- 11: LLM Benchmark Rankings -->
+    <article class="card">
+      <div class="card-top">
+        <span class="cat-label c-tools">Tools</span>
+        <div class="importance">
+          <span class="dot on"></span><span class="dot on"></span><span class="dot"></span>
+        </div>
+      </div>
+      <p class="card-title-ja">2026年4月LLMベンチマーク最新ランキング — GPT-5.4とGemini 3.1が並走</p>
+      <p class="card-title-en">April 2026 LLM Benchmarks: GPT-5.4, Gemini 3.1 Pro Tied at 94; Claude Mythos at 99</p>
+      <p class="card-source">BenchLM.ai / LM Council · 2026-04</p>
+      <p class="card-body">最新のLLMランキングによると、Claude Mythos Previewが総合99でトップを維持。Gemini 3.1 ProとGPT-5.4が94で並び、Claude Opus 4.6・GPT-5.4 Proが92で追う。オープンウェイトモデルのベスト（Qwen3.5 397B等）は85まで迫り、プロプライエタリモデルとの差が縮小している。</p>
+      <a class="card-link" href="https://lmcouncil.ai/benchmarks" target="_blank">Read more →</a>
+    </article>
+
+    <!-- 12: MLPerf v6.0 -->
+    <article class="card">
+      <div class="card-top">
+        <span class="cat-label c-tools">Tools</span>
+        <div class="importance">
+          <span class="dot on"></span><span class="dot on"></span><span class="dot"></span>
+        </div>
+      </div>
+      <p class="card-title-ja">MLPerf Inference v6.0公開 — LLM・動画・VLMの新ベンチマーク追加</p>
+      <p class="card-title-en">MLPerf Inference v6.0 Released with New LLM, Video, and VLM Benchmarks</p>
+      <p class="card-source">Spheron Blog · 2026-04</p>
+      <p class="card-body">AI推論ベンチマークの標準であるMLPerfがv6.0をリリース。LLM（GPT-OSS 120B新タスク含む）、動画、VLMの新ベンチマークが追加され、GPU性能ランキングが更新された。120BパラメータスケールのLLMでの差別化が可能になり、AI加速器の評価がより実用的になった。</p>
+      <a class="card-link" href="https://www.spheron.network/blog/mlperf-inference-v6-benchmark-results-2026/" target="_blank">Read more →</a>
+    </article>
+
+  </div>
+</main>
+
+<!-- Footer -->
+<footer class="footer">
+  <p>AI News Digest · 自動生成 2026-04-14 · <a href="https://anomalocaress.github.io/ai-news-digest/">anomalocaress.github.io/ai-news-digest</a></p>
+</footer>
+
+</body>
+</html>
