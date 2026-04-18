@@ -1,0 +1,30 @@
+name: Daily AI News Digest
+
+on:
+  schedule:
+      - cron: '0 21 * * *'  # 毎日 UTC 21:00 (日本時間 06:00)
+        workflow_dispatch:      # 手動実行も可能
+
+        jobs:
+          generate-digest:
+              runs-on: ubuntu-latest
+
+                      steps:
+                            - name: Checkout repository
+                                    uses: actions/checkout@v3
+
+                                                - name: Fetch updates
+                                                        run: |
+                                                                  git fetch --all
+
+                                                                              - name: Get current date
+                                                                                      id: date
+                                                                                              run: echo "date=$(date +%Y-%m-%d)" >> $GITHUB_OUTPUT
+                                                                                                    
+                                                                                                          - name: Commit and push
+                                                                                                                  run: |
+                                                                                                                            git config user.name "Claude AI Bot"
+                                                                                                                                      git config user.email "claude@anthropic.com"
+                                                                                                                                                git add .
+                                                                                                                                                          git commit -m "Daily update: ${{ steps.date.outputs.date }}" || true
+                                                                                                                                                                    git push
