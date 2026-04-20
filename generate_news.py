@@ -7,6 +7,9 @@ from datetime import datetime, timedelta
 from pathlib import Path
 from typing import List, Dict, Optional
 import subprocess
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 
 import requests
 from jinja2 import Environment, FileSystemLoader
@@ -390,6 +393,81 @@ def commit_and_push(date: datetime):
         print(f"⚠️  Git error: {e.stderr.decode()}")
 
 
+def send_email(date: datetime):
+    """Send email notification with news digest link."""
+    email_password = os.getenv("EMAIL_PASSWORD")
+    if not email_password:
+        print("⚠️  EMAIL_PASSWORD not set. Skipping email notification.")
+        return
+
+    sender_email = "fujisaki@teraco-labo.com"
+    recipient_email = "fujisaki@teraco-labo.com"
+    date_str = date.strftime("%Y-%m-%d")
+    date_display = date.strftime("%Y年%m月%d日")
+
+    subject = f"モーニングAIニュース {date_display}"
+    digest_url = f"https://anomalocaress.github.io/ai-news-digest/ai-news-{date_str}.html"
+
+    html_body = f"""
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <style>
+            body {{ font-family: Arial, sans-serif; line-height: 1.6; color: #333; }}
+            .container {{ max-width: 600px; margin: 0 auto; padding: 20px; }}
+            h1 {{ color: #1d4ed8; border-bottom: 3px solid #1d4ed8; padding-bottom: 10px; }}
+            .message {{ font-size: 16px; margin: 20px 0; }}
+            .link-button {{
+                display: inline-block;
+                background-color: #1d4ed8;
+                color: white;
+                padding: 12px 24px;
+                text-decoration: none;
+                border-radius: 5px;
+                font-weight: bold;
+                margin: 20px 0;
+            }}
+            .footer {{ color: #666; font-size: 12px; margin-top: 30px; border-top: 1px solid #ddd; padding-top: 10px; }}
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>モーニングAIニュース</h1>
+            <p class="message">本日の AI ニュースダイジェストが完成しました。</p>
+            <a href="{digest_url}" class="link-button">ニュースを読む →</a>
+            <div class="footer">
+                <p>このメールは自動生成されています。</p>
+                <p>毎日朝 6:00 AM JST に配信されます。</p>
+            </div>
+        </div>
+    </body>
+    </html>
+    """
+
+    try:
+        # Connect to Gmail SMTP server
+        server = smtplib.SMTP("smtp.gmail.com", 587)
+        server.starttls()
+        server.login(sender_email, email_password)
+
+        # Create email message
+        msg = MIMEMultipart("alternative")
+        msg["Subject"] = subject
+        msg["From"] = sender_email
+        msg["To"] = recipient_email
+
+        msg.attach(MIMEText(html_body, "html"))
+
+        # Send email
+        server.sendmail(sender_email, recipient_email, msg.as_string())
+        server.quit()
+
+        print(f"✓ Email sent to {recipient_email}")
+
+    except Exception as e:
+        print(f"⚠️  Email error: {e}")
+
+
 def main():
     """Main execution."""
     # Parse command line arguments
@@ -438,6 +516,10 @@ def main():
         commit_and_push(target_date)
     else:
         print("\n⚠️  GITHUB_TOKEN not set. Skipping git operations.")
+
+    # Step 7: Send email notification
+    print("\n6️⃣  Sending email notification...")
+    send_email(target_date)
 
     print(f"\n✅ Success! Generated: {output_file.name}")
 
