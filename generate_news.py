@@ -18,7 +18,7 @@ from anthropic import Anthropic
 load_dotenv()
 
 NEWS_API_KEY = os.getenv("NEWS_API_KEY")
-CLAUDE_API_KEY = os.getenv("CLAUDE_API_KEY")
+CLAUDE_API_KEY = os.getenv("CLAUDE_API_KEY") or os.getenv("ANTHROPIC_API_KEY")
 REPO_DIR = Path(__file__).parent
 
 # Initialize Anthropic client
