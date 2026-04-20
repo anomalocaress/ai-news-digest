@@ -96,7 +96,7 @@ def generate_fallback_articles(date: datetime) -> List[Dict]:
 
 def simple_categorize(title: str, description: str) -> str:
     """Simple keyword-based categorization as fallback."""
-    text = (title + " " + description).lower()
+    text = ((title or "") + " " + (description or "")).lower()
 
     model_keywords = ["model", "release", "announced", "gpt", "claude", "llm", "training", "weights"]
     research_keywords = ["research", "study", "paper", "university", "findings", "discovers", "breakthrough", "efficiency"]
