@@ -96,6 +96,13 @@
     color: #fff;
     letter-spacing: 0.03em;
     white-space: nowrap;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .cat-pill:hover {
+    opacity: 0.85;
+    transform: translateY(-2px);
   }
   .cat-pill.model    { background: var(--model); }
   .cat-pill.research { background: var(--research); }
@@ -276,43 +283,57 @@
 
 <div class="cat-bar">
   <div class="cat-bar-inner">
-    <span class="cat-pill model">● MODEL (1)</span>
-    <span class="cat-pill research">● RESEARCH (11)</span>
-    <span class="cat-pill business">● BUSINESS (9)</span>
-    <span class="cat-pill policy">● POLICY (5)</span>
-    <span class="cat-pill tools">● TOOLS (4)</span>
+    <button class="cat-pill model" onclick="document.getElementById('section-model').scrollIntoView({behavior: 'smooth'});">● モデル (1)</button>
+    <button class="cat-pill research" onclick="document.getElementById('section-research').scrollIntoView({behavior: 'smooth'});">● 研究 (8)</button>
+    <button class="cat-pill business" onclick="document.getElementById('section-business').scrollIntoView({behavior: 'smooth'});">● ビジネス (13)</button>
+    <button class="cat-pill policy" onclick="document.getElementById('section-policy').scrollIntoView({behavior: 'smooth'});">● ポリシー (5)</button>
+    <button class="cat-pill tools" onclick="document.getElementById('section-tools').scrollIntoView({behavior: 'smooth'});">● ツール (3)</button>
   </div>
 </div>
 
 <main>
 
-  <!-- MODEL -->
-  <div class="section-label">MODEL</div>
+  <!-- モデル -->
+  <div class="section-label" id="section-model">モデル</div>
   <div class="grid">
 
     <article class="card model">
       <div class="card-top">
-        <span class="card-label model">MODEL</span>
+        <span class="card-label model">モデル</span>
         <div class="stars">
           <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
         </div>
       </div>
-      <div class="card-title-ja">リアルタイム意味領域分割のための三分岐マルチスケールネットワーク</div>
+      <div class="card-title-ja">リアルタイム意味領域分割のための3分岐マルチスケールネットワーク</div>
       <div class="card-title-en">A triple-branch multi-scale network for real-time semantic segmentation</div>
       <div class="card-source">Nature.com · 2026-04-19</div>
-      <div class="card-body">Scientific Reportsに掲載された研究で、リアルタイム処理に対応した意味領域分割モデルを提案しています。三つの分岐とマルチスケール処理により、精度と処理速度のバランスを取った新しいネットワークアーキテクチャを開発したものと考えられます。</div>
+      <div class="card-body">Scientific Reportsに掲載された研究論文。リアルタイム処理を実現するセマンティックセグメンテーション向けの新しいディープラーニングモデルを提案。3つの分岐構造とマルチスケール処理により、精度と速度のバランスを実現する技術。</div>
       <a class="card-link model" href="https://www.nature.com/articles/s41598-026-48759-x" target="_blank" rel="noopener">Read more →</a>
     </article>
 
   </div>
 
-  <!-- RESEARCH -->
-  <div class="section-label">RESEARCH</div>
+  <!-- 研究 -->
+  <div class="section-label" id="section-research">研究</div>
   <div class="grid">
 
     <article class="card research">
       <div class="card-top">
-        <span class="card-label research">RESEARCH</span>
+        <span class="card-label research">研究</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">ブレークスルー賞授賞式、一流科学者の研究成果を表彰</div>
+      <div class="card-title-en">Stars and science align at annual Breakthrough Prize Ceremony with Anne Hathaway, Robert Downey Jr., Margot Robbie and more A-listers</div>
+      <div class="card-source">Page Six · 2026-04-19</div>
+      <div class="card-body">世界トップクラスの科学者の研究成果を祝うブレークスルー賞授賞式が開催された。年間1,500万ドル以上の賞金が授与される同式典には、有名セレブリティが多数出席し、科学研究への関心を高める重要なイベントとなっている。</div>
+      <a class="card-link research" href="https://pagesix.com/2026/04/18/entertainment/top-stars-scientists-gather-for-annual-breakthrough-prize-ceremony/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
         <div class="stars">
           <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
         </div>
@@ -320,418 +341,404 @@
       <div class="card-title-ja">強化学習とデータ拡張を用いた廃棄物分類システムの開発</div>
       <div class="card-title-en">A solid waste classification using reinforcement learning boosted by data augmentation and hyperparameter optimization</div>
       <div class="card-source">Nature.com · 2026-04-19</div>
-      <div class="card-body">都市化の進展とスマートシティの発展に伴い、廃棄物の処理と分別が急務となっている。本研究は畳み込みニューラルネットワークに強化学習、データ拡張、ハイパーパラメータ最適化を組み合わせた廃棄物分類システムの開発について論じており、AI技術を活用した廃棄物管理の革新的なアプローチを提案している。</div>
+      <div class="card-body">都市化と急速な都市開発に伴う廃棄物増加への対応として、強化学習と畳み込みニューラルネットワークを組み合わせた廃棄物分類手法を提案する研究。データ拡張とハイパーパラメータ最適化により、廃棄物の自動分類精度を向上させることを目指している。</div>
       <a class="card-link research" href="https://www.nature.com/articles/s41598-026-46347-7" target="_blank" rel="noopener">Read more →</a>
     </article>
 
     <article class="card research">
       <div class="card-top">
-        <span class="card-label research">RESEARCH</span>
+        <span class="card-label research">研究</span>
         <div class="stars">
           <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
         </div>
       </div>
-      <div class="card-title-ja">多孔質媒体における生ナノ流体の非定常流れの熱力学的モデリング研究</div>
+      <div class="card-title-ja">多孔質媒体における生物ナノ流体流れの熱力学モデリング研究</div>
       <div class="card-title-en">Optimized ANN-based bio-thermodynamic modeling of unsteady flows with coupled nanoparticle–microbial–activation-energy transport in heterogeneous porous media</div>
       <div class="card-source">Nature.com · 2026-04-19</div>
-      <div class="card-body">本研究は、多孔質媒体内の円柱周りの生ナノ流体の磁気流体力学的流れにおける不可逆的エントロピー生成を調査する革新的な生熱力学的フレームワークを提示しています。人工ニューラルネットワークを活用し、ナノ粒子・微生物・活性化エネルギー輸送の複合現象をモデル化する学術的研究です。</div>
+      <div class="card-body">本研究は、不定常磁場中の生物ナノ流体流が多孔質媒体内で示す複雑な流動特性を、人工ニューラルネットワークを用いて解析した学術論文です。ナノ粒子、微生物、エネルギー輸送の相互作用による熱力学的エントロピー生成を評価し、浸透性円筒周りの流れ場をモデル化しています。</div>
       <a class="card-link research" href="https://www.nature.com/articles/s41598-026-47493-8" target="_blank" rel="noopener">Read more →</a>
     </article>
 
     <article class="card research">
       <div class="card-top">
-        <span class="card-label research">RESEARCH</span>
+        <span class="card-label research">研究</span>
         <div class="stars">
-          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
         </div>
       </div>
-      <div class="card-title-ja">米もみ殻灰セメント系コンクリートの持続可能な混合設計：データ駆動モデリングと多目的解析による性能最適化</div>
+      <div class="card-title-ja">籾殻灰セメント複合材の持続可能な配合設計：データ駆動型モデリングによる性能最適化</div>
       <div class="card-title-en">Sustainable mixture design of rice husk ash cement based concrete: performance optimization through data driven modeling and multi objective analysis</div>
       <div class="card-source">Nature.com · 2026-04-19</div>
-      <div class="card-body">米もみ殻灰（RHA）はシリカ豊富な環境配慮型セメント代替材料として、温室効果ガス排出削減と持続可能な建設実践に貢献します。本研究はデータ駆動モデリングと多目的解析を用いて、RHAコンクリートの実用的な予測モデルを開発し、性能最適化を実現しています。</div>
+      <div class="card-body">本研究は、籾殻燃焼由来のシリカ豊富な籾殻灰（RHA）をセメントの部分置換材として活用し、温室効果ガス排出削減と持続可能な建設実践に貢献する。データ駆動型モデリングと多目的最適化分析を用いて、コンクリートの性能を予測・最適化する実用的手法を開発している。</div>
       <a class="card-link research" href="https://www.nature.com/articles/s41598-026-47921-9" target="_blank" rel="noopener">Read more →</a>
     </article>
 
     <article class="card research">
       <div class="card-top">
-        <span class="card-label research">RESEARCH</span>
+        <span class="card-label research">研究</span>
         <div class="stars">
           <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
         </div>
       </div>
-      <div class="card-title-ja">AIの限界と人間にとっての真の意味</div>
+      <div class="card-title-ja">AIの限界と知識の枠組み：人間中心の視点から</div>
       <div class="card-title-en">What AI doesn't know, and why it matters</div>
       <div class="card-source">Wnd.com · 2026-04-18</div>
-      <div class="card-body">本記事は、AIが人間の生活を向上させるための単なる道具に過ぎないという本質的な限界を指摘しています。AIの技術的成果を認めつつも、人間にとって何が本当に重要かという根本的な問題について考察しており、AI発展の意義と限界を批判的に検討する内容となっています。</div>
+      <div class="card-body">本記事は、AIの技術的成功にもかかわらず、AIが根本的に何を知らないのかを探求しています。AIは人間が生活向上のために開発した道具に過ぎず、その限界と役割を理解することの重要性を強調する研究的考察です。</div>
       <a class="card-link research" href="https://www.wnd.com/2026/04/what-ai-doesnt-know-why-it-matters/" target="_blank" rel="noopener">Read more →</a>
     </article>
 
     <article class="card research">
       <div class="card-top">
-        <span class="card-label research">RESEARCH</span>
+        <span class="card-label research">研究</span>
         <div class="stars">
           <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
         </div>
       </div>
-      <div class="card-title-ja">今週の注目テック記事：科学と技術の最新動向</div>
+      <div class="card-title-ja">今週の注目テック記事総まとめ（4月18日まで）</div>
       <div class="card-title-en">This Week's Awesome Tech Stories From Around the Web (Through April 18)</div>
       <div class="card-source">Singularity Hub · 2026-04-18</div>
-      <div class="card-body">毎週、世界中から科学と技術に関する重要でインサイト満載の記事を厳選して紹介するコラム。最新のテクノロジートレンド、研究動向、イノベーションについて、複数の視点から網羅的に解説しています。</div>
+      <div class="card-body">科学技術分野における重要で洞察的、かつ魅力的なストーリーを毎週厳選して紹介する企画記事です。世界中のテック関連ニュースを網羅し、注目すべき研究開発やイノベーションの動向をまとめています。</div>
       <a class="card-link research" href="https://singularityhub.com/2026/04/18/this-weeks-awesome-tech-stories-from-around-the-web-through-april-18-2/#article" target="_blank" rel="noopener">Read more →</a>
     </article>
 
     <article class="card research">
       <div class="card-top">
-        <span class="card-label research">RESEARCH</span>
+        <span class="card-label research">研究</span>
         <div class="stars">
-          <div class="dot filled"></div><div class="dot "></div><div class="dot "></div>
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
         </div>
       </div>
-      <div class="card-title-ja">マサチューセッツ州のジェレミアとアビゲイル・ノルトン家の系統調査</div>
+      <div class="card-title-ja">マサチューセッツ州のジェレマイアとアビゲイル・ノルトン家の系譜研究</div>
       <div class="card-title-en">ABC Biography of the Jeremiah and Abigail (Peirce) Knowlton Family of Massachusetts</div>
       <div class="card-source">Blogger.com · 2026-04-18</div>
-      <div class="card-body">マサチューセッツ州のノルトン家（Knowlton Family）に関する系統学的研究。ジェレミアとアビゲイル・ピアース夫妻を中心とした家族史の記録であり、家系図作成や歴史研究に関連する学術的な調査資料と考えられます。</div>
+      <div class="card-body">マサチューセッツ州に居住したジェレマイアとアビゲイル（ピアース）ノルトン家の系譜と生涯に関する学術的研究です。家族の歴史的背景、世代間の関係性、および地域社会における役割を記録した家族史研究で、アメリカ初期の家族構成や社会構造の理解に貢献する資料となります。</div>
       <a class="card-link research" href="https://www.blogger.com/browser-not-supported/?ref=/comment/fullpage/post/26204193/8051958114426810404" target="_blank" rel="noopener">Read more →</a>
     </article>
 
     <article class="card research">
       <div class="card-top">
-        <span class="card-label research">RESEARCH</span>
+        <span class="card-label research">研究</span>
         <div class="stars">
           <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
         </div>
       </div>
-      <div class="card-title-ja">スタンフォード報告書が示すAI採用の急速な拡大</div>
+      <div class="card-title-ja">スタンフォード報告書が示すAI採用の急速な成長と課題</div>
       <div class="card-title-en">AI Adoption Outpaced The PC & Internet: Dive Into The Stanford Report Data</div>
       <div class="card-source">Search Engine Journal · 2026-04-18</div>
-      <div class="card-body">スタンフォード大学の2026年AIインデックスレポートは400ページ以上のデータを提供しており、AI採用がPC やインターネット時代を上回るペースで進展していることを示唆しています。検索専門家向けに、採用数、信頼性ギャップ、透明性低下のトレンドを分析した重要な調査結果をまとめています。</div>
+      <div class="card-body">スタンフォード大学の2026年AI Index報告書（400ページ超）を分析したもの。PCやインターネットを上回るペースでAIが採用されている一方で、信頼性のギャップと透明性の低下が課題として指摘されている。検索専門家向けの重要な統計データを提供。</div>
       <a class="card-link research" href="https://www.searchenginejournal.com/ai-adoption-outpaced-the-pc-internet-dive-into-the-stanford-report-data/572305/" target="_blank" rel="noopener">Read more →</a>
-    </article>
-
-    <article class="card research">
-      <div class="card-top">
-        <span class="card-label research">RESEARCH</span>
-        <div class="stars">
-          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
-        </div>
-      </div>
-      <div class="card-title-ja">量子AIがカオス現象の予測精度を大幅向上</div>
-      <div class="card-title-en">Quantum AI just got shockingly good at predicting chaos</div>
-      <div class="card-source">Science Daily · 2026-04-18</div>
-      <div class="card-body">研究者らが量子コンピューティングと人工知能を組み合わせることで、複雑なカオス系の予測精度を劇的に改善できることを実証しました。量子コンピュータがデータ内の隠れたパターンを識別することで、AIの精度と安定性が時間とともに向上します。</div>
-      <a class="card-link research" href="https://www.sciencedaily.com/releases/2026/04/260417224455.htm" target="_blank" rel="noopener">Read more →</a>
-    </article>
-
-    <article class="card research">
-      <div class="card-top">
-        <span class="card-label research">RESEARCH</span>
-        <div class="stars">
-          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
-        </div>
-      </div>
-      <div class="card-title-ja">消費の崩壊：アメリカの需要危機とソーシャルコントラクトの再構築</div>
-      <div class="card-title-en">The Consumption Collapse – When the Feedback Loop Bites Back</div>
-      <div class="card-source">Bradenkelley.com · 2026-04-18</div>
-      <div class="card-body">アメリカの大規模な経済収縮が需要危機を引き起こし、アメリカの社会契約の再考を迫っている。消費と経済システムのフィードバックループの破綻を分析し、買い物文化の衰退と経済構造の変化を探究する研究的考察。</div>
-      <a class="card-link research" href="https://bradenkelley.com/2026/04/the-consumption-collapse-when-the-feedback-loop-bites-back/" target="_blank" rel="noopener">Read more →</a>
-    </article>
-
-    <article class="card research">
-      <div class="card-top">
-        <span class="card-label research">RESEARCH</span>
-        <div class="stars">
-          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
-        </div>
-      </div>
-      <div class="card-title-ja">機械学習とメタ分析を用いたトウモロコシ農業における高効率肥料の亜酸化窒素排出削減効果</div>
-      <div class="card-title-en">Effects of enhanced efficiency fertilizers on soil nitrous oxide emissions in corn agroecosystems: Integrating machine learning and meta-analysis</div>
-      <div class="card-source">Nature.com · 2026-04-18</div>
-      <div class="card-body">トウモロコシ生産からの亜酸化窒素排出は農業温室効果ガスの主要源です。本研究は、窒素損失削減を目的とした高効率肥料の効果を、機械学習とメタ分析を統合して、異なる土壌と管理体系における有効性を評価する科学的研究です。</div>
-      <a class="card-link research" href="https://www.nature.com/articles/s41598-026-48776-w" target="_blank" rel="noopener">Read more →</a>
-    </article>
-
-    <article class="card research">
-      <div class="card-top">
-        <span class="card-label research">RESEARCH</span>
-        <div class="stars">
-          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
-        </div>
-      </div>
-      <div class="card-title-ja">三元ハイブリッド流体の熱伝達と熱力学的最適化に関する計算知能研究</div>
-      <div class="card-title-en">Computational intelligence-based investigation of heat transfer enhancement and entropy optimization in tri-hybrid nanofluid flow over a paraboloid needle</div>
-      <div class="card-source">Nature.com · 2026-04-18</div>
-      <div class="card-body">従来の液体に代わる高効率熱伝達流体として、ハイブリッド及び三元ナノ流体の優れた熱物性を活用した熱伝達の向上と熱力学的最適化について、計算知能手法を用いて調査する学術研究。熱工学における冷却・加熱効率の向上に貢献。</div>
-      <a class="card-link research" href="https://www.nature.com/articles/s41598-026-49041-w" target="_blank" rel="noopener">Read more →</a>
     </article>
 
   </div>
 
-  <!-- BUSINESS -->
-  <div class="section-label">BUSINESS</div>
+  <!-- ビジネス -->
+  <div class="section-label" id="section-business">ビジネス</div>
   <div class="grid">
 
     <article class="card business">
       <div class="card-top">
-        <span class="card-label business">BUSINESS</span>
+        <span class="card-label business">ビジネス</span>
         <div class="stars">
           <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
         </div>
       </div>
-      <div class="card-title-ja">H3C、シンガポール発展でアジア展開加速、中国AI企業のハブに</div>
+      <div class="card-title-ja">Experian、2026年CIO 100アワード受賞企業に選定</div>
+      <div class="card-title-en">Experian Named a 2026 CIO 100 Award Winner</div>
+      <div class="card-source">Smartbusinesnews.com · 2026-04-19</div>
+      <div class="card-body">データ・アナリティクス企業のExperianが、2026年のCIO 100アワードの受賞企業として選ばれました。この賞は、IT分野での革新的な取り組みと優れた経営戦略を示す企業に授与される栄誉ある賞であり、Experianの技術リーダーシップと事業成長が国際的に評価されたことを示しています。</div>
+      <a class="card-link business" href="https://smartbusinesnews.com/business/experian-named-a-2026-cio-100-award-winner/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">AI フィットネス回復ソリューションが人気を集める</div>
+      <div class="card-title-en">AI Fitness Recovery Solutions Gain Popularity</div>
+      <div class="card-source">Grandgoldman.com · 2026-04-19</div>
+      <div class="card-body">フィットネス業界でAI技術を活用した回復ソリューションが注目を集めている。このトレンドは、運動後のリカバリー最適化や個人に合わせたフィットネスプランの提供を可能にし、健康志向層から支持を得ているビジネス展開である。</div>
+      <a class="card-link business" href="https://grandgoldman.com/blogs/lifestyle/ai-fitness-recovery-solutions-gain-popularity" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">ザッカーバーグの880億ドル投資が失敗、メタバースから AI へシフト</div>
+      <div class="card-title-en">Reality check: Zuckerberg's $88bn metaverse flop</div>
+      <div class="card-source">RTE · 2026-04-19</div>
+      <div class="card-body">Metaへの多大な投資により推進されていたメタバース事業が、数百億ドルを費やした後、静かに放棄されつつある。ザッカーバーグが将来の重点をAI技術へと転換する中、メタバースという経営方針の大きな転換が示唆されている。</div>
+      <a class="card-link business" href="https://www.rte.ie/news/business/2026/0419/1568802-meta-virtual-facebook/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">テスラ、ロボタクシー100台以上をテキサス州で展開中</div>
+      <div class="card-title-en">Combined Sightings of 100+ Possible Tesla Robotaxi Fleet</div>
+      <div class="card-source">Next Big Future · 2026-04-19</div>
+      <div class="card-body">テスラがダラスに70台以上、ヒューストンに30台以上のロボタクシー車両を配置していることが確認された。カメラ洗浄装置やテスト用プレートなどの特徴から同定され、ピックアップやドロップオフのシミュレーション走行による実証実験が進行中である。</div>
+      <a class="card-link business" href="https://www.nextbigfuture.com/2026/04/combined-sightings-of-100-possible-tesla-robotaxi-fleet.html" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">シンセゲが戦略転換、OpenAI提携を中止</div>
+      <div class="card-title-en">Shinsegae pivots on AI strategy after dropping OpenAI partnership</div>
+      <div class="card-source">코리아타임스 · 2026-04-19</div>
+      <div class="card-body">小売大手シンセゲがAI戦略を見直し、OpenAIとのパートナーシップを解消することを発表しました。同社はAI導入計画の方向性を変更し、ビジネス展開においてAI技術の活用方法を再検討しています。</div>
+      <a class="card-link business" href="https://www.koreatimes.co.kr/business/companies/20260419/shinsegae-pivots-on-ai-strategy-after-dropping-openai-partnership" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">AI インフルエンサーがコーチェラを席巻、実在しない存在が数百万ドルの価値を生み出す</div>
+      <div class="card-title-en">Meet the AI influencers taking over Coachella – worth millions and replacing the real thing</div>
+      <div class="card-source">The-independent.com · 2026-04-19</div>
+      <div class="card-body">AIで生成された架空のインフルエンサーがソーシャルメディアで急速に増加し、フォロワー数と広告収入で実在するインフルエンサーと競合している現象を分析。Coachellaなどの大型イベントでも存在感を示し、デジタルマーケティングと芸能業界に新たなビジネスモデルをもたらしている。</div>
+      <a class="card-link business" href="https://www.the-independent.com/life-style/ai-influencers-coachella-aitana-lopez-b2959761.html" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+        </div>
+      </div>
+      <div class="card-title-ja">AIがGoogle を動かす時代、Google Cloudの次の展開は？</div>
+      <div class="card-title-en">As AI powers Google, what's next for Google Cloud</div>
+      <div class="card-source">SiliconANGLE News · 2026-04-19</div>
+      <div class="card-body">エージェント型AIの時代が到来し、企業のアーキテクチャに大きな変化をもたらしている。データ分析を超えて、AIエージェントが人間に代わり継続的に機械規模で行動する時代において、Google Cloudが企業向けソリューションをどう進化させるかについて論じている。</div>
+      <a class="card-link business" href="https://siliconangle.com/2026/04/18/ai-powers-google-whats-next-google-cloud/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Bramridge Trust：デジタル投資プラットフォームの機能と実績分析</div>
+      <div class="card-title-en">Bramridge Trust Unveiled: Should You Join Bramridge Trust? Features, Performance, Fees & Real User Insights!</div>
+      <div class="card-source">GlobeNewswire · 2026-04-19</div>
+      <div class="card-body">トロントを拠点とするBramridge Trustは、モダンなデジタル投資プラットフォームとして紹介されています。本記事ではその機能、運用成績、手数料体系、および実際のユーザー評価について詳細に分析し、投資家が参加を検討する際の判断材料を提供しています。</div>
+      <a class="card-link business" href="https://www.globenewswire.com/news-release/2026/04/19/3276625/0/en/Bramridge-Trust-Unveiled-Should-You-Join-Bramridge-Trust-Features-Performance-Fees-Real-User-Insights.html" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">シンガポール拠点化が加速、中国AI企業がアジア展開を強化</div>
       <div class="card-title-en">H3C expands in Southeast Asia as Singapore emerges as a hub for Chinese AI vendors</div>
       <div class="card-source">Digitimes · 2026-04-18</div>
-      <div class="card-body">GITEX AI Asia 2026がシンガポールで開催され、110以上の国から参加者が集結。業界の焦点はAIモデル開発から大規模展開へシフト。H3Cがシンガポールをハブとしてアジア地域でのAI事業を拡大する動きが注目される。</div>
+      <div class="card-body">GITEX AI Asia 2026がシンガポールで開催され、110以上の国から参加者が集結。業界の焦点がAIモデル開発から大規模導入へシフトする中、H3CをはじめとするAI企業がシンガポールをハブとしてアジア展開を加速させている。</div>
       <a class="card-link business" href="https://www.digitimes.com/news/a20260417VL221/asia-gitex-infrastructure-2026-expansion.html" target="_blank" rel="noopener">Read more →</a>
     </article>
 
     <article class="card business">
       <div class="card-top">
-        <span class="card-label business">BUSINESS</span>
+        <span class="card-label business">ビジネス</span>
         <div class="stars">
-          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
         </div>
       </div>
-      <div class="card-title-ja">テスラ、ダラスとヒューストンでロボタクシーサービスを拡大</div>
+      <div class="card-title-ja">テスラ、ロボタクシーサービスをダラス・ヒューストンに拡大</div>
       <div class="card-title-en">Tesla expands robotaxi service to Dallas, Houston</div>
       <div class="card-source">CNA · 2026-04-18</div>
-      <div class="card-body">テスラが自動運転タクシー（ロボタクシー）サービスをダラスとヒューストンに拡大すると発表しました。昨年のオースティン開始に続く米国での事業拡張であり、自動運転技術の商用化における重要な進展を示しています。</div>
+      <div class="card-body">テスラは自動運転タクシーサービスをテキサス州ダラスとヒューストンに拡大すると発表しました。昨年のオースティン立ち上げに続く米国での事業拡大であり、完全自動運転技術の商用化における重要なマイルストーンとなります。</div>
       <a class="card-link business" href="https://www.channelnewsasia.com/business/tesla-expands-robotaxi-service-dallas-houston-6065716" target="_blank" rel="noopener">Read more →</a>
     </article>
 
     <article class="card business">
       <div class="card-top">
-        <span class="card-label business">BUSINESS</span>
+        <span class="card-label business">ビジネス</span>
         <div class="stars">
           <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
         </div>
       </div>
-      <div class="card-title-ja">2026年のAI産業動向：投資急増も雇用・認識は二分</div>
+      <div class="card-title-ja">2026年のAI投資急増、雇用・認識は複雑化</div>
       <div class="card-title-en">Graphs That Explain the State of AI in 2026</div>
       <div class="card-source">Ieee.org · 2026-04-18</div>
-      <div class="card-body">AI市場への投資が急速に増加している一方で、AIが雇用や労働市場に与える影響、および社会一般のAIに対する認識については賛否が分かれている状況を複数のグラフを用いて分析したレポート。</div>
+      <div class="card-body">2026年のAI産業の現状を示すレポート。AI投資が急速に増加する一方で、雇用への影響と社会的認識は混在した状況にある。投資の拡大と現実の影響のギャップが可視化されており、AI市場の今後の展望を理解する上で重要なデータが提供されている。</div>
       <a class="card-link business" href="https://spectrum.ieee.org/state-of-ai-index-2026" target="_blank" rel="noopener">Read more →</a>
     </article>
 
     <article class="card business">
       <div class="card-top">
-        <span class="card-label business">BUSINESS</span>
+        <span class="card-label business">ビジネス</span>
         <div class="stars">
           <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
         </div>
       </div>
-      <div class="card-title-ja">自動車販売業界の大型化：地域密着型ディーラーの生き残り戦略</div>
+      <div class="card-title-ja">自動車ディーラー業界の再編：中小企業の生き残り戦略</div>
       <div class="card-title-en">It's just scale: Local mom-and-pop car dealerships are growing or dying amid industry consolidation, rise of mega-retailers</div>
       <div class="card-source">CNBC · 2026-04-18</div>
-      <div class="card-body">米国の自動車販売業界では数十年にわたる業界統合が続き、数十億ドル規模の大型ディーラーが台頭している。地域密着型の中小ディーラーは拡大か衰退かの厳しい選択を迫られており、業界全体が「大型化の必然性」に直面している状況を報告している。</div>
+      <div class="card-body">米国の自動車販売業界では数十年にわたる業界再編が進行中で、数十億ドル規模の大型ディーラーが台頭している。中小の地域密着型ディーラーは成長するか消滅するかの二者択一を迫られており、業界全体で「スケール至上主義」の圧力が高まっている状況を分析。</div>
       <a class="card-link business" href="https://www.cnbc.com/2026/04/18/car-dealerships-auto-retail.html" target="_blank" rel="noopener">Read more →</a>
     </article>
 
     <article class="card business">
       <div class="card-top">
-        <span class="card-label business">BUSINESS</span>
+        <span class="card-label business">ビジネス</span>
         <div class="stars">
           <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
         </div>
       </div>
-      <div class="card-title-ja">AI レイオフ経験者が2.5ヶ月で年間30万ドルの売上を達成</div>
+      <div class="card-title-ja">AIレイオフ経験者が2.5ヶ月で年間営収300万ドルの企業を創業</div>
       <div class="card-title-en">This founder was an AI layoff 9 months ago. Then he built an instantly profitable company with 2 partners and 12 agents</div>
       <div class="card-source">Fortune · 2026-04-18</div>
-      <div class="card-body">AI業界でのレイオフを経験した起業家が、2人のパートナーと12のAIエージェントを活用し、わずか2.5ヶ月で年間売上300,000ドルの収益性の高い企業を構築した事例。AI技術を迅速に事業化する可能性を示す成功事例。</div>
+      <div class="card-body">AI関連のレイオフを経験した創業者が、2人のパートナーと12個のAIエージェントを使用して新企業を立ち上げた。わずか2.5ヶ月で年間経常収益（ARR）300万ドルを達成し、AIテクノロジーを活用した迅速な事業化の成功事例を示している。</div>
       <a class="card-link business" href="https://fortune.com/2026/04/18/ai-layoff-became-founder-team-of-3-instant-profit/" target="_blank" rel="noopener">Read more →</a>
-    </article>
-
-    <article class="card business">
-      <div class="card-top">
-        <span class="card-label business">BUSINESS</span>
-        <div class="stars">
-          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
-        </div>
-      </div>
-      <div class="card-title-ja">PlanetiQ、米空軍から1500万ドルの次世代宇宙天気データ契約を獲得</div>
-      <div class="card-title-en">PlanetiQ Wins 15 Million Dollar Air Force STRATFI Deal for Next-Gen Space Weather Data</div>
-      <div class="card-source">Spacewar.com · 2026-04-18</div>
-      <div class="card-body">PlanetiQが米空軍から1500万ドル、48ヶ月間の戦略的資金増加（STRATFI）契約を獲得。次世代グローバルナビゲーション衛星システムを搭載した宇宙船の開発・打ち上げを支援し、宇宙天気データの収集能力を向上させる取り組み。</div>
-      <a class="card-link business" href="https://www.spacewar.com/reports/PlanetiQ_Wins_15_Million_Dollar_Air_Force_STRATFI_Deal_for_Next_Gen_Space_Weather_Data_999.html" target="_blank" rel="noopener">Read more →</a>
-    </article>
-
-    <article class="card business">
-      <div class="card-top">
-        <span class="card-label business">BUSINESS</span>
-        <div class="stars">
-          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
-        </div>
-      </div>
-      <div class="card-title-ja">NVIDIA株、2026年も買い推奨が相次ぐ AI需要堅調で時価総額4.9兆ドル超</div>
-      <div class="card-title-en">NVIDIA Stock 2026: Analysts Urge Buy Amid AI Boom Despite High Valuation Risks</div>
-      <div class="card-source">Ibtimes.com.au · 2026-04-18</div>
-      <div class="card-body">2026年4月時点でNVIDIA株は1株200ドル付近で推移し、時価総額4.9兆ドルを超える世界最大級の企業に。AI需要の継続的な強さを背景にウォール街のアナリストから買い推奨が相次いでいる。一方で高い評価額リスクへの懸念も存在している。</div>
-      <a class="card-link business" href="https://www.ibtimes.com.au/nvidia-stock-2026-analysts-urge-buy-amid-ai-boom-despite-high-valuation-risks-1866916" target="_blank" rel="noopener">Read more →</a>
-    </article>
-
-    <article class="card business">
-      <div class="card-top">
-        <span class="card-label business">BUSINESS</span>
-        <div class="stars">
-          <div class="dot filled"></div><div class="dot "></div><div class="dot "></div>
-        </div>
-      </div>
-      <div class="card-title-ja">ビル・マーherがAI業界指導者を厳しく批判、人格を疑問視</div>
-      <div class="card-title-en">Bill Maher Slams Sam Altman, Mark Zuckerberg and Other Tech Leaders in Scathing Rebuke of AI: 'Practically Robots Themselves'</div>
-      <div class="card-source">TheWrap · 2026-04-18</div>
-      <div class="card-body">深夜番組の司会者ビル・マーherが、サム・アルトマンやマーク・ザッカーバーグを含むテック業界指導者らのAI開発姿勢を厳しく批判。個人データ保護の懸念を表明し、技術リーダーたちの判断能力を疑問視するコメントを発表した。</div>
-      <a class="card-link business" href="https://www.thewrap.com/creative-content/tv-shows/bill-maher-slams-ai-leaders-elon-musk-sam-altman-mark-zuckerberg/" target="_blank" rel="noopener">Read more →</a>
-    </article>
-
-    <article class="card business">
-      <div class="card-top">
-        <span class="card-label business">BUSINESS</span>
-        <div class="stars">
-          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
-        </div>
-      </div>
-      <div class="card-title-ja">DeepSeek、100億ドル評価で3億ドル超の資金調達を検討</div>
-      <div class="card-title-en">DeepSeek in talks to raise $300 million at $10 billion valuation, Report says</div>
-      <div class="card-source">Livemint · 2026-04-18</div>
-      <div class="card-body">世界市場に衝撃を与えた中国のAIスタートアップDeepSeekが、3億ドル以上の資金調達交渉を進めている。評価額は100億ドルに達する見通し。フロンティアAIモデルの開発に必要な資本需要の増加に対応するため、大型資金調達を実施する。</div>
-      <a class="card-link business" href="https://www.livemint.com/companies/news/deepseek-in-talks-to-raise-300-million-at-10-billion-valuation-report-says-11776471894854.html" target="_blank" rel="noopener">Read more →</a>
     </article>
 
   </div>
 
-  <!-- POLICY -->
-  <div class="section-label">POLICY</div>
+  <!-- ポリシー -->
+  <div class="section-label" id="section-policy">ポリシー</div>
   <div class="grid">
 
     <article class="card policy">
       <div class="card-top">
-        <span class="card-label policy">POLICY</span>
+        <span class="card-label policy">ポリシー</span>
         <div class="stars">
           <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
         </div>
       </div>
-      <div class="card-title-ja">トランプ前大統領、Anthropic CEO との ホワイトハウス会談について言及</div>
+      <div class="card-title-ja">トランプ大統領、AnthropicのCEOとの白宮面会について言及</div>
       <div class="card-title-en">Trump, When Asked About White House Meeting with Anthropic's Dario Amodei: 'Who?'</div>
       <div class="card-source">Gizmodo.com · 2026-04-18</div>
-      <div class="card-body">トランプ前大統領がAnthropicのダリオ・アモデイCEOとのホワイトハウス会談について質問された際、その人物を認識していないかのような反応を示した。これはホワイトハウスがAnthropicとの関係について複雑な立場にあることを示唆しており、AI企業と政治指導者の関係構築の課題を浮き彫りにしている。</div>
+      <div class="card-body">AnthropicのCEO Dario Amodeiとの白宮面会についてトランプ大統領に質問された際、大統領は相手を認識していない様子を示した。このやり取りは、米国政府とAI企業間の政策対話における複雑な状況を反映しており、AI規制や産業関係に関する政治的課題を象徴している。</div>
       <a class="card-link policy" href="https://gizmodo.com/trump-when-asked-about-white-house-meeting-with-anthropics-dario-amodei-who-2000748236" target="_blank" rel="noopener">Read more →</a>
     </article>
 
     <article class="card policy">
       <div class="card-top">
-        <span class="card-label policy">POLICY</span>
+        <span class="card-label policy">ポリシー</span>
         <div class="stars">
           <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
         </div>
       </div>
-      <div class="card-title-ja">ビル・メイハー、人類が直面する危機について警告</div>
+      <div class="card-title-ja">ビル・メイハー、AIの危険性について警告 テック企業幹部を批判</div>
       <div class="card-title-en">Bill Maher Issues Dire Warning About 1 Threat Humanity Is 'F**king Around With'</div>
       <div class="card-source">HuffPost · 2026-04-18</div>
-      <div class="card-body">テレビ番組「Real Time」のホスト、ビル・メイハーが「New Rules」セグメント全体を使用して、テクノロジー企業の指導者たち（彼が「パーカーを着た自閉スペクトラム傾向のある社会病質者」と表現）の危険な行動に対する警告を発表した。人類が直面する重大な脅威について言及している。</div>
+      <div class="card-body">テレビ番組「Real Time」の司会者ビル・メイハーが、「New Rules」コーナーで、テック企業の指導者たちが開発している危険な技術について警告を発し、業界の無責任な姿勢を強く批判した。特にAIの安全性に関する懸念が主なテーマとなっている。</div>
       <a class="card-link policy" href="https://www.huffpost.com/entry/bill-maher-issues-dire-warning-artificial-intelligence-threat_n_69e388a6e4b09c81bf18ac12" target="_blank" rel="noopener">Read more →</a>
     </article>
 
     <article class="card policy">
       <div class="card-top">
-        <span class="card-label policy">POLICY</span>
+        <span class="card-label policy">ポリシー</span>
         <div class="stars">
           <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
         </div>
       </div>
-      <div class="card-title-ja">AI医療文書作成ツールが患者に及ぼす悪影響</div>
+      <div class="card-title-ja">AI医療文書作成ツールが患者に与える害</div>
       <div class="card-title-en">How artificial intelligence documentation hurts patients</div>
       <div class="card-source">Kevinmd.com · 2026-04-18</div>
-      <div class="card-body">医療現場で使用されるAI支援文書作成ツールが、文法的には正確でも医学的情報の精度や患者ケアの質に問題をもたらす可能性を指摘する記事。AIが生成する医療記録の信頼性と倫理的課題について論じています。</div>
+      <div class="card-body">医療現場で利用されるAI支援ドキュメンテーションツールが、文法的には正確でも患者ケアに悪影響を及ぼす可能性について論じた記事。AIが生成する医療記録の問題点と、医療の質および患者安全に関する規制・ポリシーの重要性を指摘しています。</div>
       <a class="card-link policy" href="https://kevinmd.com/2026/04/how-artificial-intelligence-documentation-hurts-patients.html" target="_blank" rel="noopener">Read more →</a>
     </article>
 
     <article class="card policy">
       <div class="card-top">
-        <span class="card-label policy">POLICY</span>
+        <span class="card-label policy">ポリシー</span>
         <div class="stars">
           <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
         </div>
       </div>
-      <div class="card-title-ja">ビル・マー、AI開発企業幹部を批判　データ保護への懸念</div>
-      <div class="card-title-en">Bill Maher Slams AI As "Psychopaths" And Rips Tech Leaders On 'Real Time': "I Wouldn't Let These Guys Around My Personal Data"</div>
+      <div class="card-title-ja">AIを「サイコパス」と批判、ビル・マー氏がテック企業指導者を非難</div>
+      <div class="card-title-en">Bill Maher Slams AI As "Psychopaths" And Rips Tech Leaders On 'Real Time'</div>
       <div class="card-source">Decider · 2026-04-18</div>
-      <div class="card-body">HBOの番組『Real Time』でホストのビル・マーがAI技術とその開発者らを厳しく批判。個人データの安全性への懸念を表明し、AI開発に関わる技術企業の指導者層の倫理観に疑問を呈している。</div>
+      <div class="card-body">HBOの番組ホスト、ビル・マー氏がAI技術とそれを開発するテック企業指導者を強く批判。AIそのものよりも、これらの企業指導者の倫理観や個人データの取り扱いに対する懸念を表明。テック業界のガバナンスと責任性に関する公的議論を提起している。</div>
       <a class="card-link policy" href="https://decider.com/2026/04/18/bill-maher-slams-ai-tech-leaders-real-time-personal-data/" target="_blank" rel="noopener">Read more →</a>
     </article>
 
     <article class="card policy">
       <div class="card-top">
-        <span class="card-label policy">POLICY</span>
+        <span class="card-label policy">ポリシー</span>
         <div class="stars">
           <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
         </div>
       </div>
-      <div class="card-title-ja">インドのデジタル化戦略：技術を活用した統治と経済成長</div>
-      <div class="card-title-en">The digital decades by Subimal Bhattacharjee shows how India became a digital powerhouse</div>
-      <div class="card-source">The Indian Express · 2026-04-18</div>
-      <div class="card-body">インドがいかにして技術をガバナンスと経済的流動性の手段として活用し、デジタル大国へと転換したのかを描いた作品。インドのデジタル化政策とその実装戦略から、発展途上国における技術活用のモデルケースを示す重要な事例です。</div>
-      <a class="card-link policy" href="https://indianexpress.com/article/books-and-literature/subimal-bhattacharjee-digital-decades-10643190/" target="_blank" rel="noopener">Read more →</a>
+      <div class="card-title-ja">国防省がAI戦闘センター「A1」を設立、軍事的優位性確保へ</div>
+      <div class="card-title-en">Artificial intelligence in warfare: solutions for the military that the "A1" Center will develop</div>
+      <div class="card-source">Globalsecurity.org · 2026-04-18</div>
+      <div class="card-body">国防省は防衛AI研究センター「A1」を設立し、人工知能を活用した軍事戦略の開発に取り組む。空中戦、地上戦、経済領域において敵に対する実質的な優位性を確保することを目指している。</div>
+      <a class="card-link policy" href="https://www.globalsecurity.org/wmd/library/news/ukraine/2026/04/ukraine-260418-ukraine-mod01.htm" target="_blank" rel="noopener">Read more →</a>
     </article>
 
   </div>
 
-  <!-- TOOLS -->
-  <div class="section-label">TOOLS</div>
+  <!-- ツール -->
+  <div class="section-label" id="section-tools">ツール</div>
   <div class="grid">
 
     <article class="card tools">
       <div class="card-top">
-        <span class="card-label tools">TOOLS</span>
+        <span class="card-label tools">ツール</span>
         <div class="stars">
           <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
         </div>
       </div>
-      <div class="card-title-ja">ヘルス・インフォマティクス・ラウンド定期開催</div>
+      <div class="card-title-ja">ヘルス・インフォマティクス・ラウンド：定期的な学習・情報交換の場</div>
       <div class="card-title-en">Health Informatics Rounds</div>
       <div class="card-source">McGill Newsroom · 2026-04-18</div>
-      <div class="card-body">医療情報学に関する定期的なディスカッション・セッション。毎月第2木曜日の午前9時から正午まで、Teamsを通じて開催されます。2023年9月から2024年6月の学年度における学習・交流の場として機能し、参加者の登録受付中です。</div>
+      <div class="card-body">毎月第2木曜日の9時から12時にTeamsで開催されるヘルス・インフォマティクス・ラウンドの紹介。2023年9月から2024年6月の学年度を通じて実施される本プログラムは、医療情報技術分野の専門家や学習者が最新の知識と実践事例を共有する重要なプラットフォームです。</div>
       <a class="card-link tools" href="https://www.mcgill.ca/emergency/education/fellowship/health-informatics/health-informatics-rounds" target="_blank" rel="noopener">Read more →</a>
     </article>
 
     <article class="card tools">
       <div class="card-top">
-        <span class="card-label tools">TOOLS</span>
+        <span class="card-label tools">ツール</span>
         <div class="stars">
           <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
         </div>
       </div>
-      <div class="card-title-ja">個人財務のためのAIプロンプト作成術</div>
+      <div class="card-title-ja">個人金融アドバイスに効果的なAIプロンプト作成の工夫</div>
       <div class="card-title-en">There's an 'art' to writing AI prompts for personal finance, MIT professor says</div>
       <div class="card-source">CNBC · 2026-04-18</div>
-      <div class="card-body">MITの教授が、個人財務に関するアドバイスを得るためのAIプロンプト作成における効果的な方法と非効果的な方法について指摘しています。適切なプロンプト設計がAIからより質の高い財務アドバイスを引き出す上で重要であることを示唆しており、ユーザーの実践的なスキル向上に関わる内容です。</div>
+      <div class="card-body">MITの教授が、個人財務に関するAIプロンプト作成における効果的な方法について指摘しています。適切なプロンプト設計によって、より質の高い財務アドバイスをAIから得られることを強調しており、ユーザーがAIツールを最大限に活用するための実践的なガイダンスを提供しています。</div>
       <a class="card-link tools" href="https://www.cnbc.com/2026/04/18/ai-prompts-personal-finance-advice.html" target="_blank" rel="noopener">Read more →</a>
     </article>
 
     <article class="card tools">
       <div class="card-top">
-        <span class="card-label tools">TOOLS</span>
+        <span class="card-label tools">ツール</span>
         <div class="stars">
           <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
         </div>
       </div>
-      <div class="card-title-ja">AIコーチで個別フィットネス目標を実現</div>
+      <div class="card-title-ja">AIコーチで フィットネス目標達成へ</div>
       <div class="card-title-en">To Reach Their Fitness Goals, They Hired 'CoachGPT'</div>
       <div class="card-source">Dnyuz.com · 2026-04-18</div>
-      <div class="card-body">ユーザーが10年以上のランニングデータをAIチャットボットClaudeにアップロードし、個人的なフィットネス目標達成のためのコーチとして活用する事例を紹介。AIが個別の運動データを分析し、カスタマイズされたアドバイスを提供するツールの実用的な応用を示している。</div>
+      <div class="card-body">ランニングデータ10年分以上をAIチャットボットClaudeにアップロードして、フィットネス目標達成に活用する事例を紹介。AIを個人コーチとして活用する新しい応用例として、実際のユーザー体験とその効果について報告している記事。</div>
       <a class="card-link tools" href="https://dnyuz.com/2026/04/18/to-reach-their-fitness-goals-they-hired-coachgpt/" target="_blank" rel="noopener">Read more →</a>
-    </article>
-
-    <article class="card tools">
-      <div class="card-top">
-        <span class="card-label tools">TOOLS</span>
-        <div class="stars">
-          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
-        </div>
-      </div>
-      <div class="card-title-ja">LLMアプリケーション向けキャッシング層ツールがPyPIに追加</div>
-      <div class="card-title-en">llmcachex-ai added to PyPI</div>
-      <div class="card-source">Pypi.org · 2026-04-18</div>
-      <div class="card-body">LLMアプリケーション向けのセマンティックおよび完全一致キャッシング機能を提供するツール「llmcachex-ai」がPythonパッケージインデックス（PyPI）に公開されました。このツールはLLMアプリケーションに簡単に組み込める汎用的なキャッシング層として機能し、API呼び出しコストの削減と応答速度の向上を実現します。</div>
-      <a class="card-link tools" href="https://pypi.org/project/llmcachex-ai/" target="_blank" rel="noopener">Read more →</a>
     </article>
 
   </div>
