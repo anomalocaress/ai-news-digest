@@ -436,13 +436,21 @@ def main():
     # Step 4: Save HTML
     output_file = save_html(html_content, target_date)
 
-    # Step 5: Update index.html
-    print("\n4️⃣  Updating index.html...")
+    # Step 5: Generate podcast
+    print("\n4️⃣  Generating podcast...")
+    try:
+        from generate_podcast import generate_podcast
+        generate_podcast(categorized, target_date)
+    except Exception as e:
+        print(f"⚠️  Podcast generation error: {e}")
+
+    # Step 6: Update index.html
+    print("\n5️⃣  Updating index.html...")
     update_index_html(target_date)
 
-    # Step 6: Commit and push
+    # Step 7: Commit and push
     if os.getenv("GITHUB_TOKEN"):
-        print("\n5️⃣  Committing and pushing...")
+        print("\n6️⃣  Committing and pushing...")
         commit_and_push(target_date)
     else:
         print("\n⚠️  GITHUB_TOKEN not set. Skipping git operations.")
