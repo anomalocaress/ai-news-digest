@@ -25,6 +25,13 @@ REPO_DIR = Path(__file__).parent
 client = Anthropic()
 
 CATEGORIES = ["model", "research", "business", "policy", "tools"]
+CATEGORIES_JA = {
+    "model": "モデル",
+    "research": "研究",
+    "business": "ビジネス",
+    "policy": "ポリシー",
+    "tools": "ツール",
+}
 WEEKDAYS_JA = ["月", "火", "水", "木", "金", "土", "日"]
 
 
@@ -249,10 +256,10 @@ def generate_html(articles: List[Dict], target_date: datetime) -> str:
             continue
 
         cat_articles = active_categories[category]
-        cat_display = category.upper()
+        cat_display = CATEGORIES_JA.get(category, category.upper())
 
         articles_html += f'  <!-- {cat_display} -->\n'
-        articles_html += f'  <div class="section-label">{cat_display}</div>\n'
+        articles_html += f'  <div class="section-label" id="section-{category}">{cat_display}</div>\n'
         articles_html += f'  <div class="grid">\n\n'
 
         for article in cat_articles:
@@ -264,7 +271,7 @@ def generate_html(articles: List[Dict], target_date: datetime) -> str:
 
             articles_html += f'''    <article class="card {category}">
       <div class="card-top">
-        <span class="card-label {category}">{cat_display}</span>
+        <span class="card-label {category}">{CATEGORIES_JA.get(category, category.upper())}</span>
         <div class="stars">
           {stars_html}
         </div>
@@ -284,8 +291,8 @@ def generate_html(articles: List[Dict], target_date: datetime) -> str:
     cat_bar_html = ""
     for category in CATEGORIES:
         if category_counts[category] > 0:
-            cat_display = category.upper()
-            cat_bar_html += f'    <span class="cat-pill {category}">● {cat_display} ({category_counts[category]})</span>\n'
+            cat_display = CATEGORIES_JA.get(category, category.upper())
+            cat_bar_html += f'    <button class="cat-pill {category}" onclick="document.getElementById(\'section-{category}\').scrollIntoView({{behavior: \'smooth\'}});">● {cat_display} ({category_counts[category]})</button>\n'
 
     # Replace placeholders in template
     html_output = template_content

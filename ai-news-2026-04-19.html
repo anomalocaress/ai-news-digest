@@ -1,305 +1,342 @@
-<\!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI News Digest — 2026.04.19</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --col-model:    #1d4ed8;
-      --col-research: #6d28d9;
-      --col-business: #065f46;
-      --col-policy:   #92400e;
-      --col-tools:    #0e7490;
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Noto Sans JP', 'Inter', -apple-system, sans-serif; background: #f7f7f5; color: #111; line-height: 1; -webkit-font-smoothing: antialiased; }
-    .site-header { background: #111; color: #fff; padding: 0 32px; }
-    .site-header-inner { max-width: 720px; margin: 0 auto; display: flex; align-items: stretch; justify-content: space-between; height: 64px; }
-    .site-title { display: flex; align-items: center; gap: 14px; }
-    .site-title h1 { font-family: 'Inter', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: #fff; }
-    .site-title .divider { width: 1px; height: 18px; background: #444; }
-    .site-title .sub { font-family: 'Inter', sans-serif; font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; color: #888; }
-    .site-meta { display: flex; align-items: center; gap: 20px; }
-    .site-date { font-family: 'Inter', sans-serif; font-size: 0.72rem; letter-spacing: 0.06em; color: #aaa; }
-    .site-count { font-family: 'Inter', sans-serif; font-size: 0.68rem; letter-spacing: 0.06em; color: #666; }
-    .cat-bar { background: #fff; border-bottom: 1px solid #e8e8e8; padding: 0 32px; }
-    .cat-bar-inner { max-width: 720px; margin: 0 auto; display: flex; gap: 24px; height: 42px; align-items: center; }
-    .cat-tag { font-family: 'Inter', sans-serif; font-size: 0.62rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #999; display: flex; align-items: center; gap: 6px; }
-    .cat-tag .dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
-    .cat-tag.model .dot { background: var(--col-model); }
-    .cat-tag.research .dot { background: var(--col-research); }
-    .cat-tag.business .dot { background: var(--col-business); }
-    .cat-tag.policy .dot { background: var(--col-policy); }
-    .cat-tag.tools .dot { background: var(--col-tools); }
-    .cat-tag .num { color: #111; font-weight: 700; }
-    .main { max-width: 720px; margin: 0 auto; padding: 28px 16px 60px; }
-    .article { background: #fff; border: 1px solid #e8e8e8; border-left: 3px solid #ddd; margin-bottom: 10px; padding: 22px 24px 20px; }
-    .article.model    { border-left-color: var(--col-model); }
-    .article.research { border-left-color: var(--col-research); }
-    .article.business { border-left-color: var(--col-business); }
-    .article.policy   { border-left-color: var(--col-policy); }
-    .article.tools    { border-left-color: var(--col-tools); }
-    .article-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
-    .article-cat { font-family: 'Inter', sans-serif; font-size: 0.6rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; }
-    .model    .article-cat { color: var(--col-model); }
-    .research .article-cat { color: var(--col-research); }
-    .business .article-cat { color: var(--col-business); }
-    .policy   .article-cat { color: var(--col-policy); }
-    .tools    .article-cat { color: var(--col-tools); }
-    .article-importance { display: flex; gap: 3px; }
-    .article-importance span { display: block; width: 6px; height: 6px; border-radius: 50%; background: #ddd; }
-    .article-importance span.on { background: #111; }
-    .article-title-ja { font-size: 1rem; font-weight: 700; line-height: 1.5; color: #111; margin-bottom: 5px; }
-    .article-title-en { font-family: 'Inter', sans-serif; font-size: 0.73rem; color: #bbb; line-height: 1.4; margin-bottom: 12px; }
-    .article-body { font-size: 0.875rem; line-height: 1.85; color: #444; margin-bottom: 14px; }
-    .article-footer { display: flex; align-items: center; justify-content: space-between; padding-top: 12px; border-top: 1px solid #f0f0f0; }
-    .article-source { font-family: 'Inter', sans-serif; font-size: 0.7rem; color: #aaa; letter-spacing: 0.02em; }
-    .article-source strong { color: #888; font-weight: 600; }
-    .article-link { font-family: 'Inter', sans-serif; font-size: 0.72rem; font-weight: 600; color: #111; text-decoration: none; letter-spacing: 0.04em; border-bottom: 1px solid #ccc; padding-bottom: 1px; transition: border-color 0.15s; }
-    .article-link:hover { border-color: #111; }
-    .site-footer { max-width: 720px; margin: 0 auto; padding: 0 16px 40px; border-top: 1px solid #e0e0e0; padding-top: 20px; }
-    .site-footer p { font-family: 'Inter', sans-serif; font-size: 0.68rem; letter-spacing: 0.06em; text-transform: uppercase; color: #bbb; text-align: center; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI News Digest — 2026-04-19</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --model: #1d4ed8;
+    --research: #6d28d9;
+    --business: #065f46;
+    --policy: #92400e;
+    --tools: #0e7490;
+    --bg: #f8fafc;
+    --card-bg: #ffffff;
+    --text: #1e293b;
+    --text-muted: #64748b;
+    --border: #e2e8f0;
+  }
+  body {
+    font-family: 'Noto Sans JP', 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  header {
+    background: #0f172a;
+    color: #fff;
+    padding: 2rem 1.5rem;
+  }
+  .header-inner {
+    max-width: 1440px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .header-title {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+  .header-title span { color: #60a5fa; }
+  .header-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.2rem;
+  }
+  .header-date {
+    font-size: 0.95rem;
+    color: #94a3b8;
+    font-family: 'Inter', sans-serif;
+  }
+  .header-count {
+    background: #1d4ed8;
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.2rem 0.7rem;
+    border-radius: 999px;
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* CATEGORY BAR */
+  .cat-bar {
+    background: #1e293b;
+    padding: 0.75rem 1.5rem;
+    overflow-x: auto;
+  }
+  .cat-bar-inner {
+    max-width: 1440px;
+    margin: 0 auto;
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+  .cat-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.3rem 0.9rem;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    color: #fff;
+    letter-spacing: 0.03em;
+    white-space: nowrap;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .cat-pill:hover {
+    opacity: 0.85;
+    transform: translateY(-2px);
+  }
+  .cat-pill.model    { background: var(--model); }
+  .cat-pill.research { background: var(--research); }
+  .cat-pill.business { background: var(--business); }
+  .cat-pill.policy   { background: var(--policy); }
+  .cat-pill.tools    { background: var(--tools); }
+
+  /* MAIN */
+  main {
+    max-width: 1440px;
+    margin: 2rem auto;
+    padding: 0 1.5rem;
+  }
+  .section-label {
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* GRID */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+    margin-bottom: 2.5rem;
+  }
+  @media (max-width: 900px) {
+    .grid { grid-template-columns: 1fr; }
+ %}
+
+  /* CARD */
+  .card {
+    background: var(--card-bg);
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    padding: 1.25rem 1.4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    transition: box-shadow 0.2s, transform 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .card:hover {
+    box-shadow: 0 8px 24px rgba(0,0,0,0.09);
+    transform: translateY(-2px);
+  }
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+  }
+  .card.model::before    { background: var(--model); }
+  .card.research::before { background: var(--research); }
+  .card.business::before { background: var(--business); }
+  .card.policy::before   { background: var(--policy); }
+  .card.tools::before    { background: var(--tools); }
+
+  .card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+  .card-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    padding: 0.18rem 0.6rem;
+    border-radius: 4px;
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+  }
+  .card-label.model    { background: var(--model); }
+  .card-label.research { background: var(--research); }
+  .card-label.business { background: var(--business); }
+  .card-label.policy   { background: var(--policy); }
+  .card-label.tools    { background: var(--tools); }
+
+  .stars {
+    display: flex;
+    gap: 2px;
+  }
+  .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: #cbd5e1;
+  }
+  .dot.filled { background: #f59e0b; }
+
+  .card-title-ja {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.45;
+  }
+  .card-title-en {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    font-family: 'Inter', sans-serif;
+    font-style: italic;
+    line-height: 1.4;
+  }
+  .card-source {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .card-source::before {
+    content: '';
+    display: inline-block;
+    width: 4px; height: 4px;
+    background: #94a3b8;
+    border-radius: 50%;
+  }
+  .card-body {
+    font-size: 0.88rem;
+    color: #334155;
+    line-height: 1.7;
+  }
+  .card-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    text-decoration: none;
+    margin-top: auto;
+  }
+  .card-link.model    { color: var(--model); }
+  .card-link.research { color: var(--research); }
+  .card-link.business { color: var(--business); }
+  .card-link.policy   { color: var(--policy); }
+  .card-link.tools    { color: var(--tools); }
+  .card-link:hover { text-decoration: underline; }
+
+  /* FOOTER */
+  footer {
+    background: #1e293b;
+    color: #94a3b8;
+    text-align: center;
+    padding: 1.5rem;
+    font-size: 0.8rem;
+    font-family: 'Inter', sans-serif;
+  }
+  footer strong { color: #e2e8f0; }
+
+  @media (max-width: 640px) {
+    header { padding: 1.25rem 1rem; }
+    main { padding: 0 0.85rem; margin: 1.25rem auto; }
+    .cat-bar { padding: 0.6rem 0.85rem; }
+    .card { padding: 1rem 1.1rem; }
+    .header-title { font-size: 1.25rem; }
+  }
+</style>
 </head>
 <body>
-  <header class="site-header">
-    <div class="site-header-inner">
-      <div class="site-title">
-        <h1>AI News Digest</h1>
-        <div class="divider"></div>
-        <span class="sub">Daily Briefing</span>
-      </div>
-      <div class="site-meta">
-        <span class="site-count">14 stories</span>
-        <span class="site-date">2026.04.19 日</span>
-      </div>
-    </div>
-  </header>
 
-  <div class="cat-bar">
-    <div class="cat-bar-inner">
-      <div class="cat-tag model"><span class="dot"></span>Model Release <span class="num">5</span></div>
-      <div class="cat-tag research"><span class="dot"></span>Research <span class="num">1</span></div>
-      <div class="cat-tag business"><span class="dot"></span>Business <span class="num">5</span></div>
-      <div class="cat-tag policy"><span class="dot"></span>Policy <span class="num">2</span></div>
-      <div class="cat-tag tools"><span class="dot"></span>Tools <span class="num">1</span></div>
+<header>
+  <div class="header-inner">
+    <div class="header-title">📰 AI <span>News Digest</span></div>
+    <div class="header-meta">
+      <div class="header-date">2026年04月19日（日）</div>
+      <div class="header-count">2 articles</div>
     </div>
   </div>
+</header>
 
-  <main class="main">
-    <div class="article model">
-      <div class="article-top">
-        <span class="article-cat">MODEL RELEASE</span>
-        <div class="article-importance">
-          <span class="on"></span><span class="on"></span><span class="on"></span>
+<div class="cat-bar">
+  <div class="cat-bar-inner">
+    <button class="cat-pill model" onclick="document.getElementById('section-model').scrollIntoView({behavior: 'smooth'});">● モデル (1)</button>
+    <button class="cat-pill research" onclick="document.getElementById('section-research').scrollIntoView({behavior: 'smooth'});">● 研究 (1)</button>
+  </div>
+</div>
+
+<main>
+
+  <!-- モデル -->
+  <div class="section-label" id="section-model">モデル</div>
+  <div class="grid">
+
+    <article class="card model">
+      <div class="card-top">
+        <span class="card-label model">モデル</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
         </div>
       </div>
-      <div class="article-title-ja">OpenAI、GPT-5 Turbo発表 — ネイティブ画像・音声生成機能を統合</div>
-      <div class="article-title-en">OpenAI Launches GPT-5 Turbo with Native Image and Audio Generation</div>
-      <div class="article-body">4月7日、OpenAIは新しいGPT-5 Turboを発表。最大の特徴は、画像と音声を同じモデル内でネイティブに生成できるようになったこと。マルチモーダル機能の大きな進歩により、テキスト、画像、音声をシームレスに処理可能に。</div>
-      <div class="article-footer">
-        <span class="article-source"><strong>OpenAI</strong> &nbsp;·&nbsp; 2026/04/07</span>
-        <a href="https://openai.com" class="article-link">Read more</a>
-      </div>
-    </div>
+      <div class="card-title-ja">AI OpenAI Announces New GPT-5 Model</div>
+      <div class="card-title-en">OpenAI Announces New GPT-5 Model</div>
+      <div class="card-source">TechCrunch · 2026-04-19</div>
+      <div class="card-body">Major breakthrough in LLM performance</div>
+      <a class="card-link model" href="https://techcrunch.com/example" target="_blank" rel="noopener">Read more →</a>
+    </article>
 
-    <div class="article model">
-      <div class="article-top">
-        <span class="article-cat">MODEL RELEASE</span>
-        <div class="article-importance">
-          <span class="on"></span><span class="on"></span><span class="on"></span>
+  </div>
+
+  <!-- 研究 -->
+  <div class="section-label" id="section-research">研究</div>
+  <div class="grid">
+
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
         </div>
       </div>
-      <div class="article-title-ja">Anthropic、Claude Mythosプレビュー発表 — サイバーセキュリティ専特化</div>
-      <div class="article-title-en">Anthropic Announces Claude Mythos Preview for Cybersecurity</div>
-      <div class="article-body">4月7日、AnthropicはClaude Mythosプレビューを50のパートナー企業向けに発表。脆弱性検出、推論、コーディングで「段階的な飛躍」を実現。Claude Opus 4.6を上回る性能を提供し、セキュリティ業界に新たな標準を確立。</div>
-      <div class="article-footer">
-        <span class="article-source"><strong>Anthropic</strong> &nbsp;·&nbsp; 2026/04/07</span>
-        <a href="https://anthropic.com" class="article-link">Read more</a>
-      </div>
-    </div>
+      <div class="card-title-ja">AI Google DeepMind Discovers New AI Capabilities</div>
+      <div class="card-title-en">Google DeepMind Discovers New AI Capabilities</div>
+      <div class="card-source">Nature · 2026-04-19</div>
+      <div class="card-body">Research breakthrough in reinforcement learning</div>
+      <a class="card-link research" href="https://nature.com/example" target="_blank" rel="noopener">Read more →</a>
+    </article>
 
-    <div class="article model">
-      <div class="article-top">
-        <span class="article-cat">MODEL RELEASE</span>
-        <div class="article-importance">
-          <span class="on"></span><span class="on"></span><span class="on"></span>
-        </div>
-      </div>
-      <div class="article-title-ja">Google、Gemini 2.5 Pro発表 — 100万トークンのコンテキストウィンドウ</div>
-      <div class="article-title-en">Google Releases Gemini 2.5 Pro with 1M Token Context Window</div>
-      <div class="article-body">4月1日、Googleは1M（100万）トークンのコンテキストウィンドウを備えたGemini 2.5 Proを発表。ネイティブマルチモーダル推論機能により、長大な文書やコンテキストの処理が可能に。業界最高レベルの推論能力を実現。</div>
-      <div class="article-footer">
-        <span class="article-source"><strong>Google</strong> &nbsp;·&nbsp; 2026/04/01</span>
-        <a href="https://google.com" class="article-link">Read more</a>
-      </div>
-    </div>
+  </div>
 
-    <div class="article model">
-      <div class="article-top">
-        <span class="article-cat">MODEL RELEASE</span>
-        <div class="article-importance">
-          <span class="on"></span><span class="on"></span><span class="on"></span>
-        </div>
-      </div>
-      <div class="article-title-ja">Anthropic、Claude 4ファミリー発表 — 200Kトークンコンテキスト対応</div>
-      <div class="article-title-en">Anthropic Releases Claude 4 Family with 200K Token Context</div>
-      <div class="article-body">4月2日、AnthropicはClaude 4ファミリーを発表。Claude Opus 4は200Kトークンのコンテキストウィンドウをサポートし、コーディングベンチマークで業界トップの成績を達成。エンタープライズ向けのスケーラビリティが大幅向上。</div>
-      <div class="article-footer">
-        <span class="article-source"><strong>Anthropic</strong> &nbsp;·&nbsp; 2026/04/02</span>
-        <a href="https://anthropic.com" class="article-link">Read more</a>
-      </div>
-    </div>
 
-    <div class="article model">
-      <div class="article-top">
-        <span class="article-cat">MODEL RELEASE</span>
-        <div class="article-importance">
-          <span class="on"></span><span class="on"></span>
-        </div>
-      </div>
-      <div class="article-title-ja">Google、Gemma 4ファミリー発表 — Apache 2.0オープンソース</div>
-      <div class="article-title-en">Google Releases Gemma 4 Open Source Models</div>
-      <div class="article-body">4月2日、GoogleはGemma 4ファミリーをApache 2.0ライセンスで公開。31B Denseモデルは20倍大きいモデルを上回る性能を実現。オープンソースと商用モデルのギャップが劇的に縮小。</div>
-      <div class="article-footer">
-        <span class="article-source"><strong>Google</strong> &nbsp;·&nbsp; 2026/04/02</span>
-        <a href="https://google.com" class="article-link">Read more</a>
-      </div>
-    </div>
+</main>
 
-    <div class="article research">
-      <div class="article-top">
-        <span class="article-cat">RESEARCH</span>
-        <div class="article-importance">
-          <span class="on"></span><span class="on"></span>
-        </div>
-      </div>
-      <div class="article-title-ja">人間の科学者、複雑なタスクでAIエージェントを圧倒 — Nature論文</div>
-      <div class="article-title-en">Human Scientists Outperform AI Agents on Complex Tasks</div>
-      <div class="article-body">Nature誌の最新研究によると、複雑なタスク解決において人間の科学者は最新のAIエージェントを大きく上回る成績を示した。AIの推論能力向上が急速でも、まだ人間の創造的問題解決に追いつけていない。</div>
-      <div class="article-footer">
-        <span class="article-source"><strong>Nature</strong> &nbsp;·&nbsp; 2026/04/13</span>
-        <a href="https://nature.com" class="article-link">Read more</a>
-      </div>
-    </div>
+<footer>
+  <strong>AI News Digest</strong> — 2026年4月13日（月）自動生成 | 12記事収録<br>
+  <span style="font-size:0.72rem; margin-top:0.3rem; display:block;">Model: 2 · Research: 5 · Business: 4 · Policy: 1</span>
+</footer>
 
-    <div class="article business">
-      <div class="article-top">
-        <span class="article-cat">BUSINESS</span>
-        <div class="article-importance">
-          <span class="on"></span><span class="on"></span><span class="on"></span>
-        </div>
-      </div>
-      <div class="article-title-ja">Q1 2026 VC資金調達、記録的な3000億ドル — 80%がAI関連</div>
-      <div class="article-title-en">Q1 2026 Shatters Venture Funding Records with $300B Global Investment</div>
-      <div class="article-body">2026年第1四半期、6000社のスタートアップに世界中から3000億ドルが投入。前年同期比で150%以上増加。AI関連企業が全体の80%（2420億ドル）を占め、投資の爆発的集中を示している。</div>
-      <div class="article-footer">
-        <span class="article-source"><strong>Crunchbase</strong> &nbsp;·&nbsp; 2026/04/19</span>
-        <a href="https://crunchbase.com" class="article-link">Read more</a>
-      </div>
-    </div>
-
-    <div class="article business">
-      <div class="article-top">
-        <span class="article-cat">BUSINESS</span>
-        <div class="article-importance">
-          <span class="on"></span><span class="on"></span><span class="on"></span>
-        </div>
-      </div>
-      <div class="article-title-ja">OpenAI、1220億ドルの巨額調達 — Q1最大規模ラウンド</div>
-      <div class="article-title-en">OpenAI Closes $122 Billion Mega-Round</div>
-      <div class="article-body">2026年第1四半期、OpenAIは1220億ドルの歴史的ラウンドを完了。Anthropic（300億ドル）、xAI（200億ドル）、Waymo（160億ドル）と共に、世界VC投資の65%（1880億ドル）を吸収した。</div>
-      <div class="article-footer">
-        <span class="article-source"><strong>Crunchbase</strong> &nbsp;·&nbsp; 2026/04/19</span>
-        <a href="https://crunchbase.com" class="article-link">Read more</a>
-      </div>
-    </div>
-
-    <div class="article business">
-      <div class="article-top">
-        <span class="article-cat">BUSINESS</span>
-        <div class="article-importance">
-          <span class="on"></span><span class="on"></span>
-        </div>
-      </div>
-      <div class="article-title-ja">Samsung、AI チップ産業強化に732億ドル投資</div>
-      <div class="article-title-en">Samsung Plans $73.2B Investment in AI Chip Development</div>
-      <div class="article-body">サムスン電子は2026年、研究開発と施設投資に110兆ウォン（約732億ドル）を投入。AIチップ産業での地位強化が狙い。半導体産業の競争激化を反映して、メガテック企業のハード投資が加速。</div>
-      <div class="article-footer">
-        <span class="article-source"><strong>Samsung</strong> &nbsp;·&nbsp; 2026/04/19</span>
-        <a href="https://samsung.com" class="article-link">Read more</a>
-      </div>
-    </div>
-
-    <div class="article business">
-      <div class="article-top">
-        <span class="article-cat">BUSINESS</span>
-        <div class="article-importance">
-          <span class="on"></span><span class="on"></span>
-        </div>
-      </div>
-      <div class="article-title-ja">SoftBank、オハイオ州にAIデータセンター構築 — 5000億ドル投資</div>
-      <div class="article-title-en">SoftBank to Invest $500 Billion in AI Data Center Infrastructure</div>
-      <div class="article-body">ソフトバンクグループはオハイオ州に人工知能データセンターを建設する計画で、5000億ドルを投じる予定。米国のAIインフラ整備競争が加速。テック企業による超大型インフラ投資の流れが続く。</div>
-      <div class="article-footer">
-        <span class="article-source"><strong>SoftBank</strong> &nbsp;·&nbsp; 2026/04/19</span>
-        <a href="https://softbank.com" class="article-link">Read more</a>
-      </div>
-    </div>
-
-    <div class="article policy">
-      <div class="article-top">
-        <span class="article-cat">POLICY</span>
-        <div class="article-importance">
-          <span class="on"></span><span class="on"></span><span class="on"></span>
-        </div>
-      </div>
-      <div class="article-title-ja">ホワイトハウス、国家AI政策枠組み発表 — 州法の連邦化案</div>
-      <div class="article-title-en">White House Releases National Policy Framework for Artificial Intelligence</div>
-      <div class="article-body">3月20日、ホワイトハウスはAI国家政策枠組みを発表。7つの柱で構成され、子ども保護、インフラ支援、知的財産、言論の自由、イノベーション促進、労働力準備、州法の連邦化を推奨。既存機関による分散型規制を重視。</div>
-      <div class="article-footer">
-        <span class="article-source"><strong>White House</strong> &nbsp;·&nbsp; 2026/03/20</span>
-        <a href="https://whitehouse.gov" class="article-link">Read more</a>
-      </div>
-    </div>
-
-    <div class="article policy">
-      <div class="article-top">
-        <span class="article-cat">POLICY</span>
-        <div class="article-importance">
-          <span class="on"></span><span class="on"></span>
-        </div>
-      </div>
-      <div class="article-title-ja">イランのサイバー攻撃がAIを活用 — FBI警告</div>
-      <div class="article-title-en">Iranian Hackers Using AI to Breach Networks, FBI Warns</div>
-      <div class="article-body">FBIとサイバーセキュリティ企業の報告によると、イランの攻撃者はAIを使用してネットワークに侵入。昨年のサイバー犯罪による損失は210億ドルに。AIの悪用を巡る規制と対抗策の必要性が高まっている。</div>
-      <div class="article-footer">
-        <span class="article-source"><strong>CBS News</strong> &nbsp;·&nbsp; 2026/04/18</span>
-        <a href="https://cbsnews.com" class="article-link">Read more</a>
-      </div>
-    </div>
-
-    <div class="article tools">
-      <div class="article-top">
-        <span class="article-cat">TOOLS</span>
-        <div class="article-importance">
-          <span class="on"></span><span class="on"></span>
-        </div>
-      </div>
-      <div class="article-title-ja">EY、エージェント型AIを監査業務に大規模導入</div>
-      <div class="article-title-en">EY Deploys Large-Scale Agent AI in Audit Services</div>
-      <div class="article-body">EYは4月17日、エージェント型の大規模AI導入を監査・保証領域で発表。AI駆動型監査への根本的転換を実現し、業務効率と精度を大幅向上。エンタープライズAI導入のリーディング事例として注目。</div>
-      <div class="article-footer">
-        <span class="article-source"><strong>EY Japan</strong> &nbsp;·&nbsp; 2026/04/17</span>
-        <a href="https://ey.com" class="article-link">Read more</a>
-      </div>
-    </div>
-  </main>
-
-  <footer class="site-footer">
-    <p>AI News Digest &nbsp;·&nbsp; Generated by Claude &nbsp;·&nbsp; 2026.04.19</p>
-  </footer>
 </body>
 </html>
