@@ -79,9 +79,9 @@ def generate_audio(script: str, output_path: Path) -> int:
 
     response = client.audio.speech.create(
         model="tts-1-hd",
-        voice="nova",
+        voice="shimmer",
         input=truncated_script,
-        speed=1.0,
+        speed=1.1,
     )
 
     response.stream_to_file(str(output_path))
