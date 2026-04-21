@@ -13,6 +13,20 @@
     <itunes:category text="Technology"/>
     <itunes:explicit>false</itunes:explicit>
     <item>
+      <title>AIニュースダイジェスト - 2026年04月21日（火）</title>
+      <description>おはようございます。「AIニュースダイジェスト」のホストです。
+
+本日は2026年4月21日、火曜日。今週も様々なAI関連ニュースが飛び込んでまいりました。それでは早速、今日のトップニュースをお届けしていきましょう。
+
+まず最初のニュースは、インドのAIスタートアップの大型資金調達についてです。Sarvam AIという企業が、15億ドルの評価額で大きな投資ラウンドを迎えることになりました。米国のGlade Brook Capitalが2000～2500万ドルの投資を検討しており、さらにNvidiaやAmazonといった大手テック企業も戦略的投資家として参加する見通しです。インドのAI産業が国際的な注目を集めている、非常に興味深い動きですね。
+
+次に、金融業界のニュースです。JPモルガン・チェースが自然言語処理、いわゆるNLP分野の機械学習科学者をバイスプレジデント職で積極的に募集しています。同社は年間180億ドル以上をイノベーション、データ活用、セキュリティに投資しており、AI技術を通じてグローバル事業を推進しようとしています。金融機関がAI人材をどんどん確保していく、こういった流れが...</description>
+      <pubDate>Tue, 21 Apr 2026 21:00:00 +0000</pubDate>
+      <enclosure url="https://anomalocaress.github.io/ai-news-digest/podcast/ai-news-2026-04-21.mp3" type="audio/mpeg" length="4093920"/>
+      <guid isPermaLink="true">https://anomalocaress.github.io/ai-news-digest/podcast/ai-news-2026-04-21.mp3</guid>
+      <itunes:duration>4:15</itunes:duration>
+    </item>
+    <item>
       <title>AIニュースダイジェスト - 2026年04月20日（月）</title>
       <description>こんにちは。「AIニュースダイジェスト」のホストです。今日は2026年4月20日、月曜日。この一週間のAI関連の注目ニュースをお届けします。
 
