@@ -79,7 +79,7 @@ def generate_audio(script: str, output_path: Path) -> int:
 
     response = client.audio.speech.create(
         model="tts-1-hd",
-        voice="shimmer",
+        voice="coral",
         input=truncated_script,
         speed=1.1,
     )
