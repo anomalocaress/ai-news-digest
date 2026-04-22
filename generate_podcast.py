@@ -64,27 +64,36 @@ def generate_podcast_script(articles: List[Dict], target_date: datetime) -> str:
 
 
 def generate_audio(script: str, output_path: Path) -> int:
-    """Convert script to audio using OpenAI TTS. Returns file size in bytes."""
-    from openai import OpenAI
+    """Convert script to audio using Google Cloud TTS Neural2. Returns file size in bytes."""
+    import base64
+    import requests
 
-    openai_key = os.getenv("OPENAI_API_KEY")
-    if not openai_key:
+    api_key = os.getenv("GOOGLE_TTS_API_KEY")
+    if not api_key:
         return 0
 
-    client = OpenAI(api_key=openai_key)
     PODCAST_DIR.mkdir(exist_ok=True)
 
-    # OpenAI TTS has a 4096 character limit per request
-    truncated_script = script[:4000]
+    # Google Cloud TTS Neural2 — 自然な日本語女性の声
+    url = f"https://texttospeech.googleapis.com/v1/text:synthesize?key={api_key}"
+    payload = {
+        "input": {"text": script[:5000]},
+        "voice": {
+            "languageCode": "ja-JP",
+            "name": "ja-JP-Neural2-B",   # 女性・自然な日本語
+        },
+        "audioConfig": {
+            "audioEncoding": "MP3",
+            "speakingRate": 1.1,
+            "pitch": 1.0,
+        },
+    }
 
-    response = client.audio.speech.create(
-        model="tts-1-hd",
-        voice="onyx",
-        input=truncated_script,
-        speed=1.1,
-    )
+    response = requests.post(url, json=payload)
+    response.raise_for_status()
 
-    response.stream_to_file(str(output_path))
+    audio_bytes = base64.b64decode(response.json()["audioContent"])
+    output_path.write_bytes(audio_bytes)
     return output_path.stat().st_size
 
 
