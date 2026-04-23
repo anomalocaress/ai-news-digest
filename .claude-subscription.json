@@ -1,0 +1,7 @@
+{
+  "subscription_plan": {
+    "name": "Claude Code (Pro)",
+    "monthly_usd": 20.0,
+    "description": "Claude Code Pro monthly subscription"
+  }
+}

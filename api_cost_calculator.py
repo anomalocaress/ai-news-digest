@@ -50,6 +50,30 @@ PRICING = {
 REPO_DIR = Path(__file__).parent
 USAGE_FILE = REPO_DIR / ".api-usage.json"
 COSTS_FILE = REPO_DIR / ".api-costs.json"
+SUBSCRIPTION_FILE = REPO_DIR / ".claude-subscription.json"
+
+
+def load_subscription_config() -> Dict:
+    """Load Claude subscription configuration"""
+    if SUBSCRIPTION_FILE.exists():
+        try:
+            with open(SUBSCRIPTION_FILE, "r", encoding="utf-8") as f:
+                return json.load(f)
+        except:
+            return {
+                "subscription_plan": {
+                    "name": "Claude Code (Pro)",
+                    "monthly_usd": 20.00,
+                    "description": "Claude Code Pro monthly subscription"
+                }
+            }
+    return {
+        "subscription_plan": {
+            "name": "Claude Code (Pro)",
+            "monthly_usd": 20.00,
+            "description": "Claude Code Pro monthly subscription"
+        }
+    }
 
 
 def load_usage_data() -> Dict:
@@ -205,20 +229,42 @@ def get_current_costs() -> Dict:
 
 
 def get_dashboard_data() -> Dict:
-    """Get data formatted for dashboard display"""
+    """Get data formatted for dashboard display with subscription and API usage separated"""
     costs = get_current_costs()
+    subscription = load_subscription_config()
+
+    subscription_plan = subscription.get("subscription_plan", {})
+    subscription_usd = subscription_plan.get("monthly_usd", 0.0)
+    subscription_jpy = round(subscription_usd * JPY_PER_USD, 0)
+
+    api_usage_usd = costs["total_usd"]
+    api_usage_jpy = costs["total_jpy"]
+
+    total_usd = subscription_usd + api_usage_usd
+    total_jpy = subscription_jpy + api_usage_jpy
 
     dashboard = {
-        "total_jpy": costs["total_jpy"],
-        "total_usd": costs["total_usd"],
-        "models": []
+        "total_jpy": total_jpy,
+        "total_usd": total_usd,
+        "subscription": {
+            "name": subscription_plan.get("name", "Claude Subscription"),
+            "description": subscription_plan.get("description", "Claude subscription"),
+            "usd": round(subscription_usd, 2),
+            "jpy": subscription_jpy
+        },
+        "api_usage": {
+            "total_usd": round(api_usage_usd, 4),
+            "total_jpy": api_usage_jpy,
+            "models": []
+        }
     }
 
+    # Add models under API usage
     for model_id, cost_data in costs.get("by_model", {}).items():
         provider = cost_data.get("provider", "Unknown")
         display_name = cost_data.get("display_name", model_id)
 
-        dashboard["models"].append({
+        dashboard["api_usage"]["models"].append({
             "id": model_id,
             "name": display_name,
             "provider": provider,
@@ -229,7 +275,7 @@ def get_dashboard_data() -> Dict:
         })
 
     # Sort by cost (highest first)
-    dashboard["models"].sort(key=lambda x: x["jpy"], reverse=True)
+    dashboard["api_usage"]["models"].sort(key=lambda x: x["jpy"], reverse=True)
 
     return dashboard
 
