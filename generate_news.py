@@ -11,8 +11,7 @@ import requests
 from jinja2 import Environment, FileSystemLoader
 from dotenv import load_dotenv
 from anthropic import Anthropic
-
-
+from api_cost_calculator import record_anthropic_usage
 
 # Load environment variables
 load_dotenv()
@@ -166,6 +165,14 @@ importance は 1-3 の整数です（3が最も重要）。"""
                     max_tokens=300,
                     messages=[{"role": "user", "content": prompt}],
                 )
+
+                # Record actual API usage
+                if hasattr(message, 'usage'):
+                    record_anthropic_usage(
+                        model="claude-haiku-4-5-20251001",
+                        input_tokens=message.usage.input_tokens,
+                        output_tokens=message.usage.output_tokens
+                    )
 
                 response_text = message.content[0].text
 

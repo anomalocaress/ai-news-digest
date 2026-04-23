@@ -1,26 +1,5 @@
 {
-  "anthropic": {
-    "claude-haiku-4-5-20251001": {
-      "input_tokens": 150000,
-      "output_tokens": 75000,
-      "calls": 45
-    },
-    "claude-3-5-sonnet-20241022": {
-      "input_tokens": 500000,
-      "output_tokens": 250000,
-      "calls": 80
-    },
-    "claude-opus-4-1-20250805": {
-      "input_tokens": 100000,
-      "output_tokens": 50000,
-      "calls": 15
-    }
-  },
-  "google": {
-    "texttospeech": {
-      "characters": 150000,
-      "calls": 30
-    }
-  },
+  "anthropic": {},
+  "google": {},
   "openai": {}
 }

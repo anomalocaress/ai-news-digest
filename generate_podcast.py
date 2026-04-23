@@ -26,6 +26,7 @@ CATEGORIES_JA = {
 def generate_podcast_script(articles: List[Dict], target_date: datetime) -> str:
     """Generate a podcast script using Claude API."""
     from anthropic import Anthropic
+    from api_cost_calculator import record_anthropic_usage
     claude = Anthropic()
 
     date_str = target_date.strftime("%Y年%m月%d日")
@@ -60,6 +61,14 @@ def generate_podcast_script(articles: List[Dict], target_date: datetime) -> str:
         messages=[{"role": "user", "content": prompt}],
     )
 
+    # Record actual API usage
+    if hasattr(message, 'usage'):
+        record_anthropic_usage(
+            model="claude-haiku-4-5-20251001",
+            input_tokens=message.usage.input_tokens,
+            output_tokens=message.usage.output_tokens
+        )
+
     return message.content[0].text.strip()
 
 
@@ -67,6 +76,7 @@ def generate_audio(script: str, output_path: Path) -> int:
     """Convert script to audio using Google Cloud TTS Neural2. Returns file size in bytes."""
     import base64
     import requests
+    from api_cost_calculator import record_google_tts_usage
 
     api_key = os.getenv("GOOGLE_TTS_API_KEY")
     if not api_key:
@@ -91,6 +101,10 @@ def generate_audio(script: str, output_path: Path) -> int:
 
     response = requests.post(url, json=payload)
     response.raise_for_status()
+
+    # Record Google TTS usage (characters processed)
+    characters = len(script[:5000])
+    record_google_tts_usage(characters=characters)
 
     audio_bytes = base64.b64decode(response.json()["audioContent"])
     output_path.write_bytes(audio_bytes)
