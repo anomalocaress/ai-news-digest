@@ -171,7 +171,8 @@ importance は 1-3 の整数です（3が最も重要）。"""
                     record_anthropic_usage(
                         model="claude-haiku-4-5-20251001",
                         input_tokens=message.usage.input_tokens,
-                        output_tokens=message.usage.output_tokens
+                        output_tokens=message.usage.output_tokens,
+                        purpose="ニュース記事の分類・日本語化"
                     )
 
                 response_text = message.content[0].text

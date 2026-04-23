@@ -74,12 +74,24 @@ def generate_api_dashboard_html() -> str:
             jpy = model.get("jpy", 0)
             usd = model.get("usd", 0)
             url = model.get("url", "#")
+            purposes = model.get("purposes", [])
 
             html += f'''
         <a href="{url}" target="_blank" style="display: flex; align-items: center; justify-content: space-between; padding: 1rem; background: #1e293b; border: 1px solid #334155; border-left: 4px solid {color}; border-radius: 6px; text-decoration: none; color: #e2e8f0; transition: all 0.2s; cursor: pointer;">
           <div>
             <div style="font-weight: 600; color: #e2e8f0; font-size: 0.95rem;">{name}</div>
-            <div style="font-size: 0.8rem; color: #94a3b8;">{provider}</div>
+            <div style="font-size: 0.8rem; color: #94a3b8;">{provider}</div>'''
+
+            # Add purpose breakdown if available
+            if purposes:
+                html += '''<div style="margin-top: 0.5rem; font-size: 0.75rem; color: #64748b; border-top: 1px solid #475569; padding-top: 0.5rem;">'''
+                for purpose in purposes:
+                    purpose_name = purpose.get("name", "Unknown")
+                    calls = purpose.get("calls", 0)
+                    html += f'''<div>• {purpose_name} ({calls}回)</div>'''
+                html += '''</div>'''
+
+            html += f'''
           </div>
           <div style="text-align: right;">
             <div style="font-weight: 700; color: {color}; font-size: 1.1rem;">¥{jpy:,}</div>

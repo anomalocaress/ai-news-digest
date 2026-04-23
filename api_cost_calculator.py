@@ -93,36 +93,60 @@ def save_usage_data(data: Dict):
         json.dump(data, f, ensure_ascii=False, indent=2)
 
 
-def record_anthropic_usage(model: str, input_tokens: int, output_tokens: int):
-    """Record Anthropic API usage"""
+def record_anthropic_usage(model: str, input_tokens: int, output_tokens: int, purpose: str = "Unknown"):
+    """Record Anthropic API usage with purpose/task description"""
     usage = load_usage_data()
 
     if model not in usage["anthropic"]:
         usage["anthropic"][model] = {
             "input_tokens": 0,
             "output_tokens": 0,
-            "calls": 0
+            "calls": 0,
+            "purposes": {}
         }
 
     usage["anthropic"][model]["input_tokens"] += input_tokens
     usage["anthropic"][model]["output_tokens"] += output_tokens
     usage["anthropic"][model]["calls"] += 1
 
+    # Track by purpose/task
+    if purpose not in usage["anthropic"][model]["purposes"]:
+        usage["anthropic"][model]["purposes"][purpose] = {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "calls": 0
+        }
+
+    usage["anthropic"][model]["purposes"][purpose]["input_tokens"] += input_tokens
+    usage["anthropic"][model]["purposes"][purpose]["output_tokens"] += output_tokens
+    usage["anthropic"][model]["purposes"][purpose]["calls"] += 1
+
     save_usage_data(usage)
 
 
-def record_google_tts_usage(characters: int):
-    """Record Google Cloud TTS usage"""
+def record_google_tts_usage(characters: int, purpose: str = "Unknown"):
+    """Record Google Cloud TTS usage with purpose/task description"""
     usage = load_usage_data()
 
     if "texttospeech" not in usage["google"]:
         usage["google"]["texttospeech"] = {
             "characters": 0,
-            "calls": 0
+            "calls": 0,
+            "purposes": {}
         }
 
     usage["google"]["texttospeech"]["characters"] += characters
     usage["google"]["texttospeech"]["calls"] += 1
+
+    # Track by purpose/task
+    if purpose not in usage["google"]["texttospeech"]["purposes"]:
+        usage["google"]["texttospeech"]["purposes"][purpose] = {
+            "characters": 0,
+            "calls": 0
+        }
+
+    usage["google"]["texttospeech"]["purposes"][purpose]["characters"] += characters
+    usage["google"]["texttospeech"]["purposes"][purpose]["calls"] += 1
 
     save_usage_data(usage)
 
@@ -259,20 +283,58 @@ def get_dashboard_data() -> Dict:
         }
     }
 
-    # Add models under API usage
+    # Add models under API usage with purposes
+    usage_data = load_usage_data()
+
     for model_id, cost_data in costs.get("by_model", {}).items():
         provider = cost_data.get("provider", "Unknown")
         display_name = cost_data.get("display_name", model_id)
 
-        dashboard["api_usage"]["models"].append({
+        model_info = {
             "id": model_id,
             "name": display_name,
             "provider": provider,
             "jpy": cost_data.get("jpy", 0),
             "usd": cost_data.get("usd", 0),
             "color": cost_data.get("color", "#60a5fa"),
-            "url": get_billing_url(provider)
-        })
+            "url": get_billing_url(provider),
+            "purposes": []
+        }
+
+        # Add purpose breakdown for Anthropic models
+        if provider == "Anthropic" and model_id in usage_data.get("anthropic", {}):
+            model_usage = usage_data["anthropic"][model_id]
+            for purpose, purpose_data in model_usage.get("purposes", {}).items():
+                input_toks = purpose_data.get("input_tokens", 0)
+                output_toks = purpose_data.get("output_tokens", 0)
+                purpose_cost = (input_toks / 1_000_000) * PRICING["anthropic"][model_id]["input_per_mtok"]
+                purpose_cost += (output_toks / 1_000_000) * PRICING["anthropic"][model_id]["output_per_mtok"]
+
+                model_info["purposes"].append({
+                    "name": purpose,
+                    "calls": purpose_data.get("calls", 0),
+                    "input_tokens": input_toks,
+                    "output_tokens": output_toks,
+                    "usd": round(purpose_cost, 4),
+                    "jpy": round(purpose_cost * JPY_PER_USD, 0)
+                })
+
+        # Add purpose breakdown for Google services
+        if provider == "Google Cloud" and model_id == "texttospeech" and "texttospeech" in usage_data.get("google", {}):
+            tts_usage = usage_data["google"]["texttospeech"]
+            for purpose, purpose_data in tts_usage.get("purposes", {}).items():
+                chars = purpose_data.get("characters", 0)
+                purpose_cost = (chars / 1_000_000) * PRICING["google"]["texttospeech"]["neural2_per_mchars"]
+
+                model_info["purposes"].append({
+                    "name": purpose,
+                    "calls": purpose_data.get("calls", 0),
+                    "characters": chars,
+                    "usd": round(purpose_cost, 4),
+                    "jpy": round(purpose_cost * JPY_PER_USD, 0)
+                })
+
+        dashboard["api_usage"]["models"].append(model_info)
 
     # Sort by cost (highest first)
     dashboard["api_usage"]["models"].sort(key=lambda x: x["jpy"], reverse=True)

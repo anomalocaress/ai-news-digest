@@ -66,7 +66,8 @@ def generate_podcast_script(articles: List[Dict], target_date: datetime) -> str:
         record_anthropic_usage(
             model="claude-haiku-4-5-20251001",
             input_tokens=message.usage.input_tokens,
-            output_tokens=message.usage.output_tokens
+            output_tokens=message.usage.output_tokens,
+            purpose="ポッドキャスト台本生成"
         )
 
     return message.content[0].text.strip()
@@ -104,7 +105,10 @@ def generate_audio(script: str, output_path: Path) -> int:
 
     # Record Google TTS usage (characters processed)
     characters = len(script[:5000])
-    record_google_tts_usage(characters=characters)
+    record_google_tts_usage(
+        characters=characters,
+        purpose="ポッドキャスト音声生成"
+    )
 
     audio_bytes = base64.b64decode(response.json()["audioContent"])
     output_path.write_bytes(audio_bytes)
