@@ -376,12 +376,19 @@ def update_index_html(date: datetime):
     print(f"✓ Updated index.html → {latest_file}")
 
 
-def build_email_html(categorized: Dict[str, List[Dict]], date: datetime) -> str:
+def build_email_html(categorized: Dict[str, List[Dict]], date: datetime, include_recommendations: bool = True) -> str:
     """Build HTML email content with styled articles."""
     date_str = date.strftime("%Y年%m月%d日")
     weekday = WEEKDAYS_JA[date.weekday()]
 
-    email_html = f"""<!DOCTYPE html>
+    # Import recommendation engine
+    try:
+        from recommendation_engine import analyze_user_preferences, generate_recommendations, add_recommendations_to_email
+        use_recommendations = include_recommendations
+    except:
+        use_recommendations = False
+
+    email_html = f"""<!DOCTYPE html>"""
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
@@ -464,6 +471,15 @@ def build_email_html(categorized: Dict[str, List[Dict]], date: datetime) -> str:
     email_html += '</div>\n'
     email_html += '</body>\n'
     email_html += '</html>'
+
+    # Add recommendations if enabled
+    if use_recommendations:
+        try:
+            user_analysis = analyze_user_preferences(categorized)
+            recommendations = generate_recommendations(user_analysis)
+            email_html = add_recommendations_to_email(email_html, recommendations)
+        except Exception as e:
+            print(f"⚠️  Recommendation engine error: {e}")
 
     return email_html
 
