@@ -7,9 +7,11 @@ import os
 from datetime import datetime
 from pathlib import Path
 from http.server import HTTPServer, BaseHTTPRequestHandler
+import urllib.parse
 
 REPO_DIR = Path(__file__).parent
 PODCAST_DIR = REPO_DIR / "podcast"
+PREFS_FILE = REPO_DIR / "user_preferences.json"
 BASE_URL = "https://anomalocaress.github.io/ai-news-digest"
 GH_TOKEN = os.getenv("GH_TOKEN", "")
 PORT = 8920
@@ -51,10 +53,71 @@ def trigger_github_actions():
     return result.returncode == 0
 
 
+def load_user_preferences():
+    """ユーザー評価データを読み込む"""
+    if PREFS_FILE.exists():
+        try:
+            with open(PREFS_FILE, "r", encoding="utf-8") as f:
+                return json.load(f)
+        except:
+            return {"rated_articles": {}}
+    return {"rated_articles": {}}
+
+
+def save_user_preferences(prefs):
+    """ユーザー評価データを保存"""
+    with open(PREFS_FILE, "w", encoding="utf-8") as f:
+        json.dump(prefs, f, ensure_ascii=False, indent=2)
+
+
+def rate_article(article_id: str, rating: int):
+    """記事の評価を保存"""
+    prefs = load_user_preferences()
+    if "rated_articles" not in prefs:
+        prefs["rated_articles"] = {}
+    prefs["rated_articles"][article_id] = {
+        "rating": rating,
+        "timestamp": datetime.now().isoformat()
+    }
+    save_user_preferences(prefs)
+
+
+def extract_articles_from_html(html_file: Path):
+    """HTMLファイルから記事データを抽出"""
+    import re
+
+    try:
+        with open(html_file, "r", encoding="utf-8") as f:
+            content = f.read()
+
+        articles = []
+        # 記事パターンをマッチング
+        pattern = r'<article class="card (\w+)">.*?<div class="card-title-ja">(.+?)</div>.*?<div class="card-body">(.+?)</div>'
+
+        for match in re.finditer(pattern, content, re.DOTALL):
+            category, title, summary = match.groups()
+            article_id = f"{html_file.stem}_{len(articles)}"
+            articles.append({
+                "id": article_id,
+                "category": category,
+                "title": title.strip(),
+                "summary": summary.strip()[:150]
+            })
+
+        return articles
+    except:
+        return []
+
+
 def build_dashboard_html():
     latest_date = get_latest_news_date()
+    latest_html_file = REPO_DIR / f"ai-news-{latest_date}.html"
     episodes = get_episodes()
     now = datetime.now().strftime("%Y年%m月%d日 %H:%M")
+
+    # ユーザー評価を読み込む
+    prefs = load_user_preferences()
+    rated = prefs.get("rated_articles", {})
 
     # ニュースリンクHTML生成
     news_files = sorted([x.name for x in REPO_DIR.glob("ai-news-????-??-??.html")], reverse=True)[:5]
@@ -67,6 +130,52 @@ def build_dashboard_html():
             f'<div class="news-date">AI News Digest</div></div></a>'
         )
     news_links_html = "".join(news_links) if news_links else '<p class="no-data">まだニュースがありません</p>'
+
+    # 最新の記事を抽出
+    latest_articles = extract_articles_from_html(latest_html_file) if latest_html_file.exists() else []
+
+    # 記事カードHTML生成
+    articles_html = ""
+    cat_colors = {
+        "research": "#6d28d9",
+        "business": "#065f46",
+        "policy": "#92400e",
+        "tools": "#0e7490"
+    }
+    cat_names = {
+        "research": "研究",
+        "business": "ビジネス",
+        "policy": "ポリシー",
+        "tools": "ツール"
+    }
+
+    for article in latest_articles[:8]:
+        article_id = article["id"]
+        rating = rated.get(article_id, {}).get("rating", 0)
+        color = cat_colors.get(article["category"], "#1d4ed8")
+        cat_name = cat_names.get(article["category"], "その他")
+
+        stars_html = ""
+        for i in range(1, 6):
+            filled = "★" if i <= rating else "☆"
+            stars_html += f'<span class="star" onclick="rateArticle(\'{article_id}\', {i})" style="cursor: pointer; color: {color};">{filled}</span>'
+
+        articles_html += f"""
+        <div class="article-card">
+          <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 0.5rem;">
+            <span style="background: {color}; color: white; padding: 0.2rem 0.6rem; border-radius: 4px; font-size: 0.75rem; font-weight: 600;">{cat_name}</span>
+            <div class="star-rating">{stars_html}</div>
+          </div>
+          <div style="font-weight: 600; margin-bottom: 0.5rem; color: #e2e8f0;">{article['title'][:60]}</div>
+          <div style="font-size: 0.85rem; color: #94a3b8; margin-bottom: 0.5rem;">{article['summary']}</div>
+        </div>"""
+
+    articles_section = f"""
+  <!-- 最新ニュースプレビュー -->
+  <div class="card">
+    <div class="card-title">📰 最新ニュース（{latest_date}）</div>
+    <div style="display: grid; gap: 0.75rem;">{articles_html if articles_html else '<p class="no-data">記事がありません</p>'}</div>
+  </div>""" if articles_html else ""
 
     # エピソードカードHTML
     ep_cards = ""
@@ -148,6 +257,20 @@ def build_dashboard_html():
   .news-link:hover {{ border-color: #60a5fa; }}
   .news-date {{ font-size: 0.8rem; color: #64748b; }}
 
+  /* 記事カード */
+  .article-card {{
+    background: #0f172a;
+    border-radius: 8px;
+    padding: 1rem;
+    border: 1px solid #334155;
+    transition: border-color 0.2s;
+  }}
+  .article-card:hover {{ border-color: #60a5fa; }}
+  .star-rating {{
+    font-size: 1.2rem;
+    letter-spacing: 0.2rem;
+  }}
+
   /* ポッドキャスト */
   .ep-card {{
     background: #0f172a;
@@ -211,6 +334,8 @@ def build_dashboard_html():
       <button class="btn btn-green" onclick="runActions()">🔄 今すぐニュースを生成</button>
     </div>
   </div>
+
+{articles_section}
 
   <!-- 最新ニュース -->
   <div class="card">
@@ -283,6 +408,25 @@ function runActions() {{
     .then(r => r.json())
     .then(d => alert(d.ok ? '✅ 実行開始しました！5〜10分後に確認してください' : '❌ 実行失敗: ' + d.error));
 }}
+
+function rateArticle(articleId, rating) {{
+  fetch('/rate', {{
+    method: 'POST',
+    headers: {{'Content-Type': 'application/json'}},
+    body: JSON.stringify({{articleId, rating}})
+  }})
+  .then(r => r.json())
+  .then(d => {{
+    if (d.ok) {{
+      // 星を即座に更新
+      const stars = document.querySelectorAll(`[data-article-id="{'{articleId}'}"] .star`);
+      stars.forEach((s, i) => {{
+        s.textContent = i < rating ? '★' : '☆';
+      }});
+    }}
+  }})
+  .catch(e => console.error('Rating failed:', e));
+}}
 </script>
 </body>
 </html>"""
@@ -300,13 +444,38 @@ class Handler(BaseHTTPRequestHandler):
         self.wfile.write(html.encode("utf-8"))
 
     def do_POST(self):
+        content_length = int(self.headers.get('Content-Length', 0))
+        body = self.rfile.read(content_length).decode('utf-8')
+
         if self.path == "/trigger":
             ok = trigger_github_actions()
-            body = json.dumps({"ok": ok}).encode()
+            response_body = json.dumps({"ok": ok}).encode()
             self.send_response(200)
             self.send_header("Content-Type", "application/json")
             self.end_headers()
-            self.wfile.write(body)
+            self.wfile.write(response_body)
+
+        elif self.path == "/rate":
+            try:
+                data = json.loads(body)
+                article_id = data.get("articleId", "")
+                rating = data.get("rating", 0)
+
+                if article_id and 1 <= rating <= 5:
+                    rate_article(article_id, rating)
+                    response_body = json.dumps({"ok": True, "message": "評価を保存しました"}).encode()
+                else:
+                    response_body = json.dumps({"ok": False, "message": "不正なデータ"}).encode()
+
+                self.send_response(200)
+                self.send_header("Content-Type", "application/json")
+                self.end_headers()
+                self.wfile.write(response_body)
+            except Exception as e:
+                self.send_response(400)
+                self.send_header("Content-Type", "application/json")
+                self.end_headers()
+                self.wfile.write(json.dumps({"ok": False, "error": str(e)}).encode())
 
 
 if __name__ == "__main__":
