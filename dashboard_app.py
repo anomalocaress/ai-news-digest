@@ -119,6 +119,13 @@ def build_dashboard_html():
     prefs = load_user_preferences()
     rated = prefs.get("rated_articles", {})
 
+    # API コストダッシュボードを生成
+    try:
+        from api_dashboard import generate_api_dashboard_html
+        api_dashboard_html = generate_api_dashboard_html()
+    except:
+        api_dashboard_html = ""
+
     # ニュースリンクHTML生成
     news_files = sorted([x.name for x in REPO_DIR.glob("ai-news-????-??-??.html")], reverse=True)[:5]
     news_links = []
@@ -350,9 +357,11 @@ def build_dashboard_html():
     <div class="rss-url">RSS: {BASE_URL}/podcast/feed.xml</div>
   </div>
 
-  <!-- API料金・AIモデルリンク -->
+  {api_dashboard_html}
+
+  <!-- 管理リンク -->
   <div class="card">
-    <div class="card-title">💰 API料金確認 &amp; 管理リンク</div>
+    <div class="card-title">🔗 管理ページ &amp; リンク</div>
     <div class="link-grid">
       <a href="https://console.anthropic.com/settings/usage" target="_blank" class="link-item">
         <div class="link-icon">🟠</div>
