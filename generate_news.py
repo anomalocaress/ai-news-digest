@@ -359,6 +359,63 @@ def save_html(html_content: str, date: datetime) -> Path:
     return output_file
 
 
+def send_email_draft(email_html: str, target_date: datetime) -> bool:
+    """Send email draft to user via Gmail API or SMTP."""
+    import smtplib
+    from email.mime.text import MIMEText
+    from email.mime.multipart import MIMEMultipart
+
+    email_to = "fujisaki@teraco-labo.com"
+    date_str = target_date.strftime("%Y年%m月%d日")
+
+    try:
+        # Try Gmail API first (for local/interactive mode)
+        try:
+            # Using Gmail MCP - only works in interactive sessions
+            import requests
+            gmail_api_url = "https://gmail.googleapis.com/gmail/v1/users/me/drafts"
+            # This would require OAuth2 token setup
+        except Exception:
+            pass
+
+        # Fallback: Use SMTP via Gmail
+        gmail_user = os.getenv("GMAIL_ADDRESS")
+        gmail_pass = os.getenv("GMAIL_APP_PASSWORD")
+
+        if not gmail_user or not gmail_pass:
+            print(f"⚠️  Gmail credentials not configured.")
+            print(f"   Set GMAIL_ADDRESS and GMAIL_APP_PASSWORD to enable email delivery.")
+            return False
+
+        # Create email message
+        msg = MIMEMultipart("alternative")
+        msg["Subject"] = f"耳で聞くAIニュース - {date_str}"
+        msg["From"] = gmail_user
+        msg["To"] = email_to
+
+        # Attach HTML content
+        part = MIMEText(email_html, "html", "utf-8")
+        msg.attach(part)
+
+        # Send via Gmail SMTP
+        with smtplib.SMTP_SSL("smtp.gmail.com", 465, timeout=10) as server:
+            server.login(gmail_user, gmail_pass)
+            server.sendmail(gmail_user, [email_to], msg.as_string())
+
+        print(f"✓ Email sent to: {email_to}")
+        return True
+
+    except smtplib.SMTPAuthenticationError:
+        print(f"❌ Email auth failed: Invalid credentials")
+        return False
+    except smtplib.SMTPException as e:
+        print(f"❌ Email send error: {e}")
+        return False
+    except Exception as e:
+        print(f"❌ Unexpected error: {e}")
+        return False
+
+
 def update_index_html(date: datetime):
     """Update index.html to redirect to latest digest."""
     date_str = date.strftime("%Y-%m-%d")
@@ -571,11 +628,17 @@ def main():
     except Exception as e:
         print(f"⚠️  Podcast generation error: {e}")
 
-    # Step 6: Build email HTML
-    print("\n5️⃣  Building email...")
+    # Step 6: Build and send email
+    print("\n5️⃣  Building and sending email...")
     email_html = build_email_html(categorized, target_date)
     email_file = save_email_html(email_html, target_date)
     print(f"✓ Email draft saved: {email_file.name}")
+
+    # Send email to user
+    email_sent = send_email_draft(email_html, target_date)
+    if not email_sent:
+        print(f"⚠️  Email draft ready at: {email_file.name}")
+        print(f"   Please configure GMAIL_ADDRESS and GMAIL_APP_PASSWORD for auto-sending.")
 
     # Step 7: Update index.html
     print("\n6️⃣  Updating index.html...")
