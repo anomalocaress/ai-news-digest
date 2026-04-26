@@ -14,17 +14,15 @@
     <itunes:explicit>false</itunes:explicit>
     <item>
       <title>AIニュースダイジェスト - 2026年04月26日（日）</title>
-      <description>こんにちは。「AIニュースダイジェスト」のホストです。
+      <description>こんにちは。AIニュースダイジェストの時間です。ホストの山田です。本日は2026年4月26日、日曜日。今週も世界中からAI関連のニュースが届いています。さっそく見ていきましょう。
 
-4月26日・日曜日のAIニュースを、今日も皆さんにお届けしていきます。この1週間も、AI業界では大きな動きが続いているんですね。さっそく今日のトップニュースから見ていきましょう。
+まず最初は、ビジネス面での大きな動きからです。Googleが提供するAIエージェントプラットフォームが市場をリードしているというニュースです。これまで、AIといえば質問に答えたり、文章を生成したりといった単純なタスクが中心でしたよね。ところが今、大きな変化が起きています。企業が求めているのは、実際にタスクを実行し、自動的に行動してくれるAI。つまり、AIが自分で判断して動いてくれる、そういう時代へシフトしているわけです。Google Cloudのトーマス・クリアン最高経営責任者も、この転換には根本的に異なるアプローチが必要だと述べています。AIの進化がビジネスの現場で大きな価値を生み出そうとしているんですね。
 
-まず目玉となるのが、GoogleとAmazonによるAnthropic投資の大型ニュースです。Googleが最大40億ドル、Amazonが25億ドルの投資を発表しており、合わせて65億ドルという巨額の資金が集まることになりました。Claude という生成AIモデルで知られるAnthropicは、OpenAIやMicrosoftの勢いに対抗するための、テック大手による争奪戦の真っただ中にあるというわけです。これはもう、AI業界全体の勢力図が大きく変わろうとしている兆候と言えるでしょう。
-
-こうした投資の加速は、別のニュースにも表れています。AI企業のCohereとAleph Alphaという2つの企業が経営統合を発表し、ドイツ最大手の小売企業シュヴァルツグループが主導する資金調達で6億ドルを調達することになりました。両社の技術力を結集させて市場競争に臨...</description>
+次に気になるニュースが、アメリカの労働市場についての調査報告です。25歳以上のアメリカ人の52%以上が、AIによる失業を懸念しているんだそうです。それだけじゃなく、実際にスキル習得のためのコース受講...</description>
       <pubDate>Sun, 26 Apr 2026 21:00:00 +0000</pubDate>
-      <enclosure url="https://anomalocaress.github.io/ai-news-digest/podcast/ai-news-2026-04-26.mp3" type="audio/mpeg" length="1802496"/>
+      <enclosure url="https://anomalocaress.github.io/ai-news-digest/podcast/ai-news-2026-04-26.mp3" type="audio/mpeg" length="1972608"/>
       <guid isPermaLink="true">https://anomalocaress.github.io/ai-news-digest/podcast/ai-news-2026-04-26.mp3</guid>
-      <itunes:duration>1:52</itunes:duration>
+      <itunes:duration>2:03</itunes:duration>
     </item>
     <item>
       <title>AIニュースダイジェスト - 2026年04月22日（水）</title>

@@ -1,31 +1,31 @@
 {
   "anthropic": {
     "claude-haiku-4-5-20251001": {
-      "input_tokens": 91006,
-      "output_tokens": 56024,
-      "calls": 99,
+      "input_tokens": 100109,
+      "output_tokens": 64132,
+      "calls": 130,
       "purposes": {
         "ニュース記事の分類・日本語化": {
-          "input_tokens": 40885,
-          "output_tokens": 30445,
-          "calls": 95
+          "input_tokens": 48232,
+          "output_tokens": 37253,
+          "calls": 125
         },
         "ポッドキャスト台本生成": {
-          "input_tokens": 50121,
-          "output_tokens": 25579,
-          "calls": 4
+          "input_tokens": 51877,
+          "output_tokens": 26879,
+          "calls": 5
         }
       }
     }
   },
   "google": {
     "texttospeech": {
-      "characters": 8801,
-      "calls": 4,
+      "characters": 10366,
+      "calls": 5,
       "purposes": {
         "ポッドキャスト音声生成": {
-          "characters": 8801,
-          "calls": 4
+          "characters": 10366,
+          "calls": 5
         }
       }
     }
