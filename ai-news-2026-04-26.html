@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI News Digest — 2026-04-26</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --model: #1d4ed8;
+    --research: #6d28d9;
+    --business: #065f46;
+    --policy: #92400e;
+    --tools: #0e7490;
+    --bg: #f8fafc;
+    --card-bg: #ffffff;
+    --text: #1e293b;
+    --text-muted: #64748b;
+    --border: #e2e8f0;
+  }
+  body {
+    font-family: 'Noto Sans JP', 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  header {
+    background: #0f172a;
+    color: #fff;
+    padding: 2rem 1.5rem;
+  }
+  .header-inner {
+    max-width: 1440px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .header-title {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+  .header-title span { color: #60a5fa; }
+  .header-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.2rem;
+  }
+  .header-date {
+    font-size: 0.95rem;
+    color: #94a3b8;
+    font-family: 'Inter', sans-serif;
+  }
+  .header-count {
+    background: #1d4ed8;
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.2rem 0.7rem;
+    border-radius: 999px;
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* CATEGORY BAR */
+  .cat-bar {
+    background: #1e293b;
+    padding: 0.75rem 1.5rem;
+    overflow-x: auto;
+  }
+  .cat-bar-inner {
+    max-width: 1440px;
+    margin: 0 auto;
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+  .cat-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.3rem 0.9rem;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    color: #fff;
+    letter-spacing: 0.03em;
+    white-space: nowrap;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .cat-pill:hover {
+    opacity: 0.85;
+    transform: translateY(-2px);
+  }
+  .cat-pill.model    { background: var(--model); }
+  .cat-pill.research { background: var(--research); }
+  .cat-pill.business { background: var(--business); }
+  .cat-pill.policy   { background: var(--policy); }
+  .cat-pill.tools    { background: var(--tools); }
+
+  /* MAIN */
+  main {
+    max-width: 1440px;
+    margin: 2rem auto;
+    padding: 0 1.5rem;
+  }
+  .section-label {
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* GRID */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+    margin-bottom: 2.5rem;
+  }
+  @media (max-width: 900px) {
+    .grid { grid-template-columns: 1fr; }
+ %}
+
+  /* CARD */
+  .card {
+    background: var(--card-bg);
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    padding: 1.25rem 1.4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    transition: box-shadow 0.2s, transform 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .card:hover {
+    box-shadow: 0 8px 24px rgba(0,0,0,0.09);
+    transform: translateY(-2px);
+  }
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+  }
+  .card.model::before    { background: var(--model); }
+  .card.research::before { background: var(--research); }
+  .card.business::before { background: var(--business); }
+  .card.policy::before   { background: var(--policy); }
+  .card.tools::before    { background: var(--tools); }
+
+  .card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+  .card-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    padding: 0.18rem 0.6rem;
+    border-radius: 4px;
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+  }
+  .card-label.model    { background: var(--model); }
+  .card-label.research { background: var(--research); }
+  .card-label.business { background: var(--business); }
+  .card-label.policy   { background: var(--policy); }
+  .card-label.tools    { background: var(--tools); }
+
+  .stars {
+    display: flex;
+    gap: 2px;
+  }
+  .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: #cbd5e1;
+  }
+  .dot.filled { background: #f59e0b; }
+
+  .card-title-ja {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.45;
+  }
+  .card-title-en {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    font-family: 'Inter', sans-serif;
+    font-style: italic;
+    line-height: 1.4;
+  }
+  .card-source {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .card-source::before {
+    content: '';
+    display: inline-block;
+    width: 4px; height: 4px;
+    background: #94a3b8;
+    border-radius: 50%;
+  }
+  .card-body {
+    font-size: 0.88rem;
+    color: #334155;
+    line-height: 1.7;
+  }
+  .card-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    text-decoration: none;
+    margin-top: auto;
+  }
+  .card-link.model    { color: var(--model); }
+  .card-link.research { color: var(--research); }
+  .card-link.business { color: var(--business); }
+  .card-link.policy   { color: var(--policy); }
+  .card-link.tools    { color: var(--tools); }
+  .card-link:hover { text-decoration: underline; }
+
+  /* FOOTER */
+  footer {
+    background: #1e293b;
+    color: #94a3b8;
+    text-align: center;
+    padding: 1.5rem;
+    font-size: 0.8rem;
+    font-family: 'Inter', sans-serif;
+  }
+  footer strong { color: #e2e8f0; }
+
+  @media (max-width: 640px) {
+    header { padding: 1.25rem 1rem; }
+    main { padding: 0 0.85rem; margin: 1.25rem auto; }
+    .cat-bar { padding: 0.6rem 0.85rem; }
+    .card { padding: 1rem 1.1rem; }
+    .header-title { font-size: 1.25rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="header-title">📰 AI <span>News Digest</span></div>
+    <div class="header-meta">
+      <div class="header-date">2026年04月26日（日）</div>
+      <div class="header-count">30 articles</div>
+    </div>
+  </div>
+</header>
+
+<div class="cat-bar">
+  <div class="cat-bar-inner">
+    <button class="cat-pill model" onclick="document.getElementById('section-model').scrollIntoView({behavior: 'smooth'});">● モデル (6)</button>
+    <button class="cat-pill research" onclick="document.getElementById('section-research').scrollIntoView({behavior: 'smooth'});">● 研究 (5)</button>
+    <button class="cat-pill business" onclick="document.getElementById('section-business').scrollIntoView({behavior: 'smooth'});">● ビジネス (7)</button>
+    <button class="cat-pill policy" onclick="document.getElementById('section-policy').scrollIntoView({behavior: 'smooth'});">● ポリシー (7)</button>
+    <button class="cat-pill tools" onclick="document.getElementById('section-tools').scrollIntoView({behavior: 'smooth'});">● ツール (5)</button>
+  </div>
+</div>
+
+<main>
+
+  <!-- モデル -->
+  <div class="section-label" id="section-model">モデル</div>
+  <div class="grid">
+
+    <article class="card model">
+      <div class="card-top">
+        <span class="card-label model">モデル</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+        </div>
+      </div>
+      <div class="card-title-ja">中国DeepSeek、新型AI「V4」を発表</div>
+      <div class="card-title-en">China's DeepSeek releases long-awaited new AI model</div>
+      <div class="card-source">Japan Today · 2026-04-24</div>
+      <div class="card-body">中国スタートアップのDeepSeekが新型AIモデル「DeepSeek-V4」を発表しました。同社は昨年、米国企業と同等の性能を持つ低コスト推論モデルで世界を驚かせており、今回の新型は100万トークンの超長コンテキストウィンドウを備えています。</div>
+      <a class="card-link model" href="https://japantoday.com/category/tech/china%27s-deepseek-says-releases-long-awaited-new-ai-model" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card model">
+      <div class="card-top">
+        <span class="card-label model">モデル</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+        </div>
+      </div>
+      <div class="card-title-ja">DeepSeekがV4シリーズの大規模言語モデルをオープンソース化</div>
+      <div class="card-title-en">DeepSeek open-sources V4 large language model series</div>
+      <div class="card-source">SiliconANGLE News · 2026-04-24</div>
+      <div class="card-body">中国のAI開発企業DeepSeekが、新しいオープンソースの大規模言語モデルシリーズ「V4」をリリースしました。フラッグシップモデルのV4-Proと、軽量版のV4-Flashの2つのモデルで構成されており、異なるユースケースに対応しています。</div>
+      <a class="card-link model" href="https://siliconangle.com/2026/04/24/deepseek-open-sources-v4-large-language-model-series/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card model">
+      <div class="card-top">
+        <span class="card-label model">モデル</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">中国DeepSeek、AI モデルの大型アップデートをリリース</div>
+      <div class="card-title-en">China's DeepSeek rolls out a long-anticipated update of its AI model</div>
+      <div class="card-source">Boston Herald · 2026-04-24</div>
+      <div class="card-body">中国のAI企業DeepSeekが、長く待たれていたAIモデルのアップデートをリリースしました。このアップデートは、モデルの性能向上や機能拡張を含む重要な改善となっており、AI業界における競争の加熱を示す動きとして注目されています。</div>
+      <a class="card-link model" href="https://www.bostonherald.com/2026/04/24/china-ai-deepseek-update/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card model">
+      <div class="card-top">
+        <span class="card-label model">モデル</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+        </div>
+      </div>
+      <div class="card-title-ja">AI競争激化、OpenAI・DeepSeek・Anthropicが新モデルを発表</div>
+      <div class="card-title-en">AI Arms Race Accelerates With New Models from OpenAI, DeepSeek and Anthropic</div>
+      <div class="card-source">CNET · 2026-04-24</div>
+      <div class="card-body">OpenAIのGPT-5.5、DeepSeekのV4、AnthropicのClaude Opus 4.7など、複数の企業から新たなAIモデルが相次いで発表されました。これらの最新モデルの特性と性能について、主要な情報をまとめています。AI技術開発の競争がさらに加速する状況を示しています。</div>
+      <a class="card-link model" href="https://www.cnet.com/tech/services-and-software/openai-deepseek-anthropic-new-ai-models/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card model">
+      <div class="card-top">
+        <span class="card-label model">モデル</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">OpenAI GPT-5.5とClaude Opus 4.7の性能比較</div>
+      <div class="card-title-en">OpenAI's GPT-5.5 vs Claude Opus 4.7: Which is better?</div>
+      <div class="card-source">Mashable · 2026-04-24</div>
+      <div class="card-body">OpenAIとAnthropicの最新AIモデルを比較したレポートです。ベンチマーク、リーダーボード、機能セットなど複数の観点から両モデルの性能差を分析し、実装の際の選択肢を示すもので、AI技術の進化状況を把握するうえで有用な情報を提供しています。</div>
+      <a class="card-link model" href="https://sea.mashable.com/tech/44766/openais-gpt-55-vs-claude-opus-47-which-is-better" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card model">
+      <div class="card-top">
+        <span class="card-label model">モデル</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+        </div>
+      </div>
+      <div class="card-title-ja">DeepSeek V4、メモリ効率を大幅改善し100万トークン処理に対応</div>
+      <div class="card-title-en">DeepSeek V4 Squeezes Million-Token Context Into 10% of V3.2's Memory, Escalating China's AI Efficiency War With OpenAI</div>
+      <div class="card-source">Wccftech · 2026-04-24</div>
+      <div class="card-body">中国のAI研究機関DeepSeekが最新モデルV4をリリース。V3.2比でメモリ使用量を27%に削減しながら、100万トークンのコンテキスト処理に対応。計算効率の大幅改善により、OpenAIとの競争が加速している。</div>
+      <a class="card-link model" href="https://wccftech.com/deepseek-v4-cuts-kv-cache-by-90-at-1m-tokens-but-aggressive-compression-could-risk-needle-in-a-haystack-failures/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+  </div>
+
+  <!-- 研究 -->
+  <div class="section-label" id="section-research">研究</div>
+  <div class="grid">
+
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+        </div>
+      </div>
+      <div class="card-title-ja">超加工食品が心血管疾患による死亡の4割に関連</div>
+      <div class="card-title-en">Ultraprocessed Foods Linked to 4 in 10 Cardiovascular Deaths and Increased Mortality Risk</div>
+      <div class="card-source">Mercola.com · 2026-04-25</div>
+      <div class="card-body">新しい研究シリーズにより、超加工食品の過剰摂取が心血管疾患による死亡と死亡リスク増加に関連していることが明らかになった。研究チームは読者向けに実用的な健康戦略と新たな研究成果の準備を進めており、食生活改善のための根拠に基づく情報提供を予定している。</div>
+      <a class="card-link research" href="https://articles.mercola.com/sites/articles/archive/2026/04/25/ultraprocessed-foods-cardiovascular-deaths.aspx" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">チャドの気候区分と将来予測：ニューラルネットワークによるデータ駆動型分析</div>
+      <div class="card-title-en">Data-driven climatic zoning and future trend forecasting in Chad using artificial neural networks</div>
+      <div class="card-source">Nature.com · 2026-04-25</div>
+      <div class="card-body">チャドの多様な気候勾配（北部のサハラ砂漠から南部のスーダン湿潤地帯）を人工ニューラルネットワークで分析し、気候区分と将来トレンドを予測する研究。再生可能エネルギーの可能性と気候変動適応戦略の策定に貢献する。</div>
+      <a class="card-link research" href="https://www.nature.com/articles/s41598-026-49381-7" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+        </div>
+      </div>
+      <div class="card-title-ja">ブラジルとポルトガルの学校保健政策と実践の評価研究</div>
+      <div class="card-title-en">Evaluation of School Health Policies and Practices in Brazil and Portugal: Protocol for Mixed Methods Research</div>
+      <div class="card-source">Researchprotocols.org · 2026-04-24</div>
+      <div class="card-body">ブラジルとポルトガルにおける学校保健政策と実践の評価を目的とした混合研究法プロトコル。児童・思春期の健康増進、健康的な学校環境の構築、健康不平等の削減、セクター間の連携強化における学校保健の重要性を検討する。</div>
+      <a class="card-link research" href="https://www.researchprotocols.org/2026/1/e87902" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">ヒューマノイドは人間になることを夢見るか？独自の進化形態へ</div>
+      <div class="card-title-en">Do humanoids dream of becoming human?</div>
+      <div class="card-source">Popular Science · 2026-04-24</div>
+      <div class="card-body">ヒューマノイド技術が急速に進化し、人間に似た独立した生命形態として発展していることについての考察。ロボット工学と人工知能の融合により、ヒューマノイドが従来の人間中心的な設計から離れ、自身の目的や能力に最適化された形態へ進化する可能性を探っている。</div>
+      <a class="card-link research" href="http://www.popsci.com/technology/do-humanoids-dream-of-becoming-human/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">古代タコは恐竜時代に巨大な顎で獲物を捕食していた</div>
+      <div class="card-title-en">'Gigantic' ancient octopus used jaws to crush prey and hunted alongside the dinosaurs 100M years ago: study</div>
+      <div class="card-source">Fox News · 2026-04-24</div>
+      <div class="card-body">北海道大学の研究により、タコの最古の祖先は1億年前の恐竜時代に巨大な捕食者として狩りをしていた可能性が明らかになりました。これらの古代タコは強力な顎を備え、現代のタコとは大きく異なる特徴を持っていたと考えられています。</div>
+      <a class="card-link research" href="https://www.foxnews.com/science/gigantic-ancient-octopus-used-jaws-crush-prey-hunted-dinosaurs-100m-years-ago-study" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+  </div>
+
+  <!-- ビジネス -->
+  <div class="section-label" id="section-business">ビジネス</div>
+  <div class="grid">
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">AI企業CohereとAleph Alphaが合併、6億ドルの資金調達</div>
+      <div class="card-title-en">AI startups Cohere, Aleph Alpha to merge with $600M in new funding</div>
+      <div class="card-source">SiliconANGLE News · 2026-04-25</div>
+      <div class="card-body">AI企業のCohereとAleph Alphaが経営統合することを発表。ドイツ最大の小売業者シュヴァルツグループが6億ドルの資金調達ラウンドをリードする。この合併により、両社の技術・人材が統合され、より強力なAI企業が誕生する見通し。</div>
+      <a class="card-link business" href="https://siliconangle.com/2026/04/24/ai-startups-cohere-aleph-alpha-merge-600m-new-funding/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+        </div>
+      </div>
+      <div class="card-title-ja">GoogleとAmazonが巨額投資、AnthropicがAI業界最注目企業に</div>
+      <div class="card-title-en">$40 Billion from Google. $25 Billion from Amazon. Anthropic is now the most fought-over AI company on Earth</div>
+      <div class="card-source">Livemint · 2026-04-25</div>
+      <div class="card-body">GoogleがAnthropicに最大40億ドルの投資を約束し、その数日後にAmazonが25億ドルの投資を発表。これにより、Claude開発企業のAnthropicがAI業界で最も獲得競争の激しいスタートアップとなった。</div>
+      <a class="card-link business" href="https://www.livemint.com/companies/news/40-billion-from-google-25-billion-from-amazon-anthropic-is-now-the-most-fought-over-ai-company-on-earth-11777076260150.html" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+        </div>
+      </div>
+      <div class="card-title-ja">GoogleがAI企業Anthropicに400億ドルを投資へ</div>
+      <div class="card-title-en">Anthropic says Google to pump $40 bil into AI startup</div>
+      <div class="card-source">Japan Today · 2026-04-24</div>
+      <div class="card-body">GoogleはAI企業Anthropicへ最大400億ドルの投資を計画していることが確認されました。この投資は両社の長年のパートナーシップを拡大するもので、AnthropicはGoogleのカスタムチップを活用する契約を含みます。大規模な資金投下により、AI開発における競争力強化が期待されます。</div>
+      <a class="card-link business" href="https://japantoday.com/category/tech/anthropic-says-google-to-pump-40-bn-into-ai-startup" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Nvidia株が過去最高値を更新、時価総額が5兆ドルを突破</div>
+      <div class="card-title-en">Nvidia stock closes at record, pushing market cap past $5 trillion</div>
+      <div class="card-source">CNBC · 2026-04-24</div>
+      <div class="card-body">Nvidiaの株価が10月以来の過去最高値を更新し、時価総額が5兆ドルを超えました。Intelの買い値上げがきっかけとなり、半導体セクター全体が上昇トレンドに入っています。AI関連需要の継続的な拡大がこの成長を支えています。</div>
+      <a class="card-link business" href="https://www.cnbc.com/2026/04/24/nvidia-stock-closes-at-record-pushing-market-cap-past-5-trillion.html" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot "></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">クラブの新ユニフォーム発表ラッシュ、レトロデザインが流行</div>
+      <div class="card-title-en">Kit launch round-up: clubs go back in time with new shirts</div>
+      <div class="card-source">Onefootball.com · 2026-04-24</div>
+      <div class="card-body">複数のサッカークラブが新シーズンのユニフォームを発表し、レトログデザインを採用する傾向が見られている。OneFootballが最新のキット発表情報をまとめ、各クラブの新デザインのハイライトを紹介している。過去のデザインにインスパイアされた大胆なビジュアルが特徴。</div>
+      <a class="card-link business" href="https://onefootball.com/en/news/kit-launch-round-up-clubs-go-back-in-time-with-new-shirts-42763405" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+        </div>
+      </div>
+      <div class="card-title-ja">GoogleがAI企業Anthropicへ400億ドルの投資を計画</div>
+      <div class="card-title-en">Anthropic says Google to pump $40 bn into AI startup</div>
+      <div class="card-source">Digital Journal · 2026-04-24</div>
+      <div class="card-body">GoogleはAI企業Anthropicへ最大400億ドルの投資を計画していることが明らかになった。この投資は両社の長期的なパートナーシップを拡大するもので、AnthropicはGoogleのカスタムチップを使用する契約も含まれている。大規模な資金流入により、AI業界における競争の激化が予想される。</div>
+      <a class="card-link business" href="https://www.digitaljournal.com/business/anthropic-says-google-to-pump-40-bn-into-ai-startup/article" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">AI美術館「DATALAND」がロサンゼルスにオープン予定</div>
+      <div class="card-title-en">Refik Anadol's AI Art Museum DATALAND Will Open in Los Angeles in June</div>
+      <div class="card-source">ARTnews · 2026-04-24</div>
+      <div class="card-body">デジタルアート先駆者のRefik Anadolと共同創設者Efsun Erkılıçにより、ロサンゼルス市街地にAI美術に特化した新しい美術館「DATALAND」がオープンします。AI生成アートの展示・普及を目的とした商業施設であり、デジタルアートの新しいトレンドを象徴する事例です。</div>
+      <a class="card-link business" href="https://www.artnews.com/art-news/news/refik-anadol-ai-art-museum-dataland-open-los-angeles-june-1234782560/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+  </div>
+
+  <!-- ポリシー -->
+  <div class="section-label" id="section-policy">ポリシー</div>
+  <div class="grid">
+
+    <article class="card policy">
+      <div class="card-top">
+        <span class="card-label policy">ポリシー</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+        </div>
+      </div>
+      <div class="card-title-ja">米国、中国のAI模倣疑惑で同盟国に警告</div>
+      <div class="card-title-en">US orders global warning over alleged AI theft by DeepSeek and Chinese firms</div>
+      <div class="card-source">The Indian Express · 2026-04-25</div>
+      <div class="card-body">米国が同盟国に対し、中国によるAIモデル複製の試みに対処するよう促している。DeepSeekなどの中国企業が米国のAIモデルを盗用している疑いが指摘され、トランプ大統領と習近平主席の会談を控えて米中間の緊張が高まっている。</div>
+      <a class="card-link policy" href="https://indianexpress.com/article/technology/artificial-intelligence/us-orders-global-warning-over-alleged-ai-theft-by-deepseek-and-chinese-firms-10654753/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card policy">
+      <div class="card-top">
+        <span class="card-label policy">ポリシー</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+        </div>
+      </div>
+      <div class="card-title-ja">米国務省、中国AI企業による知財盗用で全世界に警告</div>
+      <div class="card-title-en">US State Dept orders global warning about alleged AI thefts by DeepSeek, other Chinese firms</div>
+      <div class="card-source">The Times of India · 2026-04-25</div>
+      <div class="card-body">米国務省が外交公電を通じ、DeepSeekを含む中国企業による米国のAIモデルの知的財産盗用に対する懸念を全世界に警告。中国企業による米国AI技術の抽出と蒸留の脅威に対する国際的な対抗の必要性を強調している。</div>
+      <a class="card-link policy" href="https://economictimes.indiatimes.com/tech/artificial-intelligence/us-state-dept-orders-global-warning-about-alleged-ai-thefts-by-deepseek-other-chinese-firms/articleshow/130506577.cms" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card policy">
+      <div class="card-top">
+        <span class="card-label policy">ポリシー</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Anthropic、Claude Mythosの公開前にインドを含む各国政府と協議</div>
+      <div class="card-title-en">Before Mythos goes public, Indian IT also wants access</div>
+      <div class="card-source">The Times of India · 2026-04-25</div>
+      <div class="card-body">AI企業Anthropicが強力なClaude MythosモデルのAIの公開前に、インドを含む世界各国の政府と重要インフラの保護について協議を進めている。同モデルが重大な脆弱性を露呈する可能性があるため、各国政府が事前アクセスを求めており、AIの安全保障とガバナンスに関する国際的な政策課題が浮上している。</div>
+      <a class="card-link policy" href="https://economictimes.indiatimes.com/tech/information-tech/before-mythos-goes-public-indian-it-also-wants-access/articleshow/130502490.cms" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card policy">
+      <div class="card-top">
+        <span class="card-label policy">ポリシー</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+        </div>
+      </div>
+      <div class="card-title-ja">AI時代の教育改革：単なる文章生産を超えた学習の本質</div>
+      <div class="card-title-en">Education must go beyond the mere production of words</div>
+      <div class="card-source">National Catholic Register · 2026-04-25</div>
+      <div class="card-body">AI技術が高度に発展し、テキスト生成が容易になった現代において、教育の役割と目的の再考が急務である。本記事は、単なる文章作成能力に留まらない、真正な教育の必要性を論じており、学習目標や評価方法の根本的な改革を示唆している。知識社会での人間の価値創造能力育成に向けた政策的議論を提起している。</div>
+      <a class="card-link policy" href="https://www.ncregister.com/commentaries/schnell-repairing-the-ruins" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card policy">
+      <div class="card-top">
+        <span class="card-label policy">ポリシー</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+        </div>
+      </div>
+      <div class="card-title-ja">データプライバシーと半導体輸出規制に関する議会法案が相次ぎ提出</div>
+      <div class="card-title-en">Tech bills of the week: Creating data privacy standards; Securing critical infrastructure from drones; and more</div>
+      <div class="card-source">Nextgov · 2026-04-24</div>
+      <div class="card-body">米国議会議員らがデータプライバシー基準の制定、データセンターのエネルギー需要とコスト相殺、中国への先端半導体販売規制に関するガイドラインの確立など、複数の技術関連法案を提出した。</div>
+      <a class="card-link policy" href="https://www.nextgov.com/policy/2026/04/tech-bills-week-creating-data-privacy-standards-securing-critical-infrastructure-drones-and-more/413117/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card policy">
+      <div class="card-top">
+        <span class="card-label policy">ポリシー</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+        </div>
+      </div>
+      <div class="card-title-ja">銀行は判断をアルゴリズムに委譲できない</div>
+      <div class="card-title-en">Banks Can't Outsource Judgment to Algorithms</div>
+      <div class="card-source">pymnts.com · 2026-04-24</div>
+      <div class="card-body">銀行や小売業者における自動化された顧客対応の増加に伴い、規制当局の監督期待も変化している。コンプライアンスは単なる一時的な評価ではなく、金融運用の中心に継続的な監視を置くことが求められており、人間による判断の重要性が強調されている。</div>
+      <a class="card-link policy" href="https://www.pymnts.com/bank-regulation/2026/banks-cant-outsource-judgment-to-algorithms/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card policy">
+      <div class="card-top">
+        <span class="card-label policy">ポリシー</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Claude、米国中間選挙に向けて政治的中立性の安全策を導入</div>
+      <div class="card-title-en">Anthropic Rolls Out Election Safeguards for Claude AI Ahead of US Midterms</div>
+      <div class="card-source">Decrypt · 2026-04-24</div>
+      <div class="card-body">AI企業Anthropicが、2026年米国中間選挙を控えて、最新のClaudeモデルが政治的中立性テストで95-96%の成績を達成したことを発表。AIの選挙関連コンテンツにおける公平性と信頼性確保に向けた重要な取り組み。</div>
+      <a class="card-link policy" href="https://decrypt.co/365486/anthropic-election-safeguards-claude-ai-us-midterms" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+  </div>
+
+  <!-- ツール -->
+  <div class="section-label" id="section-tools">ツール</div>
+  <div class="grid">
+
+    <article class="card tools">
+      <div class="card-top">
+        <span class="card-label tools">ツール</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">RTX 3070でローカルFIXプロトコル分類エージェントを構築</div>
+      <div class="card-title-en">Building a local FIX protocol triage agent on an RTX 3070</div>
+      <div class="card-source">Substack.com · 2026-04-25</div>
+      <div class="card-body">FIXプロトコル（金融情報交換プロトコル）を処理するローカルAIエージェントの構築方法を紹介。RTX 3070 GPUを使用してオンプレミスで動作させ、金融取引メッセージの分類・処理を効率化する技術的な実装ガイド。</div>
+      <a class="card-link tools" href="https://domgalati.substack.com/p/the-fix-triage-agent-building-a-local" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card tools">
+      <div class="card-top">
+        <span class="card-label tools">ツール</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Performance Lab：研究実績のある栄養補助食品の調査と検証</div>
+      <div class="card-title-en">Performance Lab Under Investigation: Premium-Grade Nutritional Supplements with Research-Backed Ingredients That Work</div>
+      <div class="card-source">GlobeNewswire · 2026-04-24</div>
+      <div class="card-body">Performance Labは、NutriGenesis®テクノロジーとMind Lab Pro®研究に基づく栄養補助食品について調査を受けています。クリーンラベル基準と第三者検査を実施し、科学的根拠に基づいた成分配合と品質管理を標準としています。2026年の製品概要と価格設定について検証されています。</div>
+      <a class="card-link tools" href="https://www.globenewswire.com/news-release/2026/04/24/3281101/0/en/Performance-Lab-Under-Investigation-Premium-Grade-Nutritional-Supplements-with-Research-Backed-Ingredients-That-Work.html" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card tools">
+      <div class="card-top">
+        <span class="card-label tools">ツール</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">LGテレビの画質を大幅に改善する4つの設定変更</div>
+      <div class="card-title-en">4 settings I changed to make my LG TV look way better</div>
+      <div class="card-source">XDA Developers · 2026-04-24</div>
+      <div class="card-body">LGテレビのパネル性能を最大限に引き出すための設定調整方法を紹介する記事。画質向上に効果的な4つの設定項目の変更手順について解説しており、テレビユーザーが実践的に活用できる設定ガイドです。</div>
+      <a class="card-link tools" href="https://www.xda-developers.com/4-settings-i-changed-to-make-my-lg-tv-look-way-better/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card tools">
+      <div class="card-top">
+        <span class="card-label tools">ツール</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot "></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">AIと人間のユーモア：機械時代のジョークとダジャレ集</div>
+      <div class="card-title-en">60 Funniest AI Jokes and Puns That the Machines Are Still Allowing Us to Share (For Now)</div>
+      <div class="card-source">Reader's Digest · 2026-04-24</div>
+      <div class="card-body">AI技術の発展に伴い、人間とAIの関係をテーマにしたジョークやダジャレが人気を集めています。このコンテンツは、AIに対する人間のユーモアセンスを示しながら、テクノロジー時代における笑いの価値を強調しています。エンターテインメント向けのコンテンツで、技術と文化の融合を反映しています。</div>
+      <a class="card-link tools" href="https://www.rd.com/article/ai-jokes/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card tools">
+      <div class="card-top">
+        <span class="card-label tools">ツール</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">AIを活用した保険見積もりプロセスの革新</div>
+      <div class="card-title-en">Insurance Quoting Enters the AI Conversation Layer</div>
+      <div class="card-source">pymnts.com · 2026-04-24</div>
+      <div class="card-body">Simply Businessが、中小企業向け保険の見積もりプロセスを3つのデータポイントに圧縮し、従来は複数のタッチポイントで長時間かかっていた手続きをAI会話レイヤーを通じて大幅に簡素化。顧客体験と業務効率の向上を実現するツールの活用事例。</div>
+      <a class="card-link tools" href="https://www.pymnts.com/artificial-intelligence-2/2026/insurance-quoting-enters-the-ai-conversation-layer/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+  </div>
+
+
+</main>
+
+<footer>
+  <strong>AI News Digest</strong> — 2026年4月13日（月）自動生成 | 12記事収録<br>
+  <span style="font-size:0.72rem; margin-top:0.3rem; display:block;">Model: 2 · Research: 5 · Business: 4 · Policy: 1</span>
+</footer>
+
+</body>
+</html>
