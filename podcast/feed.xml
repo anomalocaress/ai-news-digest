@@ -14,19 +14,17 @@
     <itunes:explicit>false</itunes:explicit>
     <item>
       <title>AIニュースダイジェスト - 2026年04月26日（日）</title>
-      <description>おはようございます。AIニュースダイジェストのホストです。2026年4月26日、日曜日のAIニュースをお届けします。
+      <description>こんにちは。「AIニュースダイジェスト」のホストです。
 
-今週も世界中でAIに関するビッグニュースが飛び込んでいます。地政学的な緊張から、企業の大型投資、そして教育改革まで、多角的な視点からお送りしていきますね。
+4月26日・日曜日のAIニュースを、今日も皆さんにお届けしていきます。この1週間も、AI業界では大きな動きが続いているんですね。さっそく今日のトップニュースから見ていきましょう。
 
-それでは、今週の主要ニュースをピックアップしていきましょう。
+まず目玉となるのが、GoogleとAmazonによるAnthropic投資の大型ニュースです。Googleが最大40億ドル、Amazonが25億ドルの投資を発表しており、合わせて65億ドルという巨額の資金が集まることになりました。Claude という生成AIモデルで知られるAnthropicは、OpenAIやMicrosoftの勢いに対抗するための、テック大手による争奪戦の真っただ中にあるというわけです。これはもう、AI業界全体の勢力図が大きく変わろうとしている兆候と言えるでしょう。
 
-まず注目すべきは、米国と中国の技術覇権をめぐるAI知的財産戦争です。米国務省が外交公電を通じて、中国のAI企業による米国モデルの窃取・模造に関する懸念を世界に警告しました。特にDeepSeekを名指しで指摘しており、トランプ前大統領とXi主席の会談を控える中での発表です。これはね、単なるビジネス競争ではなく、国家レベルの安全保障問題として浮上しているわけです。
-
-一方で、欧米のAI企業による投資競争も熱を帯びています。GoogleとAmazonが相次いでAI企業Anthropicに巨額の投資を発表しました。Googleからは最大400億ドル、Amazonからは250億ドル、合計650億ドルという驚くべき規模です。Claude開発企業のAnthropi...</description>
+こうした投資の加速は、別のニュースにも表れています。AI企業のCohereとAleph Alphaという2つの企業が経営統合を発表し、ドイツ最大手の小売企業シュヴァルツグループが主導する資金調達で6億ドルを調達することになりました。両社の技術力を結集させて市場競争に臨...</description>
       <pubDate>Sun, 26 Apr 2026 21:00:00 +0000</pubDate>
-      <enclosure url="https://anomalocaress.github.io/ai-news-digest/podcast/ai-news-2026-04-26.mp3" type="audio/mpeg" length="1676544"/>
+      <enclosure url="https://anomalocaress.github.io/ai-news-digest/podcast/ai-news-2026-04-26.mp3" type="audio/mpeg" length="1802496"/>
       <guid isPermaLink="true">https://anomalocaress.github.io/ai-news-digest/podcast/ai-news-2026-04-26.mp3</guid>
-      <itunes:duration>1:44</itunes:duration>
+      <itunes:duration>1:52</itunes:duration>
     </item>
     <item>
       <title>AIニュースダイジェスト - 2026年04月22日（水）</title>
