@@ -8,13 +8,15 @@ from pathlib import Path
 from typing import List, Dict, Optional
 import subprocess
 import requests
-from jinja2 import Environment, FileSystemLoader
-from dotenv import load_dotenv
 from anthropic import Anthropic
 from api_cost_calculator import record_anthropic_usage
 
-# Load environment variables
-load_dotenv()
+# Load environment variables (optional)
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except:
+    pass
 
 NEWS_API_KEY = os.getenv("NEWS_API_KEY")
 CLAUDE_API_KEY = os.getenv("CLAUDE_API_KEY") or os.getenv("ANTHROPIC_API_KEY")
@@ -453,43 +455,49 @@ def build_email_html(categorized: Dict[str, List[Dict]], date: datetime, include
     except:
         use_recommendations = False
 
-    email_html = f"""<!DOCTYPE html>"""
+    email_html = (
+        """<!DOCTYPE html>
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
 <style>
-  body {{ font-family: 'Hiragino Sans', 'Helvetica Neue', sans-serif; max-width: 600px; margin: 0; padding: 20px; background: #f5f5f5; }}
-  .container {{ background: white; border-radius: 8px; padding: 30px; }}
-  .header {{ background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: #60a5fa; padding: 20px; border-radius: 8px; margin-bottom: 30px; text-align: center; }}
-  .header h1 {{ margin: 0; font-size: 24px; }}
-  .header p {{ margin: 5px 0 0 0; font-size: 12px; color: #94a3b8; }}
-  .section {{ margin-bottom: 30px; }}
-  .section-title {{ font-size: 16px; font-weight: bold; color: #1e293b; margin-bottom: 15px; padding-bottom: 8px; border-bottom: 2px solid #e2e8f0; }}
-  .article {{ margin-bottom: 15px; padding: 12px; background: #f8fafc; border-left: 3px solid #60a5fa; border-radius: 4px; }}
-  .article-title {{ font-weight: bold; color: #1e293b; margin-bottom: 5px; font-size: 14px; }}
-  .article-summary {{ font-size: 13px; color: #475569; line-height: 1.5; margin-bottom: 5px; }}
-  .article-source {{ font-size: 11px; color: #64748b; }}
-  .footer {{ text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid #e2e8f0; color: #64748b; font-size: 12px; }}
-  .podcast-box {{ background: #f0f4f8; padding: 15px; border-radius: 8px; margin-bottom: 20px; }}
-  .podcast-box h3 {{ margin: 0 0 10px 0; color: #1e293b; font-size: 14px; }}
-  .podcast-box a {{ color: #60a5fa; text-decoration: none; font-size: 12px; }}
-  .category-model {{ border-left-color: #1d4ed8; }}
-  .category-research {{ border-left-color: #6d28d9; }}
-  .category-business {{ border-left-color: #065f46; }}
-  .category-policy {{ border-left-color: #92400e; }}
-  .category-tools {{ border-left-color: #0e7490; }}
+  body { font-family: 'Hiragino Sans', 'Helvetica Neue', sans-serif; max-width: 600px; margin: 0; padding: 20px; background: #f5f5f5; }
+  .container { background: white; border-radius: 8px; padding: 30px; }
+  .header { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: #60a5fa; padding: 20px; border-radius: 8px; margin-bottom: 30px; text-align: center; }
+  .header h1 { margin: 0; font-size: 24px; }
+  .header p { margin: 5px 0 0 0; font-size: 12px; color: #94a3b8; }
+  .section { margin-bottom: 30px; }
+  .section-title { font-size: 16px; font-weight: bold; color: #1e293b; margin-bottom: 15px; padding-bottom: 8px; border-bottom: 2px solid #e2e8f0; }
+  .article { margin-bottom: 15px; padding: 12px; background: #f8fafc; border-left: 3px solid #60a5fa; border-radius: 4px; }
+  .article-title { font-weight: bold; color: #1e293b; margin-bottom: 5px; font-size: 14px; }
+  .article-summary { font-size: 13px; color: #475569; line-height: 1.5; margin-bottom: 5px; }
+  .article-source { font-size: 11px; color: #64748b; }
+  .footer { text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid #e2e8f0; color: #64748b; font-size: 12px; }
+  .podcast-box { background: #f0f4f8; padding: 15px; border-radius: 8px; margin-bottom: 20px; }
+  .podcast-box h3 { margin: 0 0 10px 0; color: #1e293b; font-size: 14px; }
+  .podcast-box a { color: #60a5fa; text-decoration: none; font-size: 12px; }
+  .category-model { border-left-color: #1d4ed8; }
+  .category-research { border-left-color: #6d28d9; }
+  .category-business { border-left-color: #065f46; }
+  .category-policy { border-left-color: #92400e; }
+  .category-tools { border-left-color: #0e7490; }
 </style>
 </head>
 <body>
 <div class="container">
   <div class="header">
     <h1>📰 AI News Digest</h1>
-    <p>{date_str}（{weekday}）</p>
+    <p>"""
+        + date_str
+        + """（"""
+        + weekday
+        + """）</p>
   </div>
 
   <p>おはようございます！</p>
   <p>本日のAI News Digestをお届けします。30件のAIニュースから厳選した最新情報です。</p>
 """
+    )
 
     # Add articles by category
     category_colors = {
