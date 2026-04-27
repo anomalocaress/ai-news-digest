@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI News Digest — 2026-04-27</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --model: #1d4ed8;
+    --research: #6d28d9;
+    --business: #065f46;
+    --policy: #92400e;
+    --tools: #0e7490;
+    --bg: #f8fafc;
+    --card-bg: #ffffff;
+    --text: #1e293b;
+    --text-muted: #64748b;
+    --border: #e2e8f0;
+  }
+  body {
+    font-family: 'Noto Sans JP', 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  header {
+    background: #0f172a;
+    color: #fff;
+    padding: 2rem 1.5rem;
+  }
+  .header-inner {
+    max-width: 1440px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .header-title {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+  .header-title span { color: #60a5fa; }
+  .header-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.2rem;
+  }
+  .header-date {
+    font-size: 0.95rem;
+    color: #94a3b8;
+    font-family: 'Inter', sans-serif;
+  }
+  .header-count {
+    background: #1d4ed8;
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.2rem 0.7rem;
+    border-radius: 999px;
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* CATEGORY BAR */
+  .cat-bar {
+    background: #1e293b;
+    padding: 0.75rem 1.5rem;
+    overflow-x: auto;
+  }
+  .cat-bar-inner {
+    max-width: 1440px;
+    margin: 0 auto;
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+  .cat-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.3rem 0.9rem;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    color: #fff;
+    letter-spacing: 0.03em;
+    white-space: nowrap;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .cat-pill:hover {
+    opacity: 0.85;
+    transform: translateY(-2px);
+  }
+  .cat-pill.model    { background: var(--model); }
+  .cat-pill.research { background: var(--research); }
+  .cat-pill.business { background: var(--business); }
+  .cat-pill.policy   { background: var(--policy); }
+  .cat-pill.tools    { background: var(--tools); }
+
+  /* MAIN */
+  main {
+    max-width: 1440px;
+    margin: 2rem auto;
+    padding: 0 1.5rem;
+  }
+  .section-label {
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* GRID */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+    margin-bottom: 2.5rem;
+  }
+  @media (max-width: 900px) {
+    .grid { grid-template-columns: 1fr; }
+ %}
+
+  /* CARD */
+  .card {
+    background: var(--card-bg);
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    padding: 1.25rem 1.4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    transition: box-shadow 0.2s, transform 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .card:hover {
+    box-shadow: 0 8px 24px rgba(0,0,0,0.09);
+    transform: translateY(-2px);
+  }
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+  }
+  .card.model::before    { background: var(--model); }
+  .card.research::before { background: var(--research); }
+  .card.business::before { background: var(--business); }
+  .card.policy::before   { background: var(--policy); }
+  .card.tools::before    { background: var(--tools); }
+
+  .card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+  .card-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    padding: 0.18rem 0.6rem;
+    border-radius: 4px;
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+  }
+  .card-label.model    { background: var(--model); }
+  .card-label.research { background: var(--research); }
+  .card-label.business { background: var(--business); }
+  .card-label.policy   { background: var(--policy); }
+  .card-label.tools    { background: var(--tools); }
+
+  .stars {
+    display: flex;
+    gap: 2px;
+  }
+  .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: #cbd5e1;
+  }
+  .dot.filled { background: #f59e0b; }
+
+  .card-title-ja {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.45;
+  }
+  .card-title-en {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    font-family: 'Inter', sans-serif;
+    font-style: italic;
+    line-height: 1.4;
+  }
+  .card-source {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .card-source::before {
+    content: '';
+    display: inline-block;
+    width: 4px; height: 4px;
+    background: #94a3b8;
+    border-radius: 50%;
+  }
+  .card-body {
+    font-size: 0.88rem;
+    color: #334155;
+    line-height: 1.7;
+  }
+  .card-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    text-decoration: none;
+    margin-top: auto;
+  }
+  .card-link.model    { color: var(--model); }
+  .card-link.research { color: var(--research); }
+  .card-link.business { color: var(--business); }
+  .card-link.policy   { color: var(--policy); }
+  .card-link.tools    { color: var(--tools); }
+  .card-link:hover { text-decoration: underline; }
+
+  /* FOOTER */
+  footer {
+    background: #1e293b;
+    color: #94a3b8;
+    text-align: center;
+    padding: 1.5rem;
+    font-size: 0.8rem;
+    font-family: 'Inter', sans-serif;
+  }
+  footer strong { color: #e2e8f0; }
+
+  @media (max-width: 640px) {
+    header { padding: 1.25rem 1rem; }
+    main { padding: 0 0.85rem; margin: 1.25rem auto; }
+    .cat-bar { padding: 0.6rem 0.85rem; }
+    .card { padding: 1rem 1.1rem; }
+    .header-title { font-size: 1.25rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="header-title">📰 AI <span>News Digest</span></div>
+    <div class="header-meta">
+      <div class="header-date">2026年04月27日（月）</div>
+      <div class="header-count">30 articles</div>
+    </div>
+  </div>
+</header>
+
+<div class="cat-bar">
+  <div class="cat-bar-inner">
+    <button class="cat-pill model" onclick="document.getElementById('section-model').scrollIntoView({behavior: 'smooth'});">● モデル (1)</button>
+    <button class="cat-pill research" onclick="document.getElementById('section-research').scrollIntoView({behavior: 'smooth'});">● 研究 (3)</button>
+    <button class="cat-pill business" onclick="document.getElementById('section-business').scrollIntoView({behavior: 'smooth'});">● ビジネス (14)</button>
+    <button class="cat-pill policy" onclick="document.getElementById('section-policy').scrollIntoView({behavior: 'smooth'});">● ポリシー (9)</button>
+    <button class="cat-pill tools" onclick="document.getElementById('section-tools').scrollIntoView({behavior: 'smooth'});">● ツール (3)</button>
+  </div>
+</div>
+
+<main>
+
+  <!-- モデル -->
+  <div class="section-label" id="section-model">モデル</div>
+  <div class="grid">
+
+    <article class="card model">
+      <div class="card-top">
+        <span class="card-label model">モデル</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">ChatGPT 5.5の新機能と実装　生産性向上とワークフロー改善</div>
+      <div class="card-title-en">ChatGPT 5.5 Tested : Here is What It Can Actually Do Now</div>
+      <div class="card-source">Geeky Gadgets · 2026-04-26</div>
+      <div class="card-body">ChatGPT 5.5がリリースされ、生産性向上と複雑なワークフロー対応を目指した更新を実装。高度なコーディングやインタラクティブダッシュボード作成など、実際の機能と性能についてSkill Leap AIが詳細に解説している。</div>
+      <a class="card-link model" href="https://www.geeky-gadgets.com/chatgpt-5-5-hands-on-review/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+  </div>
+
+  <!-- 研究 -->
+  <div class="section-label" id="section-research">研究</div>
+  <div class="grid">
+
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">AI進化80年の歴史から見る画像生成技術の発展</div>
+      <div class="card-title-en">AI State of the Union: Image Generation Edition</div>
+      <div class="card-source">Bradenkelley.com · 2026-04-26</div>
+      <div class="card-body">過去80年以上のAI技術進化を振り返り、特に画像生成技術の発展に焦点を当てた分析記事。著者は長期にわたるAI技術の変遷を観察し、その進化の過程と現在の状況について詳しく解説している。</div>
+      <a class="card-link research" href="https://bradenkelley.com/2026/04/ai-state-of-the-union/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+        </div>
+      </div>
+      <div class="card-title-ja">光で動く微小な『筋肉』の開発に成功</div>
+      <div class="card-title-en">Light makes microscopic 'muscle' flex on command</div>
+      <div class="card-source">Futurity: Research News · 2026-04-26</div>
+      <div class="card-body">研究者が光により制御可能な微小な筋肉構造の開発に成功しました。この技術は人工細胞を創製し、体内の不健康な部位に薬剤を送達するという重要な課題の解決に向けた進展です。生体医工学分野における革新的なアプローチとなる可能性があります。</div>
+      <a class="card-link research" href="https://www.futurity.org/light-microscopic-muscle-synthetic-cells-drug-delivery-3331112/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">JPモルガン、インド株を中立評価に引き下げ、AI関連アジア技術にシフト</div>
+      <div class="card-title-en">JP Morgan downgrades India equities to 'Neutral', bets on Asia tech amid AI-led shift</div>
+      <div class="card-source">BusinessLine · 2026-04-26</div>
+      <div class="card-body">JPモルガンがインド株式をニュートラル評価に引き下げました。同行は継続的なインフレリスクと成長鈍化の懸念から、投資戦略をAI主導のアジア技術セクターへシフトさせています。マクロ経済環境の変化に対応した戦略的な転換です。</div>
+      <a class="card-link research" href="https://www.thehindubusinessline.com/markets/jp-morgan-downgrades-india-equities-to-neutral-bets-on-asia-tech-amid-ai-led-shift/article70907795.ece" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+  </div>
+
+  <!-- ビジネス -->
+  <div class="section-label" id="section-business">ビジネス</div>
+  <div class="grid">
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Cadence Design Systems（CDNS）の投資価値分析</div>
+      <div class="card-title-en">Is Cadence Design Systems, Inc. (CDNS) A Good Stock To Buy Now?</div>
+      <div class="card-source">Yahoo Entertainment · 2026-04-26</div>
+      <div class="card-body">Cadence Design Systemsの株式購入について、MMMT Wealthによる強気の投資論文を紹介する記事。同社の事業展開、市場ポジション、投資見通しなどの観点から株式の購入価値を分析し、投資家向けの買い推奨論拠を提示しています。</div>
+      <a class="card-link business" href="https://finance.yahoo.com/markets/stocks/articles/cadence-design-systems-inc-cdns-215308247.html" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">UK技術業界の影響力ある人物50人を募集</div>
+      <div class="card-title-en">UKtech50 2026 – help us find the most influential people in UK IT</div>
+      <div class="card-source">ComputerWeekly.com · 2026-04-26</div>
+      <div class="card-body">Computer Weeklyが毎年実施する英国IT業界の最も影響力のある人物50人を選出するプロジェクト。2026年版の候補者推薦を開始し、読者から業界のリーダーや革新者の推薦を募集している。</div>
+      <a class="card-link business" href="https://www.computerweekly.com/news/366642313/UKtech50-2026-help-us-find-the-most-influential-people-in-UK-IT" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Jim Cramer氏がServiceNowを分析：市場環境の変化で買い手が売り手に転換</div>
+      <div class="card-title-en">Jim Cramer on ServiceNow: "The Market's Changed, the Buyers Turned Into Sellers"</div>
+      <div class="card-source">Yahoo Entertainment · 2026-04-26</div>
+      <div class="card-body">著名投資家Jim Cramer氏が、ServiceNow Inc.の株式について市場動向を分析。投資家にポートフォリオのバランス調整を勧める中で、市場環境の変化により投資家の売買姿勢が転換していることを指摘。企業の業績変化と市場心理の関係性について言及している。</div>
+      <a class="card-link business" href="https://finance.yahoo.com/markets/stocks/articles/jim-cramer-servicenow-market-changed-151909462.html" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">AIのコスト戦略：「トークン最大化」だけでは不十分</div>
+      <div class="card-title-en">Tokenmaxxing isn't an AI strategy</div>
+      <div class="card-source">Theregister.com · 2026-04-26</div>
+      <div class="card-body">本記事はAIのコスト問題を検討する重要な考察です。AIの価格設定は企業の運命と社会を左右する重要な問題である一方で、単なるトークン数の最大化戦略では不十分であることを主張しています。AIシステムの実装に際しては、実際の価値提供と費用対効果のバランスを慎重に検討する必要があることを指摘しています。</div>
+      <a class="card-link business" href="https://www.theregister.com/2026/04/26/ai_price_tag/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">テスラ、サイバーキャブ生産開始へ 株価は実行力次第</div>
+      <div class="card-title-en">Better Later Than Never? Tesla Stock Hangs in the Crosshairs as Cybercab Finally Enters Production</div>
+      <div class="card-source">Barchart.com · 2026-04-26</div>
+      <div class="card-body">テスラのサイバーキャブがついに生産段階に移行する中、同社の株価は実行力に注視されている。Q1の混合的な業績を背景に、自動運転技術の実現可能性がまだ不透明だが、このプロジェクトの成功がテスラの今後の事業展開の鍵となる。</div>
+      <a class="card-link business" href="https://www.barchart.com/story/news/1524605/better-later-than-never-tesla-stock-hangs-in-the-crosshairs-as-cybercab-finally-enters-production" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">イーロン・マスク、人生哲学は「好奇心と冒険」と明言</div>
+      <div class="card-title-en">Elon Musk Reveals Simple 3-Word Philosophy 'Curiosity & Adventure' in Viral X Post</div>
+      <div class="card-source">Ibtimes.com.au · 2026-04-26</div>
+      <div class="card-body">テスラ、SpaceX、xAIのCEOであるイーロン・マスクが、自身の人生哲学を「好奇心と冒険」という3語で要約する投稿に対して肯定を示した。彼の経営姿勢や事業展開の根底にある思想を象徴するコメントとして注目を集めている。</div>
+      <a class="card-link business" href="https://www.ibtimes.com.au/video-elon-musk-reveals-simple-3-word-philosophy-curiosity-adventure-viral-x-post-1867533" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">PS6は2027～2029年発売か、スペック情報やハンドヘルド計画が流出</div>
+      <div class="card-title-en">PS6 Rumors Explode: 2027-2029 Launch, Massive Specs and Handheld Plans Leak</div>
+      <div class="card-source">Ibtimes.com.au · 2026-04-26</div>
+      <div class="card-body">ソニーがPlayStation 5とPS5 Pro の好調な売上を継続する中、PlayStation 6に関する新たなリークと業界分析が増加。複数の情報筋が2027年後半から2029年までの発売予想とともに、大幅なスペック向上やハンドヘルドデバイス計画の可能性を指摘している。</div>
+      <a class="card-link business" href="https://www.ibtimes.com.au/ps6-rumors-explode-2027-2029-launch-massive-specs-handheld-plans-leak-1867531" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">AI時代のデザイン職の未来：投資家と業界の見解の相違</div>
+      <div class="card-title-en">AI will kill design jobs, says Figma investor Gokul Rajaram; industry vigorously disagrees</div>
+      <div class="card-source">The Times of India · 2026-04-26</div>
+      <div class="card-body">Figmaの投資家であるGokul Rajaram氏がAIがデザイン職を廃止すると主張している一方で、デザイン業界は激しく異議を唱えています。GoogleのAdSense構築で知られるRajaram氏の発言に対して、業界関係者からは異なる見解が示されており、AI時代におけるデザイン職の役割と将来性についての議論が活発化しています。</div>
+      <a class="card-link business" href="https://economictimes.indiatimes.com/tech/technology/ai-will-kill-design-jobs-says-figma-investor-gokul-rajaram-industry-vigorously-disagrees/articleshow/130531702.cms" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+        </div>
+      </div>
+      <div class="card-title-ja">OpenAIの非営利から営利への転換、信託違反の訴訟で陪審員審理へ</div>
+      <div class="card-title-en">Brockman's diary called it a lie. Now a jury will hear it.</div>
+      <div class="card-source">The Next Web · 2026-04-26</div>
+      <div class="card-body">OpenAIが非営利組織から世界有数の企業価値を持つ営利企業への転換が慈善信託違反に該当するかを問う訴訟が、オークランド連邦裁判所で陪審員審理を開始。共同創設者のイーロン・マスクが関係する重要な裁判。</div>
+      <a class="card-link business" href="https://thenextweb.com/news/musk-altman-openai-trial-credibility-nonprofit/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">AI活用で給与上昇、2～3年で顕著に</div>
+      <div class="card-title-en">AI adoption to influence salary growth within 2-3 yrs: TeamLease Edtech</div>
+      <div class="card-source">BusinessLine · 2026-04-26</div>
+      <div class="card-body">TeamLease Edtechの創業者兼CEOは、AI技術を活用する従業員は今後2～3年で給与上昇において優位性を得られると指摘。特にテクノロジー、GCC、BFSI業界での昇給への影響が大きいと予測している。</div>
+      <a class="card-link business" href="https://www.thehindubusinessline.com/info-tech/ai-adoption-to-influence-salary-growth-within-2-3-yrs-teamlease-edtech/article70908270.ece" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">AI導入がインドの給与成長に影響、2～3年以内に変化</div>
+      <div class="card-title-en">AI adoption to influence salary growth within 2-3 years: TeamLease CEO Shantanu Rooj</div>
+      <div class="card-source">The Times of India · 2026-04-26</div>
+      <div class="card-body">インドの職場でAIが急速に導入され、AI skills を活用する従業員がキャリア面で有利になると予想されている。テクノロジー、GCC、BFSI セクターが主導役を担い、企業が AI をコア戦略に統合することで、給与成長に大きな影響を与える見通しが示されています。</div>
+      <a class="card-link business" href="https://economictimes.indiatimes.com/tech/artificial-intelligence/ai-adoption-to-influence-salary-growth-within-2-3-years-teamlease-ceo-shantanu-rooj/articleshow/130529109.cms" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">タグ・ホイヤー、F1マイアミGP記念のパステルカラー腕時計を発表</div>
+      <div class="card-title-en">TAG Heuer Brings Miami To Your Wrist With The Formula 1 Solargraph Pastel Collection</div>
+      <div class="card-source">Fratellowatches.com · 2026-04-26</div>
+      <div class="card-body">タグ・ホイヤーがFormula 1マイアミGPに合わせて、Formula 1 Solargraph 38mmシリーズをパステルカラーで拡張した新作腕時計を発表。中東レースの中断後の復帰戦となるマイアミGPのカラフルな雰囲気を腕時計で表現した商品ラインアップの拡充。</div>
+      <a class="card-link business" href="https://www.fratellowatches.com/tag-heuer-formula-1-solargraph-pastel-collection/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">AiMOGA Roboticsがベトナム進出、OMODA&JAECOOがスマートエコシステムを展開</div>
+      <div class="card-title-en">AiMOGA Robotics Expands into Vietnam, OMODA&JAECOO Unlock New Smart Ecosystem Layout</div>
+      <div class="card-source">GlobeNewswire · 2026-04-26</div>
+      <div class="card-body">AiMOGA Roboticsはベトナムのゲレクシムコ・グループとの戦略的協力枠組み契約に調印し、ベトナム市場への進出を宣言。OMODA&JAECOOのエコシステムパートナーとして、スマートエコシステムの新たな展開を推進する重要な国際戦略パートナーシップである。</div>
+      <a class="card-link business" href="https://www.globenewswire.com/news-release/2026/04/26/3281202/0/en/AiMOGA-Robotics-Expands-into-Vietnam-OMODA-JAECOO-Unlock-New-Smart-Ecosystem-Layout.html" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">GoogleがFitbitをGoogle Health Premiumへリブランド検討中</div>
+      <div class="card-title-en">Google May Rebrand Fitbit Software as Google Health Premium</div>
+      <div class="card-source">Archyworldys.com · 2026-04-26</div>
+      <div class="card-body">GoogleはFitbitのソフトウェアを「Google Health Premium」へのリブランドを検討しており、フィットネストラッカーの時代を終わらせ、個人の健康管理をより総合的に再定義する新しいプレミアムサービスの展開を目指しています。</div>
+      <a class="card-link business" href="https://www.archyworldys.com/google-may-rebrand-fitbit-software-as-google-health-premium/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+  </div>
+
+  <!-- ポリシー -->
+  <div class="section-label" id="section-policy">ポリシー</div>
+  <div class="grid">
+
+    <article class="card policy">
+      <div class="card-top">
+        <span class="card-label policy">ポリシー</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+        </div>
+      </div>
+      <div class="card-title-ja">米国務省、中国企業のAIモデル盗用に関する警告を発令</div>
+      <div class="card-title-en">US State Dept orders global warning about alleged AI thefts by DeepSeek, other Chinese firms</div>
+      <div class="card-source">iTnews · 2026-04-26</div>
+      <div class="card-body">米国国務省がDeepSeekなど中国企業によるAIモデルの盗用疑惑について、世界規模での警告を発令。蒸留技術を用いた知的財産権侵害の懸念が背景にあり、AI開発における国家間の競争と規制強化の動きが加速している。</div>
+      <a class="card-link policy" href="https://www.itnews.com.au/news/us-state-dept-orders-global-warning-about-alleged-ai-thefts-by-deepseek-other-chinese-firms-625379?utm_source=feed&utm_medium=rss&utm_campaign=iTnews+" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card policy">
+      <div class="card-top">
+        <span class="card-label policy">ポリシー</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+        </div>
+      </div>
+      <div class="card-title-ja">AI時代における知識資産の私有化と社会的影響</div>
+      <div class="card-title-en">The Usurpation of the Social Brain: Artificial Intelligence, General Intelligence, and Digital Enclosure</div>
+      <div class="card-source">Globalresearch.ca · 2026-04-26</div>
+      <div class="card-body">人類の集合的知識資産がAI企業による独占的支配下に置かれる現象を批判する記事。言語、数学、人類の蓄積知識が商業的なサブスクリプションサービスの対象化されることで、知識へのアクセスが制限される危機を論じており、デジタル領域における公共性と所有権の問題提起を行っています。</div>
+      <a class="card-link policy" href="https://www.globalresearch.ca/artificial-intelligence-general-intelligence-digital-enclosure/5923822" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card policy">
+      <div class="card-top">
+        <span class="card-label policy">ポリシー</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+        </div>
+      </div>
+      <div class="card-title-ja">アトランタの監視カメラ拡大とコップシティが黒人コミュニティに及ぼす影響</div>
+      <div class="card-title-en">In Atlanta, AI Surveillance Expands As Cop City Reshapes Black Communities</div>
+      <div class="card-source">Capitalbnews.org · 2026-04-26</div>
+      <div class="card-body">アトランタでは森林地帯に建設された警察訓練施設「Cop City」の周辺に6万台以上の監視カメラが配置されている。このAI監視網の拡大が、黒人コミュニティの生活と自由にもたらす影響について論じた記事。都市開発と監視社会、社会的不平等の問題を提起している。</div>
+      <a class="card-link policy" href="https://capitalbnews.org/atlanta-cop-city-ai-policing-black-community/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card policy">
+      <div class="card-top">
+        <span class="card-label policy">ポリシー</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">ブラジルサッカー連盟、ユース育成作業部会と初会合</div>
+      <div class="card-title-en">CBF holds first meeting with Brazilian youth development group</div>
+      <div class="card-source">Onefootball.com · 2026-04-26</div>
+      <div class="card-body">ブラジルサッカー連盟（CBF）がブラジルユース育成作業部会との初会合を開催。女子U-17代表の訓練セッションを含め、ブラジル国内のサッカー人材育成体制の強化と組織的な連携構築に向けた施策が進められている。</div>
+      <a class="card-link policy" href="https://onefootball.com/en/news/cbf-holds-first-meeting-with-brazilian-youth-development-group-42772453" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card policy">
+      <div class="card-top">
+        <span class="card-label policy">ポリシー</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+        </div>
+      </div>
+      <div class="card-title-ja">インド財務大臣がAnthropicのAIモデルによるサイバー脅威を警告</div>
+      <div class="card-title-en">Threat from Anthropic's Mythos 'as big as war': Nirmala Sitharaman</div>
+      <div class="card-source">The Times of India · 2026-04-26</div>
+      <div class="card-body">インド財務大臣Nirmala Sitharaman氏が、AnthropicのAIモデル「Mythos」によるサイバー脅威が戦争と同等の影響をもたらす可能性があると警告。インド当局はAnthropicと米国政府と協力し、この脅威の理解と対策を進めている。</div>
+      <a class="card-link policy" href="https://economictimes.indiatimes.com/tech/artificial-intelligence/threat-from-anthropics-mythos-as-big-as-war-nirmala-sitharaman/articleshow/130530530.cms" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card policy">
+      <div class="card-top">
+        <span class="card-label policy">ポリシー</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+        </div>
+      </div>
+      <div class="card-title-ja">AI顔認証システムの誤認識問題：無実の人物が犯罪者扱い</div>
+      <div class="card-title-en">The British software engineer and midwife accused of being CRIMINALS by faulty AI facial recognition software and why YOU should be worried by its rise</div>
+      <div class="card-source">Dailymail.com · 2026-04-26</div>
+      <div class="card-body">英国のソフトウェアエンジニア、アルヴィ・チャウドリー氏がAI顔認証システムにより、訪れたことのない都市での犯罪で誤認識された事例。このニュースはAI顔認証技術の精度問題と、社会における信頼性への懸念を浮き彫りにしており、技術規制や運用方針の改善が必要であることを示唆している。</div>
+      <a class="card-link policy" href="https://www.dailymail.com/lifestyle/article-15762539/The-British-software-engineer-midwife-accused-CRIMINALS-faulty-AI-facial-recognition-software-YOU-worried-rise.html" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card policy">
+      <div class="card-top">
+        <span class="card-label policy">ポリシー</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">インド、アマラヴァティを「量子の谷」として開発へ</div>
+      <div class="card-title-en">Amaravati to be developed as 'world's quantum valley': Chandrababu Naidu</div>
+      <div class="card-source">The Times of India · 2026-04-26</div>
+      <div class="card-body">インド・アンドラプラデーシュ州がアマラヴァティをAIおよびデータセンターの世界的ハブ「量子の谷」として開発する計画を発表。チャンドラバブ・ナイドゥ首相は、デジタル・知識駆動型のエコシステム構築と「4P」パートナーシップモデルを強調し、大規模な外国直接投資（FDI）獲得を目指している。</div>
+      <a class="card-link policy" href="https://economictimes.indiatimes.com/tech/information-tech/amaravati-to-be-developed-as-worlds-quantum-valley-chandrababu-naidu/articleshow/130529376.cms" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card policy">
+      <div class="card-top">
+        <span class="card-label policy">ポリシー</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">中国のテクノロジー戦略とAIの関連性を探る書籍討論</div>
+      <div class="card-title-en">AI Book Club discussion recording of 'Breakneck: China's Quest to Engineer the Future', by Dan Wang</div>
+      <div class="card-source">Idratherbewriting.com · 2026-04-26</div>
+      <div class="card-body">Dan Wangの著作『Breakneck』を中心としたAI Book Clubの討論録音。中国の技術発展戦略とエンジニアリングへの取り組みをテーマに、AIとの関連性を考察。中国のテクノロジー政策と未来志向の技術開発に関する重要な洞察を提供。</div>
+      <a class="card-link policy" href="https://idratherbewriting.com/blog/book-club-breakneck-china-wang" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card policy">
+      <div class="card-top">
+        <span class="card-label policy">ポリシー</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+        </div>
+      </div>
+      <div class="card-title-ja">AnthropicがペンタゴンのAI「キルスイッチ」管理権主張を否定</div>
+      <div class="card-title-en">Anthropic Denies Pentagon Claims of AI 'Kill Switch' in Court Filing</div>
+      <div class="card-source">Naturalnews.com · 2026-04-26</div>
+      <div class="card-body">AI企業Anthropicは、機密軍事ネットワークに展開されたClaudeモデルについて、ペンタゴンが管理権を保持しているという主張を法廷で正式に否定しました。この訴訟は、軍事利用AI に対する企業と政府の責任と管理権をめぐる重要な法的争点を示しています。</div>
+      <a class="card-link policy" href="https://www.naturalnews.com/2026-04-26-anthtropic-denies-pentagon-claims-ai-kill-switch.html" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+  </div>
+
+  <!-- ツール -->
+  <div class="section-label" id="section-tools">ツール</div>
+  <div class="grid">
+
+    <article class="card tools">
+      <div class="card-top">
+        <span class="card-label tools">ツール</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">ダーウィンの女性クリケットリーグがAI審判レビューシステムを導入</div>
+      <div class="card-title-en">AI ball-tracking technology trialled in Darwin grade cricket</div>
+      <div class="card-source">ABC News (AU) · 2026-04-26</div>
+      <div class="card-body">オーストラリアのダーウィンにおけるプレミア女性クリケットリーグが、豪州初となるAI審判レビューシステムを導入しました。このボールトラッキング技術により、審判の判定をより正確かつ客観的に検証できるようになり、スポーツにおけるAI活用の実用化例として注目されています。</div>
+      <a class="card-link tools" href="https://www.abc.net.au/news/2026-04-27/nt-ai-decision-review-system-technology-darwin-cricket/106604718" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card tools">
+      <div class="card-top">
+        <span class="card-label tools">ツール</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">AIが野生動物保護を加速、ビクトリア州の災害対応を支援</div>
+      <div class="card-title-en">AI is helping rangers protect Victorian wildlife in a fraction of the time</div>
+      <div class="card-source">ABC News (AU) · 2026-04-26</div>
+      <div class="card-body">ビクトリア州の公園管理部門が、森林火災などの自然災害の影響を受けた在来種・絶滅危惧種を管理するための新しいAIツールを導入。このテクノロジーを誰もが利用できるようにすることで、保全活動の効率を大幅に改善し、野生動物保護の迅速な対応を実現する。</div>
+      <a class="card-link tools" href="https://www.abc.net.au/news/2026-04-27/ai-helps-parks-victoria-manage-native-species-pests-after-fires/106589360" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card tools">
+      <div class="card-top">
+        <span class="card-label tools">ツール</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">OpenAIのプライバシーフィルター、Hugging Faceで公開</div>
+      <div class="card-title-en">openai/privacy-filter · Hugging Face</div>
+      <div class="card-source">Huggingface.co · 2026-04-26</div>
+      <div class="card-body">OpenAIがプライバシーフィルターツールをHugging Faceで公開しました。このツールはオープンソース化され、AIの民主化と透明性向上に貢献します。個人情報保護とAIの責任ある利用を推進する重要なリソースとなります。</div>
+      <a class="card-link tools" href="https://huggingface.co/openai/privacy-filter" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+  </div>
+
+
+</main>
+
+<footer>
+  <strong>AI News Digest</strong> — 2026年4月13日（月）自動生成 | 12記事収録<br>
+  <span style="font-size:0.72rem; margin-top:0.3rem; display:block;">Model: 2 · Research: 5 · Business: 4 · Policy: 1</span>
+</footer>
+
+</body>
+</html>
