@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI News Digest — 2026-04-28</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --model: #1d4ed8;
+    --research: #6d28d9;
+    --business: #065f46;
+    --policy: #92400e;
+    --tools: #0e7490;
+    --bg: #f8fafc;
+    --card-bg: #ffffff;
+    --text: #1e293b;
+    --text-muted: #64748b;
+    --border: #e2e8f0;
+  }
+  body {
+    font-family: 'Noto Sans JP', 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  header {
+    background: #0f172a;
+    color: #fff;
+    padding: 2rem 1.5rem;
+  }
+  .header-inner {
+    max-width: 1440px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .header-title {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+  .header-title span { color: #60a5fa; }
+  .header-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.2rem;
+  }
+  .header-date {
+    font-size: 0.95rem;
+    color: #94a3b8;
+    font-family: 'Inter', sans-serif;
+  }
+  .header-count {
+    background: #1d4ed8;
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.2rem 0.7rem;
+    border-radius: 999px;
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* CATEGORY BAR */
+  .cat-bar {
+    background: #1e293b;
+    padding: 0.75rem 1.5rem;
+    overflow-x: auto;
+  }
+  .cat-bar-inner {
+    max-width: 1440px;
+    margin: 0 auto;
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+  .cat-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.3rem 0.9rem;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    color: #fff;
+    letter-spacing: 0.03em;
+    white-space: nowrap;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .cat-pill:hover {
+    opacity: 0.85;
+    transform: translateY(-2px);
+  }
+  .cat-pill.model    { background: var(--model); }
+  .cat-pill.research { background: var(--research); }
+  .cat-pill.business { background: var(--business); }
+  .cat-pill.policy   { background: var(--policy); }
+  .cat-pill.tools    { background: var(--tools); }
+
+  /* MAIN */
+  main {
+    max-width: 1440px;
+    margin: 2rem auto;
+    padding: 0 1.5rem;
+  }
+  .section-label {
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* GRID */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+    margin-bottom: 2.5rem;
+  }
+  @media (max-width: 900px) {
+    .grid { grid-template-columns: 1fr; }
+ %}
+
+  /* CARD */
+  .card {
+    background: var(--card-bg);
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    padding: 1.25rem 1.4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    transition: box-shadow 0.2s, transform 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .card:hover {
+    box-shadow: 0 8px 24px rgba(0,0,0,0.09);
+    transform: translateY(-2px);
+  }
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+  }
+  .card.model::before    { background: var(--model); }
+  .card.research::before { background: var(--research); }
+  .card.business::before { background: var(--business); }
+  .card.policy::before   { background: var(--policy); }
+  .card.tools::before    { background: var(--tools); }
+
+  .card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+  .card-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    padding: 0.18rem 0.6rem;
+    border-radius: 4px;
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+  }
+  .card-label.model    { background: var(--model); }
+  .card-label.research { background: var(--research); }
+  .card-label.business { background: var(--business); }
+  .card-label.policy   { background: var(--policy); }
+  .card-label.tools    { background: var(--tools); }
+
+  .stars {
+    display: flex;
+    gap: 2px;
+  }
+  .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: #cbd5e1;
+  }
+  .dot.filled { background: #f59e0b; }
+
+  .card-title-ja {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.45;
+  }
+  .card-title-en {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    font-family: 'Inter', sans-serif;
+    font-style: italic;
+    line-height: 1.4;
+  }
+  .card-source {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .card-source::before {
+    content: '';
+    display: inline-block;
+    width: 4px; height: 4px;
+    background: #94a3b8;
+    border-radius: 50%;
+  }
+  .card-body {
+    font-size: 0.88rem;
+    color: #334155;
+    line-height: 1.7;
+  }
+  .card-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    text-decoration: none;
+    margin-top: auto;
+  }
+  .card-link.model    { color: var(--model); }
+  .card-link.research { color: var(--research); }
+  .card-link.business { color: var(--business); }
+  .card-link.policy   { color: var(--policy); }
+  .card-link.tools    { color: var(--tools); }
+  .card-link:hover { text-decoration: underline; }
+
+  /* FOOTER */
+  footer {
+    background: #1e293b;
+    color: #94a3b8;
+    text-align: center;
+    padding: 1.5rem;
+    font-size: 0.8rem;
+    font-family: 'Inter', sans-serif;
+  }
+  footer strong { color: #e2e8f0; }
+
+  @media (max-width: 640px) {
+    header { padding: 1.25rem 1rem; }
+    main { padding: 0 0.85rem; margin: 1.25rem auto; }
+    .cat-bar { padding: 0.6rem 0.85rem; }
+    .card { padding: 1rem 1.1rem; }
+    .header-title { font-size: 1.25rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="header-title">📰 AI <span>News Digest</span></div>
+    <div class="header-meta">
+      <div class="header-date">2026年04月28日（火）</div>
+      <div class="header-count">30 articles</div>
+    </div>
+  </div>
+</header>
+
+<div class="cat-bar">
+  <div class="cat-bar-inner">
+    <button class="cat-pill model" onclick="document.getElementById('section-model').scrollIntoView({behavior: 'smooth'});">● モデル (2)</button>
+    <button class="cat-pill research" onclick="document.getElementById('section-research').scrollIntoView({behavior: 'smooth'});">● 研究 (1)</button>
+    <button class="cat-pill business" onclick="document.getElementById('section-business').scrollIntoView({behavior: 'smooth'});">● ビジネス (11)</button>
+    <button class="cat-pill policy" onclick="document.getElementById('section-policy').scrollIntoView({behavior: 'smooth'});">● ポリシー (12)</button>
+    <button class="cat-pill tools" onclick="document.getElementById('section-tools').scrollIntoView({behavior: 'smooth'});">● ツール (4)</button>
+  </div>
+</div>
+
+<main>
+
+  <!-- モデル -->
+  <div class="section-label" id="section-model">モデル</div>
+  <div class="grid">
+
+    <article class="card model">
+      <div class="card-top">
+        <span class="card-label model">モデル</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">TAG Heuer、パステルカラーの新型フォーミュラ1ソーラグラフを発表</div>
+      <div class="card-title-en">TAG Heuer's Formula 1 Solargraph Returns in a Pastel Palette</div>
+      <div class="card-source">Hautetime.com · 2026-04-27</div>
+      <div class="card-body">TAG Heuerが38mmのフォーミュラ1ソーラグラフにパステルカラーパレットを採用した新しいモデルを発表。ソーラー充電機能とレーシング遺産を組み合わせた、鮮やかなデザインの腕時計コレクションである。</div>
+      <a class="card-link model" href="https://www.hautetime.com/tag-heuers-formula-1-solargraph-returns-in-a-pastel-palette/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card model">
+      <div class="card-top">
+        <span class="card-label model">モデル</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Claude Mythos：技術革命か マーケティング神話か</div>
+      <div class="card-title-en">What is Claude Mythos: a new technological revolution or a marketing myth?</div>
+      <div class="card-source">Mezha.ua · 2026-04-27</div>
+      <div class="card-body">Claude Mythosという新技術について、それが真の技術革新なのか、あるいは単なるマーケティング戦略なのかを検討する記事。AI技術の進展と市場での評価のギャップについて、批判的に分析し、実際の技術的価値と宣伝内容の乖離を問う内容と推察されます。</div>
+      <a class="card-link model" href="https://mezha.ua/en/articles/shcho-take-claude-mythos-nova-tehnologichna-revolyuciya-chi-marketingoviy-mif-310721/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+  </div>
+
+  <!-- 研究 -->
+  <div class="section-label" id="section-research">研究</div>
+  <div class="grid">
+
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Anthropicが自動取引システムの実証実験を実施</div>
+      <div class="card-title-en">Anthropic Ran a Marketplace and Bots Closed Every Deal</div>
+      <div class="card-source">pymnts.com · 2026-04-27</div>
+      <div class="card-body">Anthropicは人間を排除した取引システムの実証実験を実施しました。同社が構築したプライベートマーケットプレイスで、両側のソフトウェアエージェントが自動的にリスティング検索、オファー提示、取引成立までの全プロセスを独立して実行しました。AIエージェントの実世界応用能力を検証する重要な研究となります。</div>
+      <a class="card-link research" href="https://www.pymnts.com/artificial-intelligence-2/2026/anthropic-ran-a-marketplace-and-bots-closed-every-deal/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+  </div>
+
+  <!-- ビジネス -->
+  <div class="section-label" id="section-business">ビジネス</div>
+  <div class="grid">
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Mineros社がIIT カラグプール大学とAI採鉱センター設立で提携</div>
+      <div class="card-title-en">Mineros S.A. Partners With IIT Kharagpur's Vikram Sodhi Center for AI-Enabled Mining</div>
+      <div class="card-source">Financial Post · 2026-04-27</div>
+      <div class="card-body">コロンビアの鉱山企業Mineros S.A.が、インド工科大学カラグプール校のビクラム・ソディ・センターと提携し、AI技術を採鉱バリューチェーン全体に展開する取り組みを開始。副会長による寄付を通じたセンター設立により、採鉱業界へのAI導入を推進する。</div>
+      <a class="card-link business" href="https://financialpost.com/pmn/business-wire-news-releases-pmn/mineros-s-a-partners-with-iit-kharagpurs-vikram-sodhi-center-for-ai-enabled-mining" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+        </div>
+      </div>
+      <div class="card-title-ja">OpenAIがマイクロソフト独占契約を解除、AWSでモデル提供開始</div>
+      <div class="card-title-en">OpenAI breaks off Microsoft exclusivity</div>
+      <div class="card-source">iTnews · 2026-04-27</div>
+      <div class="card-body">OpenAIがマイクロソフトとの独占的な提携関係を終了し、AmazonのAWSプラットフォームでもOpenAIのモデルを提供することを発表しました。これにより、OpenAIの生成AIモデルへのアクセスが複数のクラウドプロバイダーに拡大されることになります。</div>
+      <a class="card-link business" href="https://www.itnews.com.au/news/openai-breaks-off-microsoft-exclusivity-625395?utm_source=feed&utm_medium=rss&utm_campaign=iTnews+Software+feed" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+        </div>
+      </div>
+      <div class="card-title-ja">OpenAIがAI搭載スマートフォン開発に参入、モバイル体験を再定義へ</div>
+      <div class="card-title-en">OpenAI Aims to Redefine Mobile Experience With AI-Powered Phone</div>
+      <div class="card-source">pymnts.com · 2026-04-27</div>
+      <div class="card-body">OpenAIがスマートフォンプロセッサの開発に協力し、携帯電話を基盤とした新しいAIエージェントエコシステムの構築を検討していることが報じられました。これはOpenAIの事業展開がハードウェア領域に広がることを示しており、モバイルデバイスでのAI統合の新しい形を模索する動きとなっています。</div>
+      <a class="card-link business" href="https://www.pymnts.com/artificial-intelligence-2/2026/openai-aims-to-redefine-mobile-experience-with-ai-powered-phone/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">アクティビスト投資家スターボード、フローサーブに大規模出資し経営改革を推進</div>
+      <div class="card-title-en">Starboard Builds Stake in Flowserve, Push for Changes</div>
+      <div class="card-source">Financial Post · 2026-04-27</div>
+      <div class="card-body">アクティビスト投資家スターボード・バリューが産業機器メーカーのフローサーブ・コーポレーションに相当規模の株式を取得し、経営変化に向けた協議を開始した。スターボードは経営改善や戦略転換などの変更を求めている可能性があり、同社の経営陣と協議を進めている。</div>
+      <a class="card-link business" href="https://financialpost.com/pmn/business-pmn/starboard-builds-stake-in-flowserve-push-for-changes" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+        </div>
+      </div>
+      <div class="card-title-ja">ChatGPTの大型アップグレードとGoogle、DeepSeekの動向</div>
+      <div class="card-title-en">AI did what? ChatGPT's big upgrade, Google's plans to make AI invisible, DeepSeek's return and more of the week's most surprising developments</div>
+      <div class="card-source">TechRadar · 2026-04-27</div>
+      <div class="card-body">今週のAI分野における重要な動向をまとめたニュース。ChatGPTの大型アップデート、Googleが目指す「見えないAI」の構想、DeepSeekの復帰など、スーパーアプリ化、AI統合、地政学的なAI競争という3つのテーマが中心。複数企業の戦略と業界全体の転換点を示す週刊総括。</div>
+      <a class="card-link business" href="https://www.techradar.com/ai-platforms-assistants/ai-did-what-chatgpts-big-upgrade-googles-plans-to-make-ai-invisible-deepseeks-return-and-more-of-the-weeks-most-surprising-developments" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">バナーヘルス、人工心臓移植で世界トップに</div>
+      <div class="card-title-en">Banner Health becomes world leader in total artificial heart</div>
+      <div class="card-source">GlobeNewswire · 2026-04-27</div>
+      <div class="card-body">非営利医療システムのバナーヘルスが、総人工心臓の移植手術50例目を完了し、2022年以降世界中のどの医療機関よりも多くの実績を達成した。この成果は医療技術の進展と同システムの臨床能力の高さを示している。</div>
+      <a class="card-link business" href="https://www.globenewswire.com/news-release/2026/04/27/3281965/0/en/Banner-Health-becomes-world-leader-in-total-artificial-heart.html" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Google従業員600名超が国防総省との軍事AI契約を拒否するよう要求</div>
+      <div class="card-title-en">600 Google staff urge CEO Sundar Pichai to reject classified military AI contract</div>
+      <div class="card-source">The Times of India · 2026-04-27</div>
+      <div class="card-body">Google の従業員600名以上が、ペンタゴンとの軍事AI契約をCEO サンダー・ピチャイに拒否するよう要求した。同契約により、Googleの AI技術が機密の軍事作戦に配備される可能性がある。従業員らの倫理的懸念が表明されている。</div>
+      <a class="card-link business" href="https://economictimes.indiatimes.com/tech/technology/600-google-staff-urge-ceo-sundar-pichai-to-reject-classified-military-ai-contract/articleshow/130561658.cms" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">AIを活用した高ROIのeラーニング実現</div>
+      <div class="card-title-en">Harnessing AI For Super High-ROI eLearning</div>
+      <div class="card-source">Elearningindustry.com · 2026-04-27</div>
+      <div class="card-body">AIを活用することで、eラーニングコストを60%削減しながら従業員のパフォーマンスを向上させる方法を紹介しています。個別化された学習経路、適応的な課題、リアルタイムフィードバック機能により、パーソナルメンターを持つような学習体験を実現します。企業の人材育成戦略の効率化と最適化に関する実践的な情報です。</div>
+      <a class="card-link business" href="https://elearningindustry.com/harnessing-ai-for-super-high-roi-elearning" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">バイオシミュレーション市場、2034年までに年17%成長へ</div>
+      <div class="card-title-en">Global Biosimulation Market Poised for Phenomenal Expansion at a CAGR of ~17% by 2034</div>
+      <div class="card-source">GlobeNewswire · 2026-04-27</div>
+      <div class="card-body">バイオシミュレーション市場が急速に拡大しており、モデル情報活用薬物開発（MIDD）の採用増加、現代的な医薬品開発の複雑化、パーソナライズド・プレシジョンメディシンへの重点の高まりが主要な成長要因となっている。</div>
+      <a class="card-link business" href="https://www.globenewswire.com/news-release/2026/04/27/3281927/0/en/Global-Biosimulation-Market-Poised-for-Phenomenal-Expansion-at-a-CAGR-of-17-by-2034-DelveInsight.html" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">AI時代の法的リスク対策：契約アーキテクチャ戦略の導入</div>
+      <div class="card-title-en">Concierra Legal Introduces Strategic Contract Architecture Approach to Address AI-Driven Legal Risks for Businesses</div>
+      <div class="card-source">GlobeNewswire · 2026-04-27</div>
+      <div class="card-body">Concierra Legalが、AI駆動型の法的リスクに対処するための戦略的契約アーキテクチャアプローチを導入。起業家やファウンダーが契約署名前に法務専門家によるレビューを受けることで、契約設計の不備から生じる訴訟リスクを事前に防止できるソリューション。</div>
+      <a class="card-link business" href="https://www.globenewswire.com/news-release/2026/04/27/3281911/0/en/Concierra-Legal-Introduces-Strategic-Contract-Architecture-Approach-to-Address-AI-Driven-Legal-Risks-for-Businesses.html" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Tevogen.AI、PredicTcell™の訓練完了間近、商用化準備を開始</div>
+      <div class="card-title-en">Tevogen.AI Nears Completion of PredicTcell™ Training; Initiates Commercial Readiness and Debuts Internal Application Portal</div>
+      <div class="card-source">GlobeNewswire · 2026-04-27</div>
+      <div class="card-body">Tevogen.AIが機械学習ベースの免疫療法予測プラットフォーム「PredicTcell™」の訓練をほぼ完了し、機能を290以上に拡張、精度を約10%向上させた。商用化準備を開始し、内部アプリケーションポータルを立ち上げ、共同開発パートナーシップの探索を始めている。</div>
+      <a class="card-link business" href="https://www.globenewswire.com/news-release/2026/04/27/3281867/0/en/Tevogen-AI-Nears-Completion-of-PredicTcell-Training-Initiates-Commercial-Readiness-and-Debuts-Internal-Application-Portal.html" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+  </div>
+
+  <!-- ポリシー -->
+  <div class="section-label" id="section-policy">ポリシー</div>
+  <div class="grid">
+
+    <article class="card policy">
+      <div class="card-top">
+        <span class="card-label policy">ポリシー</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">バーニー・サンダース議員の中国AI専門家との会談が波紋</div>
+      <div class="card-title-en">Bernie Sanders' plans to schmooze with top Beijing AI experts ignites backlash: 'Holy sh--'</div>
+      <div class="card-source">Fox News · 2026-04-27</div>
+      <div class="card-body">バーニー・サンダース上院議員が、中国のAIガバナンス関係者をキャピトルヒルのイベントに招待したことで、米国のAI競争における中国有利につながる政策を推進しているとして批判を受けている。AI覇権競争における米中関係の複雑さを示す事案。</div>
+      <a class="card-link policy" href="https://www.foxnews.com/politics/bernie-sanders-plans-schmooze-with-top-beijing-ai-experts-ignites-backlash" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card policy">
+      <div class="card-top">
+        <span class="card-label policy">ポリシー</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Anthropicの原則と現実のギャップ：軍事利用をめぐる矛盾</div>
+      <div class="card-title-en">Anthropic, Silicon Valley's conscience?</div>
+      <div class="card-source">Mondediplo.com · 2026-04-27</div>
+      <div class="card-body">Anthropicはホワイトハウスとの対立を通じて軍事・監視技術へのAI利用に対する倫理的原則を示唆していますが、同時にすでに防衛システムに組み込まれているという矛盾を抱えています。企業の掲げる理想と実際の行動のズレを指摘した記事です。</div>
+      <a class="card-link policy" href="https://mondediplo.com/2026/05/12anthropic" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card policy">
+      <div class="card-top">
+        <span class="card-label policy">ポリシー</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+        </div>
+      </div>
+      <div class="card-title-ja">米国トランプ政権、洋上風力事業者に撤退金を支払い</div>
+      <div class="card-title-en">Trump again pays offshore wind operators to walk away from leases</div>
+      <div class="card-source">Associated Press · 2026-04-27</div>
+      <div class="card-body">トランプ政権が、米国の洋上風力発電プロジェクト開発からの撤退に応じたエネルギー企業に対して、さらに2件の補償金支払いを発表しました。ブループイント・ウインドとゴールデン・ステート・ウインドが、リース契約の終了と引き換えに補償金を受け取ることで合意した政策決定です。</div>
+      <a class="card-link policy" href="https://apnews.com/article/trump-offshore-wind-energy-climate-interior-02a1fa04b750809bbe035a70256c734d" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card policy">
+      <div class="card-top">
+        <span class="card-label policy">ポリシー</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+        </div>
+      </div>
+      <div class="card-title-ja">中国、MetaのAIスタートアップ企業買収を阻止</div>
+      <div class="card-title-en">China blocks Meta's acquisition of AI agent developer Manus</div>
+      <div class="card-source">SiliconANGLE News · 2026-04-27</div>
+      <div class="card-body">中国政府はMetaプラットフォームズによるAIスタートアップ企業Manusの買収を中止するよう命じました。この発表は買収発表から約5ヶ月後になされたもので、政府の外国企業による技術買収に対する規制強化姿勢を示しています。取引額は20億ドル規模と報じられています。</div>
+      <a class="card-link policy" href="https://siliconangle.com/2026/04/27/china-blocks-metas-acquisition-ai-agent-developer-manus/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card policy">
+      <div class="card-top">
+        <span class="card-label policy">ポリシー</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+        </div>
+      </div>
+      <div class="card-title-ja">銀行規制緩和は最悪のタイミングか</div>
+      <div class="card-title-en">Are Bank Regulations Being Weakened At The Worst Possible Moment?</div>
+      <div class="card-source">Forbes · 2026-04-27</div>
+      <div class="card-body">連邦議会金融委員会での証言を予定している記事。銀行規制の緩和が経済的に不適切な時期に進められていることへの懸念を表明。金融システムの安定性と規制政策のタイミングについての重要な議論。</div>
+      <a class="card-link policy" href="https://www.forbes.com/sites/mayrarodriguezvalladares/2026/04/27/are-bank-regulations-being-weakened-at-the-worst-possible-moment/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card policy">
+      <div class="card-top">
+        <span class="card-label policy">ポリシー</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">NYC、成績選抜制度への反発でAI特化高校計画を撤回</div>
+      <div class="card-title-en">NYC nixes plan for AI-themed high school after woke backlash to merit-based admissions policy</div>
+      <div class="card-source">New York Post · 2026-04-27</div>
+      <div class="card-body">ニューヨーク市教育委員会がAIに特化したSTEM高校の開設計画を撤回しました。選抜的な入試制度に対する激しい反発が理由で、教育の平等性と選抜制度のバランスをめぐる社会的議論が背景にあります。</div>
+      <a class="card-link policy" href="https://nypost.com/2026/04/27/us-news/nyc-nixes-plan-for-ai-themed-high-school-after-woke-backlash-to-merit-based-admissions/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card policy">
+      <div class="card-top">
+        <span class="card-label policy">ポリシー</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Google従業員580人が軍事AI契約の中止を要求</div>
+      <div class="card-title-en">Google Employees Demand CEO Block Military AI Contracts in Open Letter</div>
+      <div class="card-source">Decrypt · 2026-04-27</div>
+      <div class="card-body">Google従業員580人がサンダー・ピチャイCEOに宛てた公開書簡で、AI技術の軍事利用に関する倫理的懸念から、軍事AI契約の中止を要求。企業の社会的責任と技術倫理に関わる重要な内部告発的動きを示す。</div>
+      <a class="card-link policy" href="https://decrypt.co/365674/google-employees-demand-ceo-block-military-ai-contracts-in-open-letter" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card policy">
+      <div class="card-top">
+        <span class="card-label policy">ポリシー</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Google従業員560人以上が軍事AI利用の中止を要求</div>
+      <div class="card-title-en">Google staff urge chief executive to block US military AI use</div>
+      <div class="card-source">The Irish Times · 2026-04-27</div>
+      <div class="card-body">Google従業員560人以上がサンダル・ピチャイCEOに対し、米国防総省への軍事AI技術提供を中止するよう求める公開書簡に署名。Anthropicとペンタゴンの対立を背景に、AI企業の軍事利用に対する倫理的懸念が高まっている。</div>
+      <a class="card-link policy" href="https://www.irishtimes.com/business/2026/04/27/google-staff-urge-chief-executive-to-block-us-military-ai-use/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card policy">
+      <div class="card-top">
+        <span class="card-label policy">ポリシー</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+        </div>
+      </div>
+      <div class="card-title-ja">EU、Googleに競合企業のサービスアクセス支援を指導</div>
+      <div class="card-title-en">Google gets pointers from EU regulators on helping AI rivals access services</div>
+      <div class="card-source">The Times of India · 2026-04-27</div>
+      <div class="card-body">欧州委員会がGoogleに対し、競合他社がKey Serviceへのアクセスを確保できるよう新たなガイドラインを策定。オンライン検索とAI技術における公正な競争を促進し、デジタル市場での独占的慣行を是正する規制措置。</div>
+      <a class="card-link policy" href="https://economictimes.indiatimes.com/tech/artificial-intelligence/google-gets-pointers-from-eu-regulators-on-helping-ai-rivals-access-services/articleshow/130560529.cms" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card policy">
+      <div class="card-top">
+        <span class="card-label policy">ポリシー</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">共和党元上院議員がAIの危険性を警告、天国か地獄かの二項対立を超える必要性を指摘</div>
+      <div class="card-title-en">WATCH: Terminally ill former Republican senator has parting warning about dangers of artificial intelligence</div>
+      <div class="card-source">Wnd.com · 2026-04-27</div>
+      <div class="card-body">末期患者の共和党元上院議員がAIがもたらす危険性について警告を発している。「AIは天国をもたらすのか、地獄をもたらすのか」という単純な二項対立ではなく、その両方の側面を認識することが重要であると述べ、AI政策に対する慎重なアプローチの必要性を主張している。</div>
+      <a class="card-link policy" href="https://www.wnd.com/2026/04/watch-terminally-ill-former-republican-senator-has-parting/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card policy">
+      <div class="card-top">
+        <span class="card-label policy">ポリシー</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+        </div>
+      </div>
+      <div class="card-title-ja">中国、メタによるAIスタートアップ買収20億ドルを阻止</div>
+      <div class="card-title-en">China Blocks Meta's $2 Billion Acquisition of AI Startup Manus</div>
+      <div class="card-source">Breitbart News · 2026-04-27</div>
+      <div class="card-body">中国政府がメタ（Meta）によるAIスタートアップ「Manus」の20億ドル買収を正式に阻止しました。これは米中間の技術覇権争いが一層エスカレートしていることを示す重要な事例で、中国による技術企業の買収規制が強化されていることを反映しています。</div>
+      <a class="card-link policy" href="https://www.breitbart.com/tech/2026/04/27/china-blocks-metas-2-billion-acquisition-of-ai-startup-manus/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card policy">
+      <div class="card-top">
+        <span class="card-label policy">ポリシー</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">ベン・セス前議員がAIの危険性について警告</div>
+      <div class="card-title-en">Ben Sasse Has Parting Warning About Dangers Of AI</div>
+      <div class="card-source">The Daily Caller · 2026-04-27</div>
+      <div class="card-body">共和党のベン・セス前ネブラスカ州上院議員が、日曜日のインタビューで人工知能（AI）が若い世代にもたらす危険性について警告を発しました。政策立案者による重要な見解です。</div>
+      <a class="card-link policy" href="https://dailycaller.com/2026/04/27/ben-sasse-ai-dangers-60-minutes/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+  </div>
+
+  <!-- ツール -->
+  <div class="section-label" id="section-tools">ツール</div>
+  <div class="grid">
+
+    <article class="card tools">
+      <div class="card-top">
+        <span class="card-label tools">ツール</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">バケーションレンタル業界を変えるAIツール</div>
+      <div class="card-title-en">The AI Guest Whisperer Taking Over Vacation Rentals</div>
+      <div class="card-source">pymnts.com · 2026-04-27</div>
+      <div class="card-body">短期賃貸事業者向けのAIツールが急速に普及しており、従来は手作業で行われていた価格設定、ゲスト対応、スタッフ管理などの業務を自動化している。この技術により、事業者は深夜の対応やスケジュール管理から解放され、業務効率が大幅に向上している。</div>
+      <a class="card-link tools" href="https://www.pymnts.com/artificial-intelligence-2/2026/the-ai-guest-whisperer-taking-over-vacation-rentals/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card tools">
+      <div class="card-top">
+        <span class="card-label tools">ツール</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Popsaが Amazon Novaを活用して顧客向けタイトル提案機能を革新</div>
+      <div class="card-title-en">How Popsa used Amazon Nova to inspire customers with personalised title suggestions</div>
+      <div class="card-source">Amazon.com · 2026-04-27</div>
+      <div class="card-body">Popsaは Amazon BedrockとAmazon Novaモデルを組み合わせて、タイトル提案機能を再構築しました。メタデータ、コンピュータビジョン、検索拡張生成AI（RAG）を統合することで、顧客向けに創造的でブランド化されたタイトルを自動生成する実装例を紹介しています。</div>
+      <a class="card-link tools" href="https://aws.amazon.com/blogs/machine-learning/how-popsa-used-amazon-nova-to-inspire-customers-with-personalised-title-suggestions/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card tools">
+      <div class="card-top">
+        <span class="card-label tools">ツール</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+        </div>
+      </div>
+      <div class="card-title-ja">システムの失敗を正しく設計する方法</div>
+      <div class="card-title-en">How to Make Your System Fail the "Right" Way</div>
+      <div class="card-source">Psychology Today · 2026-04-27</div>
+      <div class="card-body">すべてのシステムは必ず失敗する。重要なのは、システムが意図した方向で失敗するように設計できるかという問題です。本記事は、システムの障害を予測し、その影響を最小限に抑え、回復可能な形で失敗させるための設計原則と実装手法について解説しています。</div>
+      <a class="card-link tools" href="https://www.psychologytoday.com/us/blog/the-emergency-mind/202604/how-to-make-your-system-fail-the-right-way" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card tools">
+      <div class="card-top">
+        <span class="card-label tools">ツール</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">企業向けAI医療用量決定システムの4つの検討課題</div>
+      <div class="card-title-en">4 questions to ask about enterprise AI drug dosing</div>
+      <div class="card-source">Kevinmd.com · 2026-04-27</div>
+      <div class="card-body">ヘルスケア組織が臨床医をサポートするためのAI導入が急速に進む中、医療現場での実装には異なる2つの経路がある。本記事では、AI医療用量決定ツールの導入時に医療機関が考慮すべき4つの重要な質問と課題について検討し、企業向けAIツールの実践的な活用方法を探る。</div>
+      <a class="card-link tools" href="https://kevinmd.com/2026/04/4-questions-to-ask-about-enterprise-ai-drug-dosing.html" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+  </div>
+
+
+</main>
+
+<footer>
+  <strong>AI News Digest</strong> — 2026年4月13日（月）自動生成 | 12記事収録<br>
+  <span style="font-size:0.72rem; margin-top:0.3rem; display:block;">Model: 2 · Research: 5 · Business: 4 · Policy: 1</span>
+</footer>
+
+</body>
+</html>

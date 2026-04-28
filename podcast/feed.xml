@@ -13,6 +13,20 @@
     <itunes:category text="Technology"/>
     <itunes:explicit>false</itunes:explicit>
     <item>
+      <title>AIニュースダイジェスト - 2026年04月28日（火）</title>
+      <description>おはようございます。AIニュースダイジェストのホストです。本日は2026年4月28日火曜日。今日も世界中から届いたAI関連のホットなニュースを厳選してお届けしていきますので、最後までお付き合いください。
+
+それでは、今日のニュースを見ていきましょう。
+
+まず注目すべきは、AI産業の構図を大きく揺るがす2つのニュースが飛び込んできました。1つ目は、OpenAIがマイクロソフトとの独占契約を解除し、AmazonのAWSプラットフォームでもモデルを提供開始するというニュースです。これまでOpenAIとマイクロソフトは、いわば運命共同体のような関係にありましたが、ついにこの独占的な提携に終止符が打たれたわけです。これにより、ユーザー企業はより多くの選択肢を得ることができるようになります。競争の観点からも、市場にとっても大きな転機となるでしょう。
+
+さらに興味深いのは、OpenAIがスマートフォン向けAIチップの開発に参入しようとしているというニュースですね。OpenAIはこれまでソフトウェア企業として知られていましたが、今やハードウェア領域にも足を踏み入れようとしています。モバイルデバイスを基...</description>
+      <pubDate>Tue, 28 Apr 2026 21:00:00 +0000</pubDate>
+      <enclosure url="https://anomalocaress.github.io/ai-news-digest/podcast/ai-news-2026-04-28.mp3" type="audio/mpeg" length="1897728"/>
+      <guid isPermaLink="true">https://anomalocaress.github.io/ai-news-digest/podcast/ai-news-2026-04-28.mp3</guid>
+      <itunes:duration>1:58</itunes:duration>
+    </item>
+    <item>
       <title>AIニュースダイジェスト - 2026年04月27日（月）</title>
       <description>こんにちは。「AIニュースダイジェスト」のホストです。2026年4月27日月曜日、今週のAIニュースをお届けします。
 
