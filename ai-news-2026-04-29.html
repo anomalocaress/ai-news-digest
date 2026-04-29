@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI News Digest — 2026-04-29</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --model: #1d4ed8;
+    --research: #6d28d9;
+    --business: #065f46;
+    --policy: #92400e;
+    --tools: #0e7490;
+    --bg: #f8fafc;
+    --card-bg: #ffffff;
+    --text: #1e293b;
+    --text-muted: #64748b;
+    --border: #e2e8f0;
+  }
+  body {
+    font-family: 'Noto Sans JP', 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  header {
+    background: #0f172a;
+    color: #fff;
+    padding: 2rem 1.5rem;
+  }
+  .header-inner {
+    max-width: 1440px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .header-title {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+  .header-title span { color: #60a5fa; }
+  .header-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.2rem;
+  }
+  .header-date {
+    font-size: 0.95rem;
+    color: #94a3b8;
+    font-family: 'Inter', sans-serif;
+  }
+  .header-count {
+    background: #1d4ed8;
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.2rem 0.7rem;
+    border-radius: 999px;
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* CATEGORY BAR */
+  .cat-bar {
+    background: #1e293b;
+    padding: 0.75rem 1.5rem;
+    overflow-x: auto;
+  }
+  .cat-bar-inner {
+    max-width: 1440px;
+    margin: 0 auto;
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+  .cat-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.3rem 0.9rem;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    color: #fff;
+    letter-spacing: 0.03em;
+    white-space: nowrap;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .cat-pill:hover {
+    opacity: 0.85;
+    transform: translateY(-2px);
+  }
+  .cat-pill.model    { background: var(--model); }
+  .cat-pill.research { background: var(--research); }
+  .cat-pill.business { background: var(--business); }
+  .cat-pill.policy   { background: var(--policy); }
+  .cat-pill.tools    { background: var(--tools); }
+
+  /* MAIN */
+  main {
+    max-width: 1440px;
+    margin: 2rem auto;
+    padding: 0 1.5rem;
+  }
+  .section-label {
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* GRID */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+    margin-bottom: 2.5rem;
+  }
+  @media (max-width: 900px) {
+    .grid { grid-template-columns: 1fr; }
+ %}
+
+  /* CARD */
+  .card {
+    background: var(--card-bg);
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    padding: 1.25rem 1.4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    transition: box-shadow 0.2s, transform 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .card:hover {
+    box-shadow: 0 8px 24px rgba(0,0,0,0.09);
+    transform: translateY(-2px);
+  }
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+  }
+  .card.model::before    { background: var(--model); }
+  .card.research::before { background: var(--research); }
+  .card.business::before { background: var(--business); }
+  .card.policy::before   { background: var(--policy); }
+  .card.tools::before    { background: var(--tools); }
+
+  .card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+  .card-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    padding: 0.18rem 0.6rem;
+    border-radius: 4px;
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+  }
+  .card-label.model    { background: var(--model); }
+  .card-label.research { background: var(--research); }
+  .card-label.business { background: var(--business); }
+  .card-label.policy   { background: var(--policy); }
+  .card-label.tools    { background: var(--tools); }
+
+  .stars {
+    display: flex;
+    gap: 2px;
+  }
+  .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: #cbd5e1;
+  }
+  .dot.filled { background: #f59e0b; }
+
+  .card-title-ja {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.45;
+  }
+  .card-title-en {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    font-family: 'Inter', sans-serif;
+    font-style: italic;
+    line-height: 1.4;
+  }
+  .card-source {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .card-source::before {
+    content: '';
+    display: inline-block;
+    width: 4px; height: 4px;
+    background: #94a3b8;
+    border-radius: 50%;
+  }
+  .card-body {
+    font-size: 0.88rem;
+    color: #334155;
+    line-height: 1.7;
+  }
+  .card-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    text-decoration: none;
+    margin-top: auto;
+  }
+  .card-link.model    { color: var(--model); }
+  .card-link.research { color: var(--research); }
+  .card-link.business { color: var(--business); }
+  .card-link.policy   { color: var(--policy); }
+  .card-link.tools    { color: var(--tools); }
+  .card-link:hover { text-decoration: underline; }
+
+  /* FOOTER */
+  footer {
+    background: #1e293b;
+    color: #94a3b8;
+    text-align: center;
+    padding: 1.5rem;
+    font-size: 0.8rem;
+    font-family: 'Inter', sans-serif;
+  }
+  footer strong { color: #e2e8f0; }
+
+  @media (max-width: 640px) {
+    header { padding: 1.25rem 1rem; }
+    main { padding: 0 0.85rem; margin: 1.25rem auto; }
+    .cat-bar { padding: 0.6rem 0.85rem; }
+    .card { padding: 1rem 1.1rem; }
+    .header-title { font-size: 1.25rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="header-title">📰 AI <span>News Digest</span></div>
+    <div class="header-meta">
+      <div class="header-date">2026年04月29日（水）</div>
+      <div class="header-count">30 articles</div>
+    </div>
+  </div>
+</header>
+
+<div class="cat-bar">
+  <div class="cat-bar-inner">
+    <button class="cat-pill model" onclick="document.getElementById('section-model').scrollIntoView({behavior: 'smooth'});">● モデル (2)</button>
+    <button class="cat-pill research" onclick="document.getElementById('section-research').scrollIntoView({behavior: 'smooth'});">● 研究 (3)</button>
+    <button class="cat-pill business" onclick="document.getElementById('section-business').scrollIntoView({behavior: 'smooth'});">● ビジネス (17)</button>
+    <button class="cat-pill policy" onclick="document.getElementById('section-policy').scrollIntoView({behavior: 'smooth'});">● ポリシー (5)</button>
+    <button class="cat-pill tools" onclick="document.getElementById('section-tools').scrollIntoView({behavior: 'smooth'});">● ツール (3)</button>
+  </div>
+</div>
+
+<main>
+
+  <!-- モデル -->
+  <div class="section-label" id="section-model">モデル</div>
+  <div class="grid">
+
+    <article class="card model">
+      <div class="card-top">
+        <span class="card-label model">モデル</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">AI Better Hardware Could Turn Zeros into AI Heroes</div>
+      <div class="card-title-en">Better Hardware Could Turn Zeros into AI Heroes</div>
+      <div class="card-source">Ieee.org · 2026-04-28</div>
+      <div class="card-body">When it comes to AI models, size matters.Even though some artificial-intelligence experts warn that scaling up large language models (LLMs) is hitting diminishing performance returns, companies are st</div>
+      <a class="card-link model" href="https://spectrum.ieee.org/sparse-ai" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card model">
+      <div class="card-top">
+        <span class="card-label model">モデル</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">ChatGPT 5.5アップデート：AIとの対話の裏側</div>
+      <div class="card-title-en">Dark truth behind every time you talk to ChatGPT as new 5.5 update released</div>
+      <div class="card-source">LADbible · 2026-04-28</div>
+      <div class="card-body">ChatGPTの新バージョン5.5のリリースに伴い、ユーザーがAIと対話する際の隠れた実態や問題点が明らかになった。モデルの動作メカニズムや潜在的なリスクについての重要な指摘を含む記事。</div>
+      <a class="card-link model" href="https://www.ladbible.com/news/technology/dark-truth-chatgpt-update-artificial-intelligence-940438-20260428" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+  </div>
+
+  <!-- 研究 -->
+  <div class="section-label" id="section-research">研究</div>
+  <div class="grid">
+
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+        </div>
+      </div>
+      <div class="card-title-ja">スタンフォード大学の研究：新規ウェブサイトの3分の1がAI生成</div>
+      <div class="card-title-en">Dead Internet? A Third of New Websites Are AI-Generated, Says Stanford</div>
+      <div class="card-source">Decrypt · 2026-04-28</div>
+      <div class="card-body">スタンフォード大学主導の研究により、新規ウェブサイトの約3分の1がAIによって生成されていることが定量的に明らかになりました。一般的な予想を確認しながらも、その結果は多くの人々の期待とは異なる内容となっています。インターネットのAI化進展を示す重要な実証的証拠です。</div>
+      <a class="card-link research" href="https://decrypt.co/365864/one-third-new-websites-ai-generated-study" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">AI生成コンテンツが急増、デッドインターネット理論が現実化の兆し</div>
+      <div class="card-title-en">Dead Internet Theory Is 17% of the Way to Becoming Reality, Study Finds</div>
+      <div class="card-source">Gizmodo.com · 2026-04-28</div>
+      <div class="card-body">新しい研究によると、インターネット上のAI生成コンテンツが増加しており、デッドインターネット理論が部分的に現実化しつつある。新規公開ウェブサイトの35.3%がAIの支援を受けて作成されており、人間による本物のコンテンツの割合が減少していることが明らかになった。</div>
+      <a class="card-link research" href="https://gizmodo.com/dead-internet-theory-is-17-of-the-way-to-becoming-reality-study-finds-2000751718" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">AGIタイムライン再考：既に起こっている混乱と今後の展開</div>
+      <div class="card-title-en">Revisiting the AGI Timeline: The Disruption That's Already Here and What Comes Next</div>
+      <div class="card-source">Observer · 2026-04-28</div>
+      <div class="card-body">アメリカン大学のAngeela Virtuが2027年のAI予測を再検討し、その妥当性と限界を分析する論文。実際の混乱は労働市場や組織設計、企業意思決定に対する不均等で目に見える影響として既に現れていると主張している。</div>
+      <a class="card-link research" href="https://observer.com/2026/04/ai-2027-revisited-agi-timeline-disruption/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+  </div>
+
+  <!-- ビジネス -->
+  <div class="section-label" id="section-business">ビジネス</div>
+  <div class="grid">
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+        </div>
+      </div>
+      <div class="card-title-ja">AI活用の加速で常時防御が重要に、サイバー脅威対策が急務</div>
+      <div class="card-title-en">Always-on defence becomes critical as AI accelerates cyber threats: Infotrust</div>
+      <div class="card-source">iTnews · 2026-04-28</div>
+      <div class="card-body">攻撃者が自動化とAIを活用してサイバー攻撃を加速させる中、サイバーセキュリティ指導者らは組織が「常時防御」モデルの導入を急ぐべきと警告。従来の受動的な防御では対応できない新たな脅威環境への対応が求められている。</div>
+      <a class="card-link business" href="https://www.itnews.com.au/video/always-on-defence-becomes-critical-as-ai-accelerates-cyber-threats-infotrust-624683" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot "></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Sound Financial Bancorp、2026年第1四半期の純利益160万ドルを報告</div>
+      <div class="card-title-en">Sound Financial Bancorp, Inc. Q1 2026 Results</div>
+      <div class="card-source">GlobeNewswire · 2026-04-28</div>
+      <div class="card-body">Sound Financial Bancorp, Inc.は2026年3月31日終了四半期の純利益が160万ドル（1株当たり希薄化後$0.61）であることを発表しました。同社はNasdaq上場の銀行持株会社であり、Sound Community Bankの親会社です。定期的な業績報告として、経営成績と財務状況を開示しています。</div>
+      <a class="card-link business" href="https://www.globenewswire.com/news-release/2026/04/28/3283270/20398/en/Sound-Financial-Bancorp-Inc-Q1-2026-Results.html" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">ファースト・ビューシー・コーポレーションが2026年第1四半期の決算を発表</div>
+      <div class="card-title-en">First Busey Corporation Announces 2026 First Quarter Earnings</div>
+      <div class="card-source">GlobeNewswire · 2026-04-28</div>
+      <div class="card-body">ナスダック上場のファースト・ビューシー・コーポレーションが2026年第1四半期の決算結果を発表しました。同企業の純利益や希薄化後1株当たり利益などの財務実績が報告されており、投資家向けの四半期決算情報として機能しています。</div>
+      <a class="card-link business" href="https://www.globenewswire.com/news-release/2026/04/28/3283255/10701/en/First-Busey-Corporation-Announces-2026-First-Quarter-Earnings.html" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+        </div>
+      </div>
+      <div class="card-title-ja">AWS、OpenAIとの提携でエージェント型AI機能を拡充</div>
+      <div class="card-title-en">Putting AI to work: AWS unveils agentic enhancements for Connect and Quick alongside new alliance with OpenAI</div>
+      <div class="card-source">SiliconANGLE News · 2026-04-28</div>
+      <div class="card-body">Amazon Web Services（AWS）がOpenAIとの新たな提携を発表し、エージェント型AIをソフトウェアスタック上で活用するための拡張ポートフォリオを公開。Connect及びQuickへのAI機能強化により、企業向けのAI活用がさらに加速する動きを示している。</div>
+      <a class="card-link business" href="https://siliconangle.com/2026/04/28/putting-ai-work-aws-unveils-agentic-enhancements-connect-quick-alongside-new-alliance-openai/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">ライケン・インターナショナル、2025年度の財務結果を発表</div>
+      <div class="card-title-en">Lichen International Limited Announces Financial Results for Fiscal Year 2025</div>
+      <div class="card-source">GlobeNewswire · 2026-04-28</div>
+      <div class="card-body">中国の金融・税務サービス提供企業であるライケン・インターナショナル・リミテッド（Nasdaq: LICN）が、2025年度末の財務結果を発表しました。同社は中国国内で金融・税務サービスを専門とする企業であり、定期的な財務報告を通じて経営状況を開示しています。</div>
+      <a class="card-link business" href="https://www.globenewswire.com/news-release/2026/04/28/3283225/0/en/Lichen-International-Limited-Announces-Financial-Results-for-Fiscal-Year-2025.html" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Stride社、2026年第3四半期の財務成績を発表</div>
+      <div class="card-title-en">Stride reports third quarter 2026 financial results</div>
+      <div class="card-source">GlobeNewswire · 2026-04-28</div>
+      <div class="card-body">米国の大手技術教育企業Stride, Inc.（NYSE: LRN）が、2026年度第3四半期（2026年3月31日終了）の財務成績を発表しました。同社はテクノロジーを活用した教育事業を展開している企業で、今回の決算発表は投資家向けの定期的な業績報告です。</div>
+      <a class="card-link business" href="https://www.globenewswire.com/news-release/2026/04/28/3283203/0/en/Stride-reports-third-quarter-2026-financial-results.html" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Google DeepMind出身者が11億ドル調達、人間データ不要なAI開発へ</div>
+      <div class="card-title-en">Google DeepMind Veteran Raises $1.1 Billion to Build AI That Isn't Trained With Human Data</div>
+      <div class="card-source">Decrypt · 2026-04-28</div>
+      <div class="card-body">Ineffable Intelligenceが11億ドルの資金調達に成功。同社は強化学習をスーパーインテリジェンス実現の道と位置づけ、大規模言語モデルとは異なるアプローチでAI開発を進める。人間データに依存しない新しいAI訓練方法の実現を目指している。</div>
+      <a class="card-link business" href="https://decrypt.co/365853/google-deepmind-veteran-raises-1-1-billion-ai-isnt-trained-human-data" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">AI投資ブーム：配管工から宇宙開発まで、あらゆる分野に資金流入</div>
+      <div class="card-title-en">From Plumbers to Moonshots, AI Investors Left Nothing Unfunded</div>
+      <div class="card-source">pymnts.com · 2026-04-28</div>
+      <div class="card-body">AI技術への投資が急速に拡大しており、特定の問題解決に特化したAIベンチャーへの資金流入が加速。未だ製品を市場に出していないロンドン拠点のスタートアップIneffable Intelligenceが週内で最大規模の投資を受けるなど、AI投資市場の過熱状況を示している。</div>
+      <a class="card-link business" href="https://www.pymnts.com/news/investment-tracker/2026/from-plumbers-to-moonshots-ai-investors-left-nothing-unfunded/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">公共部門の不正検出におけるAI実装戦略</div>
+      <div class="card-title-en">Operationalizing AI for public sector fraud prevention</div>
+      <div class="card-source">Databricks.com · 2026-04-28</div>
+      <div class="card-body">政府機関向けのAI活用した不正検出システムについての記事。きれいなデータ、スマートオートメーション、リアルタイム分析を組み合わせることで、急速に進化する不正行為に対応する実装的アプローチを提示しており、公共部門でのAI導入の実践的課題を扱っています。</div>
+      <a class="card-link business" href="https://www.databricks.com/blog/operationalizing-ai-public-sector-fraud-prevention" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">ODDITY Tech Ltd.に対する集団訴訟提起、NASDAQ上場企業</div>
+      <div class="card-title-en">Pomerantz Law Firm Announces the Filing of a Class Action Against ODDITY Tech Ltd. and Certain Officers – ODD</div>
+      <div class="card-source">GlobeNewswire · 2026-04-28</div>
+      <div class="card-body">Pomerantz法律事務所がNASDAQ上場企業ODDITY Tech Ltd.（ティッカー：ODD）とその役員らを被告とする集団訴訟をアメリカ連邦地方裁判所に提起したと発表。同社に対する法的課題が生じている。</div>
+      <a class="card-link business" href="https://www.globenewswire.com/news-release/2026/04/28/3283135/1087/en/Pomerantz-Law-Firm-Announces-the-Filing-of-a-Class-Action-Against-ODDITY-Tech-Ltd-and-Certain-Officers-ODD.html" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Chetuが医療デジタル化をテーマにした無料ウェビナーを開催</div>
+      <div class="card-title-en">Chetu Hosts Free Executive Webinar: 'Digital Transformation in Healthcare'</div>
+      <div class="card-source">GlobeNewswire · 2026-04-28</div>
+      <div class="card-body">ソフトウェア開発企業のChetuが、4月30日に医療業界におけるデジタル変革をテーマとした無料ウェビナーを開催します。経営幹部向けのセッションで、ヘルスケア分野のデジタル化戦略や実装方法についての知見を提供する企業向けのビジネスイベントです。</div>
+      <a class="card-link business" href="https://www.globenewswire.com/news-release/2026/04/28/3283126/0/en/Chetu-Hosts-Free-Executive-Webinar-Digital-Transformation-in-Healthcare.html" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+        </div>
+      </div>
+      <div class="card-title-ja">マスク対OpenAI裁判：盗用疑惑と億万長者証人</div>
+      <div class="card-title-en">Theft accusations, cringey texts and billionaire witnesses — everything you need to know about the explosive Musk Vs OpenAI trial</div>
+      <div class="card-source">New York Post · 2026-04-28</div>
+      <div class="card-body">イーロン・マスクとサム・アルトマンの対立により、AI業界で最大規模の訴訟が勃発。知的財産盗用疑惑、不適切なテキストメッセージ、複数の億万長者証人などが関わる複雑な法廷闘争。数十億ドルの利益と人類の未来がかかっており、業界に大きな影響を与える可能性がある。</div>
+      <a class="card-link business" href="https://nypost.com/2026/04/28/world-news/everything-you-need-to-know-about-the-explosive-musk-vs-openai-trial/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+        </div>
+      </div>
+      <div class="card-title-ja">OpenAIのモデル、AWSでも利用可能に。マイクロソフトの独占終了</div>
+      <div class="card-title-en">OpenAI's models are now available everywhere. The question is whether everywhere is enough.</div>
+      <div class="card-source">The Next Web · 2026-04-28</div>
+      <div class="card-body">AmazonのクラウドサービスがOpenAIのモデル販売を開始。マイクロソフトが独占的な再販契約を終了し、複数のクラウドプロバイダーでOpenAI技術へのアクセスが可能になった。AIサービスの競争構造が大きく変わる局面。</div>
+      <a class="card-link business" href="https://thenextweb.com/news/amazon-aws-openai-models-microsoft-exclusivity-ends/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Meta、Q1決算でAIと広告事業が牽引する成長期待</div>
+      <div class="card-title-en">Wall Street is eyeing a new burst of growth for Meta ahead of its Q1 earnings report</div>
+      <div class="card-source">Business Insider · 2026-04-28</div>
+      <div class="card-body">Metaの第1四半期決算を控え、ウォール街のアナリストが同社の売上成長に高い期待を寄せている。AIと広告事業の強化がこの成長を牽引する見通しで、市場ではMetaの事業展開と収益性の向上に注目が集まっている。</div>
+      <a class="card-link business" href="https://www.businessinsider.com/meta-q1-earnings-preview-ai-revenue-growth-capex-wall-street-2026-4" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+        </div>
+      </div>
+      <div class="card-title-ja">MicrosoftがOpenAI独占権を放棄、AmazonがOpenAI技術を販売へ</div>
+      <div class="card-title-en">Amazon to sell OpenAI tech after Microsoft cedes exclusivity</div>
+      <div class="card-source">Financial Post · 2026-04-28</div>
+      <div class="card-body">3年間にわたってMicrosoftに独占されてきたOpenAI技術について、MicrosoftがOpenAIとの独占的契約を終了する可能性が報道された。これによりAmazonを含む他の企業がOpenAI技術を提供できるようになり、AI市場における競争構図が大きく変わることが予想される。クラウドプロバイダー間の経営戦略の転換を示す重要なニュース。</div>
+      <a class="card-link business" href="https://financialpost.com/technology/tech-news/amazon-to-sell-openai-tech" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">ベンチャーキャピタルがソフトウェア中心から脱却、ハードウェア・物理領域へシフト</div>
+      <div class="card-title-en">Venture capital is moving beyond code because the next tech boom will be built, not programmed</div>
+      <div class="card-source">The Next Web · 2026-04-28</div>
+      <div class="card-body">過去20年以上ソフトウェアが支配してきたベンチャーキャピタル投資が転換期を迎えている。SaaSやマーケットプレイスなど効率的でスケーラブルなデジタル事業への投資から、物理的に「構築される」ハードウェアやディープテック領域への投資へシフトしつつある。次の技術ブームは「プログラムされる」のではなく「構築される」ものになるという展開。</div>
+      <a class="card-link business" href="https://thenextweb.com/news/venture-capital-shift-deep-tech/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">テキスタイルリサイクルが転換点へ、SuperCircleが循環ソリューションを拡大</div>
+      <div class="card-title-en">Textile Recycling Hits Tipping Point as SuperCircle Scales Circular Solutions</div>
+      <div class="card-source">WWD · 2026-04-28</div>
+      <div class="card-body">SuperCircleは、2030年までに10億を超えるテキスタイル製品をランドフィルから転用することを目標に掲げています。同社の循環型ソリューションの拡大により、テキスタイルリサイクル産業が重要な転換点を迎えており、廃棄物削減と資源循環の実現に向けた民間企業の取り組みが加速しています。</div>
+      <a class="card-link business" href="http://wwd.com/sourcing-journal/sustainability/textile-recycling-supercircle-scales-circular-solutions-1238930868/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+  </div>
+
+  <!-- ポリシー -->
+  <div class="section-label" id="section-policy">ポリシー</div>
+  <div class="grid">
+
+    <article class="card policy">
+      <div class="card-top">
+        <span class="card-label policy">ポリシー</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+        </div>
+      </div>
+      <div class="card-title-ja">米国防総省、Google Geminiの使用拡大を確認、単一モデルへの依存リスク指摘</div>
+      <div class="card-title-en">Pentagon AI chief confirms DOD's expanded use of Google, says reliance on one model 'never a good thing'</div>
+      <div class="card-source">CNBC · 2026-04-28</div>
+      <div class="card-body">米国防総省のAI責任者が、Anthropicのブラックリスト化後のGoogle Geminiの使用拡大を確認しました。同時に、単一のAIモデルへの過度な依存は好ましくないと述べており、複数モデルの活用によるリスク分散の重要性が浮き彫りになっています。</div>
+      <a class="card-link policy" href="https://www.cnbc.com/2026/04/28/pentagon-ai-chief-confirms-work-with-google-after-anthropic-blacklist.html" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card policy">
+      <div class="card-top">
+        <span class="card-label policy">ポリシー</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+        </div>
+      </div>
+      <div class="card-title-ja">南アフリカがAI政策の草案作成でAIを使用、引用が虚偽だった</div>
+      <div class="card-title-en">South Africa used AI to write its AI policy. The citations were fake.</div>
+      <div class="card-source">The Next Web · 2026-04-28</div>
+      <div class="card-body">南アフリカの通信・デジタル技術省がAI政策の起草にAIツールを使用しましたが、生成されたテキストに虚偽の引用が含まれていました。この事例は、重要な政策立案においてAIの利用に伴う信頼性と検証の課題を浮き彫りにしており、政府のAI活用における慎重さの必要性を示しています。</div>
+      <a class="card-link policy" href="https://thenextweb.com/news/south-africa-ai-policy-hallucinated-citations/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card policy">
+      <div class="card-top">
+        <span class="card-label policy">ポリシー</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">教皇レオ、初年度は平和と統一を強調</div>
+      <div class="card-title-en">In his first year as pope, Leo has emphasised peace, unity and social responsibility - and shown he won't be stared down</div>
+      <div class="card-source">The Conversation Africa · 2026-04-28</div>
+      <div class="card-body">アメリカ生まれの教皇レオが就任初年度、分裂する教会と世界の統一を強調し、平和と社会的責任を推進している。教皇は強い指導力を示しながら、宗教的リーダーシップの新しい方向性を示唆しており、カトリック教会の今後の方針転換が期待される。</div>
+      <a class="card-link policy" href="https://theconversation.com/in-his-first-year-as-pope-leo-has-emphasised-peace-unity-and-social-responsibility-and-shown-he-wont-be-stared-down-281015" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card policy">
+      <div class="card-top">
+        <span class="card-label policy">ポリシー</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+        </div>
+      </div>
+      <div class="card-title-ja">核戦争の実存的脅威と対策：物理学者グロスが警告</div>
+      <div class="card-title-en">Humanity may be doomed to die in nuclear war—unless we act soon, physicist David Gross says</div>
+      <div class="card-source">Scientific American · 2026-04-28</div>
+      <div class="card-body">ブレークスルー賞を受賞した理論物理学者デイビッド・グロスが、核戦争が人類の存続を脅かす実存的リスクであることを警告している。グロスはこの受賞の機会を利用して、核戦争から人類が逃れるための具体的な対策の必要性を訴えている。</div>
+      <a class="card-link policy" href="https://www.scientificamerican.com/article/humanity-may-be-doomed-to-die-in-nuclear-war-unless-we-act-soon-physicist-david-gross-says/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card policy">
+      <div class="card-top">
+        <span class="card-label policy">ポリシー</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+        </div>
+      </div>
+      <div class="card-title-ja">AI時代のジャーナリスト権利保護：労働組合の課題と戦略</div>
+      <div class="card-title-en">Like nailing Jell-O to a wall: Why unions are struggling to protect journalists' rights in the age of AI</div>
+      <div class="card-source">Niemanlab.org · 2026-04-28</div>
+      <div class="card-body">AI技術の進展に伴い、ジャーナリストの職業が脅威にさらされている。労働組合がジャーナリストの権利保護に取り組む中、AI導入による雇用喪失や労働条件の変化に対応することの難しさが浮き彫りになっている。業界全体での規制やガイドラインの必要性が高まっている。</div>
+      <a class="card-link policy" href="https://www.niemanlab.org/2026/04/like-nailing-jell-o-to-a-wall-why-unions-are-struggling-to-protect-journalists-rights-in-the-age-of-ai/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+  </div>
+
+  <!-- ツール -->
+  <div class="section-label" id="section-tools">ツール</div>
+  <div class="grid">
+
+    <article class="card tools">
+      <div class="card-top">
+        <span class="card-label tools">ツール</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+        </div>
+      </div>
+      <div class="card-title-ja">ブルームバーグの新AI「AskB」が示す金融AIエージェントの可能性と課題</div>
+      <div class="card-title-en">Bloomberg, the OG of financial data firms, has a potent new AI agent. How it built it holds lessons for other companies</div>
+      <div class="card-source">Fortune · 2026-04-28</div>
+      <div class="card-body">ブルームバーグが開発した「AskB」というAIエージェントツールが、金融分野でのAI活用の可能性を示しています。同時に、実用的なAIエージェント構築がいかに困難であるかも明らかにしており、他の企業にとって重要な教訓を提供しています。</div>
+      <a class="card-link tools" href="https://fortune.com/2026/04/28/bloomberg-askb-ai-agents-lessons-from-bloomberg-cto-shawn-edwards-eye-on-ai/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card tools">
+      <div class="card-top">
+        <span class="card-label tools">ツール</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">AmazonがAI対応Connect サービスを供給チェーンと人事領域に拡張</div>
+      <div class="card-title-en">Amazon Expands Connect Service to Cover Supply Chains and HR</div>
+      <div class="card-source">pymnts.com · 2026-04-28</div>
+      <div class="card-body">AmazonのAWSは、Amazon Connectサービスを4つの専門化されたAIソリューションに拡張しました。これらの新しいAIツールは、ロジスティクス労働者、人事、カスタマーサービスなど複数の業界分野を対象としており、エンタープライズレベルの業務自動化を実現するものです。</div>
+      <a class="card-link tools" href="https://www.pymnts.com/amazon/2026/amazon-expands-connect-service-to-cover-supply-chains-and-hr/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card tools">
+      <div class="card-top">
+        <span class="card-label tools">ツール</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+        </div>
+      </div>
+      <div class="card-title-ja">ハードウェアを再プログラム可能にしたチップ技術</div>
+      <div class="card-title-en">The Chip That Made Hardware Rewriteable</div>
+      <div class="card-source">Ieee.org · 2026-04-28</div>
+      <div class="card-body">FPGA（フィールドプログラマブルゲートアレイ）技術についての記事。インターネットルーター、無線基地局、医療画像スキャナー、AI ツールなど、世界の最先端電子システムはこの内部ハードウェア回路を書き換え可能なチップに依存している。</div>
+      <a class="card-link tools" href="https://spectrum.ieee.org/fpga-chip-ieee-milestone" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+  </div>
+
+
+</main>
+
+<footer>
+  <strong>AI News Digest</strong> — 2026年4月13日（月）自動生成 | 12記事収録<br>
+  <span style="font-size:0.72rem; margin-top:0.3rem; display:block;">Model: 2 · Research: 5 · Business: 4 · Policy: 1</span>
+</footer>
+
+</body>
+</html>
