@@ -628,13 +628,15 @@ def main():
     # Step 4: Save HTML
     output_file = save_html(html_content, target_date)
 
-    # Step 5: Generate podcast
-    print("\n4️⃣  Generating podcast...")
-    try:
-        from generate_podcast import generate_podcast
-        generate_podcast(categorized, target_date)
-    except Exception as e:
-        print(f"⚠️  Podcast generation error: {e}")
+    # Step 5: Generate podcast (disabled)
+    # Podcast generation paused — quality under review
+    # To re-enable, uncomment the block below:
+    # print("\n4️⃣  Generating podcast...")
+    # try:
+    #     from generate_podcast import generate_podcast
+    #     generate_podcast(categorized, target_date)
+    # except Exception as e:
+    #     print(f"⚠️  Podcast generation error: {e}")
 
     # Step 6: Build and send email
     print("\n5️⃣  Building and sending email...")
