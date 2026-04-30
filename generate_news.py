@@ -8,8 +8,7 @@ from pathlib import Path
 from typing import List, Dict, Optional
 import subprocess
 import requests
-from anthropic import Anthropic
-from api_cost_calculator import record_anthropic_usage
+import xml.etree.ElementTree as ET
 
 # Load environment variables (optional)
 try:
@@ -18,12 +17,7 @@ try:
 except:
     pass
 
-NEWS_API_KEY = os.getenv("NEWS_API_KEY")
-CLAUDE_API_KEY = os.getenv("CLAUDE_API_KEY") or os.getenv("ANTHROPIC_API_KEY")
 REPO_DIR = Path(__file__).parent
-
-# Initialize Anthropic client
-client = Anthropic()
 
 CATEGORIES = ["model", "research", "business", "policy", "tools"]
 CATEGORIES_JA = {
@@ -36,208 +30,181 @@ CATEGORIES_JA = {
 WEEKDAYS_JA = ["月", "火", "水", "木", "金", "土", "日"]
 
 
-def fetch_ai_news(date: datetime) -> List[Dict]:
-    """Fetch AI news from News API for a given date."""
-    if not NEWS_API_KEY:
-        print("⚠️  NEWS_API_KEY not set. Using fallback data.")
-        return generate_fallback_articles(date)
-
-    # Search for AI-related news from the past 24 hours
-    url = "https://newsapi.org/v2/everything"
-    search_query = "(artificial intelligence OR machine learning OR LLM OR GPT OR Claude OR AI model) AND -bitcoin -crypto"
-
-    params = {
-        "q": search_query,
-        "sortBy": "publishedAt",
-        "language": "en",
-        "pageSize": 40,
-        "apiKey": NEWS_API_KEY,
-    }
-
-    try:
-        response = requests.get(url, params=params, timeout=10)
-        response.raise_for_status()
-        data = response.json()
-
-        if data["status"] != "ok":
-            print(f"⚠️  News API error: {data.get('message', 'Unknown error')}")
-            return generate_fallback_articles(date)
-
-        articles = data.get("articles", [])
-        print(f"✓ Fetched {len(articles)} articles from News API")
-
-        # Filter out duplicates and low-quality articles
-        seen_titles = set()
-        unique_articles = []
-        for article in articles:
-            title = article.get("title", "").strip()
-            if title and title not in seen_titles and len(title) > 20:
-                seen_titles.add(title)
-                unique_articles.append(article)
-
-        return unique_articles[:30]  # Return top 30
-
-    except Exception as e:
-        print(f"❌ Error fetching from News API: {e}")
-        return generate_fallback_articles(date)
-
-
-def generate_fallback_articles(date: datetime) -> List[Dict]:
-    """Generate fallback articles for testing."""
-    return [
-        {
-            "title": "OpenAI Announces New GPT-5 Model",
-            "description": "Major breakthrough in LLM performance",
-            "source": {"name": "TechCrunch"},
-            "publishedAt": date.isoformat(),
-            "url": "https://techcrunch.com/example",
-        },
-        {
-            "title": "Google DeepMind Discovers New AI Capabilities",
-            "description": "Research breakthrough in reinforcement learning",
-            "source": {"name": "Nature"},
-            "publishedAt": date.isoformat(),
-            "url": "https://nature.com/example",
-        },
+def fetch_rss_news(date: datetime) -> List[Dict]:
+    """Fetch AI news from free RSS feeds (no API key required)."""
+    RSS_SOURCES = [
+        ("TechCrunch AI",   "https://techcrunch.com/category/artificial-intelligence/feed/"),
+        ("VentureBeat AI",  "https://venturebeat.com/category/ai/feed/"),
+        ("The Verge AI",    "https://www.theverge.com/rss/ai-artificial-intelligence/index.xml"),
+        ("MIT Tech Review", "https://www.technologyreview.com/feed/"),
+        ("Wired AI",        "https://www.wired.com/feed/tag/ai/latest/rss"),
+        ("Ars Technica",    "https://feeds.arstechnica.com/arstechnica/index"),
     ]
 
+    # Keywords to filter general feeds (Ars Technica etc.)
+    AI_KEYWORDS = [
+        "ai", "artificial intelligence", "machine learning", "llm", "gpt", "claude",
+        "gemini", "openai", "anthropic", "neural", "deep learning", "generative",
+        "chatbot", "language model", "llama", "mistral", "deepseek", "chatgpt",
+    ]
 
-def simple_categorize(title: str, description: str) -> str:
-    """Simple keyword-based categorization as fallback."""
+    all_articles: List[Dict] = []
+    headers = {"User-Agent": "Mozilla/5.0 (compatible; AINewsBot/1.0)"}
+
+    for source_name, url in RSS_SOURCES:
+        try:
+            resp = requests.get(url, timeout=15, headers=headers)
+            if resp.status_code != 200:
+                print(f"⚠️  {source_name}: HTTP {resp.status_code}")
+                continue
+
+            root = ET.fromstring(resp.content)
+
+            # Support both RSS 2.0 (<item>) and Atom (<entry>)
+            ns = {"atom": "http://www.w3.org/2005/Atom"}
+            items = root.findall(".//item")
+            if not items:
+                items = root.findall(".//atom:entry", ns)
+
+            count = 0
+            for item in items:
+                title = (
+                    item.findtext("title") or
+                    item.findtext("atom:title", namespaces=ns) or ""
+                ).strip()
+
+                desc = (
+                    item.findtext("description") or
+                    item.findtext("atom:summary", namespaces=ns) or ""
+                ).strip()
+                # Strip HTML tags from description
+                import re
+                desc = re.sub(r"<[^>]+>", "", desc)[:300]
+
+                link_elem = item.find("link")
+                link = ""
+                if link_elem is not None:
+                    link = link_elem.text or link_elem.get("href", "")
+                if not link:
+                    link = item.findtext("atom:link", namespaces=ns) or ""
+
+                pub = (
+                    item.findtext("pubDate") or
+                    item.findtext("atom:published", namespaces=ns) or ""
+                )[:10]  # YYYY-MM-DD
+
+                if not title or not link:
+                    continue
+
+                # AI relevance filter for general feeds
+                text_lower = (title + " " + desc).lower()
+                if source_name == "Ars Technica":
+                    if not any(kw in text_lower for kw in AI_KEYWORDS):
+                        continue
+
+                all_articles.append({
+                    "title": title,
+                    "description": desc,
+                    "source": {"name": source_name},
+                    "publishedAt": pub,
+                    "url": link,
+                })
+                count += 1
+                if count >= 10:
+                    break
+
+            print(f"✓ {source_name}: {count} articles")
+
+        except Exception as e:
+            print(f"⚠️  {source_name}: {e}")
+
+    # Deduplicate by normalised title prefix
+    seen: set = set()
+    unique: List[Dict] = []
+    for a in all_articles:
+        key = a["title"].lower()[:60]
+        if key not in seen:
+            seen.add(key)
+            unique.append(a)
+
+    print(f"✓ Total: {len(unique)} unique articles from RSS")
+    return unique[:40]
+
+
+def categorize_by_keywords(title: str, description: str) -> str:
+    """Keyword-based AI news categorization (no API required)."""
     text = ((title or "") + " " + (description or "")).lower()
 
-    model_keywords = ["model", "release", "announced", "gpt", "claude", "llm", "training", "weights"]
-    research_keywords = ["research", "study", "paper", "university", "findings", "discovers", "breakthrough", "efficiency"]
-    business_keywords = ["funding", "investment", "company", "startup", "acquisition", "partnership", "market"]
-    policy_keywords = ["policy", "regulation", "government", "law", "ethics", "safety", "governance"]
-    tools_keywords = ["tool", "platform", "api", "software", "benchmark", "dataset", "library"]
-
     scores = {
-        "model": sum(1 for kw in model_keywords if kw in text),
-        "research": sum(1 for kw in research_keywords if kw in text),
-        "business": sum(1 for kw in business_keywords if kw in text),
-        "policy": sum(1 for kw in policy_keywords if kw in text),
-        "tools": sum(1 for kw in tools_keywords if kw in text),
+        "model": sum(1 for kw in [
+            "model", "gpt", "claude", "gemini", "llama", "mistral", "deepseek",
+            "weights", "training", "fine-tuning", "parameter", "architecture",
+            "transformer", "chatgpt", "copilot", "multimodal", "language model",
+            "release", "launched", "announced new", "version",
+        ] if kw in text),
+        "research": sum(1 for kw in [
+            "research", "paper", "study", "university", "findings", "discovers",
+            "breakthrough", "arxiv", "benchmark", "dataset", "efficiency",
+            "scientists", "published", "journal", "algorithm", "method",
+        ] if kw in text),
+        "business": sum(1 for kw in [
+            "funding", "investment", "company", "startup", "acquisition",
+            "partnership", "market", "revenue", "valuation", "billion", "million",
+            "ceo", "ipo", "venture", "enterprise", "deal", "merger", "raises",
+        ] if kw in text),
+        "policy": sum(1 for kw in [
+            "policy", "regulation", "government", "law", "ethics", "safety",
+            "governance", "congress", "senate", "eu", "ban", "restriction",
+            "rights", "privacy", "risk", "compliance", "act", "legislation",
+        ] if kw in text),
+        "tools": sum(1 for kw in [
+            "tool", "platform", "api", "software", "plugin", "library",
+            "framework", "sdk", "integration", "app", "feature", "update",
+            "deploy", "open source", "github", "developer", "open-source",
+        ] if kw in text),
     }
 
-    return max(scores, key=scores.get) or "research"
+    best = max(scores, key=scores.get)
+    return best if scores[best] > 0 else "research"
 
 
-def categorize_articles_with_claude(articles: List[Dict]) -> List[Dict]:
-    """Use Claude to categorize articles and generate Japanese summaries."""
-    if not articles:
-        return []
-
-    processed = []
+def categorize_articles(articles: List[Dict]) -> Dict[str, List[Dict]]:
+    """Categorize articles by keyword matching. Returns dict keyed by category."""
+    result: Dict[str, List[Dict]] = {cat: [] for cat in CATEGORIES}
 
     for article in articles:
         title = article.get("title", "")
         description = article.get("description", "")
         source = article.get("source", {}).get("name", "Unknown")
-        pub_date = article.get("publishedAt", "")[:10]  # YYYY-MM-DD
         url = article.get("url", "")
 
-        # Skip articles with missing critical info
         if not title or not url:
             continue
 
-        # Use Claude to categorize and create summary if API key is set
-        if CLAUDE_API_KEY:
-            try:
-                prompt = f"""以下のニュース記事を分析してください。
-
-タイトル: {title}
-説明: {description}
-
-以下のカテゴリのいずれかに分類してください: model, research, business, policy, tools
-
-JSON形式で返してください:
-{{
-  "category": "...",
-  "title_ja": "日本語タイトル（30-50文字程度）",
-  "title_en": "Original English Title",
-  "summary": "日本語での説明文（150-200文字程度）",
-  "importance": 2
-}}
-
-importance は 1-3 の整数です（3が最も重要）。"""
-
-                message = client.messages.create(
-                    model="claude-haiku-4-5-20251001",
-                    max_tokens=300,
-                    messages=[{"role": "user", "content": prompt}],
-                )
-
-                # Record actual API usage
-                if hasattr(message, 'usage'):
-                    record_anthropic_usage(
-                        model="claude-haiku-4-5-20251001",
-                        input_tokens=message.usage.input_tokens,
-                        output_tokens=message.usage.output_tokens,
-                        purpose="ニュース記事の分類・日本語化"
-                    )
-
-                response_text = message.content[0].text
-
-                # Parse JSON from Claude response
-                try:
-                    json_start = response_text.find("{")
-                    json_end = response_text.rfind("}") + 1
-                    if json_start >= 0 and json_end > json_start:
-                        json_str = response_text[json_start:json_end]
-                        parsed = json.loads(json_str)
-
-                        # Validate and add to processed list
-                        if parsed.get("category") in CATEGORIES:
-                            parsed["source"] = source
-                            parsed["date"] = pub_date
-                            parsed["url"] = url
-                            parsed.setdefault("importance", 2)
-                            processed.append(parsed)
-                            print(f"✓ Categorized: {parsed['title_ja']}")
-                            continue
-                except json.JSONDecodeError:
-                    pass
-
-            except Exception as e:
-                print(f"⚠️  Claude API error for '{title}': {e}")
-
-        # Fallback: Use simple keyword-based categorization
-        category = simple_categorize(title, description)
-
-        # Generate Japanese title and summary (simple approach)
-        title_en = title[:60]
-        title_ja = f"AI {title_en}"[:50]
-        summary = description[:200] if description else "新しいAI技術に関するニュース"
-
-        parsed = {
+        category = categorize_by_keywords(title, description)
+        entry = {
             "category": category,
-            "title_ja": title_ja,
-            "title_en": title_en,
-            "summary": summary,
+            "title_ja": title,          # English title shown as-is
+            "title_en": title,
+            "summary": description or "Read the full article for details.",
             "source": source,
-            "date": pub_date,
+            "date": article.get("publishedAt", "")[:10],
             "url": url,
             "importance": 2,
         }
-        processed.append(parsed)
-        print(f"✓ Auto-categorized ({category}): {title_ja}")
+        result[category].append(entry)
+        print(f"✓ [{category}] {title[:70]}")
 
-    return processed
+    total = sum(len(v) for v in result.values())
+    print(f"✓ {total} articles categorised")
+    return result
 
 
-def generate_html(articles: List[Dict], target_date: datetime) -> str:
-    """Generate HTML from articles using Jinja2 template."""
-
-    # Organize articles by category
-    articles_by_category = {cat: [] for cat in CATEGORIES}
-    for article in articles:
-        cat = article.get("category", "research")
-        if cat in articles_by_category:
-            articles_by_category[cat].append(article)
+def generate_html(articles_by_category: Dict[str, List[Dict]], target_date: datetime) -> str:
+    """Generate HTML from articles (dict keyed by category)."""
 
     # Count articles per category
-    category_counts = {cat: len(articles_by_category[cat]) for cat in CATEGORIES}
+    category_counts = {cat: len(articles_by_category.get(cat, [])) for cat in CATEGORIES}
 
     # Filter out empty categories
     active_categories = {
@@ -245,7 +212,7 @@ def generate_html(articles: List[Dict], target_date: datetime) -> str:
     }
 
     # Prepare template variables
-    total_count = len(articles)
+    total_count = sum(category_counts.values())
     weekday = WEEKDAYS_JA[target_date.weekday()]
     date_str = target_date.strftime("%Y年%m月%d日")
     date_iso = target_date.strftime("%Y-%m-%d")
@@ -603,23 +570,22 @@ def main():
 
     print(f"\n📰 Generating AI News Digest for {target_date.strftime('%Y-%m-%d')}")
 
-    # Step 1: Fetch articles
-    print("\n1️⃣  Fetching articles from News API...")
-    articles = fetch_ai_news(target_date)
+    # Step 1: Fetch articles from free RSS feeds
+    print("\n1️⃣  Fetching articles from RSS feeds...")
+    articles = fetch_rss_news(target_date)
 
     if not articles:
         print("❌ No articles fetched. Exiting.")
         return
 
-    # Step 2: Categorize with Claude
-    print("\n2️⃣  Categorizing articles with Claude...")
-    categorized = categorize_articles_with_claude(articles)
+    # Step 2: Categorize by keywords
+    print("\n2️⃣  Categorizing articles...")
+    categorized = categorize_articles(articles)
 
-    if not categorized:
+    total = sum(len(v) for v in categorized.values())
+    if total == 0:
         print("❌ No articles successfully categorized. Exiting.")
         return
-
-    print(f"✓ {len(categorized)} articles ready")
 
     # Step 3: Generate HTML
     print("\n3️⃣  Generating HTML...")
