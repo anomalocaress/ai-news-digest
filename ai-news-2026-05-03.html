@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI News Digest — 2026-05-03</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --model: #1d4ed8;
+    --research: #6d28d9;
+    --business: #065f46;
+    --policy: #92400e;
+    --tools: #0e7490;
+    --bg: #f8fafc;
+    --card-bg: #ffffff;
+    --text: #1e293b;
+    --text-muted: #64748b;
+    --border: #e2e8f0;
+  }
+  body {
+    font-family: 'Noto Sans JP', 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  header {
+    background: #0f172a;
+    color: #fff;
+    padding: 2rem 1.5rem;
+  }
+  .header-inner {
+    max-width: 1440px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .header-title {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+  .header-title span { color: #60a5fa; }
+  .header-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.2rem;
+  }
+  .header-date {
+    font-size: 0.95rem;
+    color: #94a3b8;
+    font-family: 'Inter', sans-serif;
+  }
+  .header-count {
+    background: #1d4ed8;
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.2rem 0.7rem;
+    border-radius: 999px;
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* CATEGORY BAR */
+  .cat-bar {
+    background: #1e293b;
+    padding: 0.75rem 1.5rem;
+    overflow-x: auto;
+  }
+  .cat-bar-inner {
+    max-width: 1440px;
+    margin: 0 auto;
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+  .cat-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.3rem 0.9rem;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    color: #fff;
+    letter-spacing: 0.03em;
+    white-space: nowrap;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .cat-pill:hover {
+    opacity: 0.85;
+    transform: translateY(-2px);
+  }
+  .cat-pill.model    { background: var(--model); }
+  .cat-pill.research { background: var(--research); }
+  .cat-pill.business { background: var(--business); }
+  .cat-pill.policy   { background: var(--policy); }
+  .cat-pill.tools    { background: var(--tools); }
+
+  /* MAIN */
+  main {
+    max-width: 1440px;
+    margin: 2rem auto;
+    padding: 0 1.5rem;
+  }
+  .section-label {
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* GRID */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+    margin-bottom: 2.5rem;
+  }
+  @media (max-width: 900px) {
+    .grid { grid-template-columns: 1fr; }
+ %}
+
+  /* CARD */
+  .card {
+    background: var(--card-bg);
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    padding: 1.25rem 1.4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    transition: box-shadow 0.2s, transform 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .card:hover {
+    box-shadow: 0 8px 24px rgba(0,0,0,0.09);
+    transform: translateY(-2px);
+  }
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+  }
+  .card.model::before    { background: var(--model); }
+  .card.research::before { background: var(--research); }
+  .card.business::before { background: var(--business); }
+  .card.policy::before   { background: var(--policy); }
+  .card.tools::before    { background: var(--tools); }
+
+  .card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+  .card-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    padding: 0.18rem 0.6rem;
+    border-radius: 4px;
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+  }
+  .card-label.model    { background: var(--model); }
+  .card-label.research { background: var(--research); }
+  .card-label.business { background: var(--business); }
+  .card-label.policy   { background: var(--policy); }
+  .card-label.tools    { background: var(--tools); }
+
+  .stars {
+    display: flex;
+    gap: 2px;
+  }
+  .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: #cbd5e1;
+  }
+  .dot.filled { background: #f59e0b; }
+
+  .card-title-ja {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.45;
+  }
+  .card-title-en {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    font-family: 'Inter', sans-serif;
+    font-style: italic;
+    line-height: 1.4;
+  }
+  .card-source {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .card-source::before {
+    content: '';
+    display: inline-block;
+    width: 4px; height: 4px;
+    background: #94a3b8;
+    border-radius: 50%;
+  }
+  .card-body {
+    font-size: 0.88rem;
+    color: #334155;
+    line-height: 1.7;
+  }
+  .card-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    text-decoration: none;
+    margin-top: auto;
+  }
+  .card-link.model    { color: var(--model); }
+  .card-link.research { color: var(--research); }
+  .card-link.business { color: var(--business); }
+  .card-link.policy   { color: var(--policy); }
+  .card-link.tools    { color: var(--tools); }
+  .card-link:hover { text-decoration: underline; }
+
+  /* FOOTER */
+  footer {
+    background: #1e293b;
+    color: #94a3b8;
+    text-align: center;
+    padding: 1.5rem;
+    font-size: 0.8rem;
+    font-family: 'Inter', sans-serif;
+  }
+  footer strong { color: #e2e8f0; }
+
+  @media (max-width: 640px) {
+    header { padding: 1.25rem 1rem; }
+    main { padding: 0 0.85rem; margin: 1.25rem auto; }
+    .cat-bar { padding: 0.6rem 0.85rem; }
+    .card { padding: 1rem 1.1rem; }
+    .header-title { font-size: 1.25rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="header-title">📰 AI <span>News Digest</span></div>
+    <div class="header-meta">
+      <div class="header-date">2026年05月03日（日）</div>
+      <div class="header-count">40 articles</div>
+    </div>
+  </div>
+</header>
+
+<div class="cat-bar">
+  <div class="cat-bar-inner">
+    <button class="cat-pill model" onclick="document.getElementById('section-model').scrollIntoView({behavior: 'smooth'});">● モデル (10)</button>
+    <button class="cat-pill research" onclick="document.getElementById('section-research').scrollIntoView({behavior: 'smooth'});">● 研究 (5)</button>
+    <button class="cat-pill business" onclick="document.getElementById('section-business').scrollIntoView({behavior: 'smooth'});">● ビジネス (12)</button>
+    <button class="cat-pill policy" onclick="document.getElementById('section-policy').scrollIntoView({behavior: 'smooth'});">● ポリシー (9)</button>
+    <button class="cat-pill tools" onclick="document.getElementById('section-tools').scrollIntoView({behavior: 'smooth'});">● ツール (4)</button>
+  </div>
+</div>
+
+<main>
+
+  <!-- モデル -->
+  <div class="section-label" id="section-model">モデル</div>
+  <div class="grid">
+
+    <article class="card model">
+      <div class="card-top">
+        <span class="card-label model">モデル</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">In Harvard study, AI offered more accurate emergency room diagnoses than two human doctors</div>
+      <div class="card-title-en">In Harvard study, AI offered more accurate emergency room diagnoses than two human doctors</div>
+      <div class="card-source">TechCrunch AI · Sun, 03 Ma</div>
+      <div class="card-body">A new study examines how large language models perform in a variety of medical contexts, including real emergency room cases — where at least one model seemed to be more accurate than human doctors.</div>
+      <a class="card-link model" href="https://techcrunch.com/2026/05/03/in-harvard-study-ai-offered-more-accurate-diagnoses-than-emergency-room-doctors/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card model">
+      <div class="card-top">
+        <span class="card-label model">モデル</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Pentagon inks deals with Nvidia, Microsoft, and AWS to deploy AI on classified networks</div>
+      <div class="card-title-en">Pentagon inks deals with Nvidia, Microsoft, and AWS to deploy AI on classified networks</div>
+      <div class="card-source">TechCrunch AI · Fri, 01 Ma</div>
+      <div class="card-body">The deals come as the DOD has doubled down on diversifying its exposure to AI vendors in the wake of its controversial dispute with Anthropic over usage terms of its AI models.</div>
+      <a class="card-link model" href="https://techcrunch.com/2026/05/01/pentagon-inks-deals-with-nvidia-microsoft-and-aws-to-deploy-ai-on-classified-networks/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card model">
+      <div class="card-top">
+        <span class="card-label model">モデル</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">ChatGPT Images 2.0 is a hit in India, but not a big winner elsewhere, yet</div>
+      <div class="card-title-en">ChatGPT Images 2.0 is a hit in India, but not a big winner elsewhere, yet</div>
+      <div class="card-source">TechCrunch AI · Fri, 01 Ma</div>
+      <div class="card-body">Users in India are embracing ChatGPT Images 2.0 for creative, personal visuals — from avatars to cinematic portraits.</div>
+      <a class="card-link model" href="https://techcrunch.com/2026/04/30/chatgpt-images-2-0-is-a-hit-in-india-but-not-a-big-winner-elsewhere-yet/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card model">
+      <div class="card-top">
+        <span class="card-label model">モデル</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Salesforce rolls out new Slackbot AI agent as it battles Microsoft and Google in workplace AI</div>
+      <div class="card-title-en">Salesforce rolls out new Slackbot AI agent as it battles Microsoft and Google in workplace AI</div>
+      <div class="card-source">VentureBeat AI · Tue, 13 Ja</div>
+      <div class="card-body">Salesforce on Tuesday launched an entirely rebuilt version of Slackbot, the company&#x27;s workplace assistant, transforming it from a simple notification tool into what executives describe as a fully powered AI agent capable of searching enterprise data, drafting documents, and taking action on beh</div>
+      <a class="card-link model" href="https://venturebeat.com/technology/salesforce-rolls-out-new-slackbot-ai-agent-as-it-battles-microsoft-and" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card model">
+      <div class="card-top">
+        <span class="card-label model">モデル</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Nous Research's NousCoder-14B is an open-source coding model landing right in the Claude Code moment</div>
+      <div class="card-title-en">Nous Research's NousCoder-14B is an open-source coding model landing right in the Claude Code moment</div>
+      <div class="card-source">VentureBeat AI · Wed, 07 Ja</div>
+      <div class="card-body">Nous Research, the open-source artificial intelligence startup backed by crypto venture firm Paradigm, released a new competitive programming model on Monday that it says matches or exceeds several larger proprietary systems — trained in just four days using 48 of Nvidia&#x27;s latest B200 graphics </div>
+      <a class="card-link model" href="https://venturebeat.com/technology/nous-researchs-nouscoder-14b-is-an-open-source-coding-model-landing-right-in" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card model">
+      <div class="card-top">
+        <span class="card-label model">モデル</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">The creator of Claude Code just revealed his workflow, and developers are losing their minds</div>
+      <div class="card-title-en">The creator of Claude Code just revealed his workflow, and developers are losing their minds</div>
+      <div class="card-source">VentureBeat AI · Mon, 05 Ja</div>
+      <div class="card-body">When the creator of the world&#x27;s most advanced coding agent speaks, Silicon Valley doesn&#x27;t just listen — it takes notes.For the past week, the engineering community has been dissecting a thread on X from Boris Cherny, the creator and head of Claude Code at Anthropic. What began as a casual </div>
+      <a class="card-link model" href="https://venturebeat.com/technology/the-creator-of-claude-code-just-revealed-his-workflow-and-developers-are" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card model">
+      <div class="card-top">
+        <span class="card-label model">モデル</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">This startup’s new mechanistic interpretability tool lets you debug LLMs</div>
+      <div class="card-title-en">This startup’s new mechanistic interpretability tool lets you debug LLMs</div>
+      <div class="card-source">MIT Tech Review · Thu, 30 Ap</div>
+      <div class="card-body">The San Francisco–based startup Goodfire just released a new tool, called Silico, that lets researchers and engineers peer inside an AI model and adjust its parameters—the settings that determine a model’s behavior—during training. This could give model makers more fine-grained control over how this</div>
+      <a class="card-link model" href="https://www.technologyreview.com/2026/04/30/1136721/this-startups-new-mechanistic-interpretability-tool-lets-you-debug-llms/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card model">
+      <div class="card-top">
+        <span class="card-label model">モデル</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Elon Musk Seemingly Admits xAI Has Used OpenAI’s Models to Train Its Own</div>
+      <div class="card-title-en">Elon Musk Seemingly Admits xAI Has Used OpenAI’s Models to Train Its Own</div>
+      <div class="card-source">Wired AI · Thu, 30 Ap</div>
+      <div class="card-body">While answering questions under oath, Musk argued it’s standard practice for AI labs to use their competitors’ models.</div>
+      <a class="card-link model" href="https://www.wired.com/story/elon-musk-distill-openai-models-partly-xai/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card model">
+      <div class="card-top">
+        <span class="card-label model">モデル</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">OpenAI Rolls Out ‘Advanced’ Security Mode for At-Risk Accounts</div>
+      <div class="card-title-en">OpenAI Rolls Out ‘Advanced’ Security Mode for At-Risk Accounts</div>
+      <div class="card-source">Wired AI · Thu, 30 Ap</div>
+      <div class="card-body">OpenAI is rolling out Advanced Account Security for people concerned that their ChatGPT or Codex accounts could be potential targets of phishing attacks.</div>
+      <a class="card-link model" href="https://www.wired.com/story/openai-chatgpt-codex-advanced-account-security/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card model">
+      <div class="card-top">
+        <span class="card-label model">モデル</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Study: AI models that consider user's feeling are more likely to make errors</div>
+      <div class="card-title-en">Study: AI models that consider user's feeling are more likely to make errors</div>
+      <div class="card-source">Ars Technica · Fri, 01 Ma</div>
+      <div class="card-body">Overtuning can cause models to "prioritize user satisfaction over truthfulness.”</div>
+      <a class="card-link model" href="https://arstechnica.com/ai/2026/05/study-ai-models-that-consider-users-feeling-are-more-likely-to-make-errors/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+  </div>
+
+  <!-- 研究 -->
+  <div class="section-label" id="section-research">研究</div>
+  <div class="grid">
+
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Inexpensive seafloor-hopping submersibles could stoke deep-sea science—and mining</div>
+      <div class="card-title-en">Inexpensive seafloor-hopping submersibles could stoke deep-sea science—and mining</div>
+      <div class="card-source">MIT Tech Review · Fri, 01 Ma</div>
+      <div class="card-body">Smack dab between Australia and South America, the US National Oceanic and Atmospheric Administration (NOAA) research vessel Rainier is currently on a mission to map more than 8,000 square nautical miles of the Pacific seafloor in search of critical mineral deposits. But it isn’t doing it alone; for</div>
+      <a class="card-link research" href="https://www.technologyreview.com/2026/05/01/1136734/inexpensive-seafloor-hopping-submersibles-could-stoke-deep-sea-science-and-mining/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Trump’s mass firing just dealt another blow to American science</div>
+      <div class="card-title-en">Trump’s mass firing just dealt another blow to American science</div>
+      <div class="card-source">MIT Tech Review · Fri, 01 Ma</div>
+      <div class="card-body">This past week delivered another gut punch for science in the US. This time, the target was the National Science Foundation—a federal agency that funds major research projects to the tune of around $9 billion. The foundation’s efforts were overseen by a board of 22 prominent scientists. On Friday la</div>
+      <a class="card-link research" href="https://www.technologyreview.com/2026/05/01/1136722/mass-firing-trump-fresh-blow-american-science-nsf-nsb/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">The Download: the North Pole’s future and humanoid data</div>
+      <div class="card-title-en">The Download: the North Pole’s future and humanoid data</div>
+      <div class="card-source">MIT Tech Review · Thu, 30 Ap</div>
+      <div class="card-body">This is today&#8217;s edition of The Download, our weekday newsletter that provides a daily dose of what&#8217;s going on in the world of technology. Digging for clues about the North Pole’s past In the past, getting to the North Pole involved a treacherous trip through ice many meters thick. But la</div>
+      <a class="card-link research" href="https://www.technologyreview.com/2026/04/30/1136713/the-download-north-pole-future-humanoid-data/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Disneyland Now Uses Face Recognition on Visitors</div>
+      <div class="card-title-en">Disneyland Now Uses Face Recognition on Visitors</div>
+      <div class="card-source">Wired AI · Sat, 02 Ma</div>
+      <div class="card-body">Plus: The NSA tests Anthropic’s Mythos Preview to find vulnerabilities, a Finnish teen is charged over the Scattered Spider hacking spree, and more.</div>
+      <a class="card-link research" href="https://www.wired.com/story/security-news-this-week-disneyland-now-uses-face-recognition-on-visitors/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">The RAMpocalypse has bought Microsoft valuable time in the fight against SteamOS</div>
+      <div class="card-title-en">The RAMpocalypse has bought Microsoft valuable time in the fight against SteamOS</div>
+      <div class="card-source">Ars Technica · Fri, 01 Ma</div>
+      <div class="card-body">Op-ed: Valve has made a dent in Windows' gaming share, but can it keep going?</div>
+      <a class="card-link research" href="https://arstechnica.com/gaming/2026/05/the-rampocalypse-has-bought-microsoft-valuable-time-in-the-fight-against-steamos/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+  </div>
+
+  <!-- ビジネス -->
+  <div class="section-label" id="section-business">ビジネス</div>
+  <div class="grid">
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">‘This is fine’ creator says AI startup stole his art</div>
+      <div class="card-title-en">‘This is fine’ creator says AI startup stole his art</div>
+      <div class="card-source">TechCrunch AI · Sun, 03 Ma</div>
+      <div class="card-body">The ad comes from Artisan, the AI startup behind billboards urging businesses to "stop hiring humans."</div>
+      <a class="card-link business" href="https://techcrunch.com/2026/05/03/this-is-fine-creator-says-ai-startup-stole-his-art/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Replit’s Amjad Masad on the Cursor deal, fighting Apple, and why he’d rather not sell</div>
+      <div class="card-title-en">Replit’s Amjad Masad on the Cursor deal, fighting Apple, and why he’d rather not sell</div>
+      <div class="card-source">TechCrunch AI · Fri, 01 Ma</div>
+      <div class="card-body">At TechCrunch's sold-out StrictlyVC event in San Francisco on Thursday night, we covered a lot of ground in a short time, beginning with the question everyone in the industry is asking right now: in a world where rival Cursor is reportedly in talks to be acquired by SpaceX for $60 billion, is Replit</div>
+      <a class="card-link business" href="https://techcrunch.com/2026/05/01/replits-amjad-masad-on-the-cursor-deal-fighting-apple-and-why-hed-rather-not-sell/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Meta buys robotics startup to bolster its humanoid AI ambitions</div>
+      <div class="card-title-en">Meta buys robotics startup to bolster its humanoid AI ambitions</div>
+      <div class="card-source">TechCrunch AI · Fri, 01 Ma</div>
+      <div class="card-body">Meta bought humanoid startup Assured Robot Intelligence to beef up its AI models for robots, the company said.</div>
+      <a class="card-link business" href="https://techcrunch.com/2026/05/01/meta-buys-robotics-startup-to-bolster-its-humanoid-ai-ambitions/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Railway secures $100 million to challenge AWS with AI-native cloud infrastructure</div>
+      <div class="card-title-en">Railway secures $100 million to challenge AWS with AI-native cloud infrastructure</div>
+      <div class="card-source">VentureBeat AI · Thu, 22 Ja</div>
+      <div class="card-body">Railway, a San Francisco-based cloud platform that has quietly amassed two million developers without spending a dollar on marketing, announced Thursday that it raised $100 million in a Series B funding round, as surging demand for artificial intelligence applications exposes the limitations of lega</div>
+      <a class="card-link business" href="https://venturebeat.com/infrastructure/railway-secures-usd100-million-to-challenge-aws-with-ai-native-cloud" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Listen Labs raises $69M after viral billboard hiring stunt to scale AI customer interviews</div>
+      <div class="card-title-en">Listen Labs raises $69M after viral billboard hiring stunt to scale AI customer interviews</div>
+      <div class="card-source">VentureBeat AI · Fri, 16 Ja</div>
+      <div class="card-body">Alfred Wahlforss was running out of options. His startup, Listen Labs, needed to hire over 100 engineers, but competing against Mark Zuckerberg&#x27;s $100 million offers seemed impossible. So he spent $5,000 — a fifth of his marketing budget — on a billboard in San Francisco displaying what looked </div>
+      <a class="card-link business" href="https://venturebeat.com/technology/listen-labs-raises-usd69m-after-viral-billboard-hiring-stunt-to-scale-ai" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Musk v. Altman week 1: Elon Musk says he was duped, warns AI could kill us all, and admits that xAI distills OpenAI’s models</div>
+      <div class="card-title-en">Musk v. Altman week 1: Elon Musk says he was duped, warns AI could kill us all, and admits that xAI distills OpenAI’s models</div>
+      <div class="card-source">MIT Tech Review · Fri, 01 Ma</div>
+      <div class="card-body">In the first week of the landmark trial between Elon Musk and OpenAI, Musk took the stand in a crisp black suit and tie and argued that OpenAI CEO Sam Altman and president Greg Brockman had deceived him into bankrolling the company. Along the way, he warned&#160;that AI could destroy us all and sat </div>
+      <a class="card-link business" href="https://www.technologyreview.com/2026/05/01/1136800/musk-v-altman-week-1-musk-says-he-was-duped-warns-ai-could-kill-us-all-and-admits-that-xai-distills-openais-models/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">The Download: a new Christian phone network, and debugging LLMs</div>
+      <div class="card-title-en">The Download: a new Christian phone network, and debugging LLMs</div>
+      <div class="card-source">MIT Tech Review · Fri, 01 Ma</div>
+      <div class="card-body">This is today&#8217;s edition of The Download, our weekday newsletter that provides a daily dose of what&#8217;s going on in the world of technology. A new US phone network for Christians aims to block porn and gender-related content A new US-wide cell phone network marketed to Christians is set to </div>
+      <a class="card-link business" href="https://www.technologyreview.com/2026/05/01/1136762/the-download-christian-phone-network-debugging-llms/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">A new US phone network for Christians aims to block porn and gender-related content</div>
+      <div class="card-title-en">A new US phone network for Christians aims to block porn and gender-related content</div>
+      <div class="card-source">MIT Tech Review · Fri, 01 Ma</div>
+      <div class="card-body">A new US-wide cell phone network marketed to Christians is set to launch next week. It blocks porn, which experts in network security say marks the first time a US cell plan has used network-level blocking for such content that can’t be turned off even by adult account owners. It’s also rolling out </div>
+      <a class="card-link business" href="https://www.technologyreview.com/2026/05/01/1136739/a-new-t-mobile-network-for-christians-aims-to-block-porn-and-gender-related-content/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Exclusive eBook: Inside the stealthy startup that pitched brainless human clones</div>
+      <div class="card-title-en">Exclusive eBook: Inside the stealthy startup that pitched brainless human clones</div>
+      <div class="card-source">MIT Tech Review · Thu, 30 Ap</div>
+      <div class="card-body">The ultimate plan to live forever is a brand new body. This subscriber-only eBook explores R3 Bio, a small startup that has pitched a startling and ethically charged vision for &#8220;brainless clones&#8221; to serve the role of backup human bodies. byAntonio Regalado March 30, 2026 Related Stories:</div>
+      <a class="card-link business" href="https://www.technologyreview.com/2026/04/30/1136684/exclusive-ebook-inside-the-stealthy-startup-that-pitched-brainless-human-clones/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">A Dark-Money Campaign Is Paying Influencers to Frame Chinese AI as a Threat</div>
+      <div class="card-title-en">A Dark-Money Campaign Is Paying Influencers to Frame Chinese AI as a Threat</div>
+      <div class="card-source">Wired AI · Fri, 01 Ma</div>
+      <div class="card-body">Build American AI, a nonprofit linked to a super PAC bankrolled by executives at OpenAI and Andreessen Horowitz, is funding a campaign to spread pro-AI messaging and stoke fears about China.</div>
+      <a class="card-link business" href="https://www.wired.com/story/super-pac-backed-by-openai-and-palantir-is-paying-tiktok-influencers-to-fear-monger-about-china/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Good Luck Getting a Mac Mini for the Next ‘Several Months’</div>
+      <div class="card-title-en">Good Luck Getting a Mac Mini for the Next ‘Several Months’</div>
+      <div class="card-source">Wired AI · Thu, 30 Ap</div>
+      <div class="card-body">Apple CEO Tim Cook told analysts that AI adoption has happened faster than expected.</div>
+      <a class="card-link business" href="https://www.wired.com/story/apple-sold-out-mac-mini-openclaw/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Reid Hoffman Thinks Doctors Should Ask AI for a Second Opinion</div>
+      <div class="card-title-en">Reid Hoffman Thinks Doctors Should Ask AI for a Second Opinion</div>
+      <div class="card-source">Wired AI · Thu, 30 Ap</div>
+      <div class="card-body">The LinkedIn cofounder now has an AI drug discovery startup—and thinks not asking chatbots for medical advice is “bordering on committing malpractice.”</div>
+      <a class="card-link business" href="https://www.wired.com/story/reid-hoffman-ai-doctor-second-opinion-wired-health/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+  </div>
+
+  <!-- ポリシー -->
+  <div class="section-label" id="section-policy">ポリシー</div>
+  <div class="grid">
+
+    <article class="card policy">
+      <div class="card-top">
+        <span class="card-label policy">ポリシー</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">AI-generated actors and scripts are now ineligible for Oscars</div>
+      <div class="card-title-en">AI-generated actors and scripts are now ineligible for Oscars</div>
+      <div class="card-source">TechCrunch AI · Sat, 02 Ma</div>
+      <div class="card-body">Bad news for Tilly Norwood.</div>
+      <a class="card-link policy" href="https://techcrunch.com/2026/05/02/ai-generated-actors-and-scripts-are-now-ineligible-for-oscars/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card policy">
+      <div class="card-top">
+        <span class="card-label policy">ポリシー</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Did you know you can’t steal a charity? Don’t worry. Elon Musk will remind you.</div>
+      <div class="card-title-en">Did you know you can’t steal a charity? Don’t worry. Elon Musk will remind you.</div>
+      <div class="card-source">TechCrunch AI · Fri, 01 Ma</div>
+      <div class="card-body">Elon Musk spent the better part of three days on the witness stand this week in his lawsuit against OpenAI, and it&#8217;s already getting messy. Emails, texts, and his own tweets are surfacing in court, and there are plenty more witnesses to come. Musk&#8217;s argument against OpenAI? By converting</div>
+      <a class="card-link policy" href="https://techcrunch.com/podcast/did-you-know-you-cant-steal-a-charity-dont-worry-elon-musk-will-remind-you/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card policy">
+      <div class="card-top">
+        <span class="card-label policy">ポリシー</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Musk v. Altman is just getting started</div>
+      <div class="card-title-en">Musk v. Altman is just getting started</div>
+      <div class="card-source">TechCrunch AI · Fri, 01 Ma</div>
+      <div class="card-body">Elon Musk spent the better part of three days&#160;on the witness stand&#160;this week&#160;in his lawsuit against OpenAI, and&#160;it&#8217;s&#160;already getting messy. Emails, texts, and&#160;his own tweets&#160;are surfacing in court, and there are plenty more witnesses to come. Musk&#8217;s arg</div>
+      <a class="card-link policy" href="https://techcrunch.com/video/musk-v-altman-is-just-getting-started/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card policy">
+      <div class="card-top">
+        <span class="card-label policy">ポリシー</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Operationalizing AI for Scale and Sovereignty</div>
+      <div class="card-title-en">Operationalizing AI for Scale and Sovereignty</div>
+      <div class="card-source">MIT Tech Review · Fri, 01 Ma</div>
+      <div class="card-body">Companies are taking control of their own data to tailor AI for their needs. The challenge lies in balancing ownership with the safe, trusted flow of high‑quality data needed to power reliable insights. This conversation from MIT Technology Review&#8217;s EmTech AI conference examines how AI factori</div>
+      <a class="card-link policy" href="https://www.technologyreview.com/2026/05/01/1136772/operationalizing-ai-for-scale-and-sovereignty/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card policy">
+      <div class="card-top">
+        <span class="card-label policy">ポリシー</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">How Shivon Zilis Operated as Elon Musk’s OpenAI Insider</div>
+      <div class="card-title-en">How Shivon Zilis Operated as Elon Musk’s OpenAI Insider</div>
+      <div class="card-source">Wired AI · Fri, 01 Ma</div>
+      <div class="card-body">Messages presented at trial reveal how Zilis, the mother of four of Musk’s children, acted as an intermediary between him and OpenAI.</div>
+      <a class="card-link policy" href="https://www.wired.com/story/model-behavior-why-everything-in-musk-v-altman-leads-back-to-shivon-zelis/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card policy">
+      <div class="card-top">
+        <span class="card-label policy">ポリシー</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Musk v. Altman Kicks Off, DOJ Guts Voting Rights Unit, and Is the AI Job Apocalypse Overhyped?</div>
+      <div class="card-title-en">Musk v. Altman Kicks Off, DOJ Guts Voting Rights Unit, and Is the AI Job Apocalypse Overhyped?</div>
+      <div class="card-source">Wired AI · Thu, 30 Ap</div>
+      <div class="card-body">In this episode of Uncanny Valley, we get into how the Elon Musk-Sam Altman trial goes way beyond their rivalry and could have major implications both for OpenAI and also the AI industry at large.</div>
+      <a class="card-link policy" href="https://www.wired.com/story/uncanny-valley-podcast-musk-v-altman-doj-guts-voting-rights-unit-is-ai-job-apocalypse-overhyped/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card policy">
+      <div class="card-top">
+        <span class="card-label policy">ポリシー</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">These Men Allegedly Profit Off Teaching People How to Make AI Porn</div>
+      <div class="card-title-en">These Men Allegedly Profit Off Teaching People How to Make AI Porn</div>
+      <div class="card-source">Wired AI · Thu, 30 Ap</div>
+      <div class="card-body">Three Arizona women have filed a lawsuit against a group of men that alleges they used the women’s photos to make AI porn influencers, then offered online courses showing others how to do it.</div>
+      <a class="card-link policy" href="https://www.wired.com/story/ai-porn-lawsuit-arizona/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card policy">
+      <div class="card-top">
+        <span class="card-label policy">ポリシー</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">How Elon Musk Squeezed OpenAI: They ‘Are Gonna Want to Kill Me’</div>
+      <div class="card-title-en">How Elon Musk Squeezed OpenAI: They ‘Are Gonna Want to Kill Me’</div>
+      <div class="card-source">Wired AI · Wed, 29 Ap</div>
+      <div class="card-body">Tensions flared on the third day of trial in Musk v. Altman as OpenAI’s lawyers cross-examined Musk.</div>
+      <a class="card-link policy" href="https://www.wired.com/story/model-behavior-elon-musk-cross-examined-sam-altman/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card policy">
+      <div class="card-top">
+        <span class="card-label policy">ポリシー</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Minnesota passes ban on fake AI nudes; app makers risk $500K fines</div>
+      <div class="card-title-en">Minnesota passes ban on fake AI nudes; app makers risk $500K fines</div>
+      <div class="card-source">Ars Technica · Fri, 01 Ma</div>
+      <div class="card-body">More evidence of Grok CSAM seen as Minnesota passes nudifying app ban.</div>
+      <a class="card-link policy" href="https://arstechnica.com/tech-policy/2026/05/minnesota-set-to-be-first-state-to-ban-nudification-apps/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+  </div>
+
+  <!-- ツール -->
+  <div class="section-label" id="section-tools">ツール</div>
+  <div class="grid">
+
+    <article class="card tools">
+      <div class="card-top">
+        <span class="card-label tools">ツール</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">The best AI dictation apps, tested and ranked</div>
+      <div class="card-title-en">The best AI dictation apps, tested and ranked</div>
+      <div class="card-source">TechCrunch AI · Sat, 02 Ma</div>
+      <div class="card-body">AI-powered dictation apps are useful for replying to emails, taking notes, and even coding through your voice</div>
+      <a class="card-link tools" href="https://techcrunch.com/2026/05/02/the-best-ai-powered-dictation-apps-of-2025/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card tools">
+      <div class="card-top">
+        <span class="card-label tools">ツール</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Claude Code costs up to $200 a month. Goose does the same thing for free.</div>
+      <div class="card-title-en">Claude Code costs up to $200 a month. Goose does the same thing for free.</div>
+      <div class="card-source">VentureBeat AI · Mon, 19 Ja</div>
+      <div class="card-body">The artificial intelligence coding revolution comes with a catch: it&#x27;s expensive.Claude Code, Anthropic&#x27;s terminal-based AI agent that can write, debug, and deploy code autonomously, has captured the imagination of software developers worldwide. But its pricing — ranging from $20 to $200 p</div>
+      <a class="card-link tools" href="https://venturebeat.com/infrastructure/claude-code-costs-up-to-usd200-a-month-goose-does-the-same-thing-for-free" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card tools">
+      <div class="card-top">
+        <span class="card-label tools">ツール</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Anthropic launches Cowork, a Claude Desktop agent that works in your files — no coding required</div>
+      <div class="card-title-en">Anthropic launches Cowork, a Claude Desktop agent that works in your files — no coding required</div>
+      <div class="card-source">VentureBeat AI · Mon, 12 Ja</div>
+      <div class="card-body">Anthropic released Cowork on Monday, a new AI agent capability that extends the power of its wildly successful Claude Code tool to non-technical users — and according to company insiders, the team built the entire feature in approximately a week and a half, largely using Claude Code itself.The launc</div>
+      <a class="card-link tools" href="https://venturebeat.com/technology/anthropic-launches-cowork-a-claude-desktop-agent-that-works-in-your-files-no" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card tools">
+      <div class="card-top">
+        <span class="card-label tools">ツール</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Cyber-Insecurity in the AI Era</div>
+      <div class="card-title-en">Cyber-Insecurity in the AI Era</div>
+      <div class="card-source">MIT Tech Review · Fri, 01 Ma</div>
+      <div class="card-body">Cybersecurity was already under strain before AI entered the stack. Now, as AI expands the attack surface and adds new complexity, the limits of legacy approaches are becoming harder to ignore. This session from MIT Technology Review&#8217;s EmTech AI conference explores why security must be rethoug</div>
+      <a class="card-link tools" href="https://www.technologyreview.com/2026/05/01/1136779/cyber-insecurity-in-the-ai-era/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+  </div>
+
+
+</main>
+
+<footer>
+  <strong>AI News Digest</strong> — 2026年4月13日（月）自動生成 | 12記事収録<br>
+  <span style="font-size:0.72rem; margin-top:0.3rem; display:block;">Model: 2 · Research: 5 · Business: 4 · Policy: 1</span>
+</footer>
+
+</body>
+</html>
