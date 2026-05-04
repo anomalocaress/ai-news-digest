@@ -168,8 +168,24 @@ def categorize_by_keywords(title: str, description: str) -> str:
     return best if scores[best] > 0 else "research"
 
 
+def translate_ja(text: str) -> str:
+    """Translate English text to Japanese using Google Translate public endpoint (no API key)."""
+    if not text:
+        return text
+    try:
+        resp = requests.get(
+            "https://translate.googleapis.com/translate_a/single",
+            params={"client": "gtx", "sl": "en", "tl": "ja", "dt": "t", "q": text},
+            timeout=8,
+        )
+        data = resp.json()
+        return "".join(seg[0] for seg in data[0] if seg[0])
+    except Exception:
+        return text  # fall back to original on error
+
+
 def categorize_articles(articles: List[Dict]) -> Dict[str, List[Dict]]:
-    """Categorize articles by keyword matching. Returns dict keyed by category."""
+    """Categorize articles by keyword matching and translate to Japanese. No paid API."""
     result: Dict[str, List[Dict]] = {cat: [] for cat in CATEGORIES}
 
     for article in articles:
@@ -182,18 +198,22 @@ def categorize_articles(articles: List[Dict]) -> Dict[str, List[Dict]]:
             continue
 
         category = categorize_by_keywords(title, description)
+
+        title_ja = translate_ja(title)
+        summary_ja = translate_ja(description[:250]) if description else "詳細は記事をご覧ください。"
+
         entry = {
             "category": category,
-            "title_ja": title,          # English title shown as-is
+            "title_ja": title_ja,
             "title_en": title,
-            "summary": description or "Read the full article for details.",
+            "summary": summary_ja,
             "source": source,
             "date": article.get("publishedAt", "")[:10],
             "url": url,
             "importance": 2,
         }
         result[category].append(entry)
-        print(f"✓ [{category}] {title[:70]}")
+        print(f"✓ [{category}] {title_ja[:60]}")
 
     total = sum(len(v) for v in result.values())
     print(f"✓ {total} articles categorised")
