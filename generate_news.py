@@ -378,7 +378,7 @@ def send_email_draft(email_html: str, target_date: datetime) -> bool:
 
         # Create email message
         msg = MIMEMultipart("alternative")
-        msg["Subject"] = f"耳で聞くAIニュース - {date_str}"
+        msg["Subject"] = f"てらこAIニュースダイジェスト - {date_str}"
         msg["From"] = gmail_user
         msg["To"] = email_to
 

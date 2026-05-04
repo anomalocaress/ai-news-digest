@@ -388,7 +388,7 @@ def build_dashboard_html():
         <div class="link-icon">🎵</div>
         <div>
           <div class="link-name">Spotify for Creators</div>
-          <div class="link-desc">耳で聞くAIニュース 管理画面</div>
+          <div class="link-desc">てらこAIニュースダイジェスト 管理画面</div>
         </div>
       </a>
       <a href="https://github.com/anomalocaress/ai-news-digest/actions" target="_blank" class="link-item">
