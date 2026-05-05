@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI News Digest — 2026-05-05</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --model: #1d4ed8;
+    --research: #6d28d9;
+    --business: #065f46;
+    --policy: #92400e;
+    --tools: #0e7490;
+    --bg: #f8fafc;
+    --card-bg: #ffffff;
+    --text: #1e293b;
+    --text-muted: #64748b;
+    --border: #e2e8f0;
+  }
+  body {
+    font-family: 'Noto Sans JP', 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  header {
+    background: #0f172a;
+    color: #fff;
+    padding: 2rem 1.5rem;
+  }
+  .header-inner {
+    max-width: 1440px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .header-title {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+  .header-title span { color: #60a5fa; }
+  .header-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.2rem;
+  }
+  .header-date {
+    font-size: 0.95rem;
+    color: #94a3b8;
+    font-family: 'Inter', sans-serif;
+  }
+  .header-count {
+    background: #1d4ed8;
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.2rem 0.7rem;
+    border-radius: 999px;
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* CATEGORY BAR */
+  .cat-bar {
+    background: #1e293b;
+    padding: 0.75rem 1.5rem;
+    overflow-x: auto;
+  }
+  .cat-bar-inner {
+    max-width: 1440px;
+    margin: 0 auto;
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+  .cat-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.3rem 0.9rem;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    color: #fff;
+    letter-spacing: 0.03em;
+    white-space: nowrap;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .cat-pill:hover {
+    opacity: 0.85;
+    transform: translateY(-2px);
+  }
+  .cat-pill.model    { background: var(--model); }
+  .cat-pill.research { background: var(--research); }
+  .cat-pill.business { background: var(--business); }
+  .cat-pill.policy   { background: var(--policy); }
+  .cat-pill.tools    { background: var(--tools); }
+
+  /* MAIN */
+  main {
+    max-width: 1440px;
+    margin: 2rem auto;
+    padding: 0 1.5rem;
+  }
+  .section-label {
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* GRID */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+    margin-bottom: 2.5rem;
+  }
+  @media (max-width: 900px) {
+    .grid { grid-template-columns: 1fr; }
+ %}
+
+  /* CARD */
+  .card {
+    background: var(--card-bg);
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    padding: 1.25rem 1.4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    transition: box-shadow 0.2s, transform 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .card:hover {
+    box-shadow: 0 8px 24px rgba(0,0,0,0.09);
+    transform: translateY(-2px);
+  }
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+  }
+  .card.model::before    { background: var(--model); }
+  .card.research::before { background: var(--research); }
+  .card.business::before { background: var(--business); }
+  .card.policy::before   { background: var(--policy); }
+  .card.tools::before    { background: var(--tools); }
+
+  .card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+  .card-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    padding: 0.18rem 0.6rem;
+    border-radius: 4px;
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+  }
+  .card-label.model    { background: var(--model); }
+  .card-label.research { background: var(--research); }
+  .card-label.business { background: var(--business); }
+  .card-label.policy   { background: var(--policy); }
+  .card-label.tools    { background: var(--tools); }
+
+  .stars {
+    display: flex;
+    gap: 2px;
+  }
+  .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: #cbd5e1;
+  }
+  .dot.filled { background: #f59e0b; }
+
+  .card-title-ja {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.45;
+  }
+  .card-title-en {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    font-family: 'Inter', sans-serif;
+    font-style: italic;
+    line-height: 1.4;
+  }
+  .card-source {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .card-source::before {
+    content: '';
+    display: inline-block;
+    width: 4px; height: 4px;
+    background: #94a3b8;
+    border-radius: 50%;
+  }
+  .card-body {
+    font-size: 0.88rem;
+    color: #334155;
+    line-height: 1.7;
+  }
+  .card-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    text-decoration: none;
+    margin-top: auto;
+  }
+  .card-link.model    { color: var(--model); }
+  .card-link.research { color: var(--research); }
+  .card-link.business { color: var(--business); }
+  .card-link.policy   { color: var(--policy); }
+  .card-link.tools    { color: var(--tools); }
+  .card-link:hover { text-decoration: underline; }
+
+  /* FOOTER */
+  footer {
+    background: #1e293b;
+    color: #94a3b8;
+    text-align: center;
+    padding: 1.5rem;
+    font-size: 0.8rem;
+    font-family: 'Inter', sans-serif;
+  }
+  footer strong { color: #e2e8f0; }
+
+  @media (max-width: 640px) {
+    header { padding: 1.25rem 1rem; }
+    main { padding: 0 0.85rem; margin: 1.25rem auto; }
+    .cat-bar { padding: 0.6rem 0.85rem; }
+    .card { padding: 1rem 1.1rem; }
+    .header-title { font-size: 1.25rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="header-title">📰 AI <span>News Digest</span></div>
+    <div class="header-meta">
+      <div class="header-date">2026年05月05日（火）</div>
+      <div class="header-count">40 articles</div>
+    </div>
+  </div>
+</header>
+
+<div class="cat-bar">
+  <div class="cat-bar-inner">
+    <button class="cat-pill model" onclick="document.getElementById('section-model').scrollIntoView({behavior: 'smooth'});">● モデル (8)</button>
+    <button class="cat-pill research" onclick="document.getElementById('section-research').scrollIntoView({behavior: 'smooth'});">● 研究 (9)</button>
+    <button class="cat-pill business" onclick="document.getElementById('section-business').scrollIntoView({behavior: 'smooth'});">● ビジネス (12)</button>
+    <button class="cat-pill policy" onclick="document.getElementById('section-policy').scrollIntoView({behavior: 'smooth'});">● ポリシー (5)</button>
+    <button class="cat-pill tools" onclick="document.getElementById('section-tools').scrollIntoView({behavior: 'smooth'});">● ツール (6)</button>
+  </div>
+</div>
+
+<main>
+
+  <!-- モデル -->
+  <div class="section-label" id="section-model">モデル</div>
+  <div class="grid">
+
+    <article class="card model">
+      <div class="card-top">
+        <span class="card-label model">モデル</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">OpenAI が ChatGPT の新しいデフォルト モデルである GPT-5.5 Instant をリリース</div>
+      <div class="card-title-en">OpenAI releases GPT-5.5 Instant, a new default model for ChatGPT</div>
+      <div class="card-source">TechCrunch AI · Tue, 05 Ma</div>
+      <div class="card-body">同社によれば、このモデルは、前モデルの低遅延を維持しながら、法律、医療、金融などの機密分野での幻覚を軽減すると述べた。</div>
+      <a class="card-link model" href="https://techcrunch.com/2026/05/05/openai-releases-gpt-5-5-instant-a-new-default-model-for-chatgpt/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card model">
+      <div class="card-top">
+        <span class="card-label model">モデル</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Etsy は AI の推進を継続しながら ChatGPT 内でアプリを起動</div>
+      <div class="card-title-en">Etsy launches its app within ChatGPT as it continues its AI push</div>
+      <div class="card-source">TechCrunch AI · Tue, 05 Ma</div>
+      <div class="card-body">ChatGPT 内の Etsy の新しいネイティブ アプリは、ユーザーにとって会話型のショッピング体験を提供することを目指しています。</div>
+      <a class="card-link model" href="https://techcrunch.com/2026/05/05/etsy-launches-its-app-within-chatgpt-as-it-continues-its-ai-push/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card model">
+      <div class="card-top">
+        <span class="card-label model">モデル</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Salesforce が職場 AI で Microsoft や Google と戦い、新しい Slackbot AI エージェントを展開</div>
+      <div class="card-title-en">Salesforce rolls out new Slackbot AI agent as it battles Microsoft and Google in workplace AI</div>
+      <div class="card-source">VentureBeat AI · Tue, 13 Ja</div>
+      <div class="card-body">Salesforce は火曜日、同社の職場アシスタントである Slackbot の完全に再構築されたバージョンを発表し、これを単なる通知ツールから、経営陣が言うところの、企業を検索できる完全にパワーアップした AI エージェントに変えました。</div>
+      <a class="card-link model" href="https://venturebeat.com/technology/salesforce-rolls-out-new-slackbot-ai-agent-as-it-battles-microsoft-and" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card model">
+      <div class="card-top">
+        <span class="card-label model">モデル</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Nous Research の NousCoder-14B は、クロード コードの瞬間に着地したオープンソースのコーディング モデルです</div>
+      <div class="card-title-en">Nous Research's NousCoder-14B is an open-source coding model landing right in the Claude Code moment</div>
+      <div class="card-source">VentureBeat AI · Wed, 07 Ja</div>
+      <div class="card-body">暗号通貨ベンチャー企業パラダイムが支援するオープンソースの人工知能スタートアップ、ヌース・リサーチは月曜日、いくつかの大規模な独自システムに匹敵、あるいはそれを超える新しい競技プログラミングモデルをリリースした（わずか4日で訓練された）</div>
+      <a class="card-link model" href="https://venturebeat.com/technology/nous-researchs-nouscoder-14b-is-an-open-source-coding-model-landing-right-in" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card model">
+      <div class="card-top">
+        <span class="card-label model">モデル</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Claude Code の作成者が自身のワークフローを公開したが、開発者は正気を失いつつある</div>
+      <div class="card-title-en">The creator of Claude Code just revealed his workflow, and developers are losing their minds</div>
+      <div class="card-source">VentureBeat AI · Mon, 05 Ja</div>
+      <div class="card-body">世界で最も先進的なコーディング エージェントの作成者が話すとき、シリコン バレーはただ聞くだけでなく、メモを取ります。ここ 1 週間、エンジニアリング コミュニティは、作成者であり責任者である Boris Cherny 氏による X に関するスレッドを分析してきました。</div>
+      <a class="card-link model" href="https://venturebeat.com/technology/the-creator-of-claude-code-just-revealed-his-workflow-and-developers-are" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card model">
+      <div class="card-top">
+        <span class="card-label model">モデル</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">イーロン・マスク氏、xAIがOpenAIのモデルを使って自身のモデルをトレーニングしたことを認めたようだ</div>
+      <div class="card-title-en">Elon Musk Seemingly Admits xAI Has Used OpenAI’s Models to Train Its Own</div>
+      <div class="card-source">Wired AI · Thu, 30 Ap</div>
+      <div class="card-body">マスク氏は宣誓の下で質問に答えながら、AI研究所が競合他社のモデルを使用するのが標準的な慣行だと主張した。</div>
+      <a class="card-link model" href="https://www.wired.com/story/elon-musk-distill-openai-models-partly-xai/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card model">
+      <div class="card-top">
+        <span class="card-label model">モデル</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">OpenAI、リスクのあるアカウント向けに「高度な」セキュリティ モードを展開</div>
+      <div class="card-title-en">OpenAI Rolls Out ‘Advanced’ Security Mode for At-Risk Accounts</div>
+      <div class="card-source">Wired AI · Thu, 30 Ap</div>
+      <div class="card-body">OpenAI は、ChatGPT または Codex アカウントがフィッシング攻撃の潜在的なターゲットになる可能性を懸念している人々のために、Advanced Account Security を展開しています。</div>
+      <a class="card-link model" href="https://www.wired.com/story/openai-chatgpt-codex-advanced-account-security/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card model">
+      <div class="card-top">
+        <span class="card-label model">モデル</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Google HomeはアップグレードされたGemini音声アシスタントと新しいカメラコントロールを搭載</div>
+      <div class="card-title-en">Google Home gets upgraded Gemini voice assistant and new camera controls</div>
+      <div class="card-source">Ars Technica · Tue, 05 Ma</div>
+      <div class="card-body">Googleのスマートホームエコシステムは、AIを活用した2025年の刷新以来最大のアップデートを受けることになる。</div>
+      <a class="card-link model" href="https://arstechnica.com/gadgets/2026/05/google-home-gets-upgraded-gemini-voice-assistant-and-new-camera-controls/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+  </div>
+
+  <!-- 研究 -->
+  <div class="section-label" id="section-research">研究</div>
+  <div class="grid">
+
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Meta は AI を使用して身長と骨格を分析し、ユーザーが未成年かどうかを特定します</div>
+      <div class="card-title-en">Meta will use AI to analyze height and bone structure to identify if users are underage</div>
+      <div class="card-source">TechCrunch AI · Tue, 05 Ma</div>
+      <div class="card-body">この視覚分析システムは現在、一部の国で運用されているが、より広範な展開に向けて取り組んでいるとメタ氏は述べている。</div>
+      <a class="card-link research" href="https://techcrunch.com/2026/05/05/meta-will-use-ai-to-analyze-height-and-bone-structure-to-identify-if-users-are-underage/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">ダウンロード: マスク対アルトマン裁判の内部と民主主義のための AI</div>
+      <div class="card-title-en">The Download: inside the Musk v. Altman trial, and AI for democracy</div>
+      <div class="card-source">MIT Tech Review · Tue, 05 Ma</div>
+      <div class="card-body">これは、テクノロジーの世界で何が起こっているかを毎日提供する平日のニュースレター、The Download の今日版です。マスク対アルトマン裁判の第 1 週: 部屋の中の様子 2 人の最も有力な人物</div>
+      <a class="card-link research" href="https://www.technologyreview.com/2026/05/05/1136848/the-download-musk-openai-altman-trial-ai-democracy/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">マスク対アルトマン裁判の第 1 週: 部屋の中の様子</div>
+      <div class="card-title-en">Week one of the Musk v. Altman trial: What it was like in the room</div>
+      <div class="card-source">MIT Tech Review · Mon, 04 Ma</div>
+      <div class="card-body">このストーリーは元々、AI に関する週刊ニュースレター『The Algorithm』に掲載されました。このような記事を受信箱に受け取るには、まずここから登録してください。 AI 分野で最も強力な 2 人、サム アルトマンとイーロン マスクがカリフォルニア州オークランドの法廷で対決を開始した</div>
+      <a class="card-link research" href="https://www.technologyreview.com/2026/05/04/1136826/week-one-of-the-musk-v-altman-trial-what-it-was-like-in-the-room/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">海底を飛び回る安価な潜水艇は深海の科学と鉱山を刺激する可能性がある</div>
+      <div class="card-title-en">Inexpensive seafloor-hopping submersibles could stoke deep-sea science—and mining</div>
+      <div class="card-source">MIT Tech Review · Fri, 01 Ma</div>
+      <div class="card-body">オーストラリアと南米の間で、米国海洋大気局（NOAA）の調査船レーニア号は現在、太平洋の海底の8,000平方海里以上の地図を作成する任務に就いており、重要な物質を探しています。</div>
+      <a class="card-link research" href="https://www.technologyreview.com/2026/05/01/1136734/inexpensive-seafloor-hopping-submersibles-could-stoke-deep-sea-science-and-mining/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">トランプ大統領の大量解雇はアメリカの科学に新たな打撃を与えたばかりだ</div>
+      <div class="card-title-en">Trump’s mass firing just dealt another blow to American science</div>
+      <div class="card-source">MIT Tech Review · Fri, 01 Ma</div>
+      <div class="card-body">先週、米国の科学に新たな衝撃が走りました。今回の標的は、主要な研究プロジェクトに約90億ドルもの資金を提供する連邦機関である国立科学財団だった。財団の取り組みは監視され、</div>
+      <a class="card-link research" href="https://www.technologyreview.com/2026/05/01/1136722/mass-firing-trump-fresh-blow-american-science-nsf-nsb/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">彼は就職面接に合格できなかった。 AIのせいだったのか？</div>
+      <div class="card-title-en">He Couldn’t Land a Job Interview. Was AI to Blame?</div>
+      <div class="card-source">Wired AI · Tue, 05 Ma</div>
+      <div class="card-body">ある医学生は、Python の知識と真っ赤な不公平感を武器に、アルゴリズムが自分の就職応募書を破棄したかどうかを解明するために 6 か月間費やしました。</div>
+      <a class="card-link research" href="https://www.wired.com/story/he-couldnt-land-a-job-interview-was-ai-to-blame/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">グレッグ・ブロックマン、300億ドルのOpenAI株式を弁護：「血、汗、涙」</div>
+      <div class="card-title-en">Greg Brockman Defends $30B OpenAI Stake: ‘Blood, Sweat, and Tears’</div>
+      <div class="card-source">Wired AI · Mon, 04 Ma</div>
+      <div class="card-body">OpenAIの共同創設者兼社長は月曜日、連邦裁判所で、自分がAI研究所の最大の個人利害関係者の1人であることを明らかにした。</div>
+      <a class="card-link research" href="https://www.wired.com/story/greg-brockman-testifies-musk-v-altman-trial/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">ディズニーランド、来園者に顔認証を導入</div>
+      <div class="card-title-en">Disneyland Now Uses Face Recognition on Visitors</div>
+      <div class="card-source">Wired AI · Sat, 02 Ma</div>
+      <div class="card-body">さらに、NSA は Anthropic の Mythos Preview をテストして脆弱性を発見し、フィンランドの 10 代の少年が Scattered Spider によるハッキング事件で起訴されるなど、さまざまな事件が起きています。</div>
+      <a class="card-link research" href="https://www.wired.com/story/security-news-this-week-disneyland-now-uses-face-recognition-on-visitors/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">RFKジュニアは抗うつ薬をヘロインと誤って比較することを計画している</div>
+      <div class="card-title-en">RFK Jr. plans to curb antidepressants, which he falsely compares to heroin</div>
+      <div class="card-source">Ars Technica · Tue, 05 Ma</div>
+      <div class="card-body">ケネディはSSRIについて多くの虚偽の主張をしてきたし、これからも主張し続けている。</div>
+      <a class="card-link research" href="https://arstechnica.com/health/2026/05/rfk-jr-plans-to-curb-antidepressants-which-he-falsely-compares-to-heroin/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+  </div>
+
+  <!-- ビジネス -->
+  <div class="section-label" id="section-business">ビジネス</div>
+  <div class="grid">
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">ASML CEO クリストフ・フーケ、自社の独占について語る：誰も我々に来ない</div>
+      <div class="card-title-en">ASML CEO Christophe Fouquet on his company’s monopoly: no one is coming for us</div>
+      <div class="card-source">TechCrunch AI · Tue, 05 Ma</div>
+      <div class="card-body">ASMLで10年以上勤務した後、2024年にASMLのCEOに就任したクリストフ・フーケ氏は、ミルケン研究所グローバルカンファレンスへの出席を前に、火曜日の朝、ビバリーヒルズのホテルの屋上デッキでこの編集者と座った。ドレ</div>
+      <a class="card-link business" href="https://techcrunch.com/2026/05/05/asml-ceo-christophe-fouquet-no-one-is-coming-for-us/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">PayPalは「再びテクノロジー企業になる」と言っています - それはAIを意味します</div>
+      <div class="card-title-en">PayPal says it’s ‘becoming a technology company again’ — that means AI</div>
+      <div class="card-source">TechCrunch AI · Tue, 05 Ma</div>
+      <div class="card-body">PayPalは、人員削減と技術スタックの最新化に取り組む中で、自動化とリストラを結び付けて15億ドルの節約を目指し、AI主導の立て直しを売り込んでいる。</div>
+      <a class="card-link business" href="https://techcrunch.com/2026/05/05/paypal-says-its-becoming-a-technology-company-again-that-means-ai/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">イレブンラボ、ブラックロック、ジェイミー・フォックス、エヴァ・ロンゴリアを新規投資家としてリストアップ</div>
+      <div class="card-title-en">ElevenLabs lists BlackRock, Jamie Foxx, and Eva Longoria as new investors</div>
+      <div class="card-source">TechCrunch AI · Tue, 05 Ma</div>
+      <div class="card-body">イレブンラボは、音声 AI が重要なインターフェイスになるにつれて、新たな投資家を明らかにし、ARR が 5 億ドルに達し、企業のフットプリントを拡大します。</div>
+      <a class="card-link business" href="https://techcrunch.com/2026/05/05/elevenlabs-lists-blackrock-jamie-foxx-and-eva-longoria-as-new-investors/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">残り 4 日: 2 番目の TechCrunch Disrupt 2026 パスを 50% オフにして、より多くの取引をより迅速に行うことができます</div>
+      <div class="card-title-en">4 days left: Get 50% off a second TechCrunch Disrupt 2026 pass to make more deals faster</div>
+      <div class="card-source">TechCrunch AI · Tue, 05 Ma</div>
+      <div class="card-body">今後 4 日間限定で、TechCrunch Disrupt 2026 のパスを 1 枚購入すると、同じタイプのチケットの 2 番目のパスが 50% オフになります。 この期間は 5 月 8 日の午後 11 時 59 分に終了します。 PT. その後は料金が上がり、パートナーや同僚を連れてくるとさらにお金を払うことになります。 R</div>
+      <a class="card-link business" href="https://techcrunch.com/2026/05/05/4-days-left-get-50-off-a-second-techcrunch-disrupt-2026-pass-to-make-more-deals-faster/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">鉄道が AI ネイティブのクラウド インフラストラクチャで AWS に対抗するために 1 億ドルを確保</div>
+      <div class="card-title-en">Railway secures $100 million to challenge AWS with AI-native cloud infrastructure</div>
+      <div class="card-source">VentureBeat AI · Thu, 22 Ja</div>
+      <div class="card-body">サンフランシスコに本拠を置き、マーケティングに1ドルも費やすことなく200万人の開発者を密かに集めてきたクラウドプラットフォームであるRailwayは、木曜日、人工知能に対する需要の急増を受けて、シリーズBの資金調達ラウンドで1億ドルを調達したと発表した。</div>
+      <a class="card-link business" href="https://venturebeat.com/infrastructure/railway-secures-usd100-million-to-challenge-aws-with-ai-native-cloud" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">AI顧客インタビューを拡大するためのバイラル看板採用スタントでListen Labsが6,900万ドルを調達</div>
+      <div class="card-title-en">Listen Labs raises $69M after viral billboard hiring stunt to scale AI customer interviews</div>
+      <div class="card-source">VentureBeat AI · Fri, 16 Ja</div>
+      <div class="card-body">アルフレッド・ワールフォルスには選択肢がなくなっていた。彼のスタートアップ、Listen Labs は 100 人以上のエンジニアを雇用する必要がありましたが、マーク・ザッカーバーグの 1 億ドルのオファーに対抗することは不可能に見えました。そこで彼は、マーケティング予算の 5 分の 1 である 5,000 ドルを費やして、</div>
+      <a class="card-link business" href="https://venturebeat.com/technology/listen-labs-raises-usd69m-after-viral-billboard-hiring-stunt-to-scale-ai" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">ヘルスケアのニーズに合わせて AI ソリューションをカスタマイズ</div>
+      <div class="card-title-en">Tailoring AI solutions for health care needs</div>
+      <div class="card-source">MIT Tech Review · Mon, 04 Ma</div>
+      <div class="card-body">AI 市場には、大きな変革が期待されています。ヘルスケアはこうした約束の主なターゲットだが、財政的圧力、労働力不足、高齢化社会の介護負担の増大に悩まされている。 AI開発者がターゲット</div>
+      <a class="card-link business" href="https://www.technologyreview.com/2026/05/04/1134425/tailoring-ai-solutions-for-health-care-needs/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">マスク対アルトマン 第 1 週: イーロン・マスク、騙されたと発言、AI が人類を滅ぼす可能性があると警告、xAI が OpenAI のモデルを抽出したことを認める</div>
+      <div class="card-title-en">Musk v. Altman week 1: Elon Musk says he was duped, warns AI could kill us all, and admits that xAI distills OpenAI’s models</div>
+      <div class="card-source">MIT Tech Review · Fri, 01 Ma</div>
+      <div class="card-body">イーロン・マスク氏とオープンAIの間で行われた画期的な裁判の最初の週、マスク氏はパリッとした黒のスーツとネクタイ姿で証言台に立ち、OpenAIの最高経営責任者（CEO）サム・アルトマンと社長のグレッグ・ブロックマンが自分を騙して会社に資金を提供させたと主張した。途中、彼は、</div>
+      <a class="card-link business" href="https://www.technologyreview.com/2026/05/01/1136800/musk-v-altman-week-1-musk-says-he-was-duped-warns-ai-could-kill-us-all-and-admits-that-xai-distills-openais-models/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">ダウンロード: 新しいキリスト教の電話ネットワークと LLM のデバッグ</div>
+      <div class="card-title-en">The Download: a new Christian phone network, and debugging LLMs</div>
+      <div class="card-source">MIT Tech Review · Fri, 01 Ma</div>
+      <div class="card-body">これは、テクノロジーの世界で何が起こっているかを毎日提供する平日のニュースレター、The Download の今日版です。キリスト教徒向けの米国の新しい電話ネットワークは、ポルノとジェンダー関連のコンテンツをブロックすることを目的としている</div>
+      <a class="card-link business" href="https://www.technologyreview.com/2026/05/01/1136762/the-download-christian-phone-network-debugging-llms/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Google DeepMind 従業員が軍事 AI 取引に関する労働組合結成に投票</div>
+      <div class="card-title-en">Google DeepMind Workers Vote to Unionize Over Military AI Deals</div>
+      <div class="card-source">Wired AI · Tue, 05 Ma</div>
+      <div class="card-body">グーグルのAI研究所の英国スタッフは、同社の人工知能モデルが軍事現場で使用されることを阻止したいと考えている。</div>
+      <a class="card-link business" href="https://www.wired.com/story/google-deepmind-workers-vote-to-unionize-over-military-ai-deals/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">中国のAIを脅威として仕立てるために、闇のマネーキャンペーンがインフルエンサーに金を支払っている</div>
+      <div class="card-title-en">A Dark-Money Campaign Is Paying Influencers to Frame Chinese AI as a Threat</div>
+      <div class="card-source">Wired AI · Fri, 01 Ma</div>
+      <div class="card-body">OpenAIとアンドリーセン・ホロウィッツの幹部が出資するスーパーPACに関係する非営利団体Build American AIは、AI擁護のメッセージを広め、中国に対する不安を煽るキャンペーンに資金を提供している。</div>
+      <a class="card-link business" href="https://www.wired.com/story/super-pac-backed-by-openai-and-palantir-is-paying-tiktok-influencers-to-fear-monger-about-china/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">今後「数か月間」 Mac Mini を手に入れて頑張ってください</div>
+      <div class="card-title-en">Good Luck Getting a Mac Mini for the Next ‘Several Months’</div>
+      <div class="card-source">Wired AI · Thu, 30 Ap</div>
+      <div class="card-body">アップルのティム・クック最高経営責任者（CEO）はアナリストに対し、AIの導入は予想よりも早く進んでいると語った。</div>
+      <a class="card-link business" href="https://www.wired.com/story/apple-sold-out-mac-mini-openclaw/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+  </div>
+
+  <!-- ポリシー -->
+  <div class="section-label" id="section-policy">ポリシー</div>
+  <div class="grid">
+
+    <article class="card policy">
+      <div class="card-top">
+        <span class="card-label policy">ポリシー</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">ペンシルベニア州、チャットボットが医師を装った疑いでCharacter.AIを提訴</div>
+      <div class="card-title-en">Pennsylvania sues Character.AI after a chatbot allegedly posed as a doctor</div>
+      <div class="card-source">TechCrunch AI · Tue, 05 Ma</div>
+      <div class="card-body">ペンシルベニア州の提出書類によると、Character.AIチャットボットは州の捜査中に公認精神科医を名乗り、州の医師免許のシリアル番号も捏造した。</div>
+      <a class="card-link policy" href="https://techcrunch.com/2026/05/05/pennsylvania-sues-character-ai-after-a-chatbot-allegedly-posed-as-a-doctor/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card policy">
+      <div class="card-top">
+        <span class="card-label policy">ポリシー</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">AI を活用して民主主義を強化するための青写真</div>
+      <div class="card-title-en">A blueprint for using AI to strengthen democracy</div>
+      <div class="card-source">MIT Tech Review · Tue, 05 Ma</div>
+      <div class="card-body">数世紀ごとに、情報の移動方法が変化し、社会が自らを統治する方法が再構築されます。印刷機は現地語の読み書き能力を広め、宗教改革、そして最終的には代表政府の誕生に貢献しました。電報がそれを可能にした</div>
+      <a class="card-link policy" href="https://www.technologyreview.com/2026/05/05/1136843/ai-democracy-blueprint/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card policy">
+      <div class="card-top">
+        <span class="card-label policy">ポリシー</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">規模と主権を実現する AI の運用化</div>
+      <div class="card-title-en">Operationalizing AI for Scale and Sovereignty</div>
+      <div class="card-source">MIT Tech Review · Fri, 01 Ma</div>
+      <div class="card-body">企業は自社のデータを管理して、ニーズに合わせて AI を調整しています。課題は、所有権と、信頼性の高い洞察を実現するために必要な高品質のデータの安全で信頼できるフローとのバランスをとることにあります。この会話は MIT Technology Review&#8 からのものです</div>
+      <a class="card-link policy" href="https://www.technologyreview.com/2026/05/01/1136772/operationalizing-ai-for-scale-and-sovereignty/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card policy">
+      <div class="card-top">
+        <span class="card-label policy">ポリシー</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Shivon Zilis がイーロン・マスクの OpenAI インサイダーとしてどのように活動したか</div>
+      <div class="card-title-en">How Shivon Zilis Operated as Elon Musk’s OpenAI Insider</div>
+      <div class="card-source">Wired AI · Fri, 01 Ma</div>
+      <div class="card-body">裁判で提示されたメッセージは、マスク氏の4人の子供たちの母親であるジリス氏がマスク氏とOpenAIの間の仲介者としてどのように行動したかを明らかにしている。</div>
+      <a class="card-link policy" href="https://www.wired.com/story/model-behavior-why-everything-in-musk-v-altman-leads-back-to-shivon-zelis/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card policy">
+      <div class="card-top">
+        <span class="card-label policy">ポリシー</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">マスク対アルトマンの裁判が始まり、司法省は投票権部門をガッツにする、そしてAIジョブの黙示録は誇張されすぎているのか？</div>
+      <div class="card-title-en">Musk v. Altman Kicks Off, DOJ Guts Voting Rights Unit, and Is the AI Job Apocalypse Overhyped?</div>
+      <div class="card-source">Wired AI · Thu, 30 Ap</div>
+      <div class="card-body">Uncanny Valley のこのエピソードでは、イーロン・マスク対サム・アルトマンの裁判がいかに両者の対立を超えて、OpenAI と AI 業界全体の両方に大きな影響を与える可能性があるかについて説明します。</div>
+      <a class="card-link policy" href="https://www.wired.com/story/uncanny-valley-podcast-musk-v-altman-doj-guts-voting-rights-unit-is-ai-job-apocalypse-overhyped/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+  </div>
+
+  <!-- ツール -->
+  <div class="section-label" id="section-tools">ツール</div>
+  <div class="grid">
+
+    <article class="card tools">
+      <div class="card-top">
+        <span class="card-label tools">ツール</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">AppleはiOS 27をAIモデルのChoose Your Own Adventureにすることを計画している</div>
+      <div class="card-title-en">Apple plans to make iOS 27 a Choose Your Own Adventure of AI models</div>
+      <div class="card-source">TechCrunch AI · Tue, 05 Ma</div>
+      <div class="card-body">Apple の最新のオペレーティング システムのアップデートにより、ユーザーはさまざまなタスクに使用するサードパーティの AI モデルを自由に選択できるようになると言われています。</div>
+      <a class="card-link tools" href="https://techcrunch.com/2026/05/05/apple-plans-to-make-ios-27-a-choose-your-own-adventure-of-ai-models/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card tools">
+      <div class="card-top">
+        <span class="card-label tools">ツール</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">CopilotKit、開発者によるアプリネイティブ AI エージェントの導入を支援するために 2,700 万ドルを調達</div>
+      <div class="card-title-en">CopilotKit raises $27M to help devs deploy app-native AI agents</div>
+      <div class="card-source">TechCrunch AI · Tue, 05 Ma</div>
+      <div class="card-body">シアトルに本拠を置くこのスタートアップのシリーズAラウンドは、Glilot Capital、NFX、SignalFireが主導したとTechCrunchが独自に入手した。</div>
+      <a class="card-link tools" href="https://techcrunch.com/2026/05/05/copilotkit-raises-27m-to-help-devs-deploy-app-native-ai-agents/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card tools">
+      <div class="card-top">
+        <span class="card-label tools">ツール</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Claude Code の料金は月額最大 200 ドルです。 Goose も同じことを無料で行います。</div>
+      <div class="card-title-en">Claude Code costs up to $200 a month. Goose does the same thing for free.</div>
+      <div class="card-source">VentureBeat AI · Mon, 19 Ja</div>
+      <div class="card-body">人工知能コーディング革命には、高価であるという落とし穴があります。コードを自律的に記述、デバッグ、展開できる Anthropic の端末ベース AI エージェントである Claude Code は、世界中のソフトウェア開発者の想像力を魅了しました。</div>
+      <a class="card-link tools" href="https://venturebeat.com/infrastructure/claude-code-costs-up-to-usd200-a-month-goose-does-the-same-thing-for-free" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card tools">
+      <div class="card-top">
+        <span class="card-label tools">ツール</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Anthropic がファイル内で動作する Claude デスクトップ エージェントである Cowork を開始 - コーディングは不要</div>
+      <div class="card-title-en">Anthropic launches Cowork, a Claude Desktop agent that works in your files — no coding required</div>
+      <div class="card-source">VentureBeat AI · Mon, 12 Ja</div>
+      <div class="card-body">Anthropic は月曜日、大成功を収めた Claude Code ツールの能力を技術者以外のユーザーにも拡張する新しい AI エージェント機能である Cowork をリリースしました。社内関係者によると、チームは約 1 週間で機能全体を構築し、</div>
+      <a class="card-link tools" href="https://venturebeat.com/technology/anthropic-launches-cowork-a-claude-desktop-agent-that-works-in-your-files-no" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card tools">
+      <div class="card-top">
+        <span class="card-label tools">ツール</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">AI時代のサイバー不安</div>
+      <div class="card-title-en">Cyber-Insecurity in the AI Era</div>
+      <div class="card-source">MIT Tech Review · Fri, 01 Ma</div>
+      <div class="card-body">AI がスタックに導入される前から、サイバーセキュリティはすでに負担にさらされていました。現在、AI が攻撃対象領域を拡大し、新たな複雑性が加わっているため、従来のアプローチの限界を無視することが難しくなってきています。 MIT Technology Review の EmTech A によるこのセッション</div>
+      <a class="card-link tools" href="https://www.technologyreview.com/2026/05/01/1136779/cyber-insecurity-in-the-ai-era/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card tools">
+      <div class="card-top">
+        <span class="card-label tools">ツール</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">広く使用されている Daemon Tools ディスク アプリが 1 か月にわたるサプライ チェーン攻撃でバックドア化</div>
+      <div class="card-title-en">Widely used Daemon Tools disk app backdoored in monthlong supply-chain attack</div>
+      <div class="card-source">Ars Technica · Tue, 05 Ma</div>
+      <div class="card-body">デーモン ツール ユーザー: マシンにステルス感染がないかチェックする時期が来ました。</div>
+      <a class="card-link tools" href="https://arstechnica.com/security/2026/05/widely-used-daemon-tools-disk-app-backdoored-in-monthlong-supply-chain-attack/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+  </div>
+
+
+</main>
+
+<footer>
+  <strong>AI News Digest</strong> — 2026年4月13日（月）自動生成 | 12記事収録<br>
+  <span style="font-size:0.72rem; margin-top:0.3rem; display:block;">Model: 2 · Research: 5 · Business: 4 · Policy: 1</span>
+</footer>
+
+</body>
+</html>
