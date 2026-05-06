@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI News Digest — 2026-05-06</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --model: #1d4ed8;
+    --research: #6d28d9;
+    --business: #065f46;
+    --policy: #92400e;
+    --tools: #0e7490;
+    --bg: #f8fafc;
+    --card-bg: #ffffff;
+    --text: #1e293b;
+    --text-muted: #64748b;
+    --border: #e2e8f0;
+  }
+  body {
+    font-family: 'Noto Sans JP', 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  header {
+    background: #0f172a;
+    color: #fff;
+    padding: 2rem 1.5rem;
+  }
+  .header-inner {
+    max-width: 1440px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .header-title {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+  .header-title span { color: #60a5fa; }
+  .header-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.2rem;
+  }
+  .header-date {
+    font-size: 0.95rem;
+    color: #94a3b8;
+    font-family: 'Inter', sans-serif;
+  }
+  .header-count {
+    background: #1d4ed8;
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.2rem 0.7rem;
+    border-radius: 999px;
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* CATEGORY BAR */
+  .cat-bar {
+    background: #1e293b;
+    padding: 0.75rem 1.5rem;
+    overflow-x: auto;
+  }
+  .cat-bar-inner {
+    max-width: 1440px;
+    margin: 0 auto;
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+  .cat-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.3rem 0.9rem;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    color: #fff;
+    letter-spacing: 0.03em;
+    white-space: nowrap;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .cat-pill:hover {
+    opacity: 0.85;
+    transform: translateY(-2px);
+  }
+  .cat-pill.model    { background: var(--model); }
+  .cat-pill.research { background: var(--research); }
+  .cat-pill.business { background: var(--business); }
+  .cat-pill.policy   { background: var(--policy); }
+  .cat-pill.tools    { background: var(--tools); }
+
+  /* MAIN */
+  main {
+    max-width: 1440px;
+    margin: 2rem auto;
+    padding: 0 1.5rem;
+  }
+  .section-label {
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* GRID */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+    margin-bottom: 2.5rem;
+  }
+  @media (max-width: 900px) {
+    .grid { grid-template-columns: 1fr; }
+ %}
+
+  /* CARD */
+  .card {
+    background: var(--card-bg);
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    padding: 1.25rem 1.4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    transition: box-shadow 0.2s, transform 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .card:hover {
+    box-shadow: 0 8px 24px rgba(0,0,0,0.09);
+    transform: translateY(-2px);
+  }
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+  }
+  .card.model::before    { background: var(--model); }
+  .card.research::before { background: var(--research); }
+  .card.business::before { background: var(--business); }
+  .card.policy::before   { background: var(--policy); }
+  .card.tools::before    { background: var(--tools); }
+
+  .card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+  .card-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    padding: 0.18rem 0.6rem;
+    border-radius: 4px;
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+  }
+  .card-label.model    { background: var(--model); }
+  .card-label.research { background: var(--research); }
+  .card-label.business { background: var(--business); }
+  .card-label.policy   { background: var(--policy); }
+  .card-label.tools    { background: var(--tools); }
+
+  .stars {
+    display: flex;
+    gap: 2px;
+  }
+  .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: #cbd5e1;
+  }
+  .dot.filled { background: #f59e0b; }
+
+  .card-title-ja {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.45;
+  }
+  .card-title-en {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    font-family: 'Inter', sans-serif;
+    font-style: italic;
+    line-height: 1.4;
+  }
+  .card-source {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .card-source::before {
+    content: '';
+    display: inline-block;
+    width: 4px; height: 4px;
+    background: #94a3b8;
+    border-radius: 50%;
+  }
+  .card-body {
+    font-size: 0.88rem;
+    color: #334155;
+    line-height: 1.7;
+  }
+  .card-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    text-decoration: none;
+    margin-top: auto;
+  }
+  .card-link.model    { color: var(--model); }
+  .card-link.research { color: var(--research); }
+  .card-link.business { color: var(--business); }
+  .card-link.policy   { color: var(--policy); }
+  .card-link.tools    { color: var(--tools); }
+  .card-link:hover { text-decoration: underline; }
+
+  /* FOOTER */
+  footer {
+    background: #1e293b;
+    color: #94a3b8;
+    text-align: center;
+    padding: 1.5rem;
+    font-size: 0.8rem;
+    font-family: 'Inter', sans-serif;
+  }
+  footer strong { color: #e2e8f0; }
+
+  @media (max-width: 640px) {
+    header { padding: 1.25rem 1rem; }
+    main { padding: 0 0.85rem; margin: 1.25rem auto; }
+    .cat-bar { padding: 0.6rem 0.85rem; }
+    .card { padding: 1rem 1.1rem; }
+    .header-title { font-size: 1.25rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="header-title">📰 AI <span>News Digest</span></div>
+    <div class="header-meta">
+      <div class="header-date">2026年05月06日（水）</div>
+      <div class="header-count">40 articles</div>
+    </div>
+  </div>
+</header>
+
+<div class="cat-bar">
+  <div class="cat-bar-inner">
+    <button class="cat-pill model" onclick="document.getElementById('section-model').scrollIntoView({behavior: 'smooth'});">● モデル (7)</button>
+    <button class="cat-pill research" onclick="document.getElementById('section-research').scrollIntoView({behavior: 'smooth'});">● 研究 (8)</button>
+    <button class="cat-pill business" onclick="document.getElementById('section-business').scrollIntoView({behavior: 'smooth'});">● ビジネス (12)</button>
+    <button class="cat-pill policy" onclick="document.getElementById('section-policy').scrollIntoView({behavior: 'smooth'});">● ポリシー (6)</button>
+    <button class="cat-pill tools" onclick="document.getElementById('section-tools').scrollIntoView({behavior: 'smooth'});">● ツール (7)</button>
+  </div>
+</div>
+
+<main>
+
+  <!-- モデル -->
+  <div class="section-label" id="section-model">モデル</div>
+  <div class="grid">
+
+    <article class="card model">
+      <div class="card-top">
+        <span class="card-label model">モデル</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">xAI は今ネオクラウドですか?</div>
+      <div class="card-title-en">Is xAI a neocloud now?</div>
+      <div class="card-source">TechCrunch AI · Wed, 06 Ma</div>
+      <div class="card-body">xAI の本当のビジネスは、AI モデルのトレーニングよりもデータセンターの構築にあるかもしれません。</div>
+      <a class="card-link model" href="https://techcrunch.com/2026/05/06/is-xai-a-neocloud-now/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card model">
+      <div class="card-top">
+        <span class="card-label model">モデル</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">DeepSeekは最初の投資ラウンドから評価額450億ドルに達する可能性がある</div>
+      <div class="card-title-en">DeepSeek could hit $45B valuation from its first investment round</div>
+      <div class="card-source">TechCrunch AI · Wed, 06 Ma</div>
+      <div class="card-body">中国の AI ラボは、OpenAI や Anthropic のような米国の大手モデルの数分の 1 の計算能力と数分の一のコストでトレーニングされる大規模な言語モデルを立ち上げた後、2025 年初頭に有名になりました。</div>
+      <a class="card-link model" href="https://techcrunch.com/2026/05/06/deepseek-could-hit-45b-valuation-from-its-first-investment-round/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card model">
+      <div class="card-top">
+        <span class="card-label model">モデル</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Salesforce が職場 AI で Microsoft や Google と戦い、新しい Slackbot AI エージェントを展開</div>
+      <div class="card-title-en">Salesforce rolls out new Slackbot AI agent as it battles Microsoft and Google in workplace AI</div>
+      <div class="card-source">VentureBeat AI · Tue, 13 Ja</div>
+      <div class="card-body">Salesforce は火曜日、同社の職場アシスタントである Slackbot の完全に再構築されたバージョンを発表し、これを単なる通知ツールから、経営陣が言うところの、企業を検索できる完全にパワーアップした AI エージェントに変えました。</div>
+      <a class="card-link model" href="https://venturebeat.com/technology/salesforce-rolls-out-new-slackbot-ai-agent-as-it-battles-microsoft-and" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card model">
+      <div class="card-top">
+        <span class="card-label model">モデル</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Nous Research の NousCoder-14B は、クロード コードの瞬間に着地したオープンソースのコーディング モデルです</div>
+      <div class="card-title-en">Nous Research's NousCoder-14B is an open-source coding model landing right in the Claude Code moment</div>
+      <div class="card-source">VentureBeat AI · Wed, 07 Ja</div>
+      <div class="card-body">暗号ベンチャー企業パラダイムが支援するオープンソースの人工知能スタートアップ、ヌース・リサーチは月曜日、いくつかの大規模な独自システムに匹敵、あるいはそれを超える新しい競技プログラミングモデルをリリースした（わずか4日で訓練された）</div>
+      <a class="card-link model" href="https://venturebeat.com/technology/nous-researchs-nouscoder-14b-is-an-open-source-coding-model-landing-right-in" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card model">
+      <div class="card-top">
+        <span class="card-label model">モデル</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Claude Code の作成者が自身のワークフローを公開したが、開発者は正気を失いつつある</div>
+      <div class="card-title-en">The creator of Claude Code just revealed his workflow, and developers are losing their minds</div>
+      <div class="card-source">VentureBeat AI · Mon, 05 Ja</div>
+      <div class="card-body">世界で最も先進的なコーディング エージェントの作成者が話すとき、シリコン バレーはただ聞くだけでなく、メモを取ります。ここ 1 週間、エンジニアリング コミュニティは、開発者であり責任者である Boris Cherny 氏による X に関するスレッドを分析してきました。</div>
+      <a class="card-link model" href="https://venturebeat.com/technology/the-creator-of-claude-code-just-revealed-his-workflow-and-developers-are" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card model">
+      <div class="card-top">
+        <span class="card-label model">モデル</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Google DeepMind は AI モデルのテストで EVE Online と提携</div>
+      <div class="card-title-en">Google DeepMind partners with EVE Online for AI model testing</div>
+      <div class="card-source">Ars Technica · Wed, 06 Ma</div>
+      <div class="card-body">CCP Games が 1 億 2,000 万ドルを投じて独立し、Fenris Creations としてブランド名を変更する中での動きです。</div>
+      <a class="card-link model" href="https://arstechnica.com/gaming/2026/05/google-deepmind-partners-with-eve-online-for-ai-model-testing/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card model">
+      <div class="card-top">
+        <span class="card-label model">モデル</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">象徴的な「Hello, world」画像のアニメーション版で、印象的な新しい詳細が明らかに</div>
+      <div class="card-title-en">The animated version of the iconic "Hello, world" image reveals striking new details</div>
+      <div class="card-source">Ars Technica · Wed, 06 Ma</div>
+      <div class="card-body">それにしても、それらの衛星では何が起こっているのでしょうか？</div>
+      <a class="card-link model" href="https://arstechnica.com/space/2026/05/the-animated-version-of-artemis-hello-world-is-even-better-than-the-original/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+  </div>
+
+  <!-- 研究 -->
+  <div class="section-label" id="section-research">研究</div>
+  <div class="grid">
+
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">ダウンロード: 海底科学および軍事チャットボット</div>
+      <div class="card-title-en">The Download: seafloor science and military chatbots</div>
+      <div class="card-source">MIT Tech Review · Wed, 06 Ma</div>
+      <div class="card-body">これは、テクノロジーの世界で何が起こっているかを毎日提供する平日のニュースレター、The Download の今日版です。海底を飛び回る安価な潜水艇は深海の科学と鉱山を刺激する可能性がある</div>
+      <a class="card-link research" href="https://www.technologyreview.com/2026/05/06/1136917/the-download-seafloor-science-military-ai-chatbots/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">ダウンロード: マスク対アルトマン裁判の内部と民主主義のための AI</div>
+      <div class="card-title-en">The Download: inside the Musk v. Altman trial, and AI for democracy</div>
+      <div class="card-source">MIT Tech Review · Tue, 05 Ma</div>
+      <div class="card-body">これは、テクノロジーの世界で何が起こっているかを毎日提供する平日のニュースレター、The Download の今日版です。マスク対アルトマン裁判の第 1 週: 部屋の中の様子 2 人の最も有力な人物</div>
+      <a class="card-link research" href="https://www.technologyreview.com/2026/05/05/1136848/the-download-musk-openai-altman-trial-ai-democracy/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">マスク対アルトマン裁判の第 1 週: 部屋の中の様子</div>
+      <div class="card-title-en">Week one of the Musk v. Altman trial: What it was like in the room</div>
+      <div class="card-source">MIT Tech Review · Mon, 04 Ma</div>
+      <div class="card-body">このストーリーは元々、AI に関する週刊ニュースレター『The Algorithm』に掲載されました。このような記事を受信箱に受け取るには、まずここから登録してください。 AI 分野で最も強力な 2 人、サム アルトマンとイーロン マスクがカリフォルニア州オークランドの法廷で対決を開始した</div>
+      <a class="card-link research" href="https://www.technologyreview.com/2026/05/04/1136826/week-one-of-the-musk-v-altman-trial-what-it-was-like-in-the-room/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">海底を飛び回る安価な潜水艇は深海の科学と鉱山を刺激する可能性がある</div>
+      <div class="card-title-en">Inexpensive seafloor-hopping submersibles could stoke deep-sea science—and mining</div>
+      <div class="card-source">MIT Tech Review · Fri, 01 Ma</div>
+      <div class="card-body">オーストラリアと南米の間で、米国海洋大気局（NOAA）の調査船レーニア号は現在、太平洋の海底の8,000平方海里以上の地図を作成する任務に就いており、重要な物質を探しています。</div>
+      <a class="card-link research" href="https://www.technologyreview.com/2026/05/01/1136734/inexpensive-seafloor-hopping-submersibles-could-stoke-deep-sea-science-and-mining/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">わずか10分間AIを使用すると、怠惰で愚かになる可能性があることが研究で判明</div>
+      <div class="card-title-en">Using AI for Just 10 Minutes Might Make You Lazy and Dumb, Study Shows</div>
+      <div class="card-source">Wired AI · Wed, 06 Ma</div>
+      <div class="card-body">新しい研究は、AI アシスタントへの依存が人々の思考能力や問題解決能力に悪影響を与える可能性があることを示唆しています。</div>
+      <a class="card-link research" href="https://www.wired.com/story/using-ai-negative-impact-thinking-problem-solving-study/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">自称「目覚めのアヤトラ」ハサン・パイカー氏はAIの消滅を望んでいる</div>
+      <div class="card-title-en">Hasan Piker, Self-Described ‘Ayatollah of Woke,’ Wants AI to Die</div>
+      <div class="card-source">Wired AI · Wed, 06 Ma</div>
+      <div class="card-body">極左のTwitchストリーマーは、AIが私たちの脳を腐らせていると主張している。彼は Twitter にもハマっており、少なくとも 8 つのポッドキャストを聞いています。</div>
+      <a class="card-link research" href="https://www.wired.com/story/hasan-piker-user-behavior/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">彼は就職面接に合格できなかった。 AIのせいだったのか？</div>
+      <div class="card-title-en">He Couldn’t Land a Job Interview. Was AI to Blame?</div>
+      <div class="card-source">Wired AI · Tue, 05 Ma</div>
+      <div class="card-body">Python の知識と真っ赤な不公平感を武器に、ある医学生は 6 か月間かけて、アルゴリズムが自分の就職応募書を破棄したかどうかを解明しようとしました。</div>
+      <a class="card-link research" href="https://www.wired.com/story/he-couldnt-land-a-job-interview-was-ai-to-blame/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">グレッグ・ブロックマン、300億ドルのOpenAI株式を弁護：「血、汗、涙」</div>
+      <div class="card-title-en">Greg Brockman Defends $30B OpenAI Stake: ‘Blood, Sweat, and Tears’</div>
+      <div class="card-source">Wired AI · Mon, 04 Ma</div>
+      <div class="card-body">OpenAIの共同創設者兼社長は月曜日、連邦裁判所で、自分がAI研究所の最大の個人利害関係者の1人であることを明らかにした。</div>
+      <a class="card-link research" href="https://www.wired.com/story/greg-brockman-testifies-musk-v-altman-trial/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+  </div>
+
+  <!-- ビジネス -->
+  <div class="section-label" id="section-business">ビジネス</div>
+  <div class="grid">
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">バリー・ディラーはサム・アルトマンを信頼している。しかし、AGI が近づくにつれて「信頼は無関係になる」と彼は言います。</div>
+      <div class="card-title-en">Barry Diller trusts Sam Altman. But ‘trust is irrelevant’ as AGI nears, he says.</div>
+      <div class="card-source">TechCrunch AI · Wed, 06 Ma</div>
+      <div class="card-body">バリー・ディラー氏は、OpenAI CEO のサム・アルトマン氏を擁護しながら、AGI は依然としてガードレールを必要とする予測不可能な勢力であると警告した。</div>
+      <a class="card-link business" href="https://techcrunch.com/2026/05/06/barry-diller-trusts-sam-altman-but-trust-is-irrelevant-as-agi-nears-he-says/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Snap、Perplexityとの4億ドルの契約が「円満に終了」したと発表</div>
+      <div class="card-title-en">Snap says its $400M deal with Perplexity ‘amicably ended’</div>
+      <div class="card-source">TechCrunch AI · Wed, 06 Ma</div>
+      <div class="card-body">昨年11月に発表されたこの提携では、PerplexityのAI検索エンジンがSnapchatに直接統合される予定だった。</div>
+      <a class="card-link business" href="https://techcrunch.com/2026/05/06/snap-says-its-400m-deal-with-perplexity-amicably-ended/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">イーロン・マスク氏が OpenAI を去った経緯、グレッグ・ブロックマン氏が語る</div>
+      <div class="card-title-en">How Elon Musk left OpenAI, according to Greg Brockman</div>
+      <div class="card-source">TechCrunch AI · Wed, 06 Ma</div>
+      <div class="card-body">スタートアップの創業者間の熾烈な交渉がこれほど公に共有されることはめったになく、特にOpenAIのように世界を変える企業になるとなおさらだ。</div>
+      <a class="card-link business" href="https://techcrunch.com/2026/05/06/how-elon-musk-left-openai-according-to-greg-brockman/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Khoslaが支援するロボット工学スタートアップGenesis AIがフルスタック化、デモが披露</div>
+      <div class="card-title-en">Khosla-backed robotics startup Genesis AI has gone full stack, demo shows</div>
+      <div class="card-source">TechCrunch AI · Wed, 06 Ma</div>
+      <div class="card-body">ロボット工学の基礎となるAIを構築するためにシードラウンドで1億500万ドルを調達した新興企業であるG​​enesis AIは、最初のモデルであるGENE-26.5を発表したが、複雑なタスクを実行する一連のロボットハンドを紹介するデモも公開した。</div>
+      <a class="card-link business" href="https://techcrunch.com/2026/05/06/khosla-backed-robotics-startup-genesis-ai-has-gone-full-stack-demo-shows/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">鉄道が AI ネイティブのクラウド インフラストラクチャで AWS に対抗するために 1 億ドルを確保</div>
+      <div class="card-title-en">Railway secures $100 million to challenge AWS with AI-native cloud infrastructure</div>
+      <div class="card-source">VentureBeat AI · Thu, 22 Ja</div>
+      <div class="card-body">マーケティングに1ドルも費やさずに静かに200万人の開発者を集めてきたサンフランシスコを拠点とするクラウドプラットフォームであるRailwayは木曜日、人工知能への需要の急増を受けてシリーズB資金調達ラウンドで1億ドルを調達したと発表した。</div>
+      <a class="card-link business" href="https://venturebeat.com/infrastructure/railway-secures-usd100-million-to-challenge-aws-with-ai-native-cloud" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">AI顧客インタビューを拡大するためのバイラル看板採用スタントでListen Labsが6,900万ドルを調達</div>
+      <div class="card-title-en">Listen Labs raises $69M after viral billboard hiring stunt to scale AI customer interviews</div>
+      <div class="card-source">VentureBeat AI · Fri, 16 Ja</div>
+      <div class="card-body">アルフレッド・ワールフォルスには選択肢がなくなっていた。彼のスタートアップ、Listen Labs は 100 人以上のエンジニアを雇用する必要がありましたが、マーク・ザッカーバーグの 1 億ドルのオファーに対抗するのは不可能に見えました。そこで彼は、マーケティング予算の 5 分の 1 である 5,000 ドルを費やして、</div>
+      <a class="card-link business" href="https://venturebeat.com/technology/listen-labs-raises-usd69m-after-viral-billboard-hiring-stunt-to-scale-ai" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">ヘルスケアのニーズに合わせて AI ソリューションをカスタマイズ</div>
+      <div class="card-title-en">Tailoring AI solutions for health care needs</div>
+      <div class="card-source">MIT Tech Review · Mon, 04 Ma</div>
+      <div class="card-body">AI 市場には、大きな変革が期待されています。ヘルスケアはこうした約束の主なターゲットだが、財政的圧力、労働力不足、高齢化社会の介護負担の増大に悩まされている。 AI開発者がターゲット</div>
+      <a class="card-link business" href="https://www.technologyreview.com/2026/05/04/1134425/tailoring-ai-solutions-for-health-care-needs/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">マスク対アルトマン 第 1 週: イーロン・マスク氏、騙されたと発言、AI が人類を滅ぼす可能性があると警告、xAI が OpenAI のモデルを抽出したことを認める</div>
+      <div class="card-title-en">Musk v. Altman week 1: Elon Musk says he was duped, warns AI could kill us all, and admits that xAI distills OpenAI’s models</div>
+      <div class="card-source">MIT Tech Review · Fri, 01 Ma</div>
+      <div class="card-body">イーロン・マスク氏とオープンAIの間の画期的な裁判の最初の週、マスク氏はパリッとした黒のスーツとネクタイ姿で証言台に立ち、OpenAIの最高経営責任者（CEO）サム・アルトマンと社長のグレッグ・ブロックマンが自分を騙して会社に資金を提供させたと主張した。途中、彼は、</div>
+      <a class="card-link business" href="https://www.technologyreview.com/2026/05/01/1136800/musk-v-altman-week-1-musk-says-he-was-duped-warns-ai-could-kill-us-all-and-admits-that-xai-distills-openais-models/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">ダウンロード: 新しいキリスト教の電話ネットワークと LLM のデバッグ</div>
+      <div class="card-title-en">The Download: a new Christian phone network, and debugging LLMs</div>
+      <div class="card-source">MIT Tech Review · Fri, 01 Ma</div>
+      <div class="card-body">これは、テクノロジーの世界で何が起こっているかを毎日提供する平日のニュースレター、The Download の今日版です。キリスト教徒向けの米国の新しい電話ネットワークは、ポルノとジェンダー関連のコンテンツをブロックすることを目的としている</div>
+      <a class="card-link business" href="https://www.technologyreview.com/2026/05/01/1136762/the-download-christian-phone-network-debugging-llms/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">AI競争が奇妙になる中、人類はSpaceXと提携する</div>
+      <div class="card-title-en">Anthropic Gets in Bed With SpaceX as the AI Race Turns Weird</div>
+      <div class="card-source">Wired AI · Wed, 06 Ma</div>
+      <div class="card-body">予想外の展開で、両社は、Anthropic がイーロン・マスク氏の xAI のコンピューティング リソースを使用する契約を締結しました。</div>
+      <a class="card-link business" href="https://www.wired.com/story/anthropic-spacex-compute-deal-colossus/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Google DeepMind 従業員が軍事 AI 取引に関する労働組合結成に投票</div>
+      <div class="card-title-en">Google DeepMind Workers Vote to Unionize Over Military AI Deals</div>
+      <div class="card-source">Wired AI · Tue, 05 Ma</div>
+      <div class="card-body">グーグルのAI研究所の英国スタッフは、同社の人工知能モデルが軍事現場で使用されることを阻止したいと考えている。</div>
+      <a class="card-link business" href="https://www.wired.com/story/google-deepmind-workers-vote-to-unionize-over-military-ai-deals/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">レポート：SpaceXのIPOでマスク氏に無制限の権限を与え、投資家訴訟を禁止</div>
+      <div class="card-title-en">Report: SpaceX IPO gives Musk unchecked power and forbids investor lawsuits</div>
+      <div class="card-source">Ars Technica · Wed, 06 Ma</div>
+      <div class="card-body">報告書によると、SpaceXのIPOに賛同する者は同社を訴える権利を放棄しなければならないという。</div>
+      <a class="card-link business" href="https://arstechnica.com/tech-policy/2026/05/report-spacex-ipo-gives-musk-unchecked-power-and-forbids-investor-lawsuits/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+  </div>
+
+  <!-- ポリシー -->
+  <div class="section-label" id="section-policy">ポリシー</div>
+  <div class="grid">
+
+    <article class="card policy">
+      <div class="card-top">
+        <span class="card-label policy">ポリシー</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">SpaceXはテキサス州の「Terafab」チップ工場に最大1190億ドルを費やす可能性がある</div>
+      <div class="card-title-en">SpaceX may spend up to $119B on ‘Terafab’ chip factory in Texas</div>
+      <div class="card-source">TechCrunch AI · Wed, 06 Ma</div>
+      <div class="card-body">提案書によれば、このプロジェクトは「多段階の次世代垂直統合型半導体製造および高度なコンピューティング製造施設」となるという。</div>
+      <a class="card-link policy" href="https://techcrunch.com/2026/05/06/spacex-may-spend-up-to-119-billion-on-terafab-chip-factory-in-texas/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card policy">
+      <div class="card-top">
+        <span class="card-label policy">ポリシー</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Apple、SiriのAI機能遅延を巡る訴訟の和解に2億5000万ドル支払う</div>
+      <div class="card-title-en">Apple to pay $250M to settle lawsuit over Siri’s delayed AI features</div>
+      <div class="card-source">TechCrunch AI · Wed, 06 Ma</div>
+      <div class="card-body">Appleは、SiriのAI機能の搭載を過度に約束したとして集団訴訟を起こし、和解のために2億5000万ドルを支払うことに同意した。</div>
+      <a class="card-link policy" href="https://techcrunch.com/2026/05/06/apple-to-pay-250m-to-settle-lawsuit-over-siris-delayed-ai-features/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card policy">
+      <div class="card-top">
+        <span class="card-label policy">ポリシー</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">AI を活用して民主主義を強化するための青写真</div>
+      <div class="card-title-en">A blueprint for using AI to strengthen democracy</div>
+      <div class="card-source">MIT Tech Review · Tue, 05 Ma</div>
+      <div class="card-body">数世紀ごとに、情報の移動方法が変化し、社会が自らを統治する方法が再構築されます。印刷機は現地語の読み書き能力を広め、宗教改革、そして最終的には代表政府の誕生に貢献しました。電報がそれを可能にした</div>
+      <a class="card-link policy" href="https://www.technologyreview.com/2026/05/05/1136843/ai-democracy-blueprint/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card policy">
+      <div class="card-top">
+        <span class="card-label policy">ポリシー</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">規模と主権を実現する AI の運用化</div>
+      <div class="card-title-en">Operationalizing AI for Scale and Sovereignty</div>
+      <div class="card-source">MIT Tech Review · Fri, 01 Ma</div>
+      <div class="card-body">企業は自社のデータを管理して、ニーズに合わせて AI を調整しています。課題は、所有権と、信頼性の高い洞察を実現するために必要な高品質のデータの安全で信頼できるフローとのバランスをとることにあります。この会話は MIT Technology Review&#8 からのものです</div>
+      <a class="card-link policy" href="https://www.technologyreview.com/2026/05/01/1136772/operationalizing-ai-for-scale-and-sovereignty/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card policy">
+      <div class="card-top">
+        <span class="card-label policy">ポリシー</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">ハッカーはあなた以上に AI のスロップを嫌います</div>
+      <div class="card-title-en">Hackers Hate AI Slop Even More Than You Do</div>
+      <div class="card-source">Wired AI · Wed, 06 Ma</div>
+      <div class="card-body">それはあなただけではありません。詐欺師、ハッカー、その他のサイバー犯罪者は、サイバー攻撃やその他の違法行為について議論するプラットフォームに「AI クソ」が氾濫していることに不満を抱いています。</div>
+      <a class="card-link policy" href="https://www.wired.com/story/cybercriminals-are-complaining-about-ai-slop-flooding-their-forums/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card policy">
+      <div class="card-top">
+        <span class="card-label policy">ポリシー</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">OpenAIのグレッグ・ブロックマン氏、イーロン・マスク氏について「実際、彼が私を殴ると思った」と語る</div>
+      <div class="card-title-en">‘I Actually Thought He Was Going to Hit Me,’ OpenAI’s Greg Brockman Says of Elon Musk</div>
+      <div class="card-source">Wired AI · Tue, 05 Ma</div>
+      <div class="card-body">OpenAIの社長は火曜日、2017年のマスク氏との激しい会談とその後の数人の取締役解任の取り組みを明らかにして証言を締めくくった。</div>
+      <a class="card-link policy" href="https://www.wired.com/story/greg-brockman-testifies-elon-musk-fight-trial/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+  </div>
+
+  <!-- ツール -->
+  <div class="section-label" id="section-tools">ツール</div>
+  <div class="grid">
+
+    <article class="card tools">
+      <div class="card-top">
+        <span class="card-label tools">ツール</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">GoogleがAI検索をアップデートし、Redditやその他のソースからの引用を含めるように</div>
+      <div class="card-title-en">Google updates AI search to include quotes from Reddit and other sources</div>
+      <div class="card-source">TechCrunch AI · Wed, 06 Ma</div>
+      <div class="card-body">Web フォーラムやディスカッション ボードを引用することは、ユーザーがよりニッチな質問に対する答えを見つけるのに役立ちますが、このデザインの選択は混乱を招く可能性もあります。</div>
+      <a class="card-link tools" href="https://techcrunch.com/2026/05/06/google-updates-ai-search-to-include-expert-advice-from-reddit-and-other-web-forums/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card tools">
+      <div class="card-top">
+        <span class="card-label tools">ツール</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">TinderオーナーのMatch Groupは、AIツールの使用増加の費用を支払うために採用を遅らせている</div>
+      <div class="card-title-en">Tinder owner Match Group is slowing hiring to pay for its increased use of AI tools</div>
+      <div class="card-source">TechCrunch AI · Wed, 06 Ma</div>
+      <div class="card-body">マッチ・グループは、AIツールには「多額の費用がかかる」ため、年内の採用計画を遅らせると述べた。</div>
+      <a class="card-link tools" href="https://techcrunch.com/2026/05/06/tinder-owner-match-group-is-slowing-hiring-to-pay-for-its-increased-use-of-ai-tools/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card tools">
+      <div class="card-top">
+        <span class="card-label tools">ツール</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Claude Code の料金は月額最大 200 ドルです。 Goose も同じことを無料で行います。</div>
+      <div class="card-title-en">Claude Code costs up to $200 a month. Goose does the same thing for free.</div>
+      <div class="card-source">VentureBeat AI · Mon, 19 Ja</div>
+      <div class="card-body">人工知能コーディング革命には、高価であるという落とし穴があります。コードを自律的に記述、デバッグ、展開できる Anthropic の端末ベース AI エージェントである Claude Code は、世界中のソフトウェア開発者の想像力を魅了しています。</div>
+      <a class="card-link tools" href="https://venturebeat.com/infrastructure/claude-code-costs-up-to-usd200-a-month-goose-does-the-same-thing-for-free" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card tools">
+      <div class="card-top">
+        <span class="card-label tools">ツール</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Anthropic がファイル内で動作する Claude デスクトップ エージェントである Cowork を開始 - コーディングは不要</div>
+      <div class="card-title-en">Anthropic launches Cowork, a Claude Desktop agent that works in your files — no coding required</div>
+      <div class="card-source">VentureBeat AI · Mon, 12 Ja</div>
+      <div class="card-body">Anthropic は月曜日、大成功を収めた Claude Code ツールの能力を技術者以外のユーザーにも拡張する新しい AI エージェント機能である Cowork をリリースしました。社内関係者によると、チームは約 1 週間で機能全体を構築し、</div>
+      <a class="card-link tools" href="https://venturebeat.com/technology/anthropic-launches-cowork-a-claude-desktop-agent-that-works-in-your-files-no" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card tools">
+      <div class="card-top">
+        <span class="card-label tools">ツール</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">AI時代のサイバー不安</div>
+      <div class="card-title-en">Cyber-Insecurity in the AI Era</div>
+      <div class="card-source">MIT Tech Review · Fri, 01 Ma</div>
+      <div class="card-body">AI がスタックに導入される前から、サイバーセキュリティはすでに負担にさらされていました。現在、AI が攻撃対象領域を拡大し、新たな複雑性が加わっているため、従来のアプローチの限界を無視することが難しくなってきています。 MIT Technology Review の EmTech A によるこのセッション</div>
+      <a class="card-link tools" href="https://www.technologyreview.com/2026/05/01/1136779/cyber-insecurity-in-the-ai-era/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card tools">
+      <div class="card-top">
+        <span class="card-label tools">ツール</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">私は AI 企業に人間のプロセスにちなんで機能に名前を付けるのをやめるよう懇願します</div>
+      <div class="card-title-en">I Am Begging AI Companies to Stop Naming Features After Human Processes</div>
+      <div class="card-source">Wired AI · Wed, 06 Ma</div>
+      <div class="card-body">Anthropic は開発者会議で、AI エージェントが「記憶」を整理するための「夢」について発表しました。できないでしょうか？</div>
+      <a class="card-link tools" href="https://www.wired.com/story/i-am-begging-ai-companies-to-stop-naming-features-after-human-processes/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+    <article class="card tools">
+      <div class="card-top">
+        <span class="card-label tools">ツール</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Apple、SiriのAI機能をめぐる訴訟の和解に2億5000万ドルを支払う</div>
+      <div class="card-title-en">Apple Will Pay $250 Million to Settle Lawsuit Over Siri’s AI Features</div>
+      <div class="card-source">Wired AI · Wed, 06 Ma</div>
+      <div class="card-body">米国で iPhone 15 または 16 を購入した場合、決済の一部としてデバイス 1 台あたり最大 95 ドルのポケットマネーが設定される可能性があります。</div>
+      <a class="card-link tools" href="https://www.wired.com/story/apple-will-pay-dollar250-million-to-settle-lawsuit-over-siris-ai-features/" target="_blank" rel="noopener">Read more →</a>
+    </article>
+
+  </div>
+
+
+</main>
+
+<footer>
+  <strong>AI News Digest</strong> — 2026年4月13日（月）自動生成 | 12記事収録<br>
+  <span style="font-size:0.72rem; margin-top:0.3rem; display:block;">Model: 2 · Research: 5 · Business: 4 · Policy: 1</span>
+</footer>
+
+</body>
+</html>
