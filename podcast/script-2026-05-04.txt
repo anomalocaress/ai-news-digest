@@ -1,0 +1,173 @@
+てらこAIニュースダイジェスト。2026年05月04日、月曜日版をお届けします。本日は40件のAIニュースをピックアップしました。
+
+■ モデル・リリース、5件。
+
+1件目。Is xAI a neocloud now?。
+（TechCrunch AIより）
+xAI の本当のビジネスは、AI モデルのトレーニングよりもデータセンターの構築にあるかもしれません。
+
+2件目。DeepSeek could hit $45B valuation from its first investment round。
+（TechCrunch AIより）
+中国の AI ラボは、OpenAI や Anthropic のような米国の大手モデルの数分の 1 の計算能力と数分の一のコストでトレーニングされる大規模な言語モデルを立ち上げて、2025 年初頭に有名になりました。
+
+3件目。Salesforce rolls out new Slackbot AI agent as it battles Microsoft and Google in workplace AI。
+（VentureBeat AIより）
+Salesforce は火曜日、同社の職場アシスタントである Slackbot の完全に再構築されたバージョンを発表し、これを単なる通知ツールから、経営陣が言うところの、企業を検索できる完全にパワーアップした AI エージェントに変えました。
+
+4件目。Nous Research's NousCoder-14B is an open-source coding model landing right in the Claude Code moment。
+（VentureBeat AIより）
+暗号ベンチャー企業パラダイムが支援するオープンソースの人工知能スタートアップ、ヌース・リサーチは月曜日、いくつかの大規模な独自システムに匹敵、あるいはそれを超える新しい競技プログラミングモデルをリリースした（わずか4日で訓練された）
+
+5件目。The creator of Claude Code just revealed his workflow, and developers are losing their minds。
+（VentureBeat AIより）
+世界で最も先進的なコーディング エージェントの作成者が話すとき、シリコン バレーはただ聞くだけでなく、メモを取ります。ここ 1 週間、エンジニアリング コミュニティは、作成者であり責任者である Boris Cherny 氏による X に関するスレッドを分析してきました。
+
+■ 研究・技術、9件。
+
+1件目。The Download: seafloor science and military chatbots。
+（MIT Tech Reviewより）
+これは、テクノロジーの世界で何が起こっているかを毎日提供する平日のニュースレター、The Download の今日版です。海底を飛び回る安価な潜水艇は深海の科学と鉱山を刺激する可能性がある
+
+2件目。The Download: inside the Musk v. Altman trial, and AI for democracy。
+（MIT Tech Reviewより）
+これは、テクノロジーの世界で何が起こっているかを毎日提供する平日のニュースレター、The Download の今日版です。マスク対アルトマン裁判の第 1 週: 部屋の中の様子 2 人の最も有力な人物
+
+3件目。Week one of the Musk v. Altman trial: What it was like in the room。
+（MIT Tech Reviewより）
+このストーリーは元々、AI に関する週刊ニュースレター『The Algorithm』に掲載されました。このような記事を受信箱に受け取るには、まずここから登録してください。 AI 分野で最も強力な 2 人、サム アルトマンとイーロン マスクがカリフォルニア州オークランドの法廷で対決を開始した
+
+4件目。Inexpensive seafloor-hopping submersibles could stoke deep-sea science—and mining。
+（MIT Tech Reviewより）
+オーストラリアと南米の間で、米国海洋大気局（NOAA）の調査船レーニア号は現在、太平洋の海底の8,000平方海里以上の地図を作成する任務に就いており、重要な物質を探しています。
+
+5件目。Elon Musk’s Last-Ditch Effort to Control OpenAI: Recruit Sam Altman to Tesla。
+（Wired AIより）
+シボン・ジリス氏とテスラ幹部とのメッセージで、2017年にアルトマン氏かデミス・ハサビス氏が率いる可能性のあるライバルのAI研究所を立ち上げる計画が明らかになった。
+
+6件目。Using AI for Just 10 Minutes Might Make You Lazy and Dumb, Study Shows。
+（Wired AIより）
+新しい研究は、AI アシスタントへの依存が人々の思考能力や問題解決能力に悪影響を与える可能性があることを示唆しています。
+
+7件目。Hasan Piker, Self-Described ‘Ayatollah of Woke,’ Wants AI to Die。
+（Wired AIより）
+極左のTwitchストリーマーは、AIが私たちの脳を腐らせていると主張している。彼は Twitter にもハマっており、少なくとも 8 つのポッドキャストを聞いています。
+
+8件目。He Couldn’t Land a Job Interview. Was AI to Blame?。
+（Wired AIより）
+ある医学生は、Python の知識と真っ赤な不公平感を武器に、アルゴリズムが自分の就職応募書を破棄したかどうかを解明するために 6 か月間費やしました。
+
+9件目。Court strikes down FCC anti-discrimination rule opposed by Internet providers。
+（Ars Technicaより）
+ブレンダン・カー委員長は、バイデン時代の統治を巡る訴訟でのFCC法廷での敗訴を祝う。
+
+■ ビジネス・産業、12件。
+
+1件目。Barry Diller trusts Sam Altman. But ‘trust is irrelevant’ as AGI nears, he says.。
+（TechCrunch AIより）
+バリー・ディラー氏は、OpenAI CEO のサム・アルトマン氏を擁護しながら、AGI は依然としてガードレールを必要とする予測不可能な勢力であると警告した。
+
+2件目。Snap says its $400M deal with Perplexity ‘amicably ended’。
+（TechCrunch AIより）
+昨年11月に発表されたこの提携では、PerplexityのAI検索エンジンがSnapchatに直接統合される予定だった。
+
+3件目。How Elon Musk left OpenAI, according to Greg Brockman。
+（TechCrunch AIより）
+スタートアップの創業者間の熾烈な交渉がこれほど公に共有されることはめったになく、特にOpenAIのように世界を変える企業になるとなおさらだ。
+
+4件目。Khosla-backed robotics startup Genesis AI has gone full stack, demo shows。
+（TechCrunch AIより）
+ロボット工学の基礎となるAIを構築するためにシードラウンドで1億500万ドルを調達した新興企業であるG​​enesis AIは、最初のモデルであるGENE-26.5を発表したが、複雑なタスクを実行する一連のロボットハンドを紹介するデモも公開した。
+
+5件目。Railway secures $100 million to challenge AWS with AI-native cloud infrastructure。
+（VentureBeat AIより）
+サンフランシスコに本拠を置き、マーケティングに1ドルも費やすことなく200万人の開発者を密かに集めてきたクラウドプラットフォームであるRailwayは、木曜日、人工知能に対する需要の急増を受けて、シリーズBの資金調達ラウンドで1億ドルを調達したと発表した。
+
+6件目。Listen Labs raises $69M after viral billboard hiring stunt to scale AI customer interviews。
+（VentureBeat AIより）
+アルフレッド・ワールフォルスには選択肢がなくなっていた。彼のスタートアップ、Listen Labs は 100 人以上のエンジニアを雇用する必要がありましたが、マーク・ザッカーバーグの 1 億ドルのオファーに対抗することは不可能に見えました。そこで彼は、マーケティング予算の 5 分の 1 である 5,000 ドルを費やして、
+
+7件目。Tailoring AI solutions for health care needs。
+（MIT Tech Reviewより）
+AI 市場には、大きな変革が期待されています。ヘルスケアはこうした約束の主なターゲットだが、財政的圧力、労働力不足、高齢化社会の介護負担の増大に悩まされている。 AI開発者がターゲット
+
+8件目。Musk v. Altman week 1: Elon Musk says he was duped, warns AI could kill us all, and admits that xAI distills OpenAI’s models。
+（MIT Tech Reviewより）
+イーロン・マスク氏とオープンAIの間の画期的な裁判の最初の週、マスク氏はパリッとした黒のスーツとネクタイ姿で証言台に立ち、OpenAIの最高経営責任者（CEO）サム・アルトマンと社長のグレッグ・ブロックマンが自分を騙して会社に資金を提供させたと主張した。途中、彼は、
+
+9件目。The Download: a new Christian phone network, and debugging LLMs。
+（MIT Tech Reviewより）
+これは、テクノロジーの世界で何が起こっているかを毎日提供する平日のニュースレター、The Download の今日版です。キリスト教徒向けの米国の新しい電話ネットワークは、ポルノとジェンダー関連のコンテンツをブロックすることを目的としている
+
+10件目。Anthropic Gets in Bed With SpaceX as the AI Race Turns Weird。
+（Wired AIより）
+予想外の展開で、両社は、Anthropic がイーロン・マスク氏の xAI のコンピューティング リソースを使用する契約を締結しました。
+
+11件目。Google DeepMind Workers Vote to Unionize Over Military AI Deals。
+（Wired AIより）
+グーグルのAI研究所の英国スタッフは、同社の人工知能モデルが軍事現場で使用されることを阻止したいと考えている。
+
+12件目。Anthropic raises Claude Code usage limits, credits new deal with SpaceX。
+（Ars Technicaより）
+ディールはマイクロソフト、アマゾンなどとの提携に続きます。
+
+■ 政策・倫理、7件。
+
+1件目。SpaceX may spend up to $119B on ‘Terafab’ chip factory in Texas。
+（TechCrunch AIより）
+提案書によれば、このプロジェクトは「多段階の次世代垂直統合型半導体製造および高度なコンピューティング製造施設」となるという。
+
+2件目。Apple to pay $250M to settle lawsuit over Siri’s delayed AI features。
+（TechCrunch AIより）
+Appleは、SiriのAI機能の搭載を過度に約束したとして集団訴訟を起こし、和解のために2億5000万ドルを支払うことに同意した。
+
+3件目。A blueprint for using AI to strengthen democracy。
+（MIT Tech Reviewより）
+数世紀ごとに、情報の移動方法が変化し、社会が自らを統治する方法が再構築されます。印刷機は現地語の読み書き能力を広め、宗教改革、そして最終的には代表政府の誕生に貢献しました。電報がそれを可能にした
+
+4件目。Operationalizing AI for Scale and Sovereignty。
+（MIT Tech Reviewより）
+企業は自社のデータを管理して、ニーズに合わせて AI を調整しています。課題は、所有権と、信頼性の高い洞察を実現するために必要な高品質のデータの安全で信頼できるフローとのバランスをとることにあります。この会話は MIT Technology Review&#8 からのものです
+
+5件目。Hackers Hate AI Slop Even More Than You Do。
+（Wired AIより）
+それはあなただけではありません。詐欺師、ハッカー、その他のサイバー犯罪者は、サイバー攻撃やその他の違法行為について議論するプラットフォームに「AI クソ」が氾濫していることに不満を抱いています。
+
+6件目。‘I Actually Thought He Was Going to Hit Me,’ OpenAI’s Greg Brockman Says of Elon Musk。
+（Wired AIより）
+OpenAIの社長は火曜日、2017年のマスク氏との激しい会談とその後の数人の取締役解任の取り組みを明らかにして証言を締めくくった。
+
+7件目。TSMC taps wind power as AI chip demand soars, Taiwan feels energy crunch。
+（Ars Technicaより）
+TSMCは、エネルギーを大量に消費するチップ製造の記録的な需要の間、再生可能エネルギーを支援します。
+
+■ ツール・開発、7件。
+
+1件目。Google updates AI search to include quotes from Reddit and other sources。
+（TechCrunch AIより）
+Web フォーラムやディスカッション ボードを引用することは、ユーザーがよりニッチな質問に対する答えを見つけるのに役立ちますが、このデザインの選択は混乱を招く可能性もあります。
+
+2件目。Tinder owner Match Group is slowing hiring to pay for its increased use of AI tools。
+（TechCrunch AIより）
+マッチ・グループは、AIツールには「多額の費用がかかる」ため、年内の採用計画を遅らせると述べた。
+
+3件目。Claude Code costs up to $200 a month. Goose does the same thing for free.。
+（VentureBeat AIより）
+人工知能コーディング革命には、高価であるという落とし穴があります。コードを自律的に記述、デバッグ、展開できる Anthropic の端末ベース AI エージェントである Claude Code は、世界中のソフトウェア開発者の想像力を魅了しました。
+
+4件目。Anthropic launches Cowork, a Claude Desktop agent that works in your files — no coding required。
+（VentureBeat AIより）
+Anthropic は月曜日、大成功を収めた Claude Code ツールの能力を技術者以外のユーザーにも拡張する新しい AI エージェント機能である Cowork をリリースしました。社内関係者によると、チームは約 1 週間で機能全体を構築し、
+
+5件目。Cyber-Insecurity in the AI Era。
+（MIT Tech Reviewより）
+AI がスタックに導入される前から、サイバーセキュリティはすでに負担にさらされていました。現在、AI が攻撃対象領域を拡大し、新たな複雑性が加わっているため、従来のアプローチの限界を無視することが難しくなってきています。 MIT Technology Review の EmTech A によるこのセッション
+
+6件目。I Am Begging AI Companies to Stop Naming Features After Human Processes。
+（Wired AIより）
+Anthropic は開発者カンファレンスで、AI エージェントが「記憶」を整理するための「夢」について発表しました。できないでしょうか？
+
+7件目。Apple Will Pay $250 Million to Settle Lawsuit Over Siri’s AI Features。
+（Wired AIより）
+米国で iPhone 15 または 16 を購入した場合、決済の一部としてデバイス 1 台あたり最大 95 ドルのポケットマネーが設定される可能性があります。
+
+以上、てらこAIニュースダイジェストでした。明日もAIの最新情報をお届けします。
