@@ -295,6 +295,9 @@ def update_feed(date: datetime, audio_file: Path) -> None:
   <item>
     <title>{ep['title']}</title>
     <itunes:title>{ep['title']}</itunes:title>
+    <description>{ep['title']}</description>
+    <author>{PODCAST_EMAIL}</author>
+    <itunes:author>てらこAIニュースダイジェスト</itunes:author>
     <itunes:episode>{ep_ep_num}</itunes:episode>
     <itunes:episodeType>full</itunes:episodeType>
     <itunes:duration>{dur_hms}</itunes:duration>
@@ -315,11 +318,17 @@ def update_feed(date: datetime, audio_file: Path) -> None:
   <itunes:summary>毎朝6時配信。AIの最新ニュースを厳選してわかりやすくお届けします。</itunes:summary>
   <link>{BASE_URL}</link>
   <language>ja</language>
+  <managingEditor>{PODCAST_EMAIL} (てらこ先生)</managingEditor>
   <itunes:author>てらこAIニュースダイジェスト</itunes:author>
   <itunes:owner>
-    <itunes:name>teraco-labo</itunes:name>
+    <itunes:name>てらこ先生</itunes:name>
     <itunes:email>{PODCAST_EMAIL}</itunes:email>
   </itunes:owner>
+  <image>
+    <url>{COVER_URL}</url>
+    <title>てらこAIニュースダイジェスト</title>
+    <link>{BASE_URL}</link>
+  </image>
   <itunes:image href="{COVER_URL}"/>
   <itunes:explicit>false</itunes:explicit>
   <itunes:type>episodic</itunes:type>

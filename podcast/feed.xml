@@ -9,11 +9,17 @@
   <itunes:summary>毎朝6時配信。AIの最新ニュースを厳選してわかりやすくお届けします。</itunes:summary>
   <link>https://anomalocaress.github.io/ai-news-digest</link>
   <language>ja</language>
+  <managingEditor>fujisaki@teraco-labo.com (てらこ先生)</managingEditor>
   <itunes:author>てらこAIニュースダイジェスト</itunes:author>
   <itunes:owner>
-    <itunes:name>teraco-labo</itunes:name>
+    <itunes:name>てらこ先生</itunes:name>
     <itunes:email>fujisaki@teraco-labo.com</itunes:email>
   </itunes:owner>
+  <image>
+    <url>https://anomalocaress.github.io/ai-news-digest/podcast/cover.jpg</url>
+    <title>てらこAIニュースダイジェスト</title>
+    <link>https://anomalocaress.github.io/ai-news-digest</link>
+  </image>
   <itunes:image href="https://anomalocaress.github.io/ai-news-digest/podcast/cover.jpg"/>
   <itunes:explicit>false</itunes:explicit>
   <itunes:type>episodic</itunes:type>
@@ -24,6 +30,9 @@
   <item>
     <title>てらこAIニュースダイジェスト - 2026-05-07</title>
     <itunes:title>てらこAIニュースダイジェスト - 2026-05-07</itunes:title>
+    <description>てらこAIニュースダイジェスト - 2026-05-07</description>
+    <author>fujisaki@teraco-labo.com</author>
+    <itunes:author>てらこAIニュースダイジェスト</itunes:author>
     <itunes:episode>12</itunes:episode>
     <itunes:episodeType>full</itunes:episodeType>
     <itunes:duration>9:47</itunes:duration>
@@ -35,6 +44,9 @@
   <item>
     <title>てらこAIニュースダイジェスト - 2026-05-06</title>
     <itunes:title>てらこAIニュースダイジェスト - 2026-05-06</itunes:title>
+    <description>てらこAIニュースダイジェスト - 2026-05-06</description>
+    <author>fujisaki@teraco-labo.com</author>
+    <itunes:author>てらこAIニュースダイジェスト</itunes:author>
     <itunes:episode>10</itunes:episode>
     <itunes:episodeType>full</itunes:episodeType>
     <itunes:duration>25:28</itunes:duration>
@@ -46,6 +58,9 @@
   <item>
     <title>てらこAIニュースダイジェスト - 2026-05-05</title>
     <itunes:title>てらこAIニュースダイジェスト - 2026-05-05</itunes:title>
+    <description>てらこAIニュースダイジェスト - 2026-05-05</description>
+    <author>fujisaki@teraco-labo.com</author>
+    <itunes:author>てらこAIニュースダイジェスト</itunes:author>
     <itunes:episode>9</itunes:episode>
     <itunes:episodeType>full</itunes:episodeType>
     <itunes:duration>26:19</itunes:duration>
@@ -57,6 +72,9 @@
   <item>
     <title>てらこAIニュースダイジェスト - 2026-05-04</title>
     <itunes:title>てらこAIニュースダイジェスト - 2026-05-04</itunes:title>
+    <description>てらこAIニュースダイジェスト - 2026-05-04</description>
+    <author>fujisaki@teraco-labo.com</author>
+    <itunes:author>てらこAIニュースダイジェスト</itunes:author>
     <itunes:episode>8</itunes:episode>
     <itunes:episodeType>full</itunes:episodeType>
     <itunes:duration>27:54</itunes:duration>
@@ -68,6 +86,9 @@
   <item>
     <title>AIニュースダイジェスト - 2026年04月29日（水）</title>
     <itunes:title>AIニュースダイジェスト - 2026年04月29日（水）</itunes:title>
+    <description>AIニュースダイジェスト - 2026年04月29日（水）</description>
+    <author>fujisaki@teraco-labo.com</author>
+    <itunes:author>てらこAIニュースダイジェスト</itunes:author>
     <itunes:episode>7</itunes:episode>
     <itunes:episodeType>full</itunes:episodeType>
     <itunes:duration>0:00</itunes:duration>
@@ -79,6 +100,9 @@
   <item>
     <title>AIニュースダイジェスト - 2026年04月28日（火）</title>
     <itunes:title>AIニュースダイジェスト - 2026年04月28日（火）</itunes:title>
+    <description>AIニュースダイジェスト - 2026年04月28日（火）</description>
+    <author>fujisaki@teraco-labo.com</author>
+    <itunes:author>てらこAIニュースダイジェスト</itunes:author>
     <itunes:episode>6</itunes:episode>
     <itunes:episodeType>full</itunes:episodeType>
     <itunes:duration>0:00</itunes:duration>
@@ -90,6 +114,9 @@
   <item>
     <title>AIニュースダイジェスト - 2026年04月27日（月）</title>
     <itunes:title>AIニュースダイジェスト - 2026年04月27日（月）</itunes:title>
+    <description>AIニュースダイジェスト - 2026年04月27日（月）</description>
+    <author>fujisaki@teraco-labo.com</author>
+    <itunes:author>てらこAIニュースダイジェスト</itunes:author>
     <itunes:episode>5</itunes:episode>
     <itunes:episodeType>full</itunes:episodeType>
     <itunes:duration>0:00</itunes:duration>
@@ -101,6 +128,9 @@
   <item>
     <title>AIニュースダイジェスト - 2026年04月26日（日）</title>
     <itunes:title>AIニュースダイジェスト - 2026年04月26日（日）</itunes:title>
+    <description>AIニュースダイジェスト - 2026年04月26日（日）</description>
+    <author>fujisaki@teraco-labo.com</author>
+    <itunes:author>てらこAIニュースダイジェスト</itunes:author>
     <itunes:episode>4</itunes:episode>
     <itunes:episodeType>full</itunes:episodeType>
     <itunes:duration>0:00</itunes:duration>
@@ -112,6 +142,9 @@
   <item>
     <title>AIニュースダイジェスト - 2026年04月22日（水）</title>
     <itunes:title>AIニュースダイジェスト - 2026年04月22日（水）</itunes:title>
+    <description>AIニュースダイジェスト - 2026年04月22日（水）</description>
+    <author>fujisaki@teraco-labo.com</author>
+    <itunes:author>てらこAIニュースダイジェスト</itunes:author>
     <itunes:episode>3</itunes:episode>
     <itunes:episodeType>full</itunes:episodeType>
     <itunes:duration>0:00</itunes:duration>
@@ -123,6 +156,9 @@
   <item>
     <title>AIニュースダイジェスト - 2026年04月21日（火）</title>
     <itunes:title>AIニュースダイジェスト - 2026年04月21日（火）</itunes:title>
+    <description>AIニュースダイジェスト - 2026年04月21日（火）</description>
+    <author>fujisaki@teraco-labo.com</author>
+    <itunes:author>てらこAIニュースダイジェスト</itunes:author>
     <itunes:episode>2</itunes:episode>
     <itunes:episodeType>full</itunes:episodeType>
     <itunes:duration>0:00</itunes:duration>
@@ -134,6 +170,9 @@
   <item>
     <title>AIニュースダイジェスト - 2026年04月20日（月）</title>
     <itunes:title>AIニュースダイジェスト - 2026年04月20日（月）</itunes:title>
+    <description>AIニュースダイジェスト - 2026年04月20日（月）</description>
+    <author>fujisaki@teraco-labo.com</author>
+    <itunes:author>てらこAIニュースダイジェスト</itunes:author>
     <itunes:episode>1</itunes:episode>
     <itunes:episodeType>full</itunes:episodeType>
     <itunes:duration>0:00</itunes:duration>
