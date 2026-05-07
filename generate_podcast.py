@@ -1,294 +1,246 @@
 #!/usr/bin/env python3
-"""Podcast generation module for AI News Digest."""
-
-import os
-import json
-from datetime import datetime
-from pathlib import Path
-from typing import List, Dict
-from html import escape
-
-REPO_DIR = Path(__file__).parent
-PODCAST_DIR = REPO_DIR / "podcast"
-BASE_URL = "https://anomalocaress.github.io/ai-news-digest"
-WEEKDAYS_JA = ["月", "火", "水", "木", "金", "土", "日"]
-MAX_EPISODES = 30
-
-CATEGORIES_JA = {
-    "model": "モデル",
-    "research": "研究",
-    "business": "ビジネス",
-    "policy": "ポリシー",
-    "tools": "ツール",
-}
-
-
-def generate_podcast_script(articles: List[Dict], target_date: datetime) -> str:
-    """Generate a podcast script using Claude API."""
-    from anthropic import Anthropic
-    from api_cost_calculator import record_anthropic_usage
-    claude = Anthropic()
-
-    date_str = target_date.strftime("%Y年%m月%d日")
-    weekday = WEEKDAYS_JA[target_date.weekday()]
-
-    articles_text = ""
-    for i, article in enumerate(articles[:10], 1):
-        cat_ja = CATEGORIES_JA.get(article.get("category", ""), "")
-        articles_text += f"{i}. 【{cat_ja}】{article.get('title_ja', '')}\n"
-        summary = article.get("summary", "")
-        if summary:
-            articles_text += f"   {summary[:120]}\n"
-
-    prompt = f"""あなたは日本のAIニュースポッドキャスト「AIニュースダイジェスト」のホストです。
-今日（{date_str}・{weekday}曜日）のAIニュースを元に、自然で聴きやすいポッドキャストの台本を作成してください。
-
-■ 今日のニュース一覧
-{articles_text}
-
-■ 台本の要件
-- 全体で約5分間（日本語で1500〜2000文字程度）
-- 話し言葉を使った自然な語り口（「〜ですね」「〜でしょうか」「〜というわけです」「〜ということで」等）
-- 構成：オープニング → 主要ニュース紹介（3〜5本） → まとめ・クロージング
-- リスナーへの語りかけあり（「皆さん」「いかがでしたでしょうか」等）
-- 番組名「AIニュースダイジェスト」を最初と最後に言及
-
-台本のみ出力してください。指示やメタ情報、見出し等は含めないでください。"""
-
-    message = claude.messages.create(
-        model="claude-haiku-4-5-20251001",
-        max_tokens=3000,
-        messages=[{"role": "user", "content": prompt}],
-    )
-
-    # Record actual API usage
-    if hasattr(message, 'usage'):
-        record_anthropic_usage(
-            model="claude-haiku-4-5-20251001",
-            input_tokens=message.usage.input_tokens,
-            output_tokens=message.usage.output_tokens,
-            purpose="ポッドキャスト台本生成"
-        )
-
-    return message.content[0].text.strip()
-
-
-def generate_audio(script: str, output_path: Path) -> int:
-    """Convert script to audio using Google Cloud TTS Neural2. Returns file size in bytes."""
-    import base64
-    import requests
-    from api_cost_calculator import record_google_tts_usage
-
-    api_key = os.getenv("GOOGLE_TTS_API_KEY")
-    if not api_key:
-        return 0
-
-    PODCAST_DIR.mkdir(exist_ok=True)
-
-    # Google Cloud TTS Neural2 — 自然な日本語女性の声
-    url = f"https://texttospeech.googleapis.com/v1/text:synthesize?key={api_key}"
-    payload = {
-        "input": {"text": script[:5000]},
-        "voice": {
-            "languageCode": "ja-JP",
-            "name": "ja-JP-Neural2-B",   # 女性・自然な日本語
-        },
-        "audioConfig": {
-            "audioEncoding": "MP3",
-            "speakingRate": 1.1,
-            "pitch": 1.0,
-        },
-    }
-
-    response = requests.post(url, json=payload)
-    response.raise_for_status()
-
-    # Record Google TTS usage (characters processed)
-    characters = len(script[:5000])
-    record_google_tts_usage(
-        characters=characters,
-        purpose="ポッドキャスト音声生成"
-    )
-
-    audio_bytes = base64.b64decode(response.json()["audioContent"])
-    output_path.write_bytes(audio_bytes)
-    return output_path.stat().st_size
-
-
-def estimate_duration(file_size: int) -> str:
-    """Estimate MP3 duration from file size assuming 128kbps."""
-    seconds = int(file_size * 8 / 128000)
-    minutes = seconds // 60
-    secs = seconds % 60
-    return f"{minutes}:{secs:02d}"
-
-
-def load_episodes() -> List[Dict]:
-    """Load existing episodes from episodes.json."""
-    episodes_path = PODCAST_DIR / "episodes.json"
-    if episodes_path.exists():
-        with open(episodes_path, "r", encoding="utf-8") as f:
-            return json.load(f)
-    return []
-
-
-def save_episodes(episodes: List[Dict]):
-    """Save episodes to episodes.json."""
-    PODCAST_DIR.mkdir(exist_ok=True)
-    episodes_path = PODCAST_DIR / "episodes.json"
-    with open(episodes_path, "w", encoding="utf-8") as f:
-        json.dump(episodes, f, ensure_ascii=False, indent=2)
-
-
-def build_rss_xml(episodes: List[Dict]) -> str:
-    """Build RSS feed XML string."""
-    items_xml = ""
-    for ep in episodes[:MAX_EPISODES]:
-        items_xml += f"""    <item>
-      <title>{escape(ep['title'])}</title>
-      <description>{escape(ep.get('description', ''))}</description>
-      <pubDate>{ep['pub_date']}</pubDate>
-      <enclosure url="{ep['url']}" type="audio/mpeg" length="{ep['length']}"/>
-      <guid isPermaLink="true">{ep['url']}</guid>
-      <itunes:duration>{ep.get('duration', '5:00')}</itunes:duration>
-    </item>
+"""
+てらこAIニュースダイジェスト — 音声生成
+edge-tts (Microsoft Neural voices) を使用。APIキー・費用不要。
 """
 
-    return f"""<?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0"
-  xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd"
-  xmlns:content="http://purl.org/rss/1.0/modules/content/">
-  <channel>
-    <title>AIニュースダイジェスト</title>
-    <description>毎日のAIニュースを5分間の音声でお届けするポッドキャスト。モデル・研究・ビジネス・ポリシー・ツールの5カテゴリをカバー。</description>
-    <link>{BASE_URL}/</link>
-    <language>ja</language>
-    <copyright>AI News Digest</copyright>
-    <itunes:author>AI News Digest</itunes:author>
-    <itunes:summary>毎日のAIニュースを5分間の音声でお届けするポッドキャスト</itunes:summary>
-    <itunes:category text="Technology"/>
-    <itunes:explicit>false</itunes:explicit>
-{items_xml}  </channel>
+import asyncio
+import json
+import re
+from datetime import datetime
+from pathlib import Path
+from typing import Dict, List
+
+REPO_DIR    = Path(__file__).parent
+PODCAST_DIR = REPO_DIR / "podcast"
+
+CATEGORIES_JA = {
+    "model":    "モデル・リリース",
+    "research": "研究・技術",
+    "business": "ビジネス・産業",
+    "policy":   "政策・倫理",
+    "tools":    "ツール・開発",
+}
+
+WEEKDAYS_JA = ["月", "火", "水", "木", "金", "土", "日"]
+
+VOICE    = "ja-JP-NanamiNeural"
+BASE_URL = "https://anomalocaress.github.io/ai-news-digest"
+
+
+# ---------------------------------------------------------------------------
+# Script builder
+# ---------------------------------------------------------------------------
+
+def clean_text(text: str) -> str:
+    """Remove HTML tags and decode common entities."""
+    text = re.sub(r"<[^>]+>", "", text)
+    replacements = {
+        "&amp;": "&", "&lt;": "<", "&gt;": ">", "&quot;": '"',
+        "&#8217;": "'", "&#8220;": "「", "&#8221;": "」",
+        "&#8230;": "…", "\xa0": " ",
+    }
+    for k, v in replacements.items():
+        text = text.replace(k, v)
+    return text.strip()
+
+
+def build_script(articles_by_category: Dict[str, List[Dict]], date: datetime) -> str:
+    """
+    ニュース読み上げ原稿を生成する。
+    日本語フレーム + 英語タイトル/本文（NanamiNeural は英語も自然に発音）。
+    """
+    date_str = date.strftime("%Y年%m月%d日")
+    weekday  = WEEKDAYS_JA[date.weekday()]
+    total    = sum(len(v) for v in articles_by_category.values())
+
+    lines: List[str] = []
+
+    # ---- オープニング ----
+    lines.append(
+        f"てらこAIニュースダイジェスト。"
+        f"{date_str}、{weekday}曜日版をお届けします。"
+        f"本日は{total}件のAIニュースをピックアップしました。"
+    )
+    lines.append("")
+
+    # ---- カテゴリ別 ----
+    for category, cat_name in CATEGORIES_JA.items():
+        articles = articles_by_category.get(category, [])
+        if not articles:
+            continue
+
+        lines.append(f"■ {cat_name}、{len(articles)}件。")
+        lines.append("")
+
+        for i, article in enumerate(articles, 1):
+            title   = clean_text(article.get("title_en") or article.get("title_ja") or "")
+            summary = clean_text(article.get("summary") or "")
+            source  = clean_text(article.get("source") or "")
+
+            # 冗長なフォールバックテキストは省略
+            if summary == "Read the full article for details.":
+                summary = ""
+
+            # 長すぎる本文は300文字で区切る（1記事あたり約30秒）
+            if len(summary) > 300:
+                summary = summary[:297] + "…"
+
+            lines.append(f"{i}件目。{title}。")
+            if source:
+                lines.append(f"（{source}より）")
+            if summary:
+                lines.append(summary)
+            lines.append("")
+
+    # ---- クロージング ----
+    lines.append(
+        "以上、てらこAIニュースダイジェストでした。"
+        "明日もAIの最新情報をお届けします。"
+    )
+
+    return "\n".join(lines)
+
+
+# ---------------------------------------------------------------------------
+# Audio generation (edge-tts, async)
+# ---------------------------------------------------------------------------
+
+async def _generate_async(script: str, output_path: Path) -> None:
+    import edge_tts
+    communicate = edge_tts.Communicate(script, VOICE)
+    await communicate.save(str(output_path))
+
+
+def _run(coro):
+    """イベントループを安全に起動するヘルパー。"""
+    try:
+        loop = asyncio.get_event_loop()
+        if loop.is_running():
+            import concurrent.futures
+            with concurrent.futures.ThreadPoolExecutor() as pool:
+                return pool.submit(asyncio.run, coro).result()
+        return loop.run_until_complete(coro)
+    except RuntimeError:
+        return asyncio.run(coro)
+
+
+# ---------------------------------------------------------------------------
+# RSS feed
+# ---------------------------------------------------------------------------
+
+def update_feed(date: datetime, audio_file: Path) -> None:
+    """episodes.json と feed.xml を更新する。"""
+    PODCAST_DIR.mkdir(exist_ok=True)
+    episodes_file = PODCAST_DIR / "episodes.json"
+
+    episodes: List[Dict] = []
+    if episodes_file.exists():
+        try:
+            episodes = json.loads(episodes_file.read_text(encoding="utf-8"))
+        except Exception:
+            pass
+
+    date_str  = date.strftime("%Y-%m-%d")
+    audio_url = f"{BASE_URL}/podcast/{audio_file.name}"
+    size_bytes = audio_file.stat().st_size
+
+    episodes = [e for e in episodes if e.get("date") != date_str]
+    episodes.insert(0, {
+        "date":  date_str,
+        "title": f"てらこAIニュースダイジェスト - {date_str}",
+        "url":   audio_url,
+        "size":  size_bytes,
+    })
+    episodes = episodes[:30]
+
+    episodes_file.write_text(
+        json.dumps(episodes, ensure_ascii=False, indent=2), encoding="utf-8"
+    )
+
+    # feed.xml
+    items_xml = ""
+    for ep in episodes:
+        items_xml += f"""
+  <item>
+    <title>{ep['title']}</title>
+    <enclosure url="{ep['url']}" length="{ep.get('size', 0)}" type="audio/mpeg"/>
+    <pubDate>{ep['date']}</pubDate>
+    <guid isPermaLink="false">{ep['url']}</guid>
+  </item>"""
+
+    feed_xml = f"""<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:itunes="http://www.itunes.com/dtds/podcast-1_0.dtd">
+<channel>
+  <title>てらこAIニュースダイジェスト</title>
+  <description>毎朝6時配信、AIの最新ニュースをお届けします。</description>
+  <link>{BASE_URL}</link>
+  <language>ja</language>
+  <itunes:author>teraco-labo</itunes:author>
+  <itunes:category text="Technology"/>
+  {items_xml}
+</channel>
 </rss>"""
 
+    (PODCAST_DIR / "feed.xml").write_text(feed_xml, encoding="utf-8")
+    print(f"  ✓ RSS: {len(episodes)} episodes")
 
-def update_rss_feed(date: datetime, audio_filename: str, file_size: int, script: str) -> str:
-    """Add new episode to RSS feed. Returns audio URL."""
-    date_str = date.strftime("%Y年%m月%d日")
-    weekday = WEEKDAYS_JA[date.weekday()]
-    pub_date = date.strftime("%a, %d %b %Y 21:00:00 +0000")
 
-    audio_url = f"{BASE_URL}/podcast/{audio_filename}"
-    episode = {
-        "title": f"AIニュースダイジェスト - {date_str}（{weekday}）",
-        "description": script[:500] + "...",
-        "pub_date": pub_date,
-        "url": audio_url,
-        "length": file_size,
-        "duration": estimate_duration(file_size),
-        "date": date.strftime("%Y-%m-%d"),
-    }
+# ---------------------------------------------------------------------------
+# Public entry point
+# ---------------------------------------------------------------------------
 
-    episodes = load_episodes()
-    episodes = [ep for ep in episodes if ep.get("date") != episode["date"]]
-    episodes.insert(0, episode)
-    episodes = episodes[:MAX_EPISODES]
+def generate_podcast(articles_by_category: Dict[str, List[Dict]], date: datetime) -> bool:
+    """generate_news.py の main() から呼ばれるメイン関数。"""
+    try:
+        import edge_tts  # noqa: F401
+    except ImportError:
+        print("⚠️  edge-tts not found. Run: pip install edge-tts")
+        return False
 
-    save_episodes(episodes)
-
-    xml_content = build_rss_xml(episodes)
-    feed_path = PODCAST_DIR / "feed.xml"
     PODCAST_DIR.mkdir(exist_ok=True)
-    with open(feed_path, "w", encoding="utf-8") as f:
-        f.write(xml_content)
+    date_str = date.strftime("%Y-%m-%d")
 
-    print(f"  ✓ RSS feed: {len(episodes)} episodes total")
-    return audio_url
+    # 1. 原稿
+    print("  原稿を作成中...")
+    script     = build_script(articles_by_category, date)
+    char_count = len(script)
+    est_min    = char_count // 250
+    print(f"  原稿: {char_count} 文字 (推定約{est_min}分)")
 
+    (PODCAST_DIR / f"script-{date_str}.txt").write_text(script, encoding="utf-8")
 
-def cleanup_old_mp3s():
-    """Remove MP3 files for episodes beyond MAX_EPISODES."""
-    episodes = load_episodes()
-    if len(episodes) <= MAX_EPISODES:
-        return
+    # 2. 音声
+    output_file = PODCAST_DIR / f"ai-news-{date_str}.mp3"
+    print(f"  音声生成中 ({VOICE})…")
+    _run(_generate_async(script, output_file))
 
-    old_episodes = episodes[MAX_EPISODES:]
-    for ep in old_episodes:
-        date_str = ep.get("date", "")
-        if date_str:
-            mp3_path = PODCAST_DIR / f"ai-news-{date_str}.mp3"
-            if mp3_path.exists():
-                mp3_path.unlink()
-                print(f"  Removed old MP3: {mp3_path.name}")
+    size_mb = output_file.stat().st_size / 1_048_576
+    print(f"  ✓ {output_file.name} ({size_mb:.1f} MB)")
 
-
-def generate_podcast(articles: List[Dict], target_date: datetime) -> bool:
-    """Main podcast generation function. Returns True if successful."""
-    if not os.getenv("OPENAI_API_KEY"):
-        print("⚠️  OPENAI_API_KEY not set. Skipping podcast generation.")
-        return False
-
-    print("\n🎙️  Generating podcast...")
-
-    # Step 1: Generate script with Claude
-    print("  Generating script with Claude...")
-    try:
-        script = generate_podcast_script(articles, target_date)
-        print(f"  ✓ Script generated ({len(script)} chars)")
-    except Exception as e:
-        print(f"  ❌ Script generation failed: {e}")
-        return False
-
-    # Step 2: Generate audio with OpenAI TTS
-    date_str = target_date.strftime("%Y-%m-%d")
-    audio_filename = f"ai-news-{date_str}.mp3"
-    audio_path = PODCAST_DIR / audio_filename
-
-    print("  Generating audio with OpenAI TTS...")
-    try:
-        file_size = generate_audio(script, audio_path)
-        if file_size == 0:
-            print("  ❌ Audio generation skipped (no API key)")
-            return False
-        duration = estimate_duration(file_size)
-        print(f"  ✓ Audio generated ({file_size / 1024 / 1024:.1f} MB, ~{duration})")
-    except Exception as e:
-        print(f"  ❌ Audio generation failed: {e}")
-        return False
-
-    # Step 3: Update RSS feed
-    print("  Updating RSS feed...")
-    try:
-        audio_url = update_rss_feed(target_date, audio_filename, file_size, script)
-    except Exception as e:
-        print(f"  ❌ RSS update failed: {e}")
-        return False
-
-    # Step 4: Cleanup old MP3s
-    cleanup_old_mp3s()
-
-    print(f"\n✅ Podcast ready!")
-    print(f"   Audio: {audio_url}")
-    print(f"   RSS Feed: {BASE_URL}/podcast/feed.xml")
+    # 3. RSS
+    update_feed(date, output_file)
 
     return True
 
 
+# ---------------------------------------------------------------------------
+# ローカルテスト用
+# ---------------------------------------------------------------------------
 if __name__ == "__main__":
-    # Test with fallback articles
-    from datetime import datetime
-    test_articles = [
-        {
-            "category": "model",
-            "title_ja": "OpenAI が GPT-5 を発表",
-            "summary": "OpenAIが新しい大規模言語モデルGPT-5を発表。前モデルより大幅な性能向上を達成。",
-            "source": "TechCrunch",
-        },
-        {
-            "category": "research",
-            "title_ja": "DeepMindが強化学習で新記録",
-            "summary": "Google DeepMindが強化学習の新アルゴリズムを開発し、複数のベンチマークで最高性能を達成。",
-            "source": "Nature",
-        },
-    ]
-    generate_podcast(test_articles, datetime.now())
+    import sys
+    date = datetime.strptime(sys.argv[1], "%Y-%m-%d") if len(sys.argv) > 1 else datetime.now()
+    test_data: Dict[str, List[Dict]] = {
+        "model": [
+            {"title_en": "OpenAI releases GPT-5 with improved reasoning",
+             "summary": "OpenAI has released GPT-5, featuring major improvements in multi-step reasoning and coding tasks.",
+             "source": "TechCrunch"},
+        ],
+        "business": [
+            {"title_en": "Anthropic raises $50B at $900B valuation",
+             "summary": "Anthropic is in talks to raise a new funding round that would value the AI safety company at $900 billion.",
+             "source": "VentureBeat"},
+        ],
+    }
+    success = generate_podcast(test_data, date)
+    print("✅ Done" if success else "❌ Failed")

@@ -482,7 +482,7 @@ def build_email_html(categorized: Dict[str, List[Dict]], date: datetime, include
   </div>
 
   <p>おはようございます！</p>
-  <p>本日のAI News Digestをお届けします。30件のAIニュースから厳選した最新情報です。</p>
+  <p>てらこAIニュースダイジェスト、本日の最新情報をお届けします。</p>
 """
     )
 
@@ -517,12 +517,16 @@ def build_email_html(categorized: Dict[str, List[Dict]], date: datetime, include
         email_html += "  </div>\n"
 
     # Add podcast section
+    date_iso = date.strftime("%Y-%m-%d")
+    audio_url = f"https://anomalocaress.github.io/ai-news-digest/podcast/ai-news-{date_iso}.mp3"
     email_html += '\n  <div class="podcast-box">\n'
-    email_html += '    <h3>🎙️ 本日のポッドキャスト</h3>\n'
-    email_html += '    <p>毎日の最新ニュースを約5分間の音声でお届けしています。</p>\n'
-    email_html += '    <p>\n'
-    email_html += '      <a href="https://anomalocaress.github.io/ai-news-digest/podcast/feed.xml">📡 RSS Feed</a> &nbsp;|&nbsp;\n'
-    email_html += '      <a href="https://open.spotify.com/show/4unkGD4h2zJoeFWfKsdBYx">🎵 Spotify</a>\n'
+    email_html += '    <h3>🎙️ 本日の音声ダイジェスト</h3>\n'
+    email_html += f'    <p>全{sum(len(v) for v in categorized.values())}件のニュースを音声でお届けします。</p>\n'
+    email_html += f'    <p style="margin:12px 0;">\n'
+    email_html += f'      <a href="{audio_url}" style="background:#0f172a;color:#60a5fa;padding:8px 16px;border-radius:6px;text-decoration:none;font-weight:bold;">▶ 音声を再生する（MP3）</a>\n'
+    email_html += f'    </p>\n'
+    email_html += '    <p style="font-size:11px;color:#64748b;">\n'
+    email_html += '      <a href="https://anomalocaress.github.io/ai-news-digest/podcast/feed.xml">📡 RSSフィード</a>\n'
     email_html += '    </p>\n'
     email_html += '  </div>\n\n'
     email_html += '  <div class="footer">\n'
@@ -614,15 +618,13 @@ def main():
     # Step 4: Save HTML
     output_file = save_html(html_content, target_date)
 
-    # Step 5: Generate podcast (disabled)
-    # Podcast generation paused — quality under review
-    # To re-enable, uncomment the block below:
-    # print("\n4️⃣  Generating podcast...")
-    # try:
-    #     from generate_podcast import generate_podcast
-    #     generate_podcast(categorized, target_date)
-    # except Exception as e:
-    #     print(f"⚠️  Podcast generation error: {e}")
+    # Step 5: Generate podcast (edge-tts, free)
+    print("\n4️⃣  Generating podcast...")
+    try:
+        from generate_podcast import generate_podcast
+        generate_podcast(categorized, target_date)
+    except Exception as e:
+        print(f"⚠️  Podcast generation error: {e}")
 
     # Step 6: Build and send email
     print("\n5️⃣  Building and sending email...")
