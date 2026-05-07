@@ -508,8 +508,12 @@ def build_email_html(categorized: Dict[str, List[Dict]], date: datetime, include
         f'    <p style="margin:12px 0;">\n'
         f'      <a href="{audio_url}" style="background:#0f172a;color:#60a5fa;padding:10px 20px;border-radius:6px;text-decoration:none;font-weight:bold;font-size:15px;">▶ 音声を再生する（MP3）</a>\n'
         f'    </p>\n'
+        f'    <p style="font-size:12px;color:#475569;margin:6px 0;">\n'
+        f'      💾 <a href="{audio_url}" download style="color:#60a5fa;">ダウンロード</a>'
+        f' &nbsp;·&nbsp; 📁 ファイル名: <code style="font-size:11px;background:#e2e8f0;padding:1px 4px;border-radius:3px;">ai-news-{date_iso}.mp3</code>'
+        f'    </p>\n'
         '    <p style="font-size:11px;color:#64748b;">\n'
-        '      <a href="https://anomalocaress.github.io/ai-news-digest/podcast/feed.xml">📡 ポッドキャストRSS</a>\n'
+        '      <a href="https://anomalocaress.github.io/ai-news-digest/podcast/feed.xml" style="color:#94a3b8;">📡 RSSフィード（Spotify登録用）</a>\n'
         '    </p>\n'
         '  </div>\n\n'
     )
