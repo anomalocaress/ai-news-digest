@@ -279,6 +279,14 @@ def update_feed(date: datetime, audio_file: Path) -> None:
         "duration":    duration_sec,
         "episode_num": ep_num,
     })
+    # Spotify は size=0 / duration=0 のアイテムでパースに失敗する。
+    # 必ず実体のある音声を持つエピソードのみフィードに含める。
+    def _has_valid_audio(e: Dict) -> bool:
+        try:
+            return int(e.get("size", 0)) > 0 and int(e.get("duration", 0)) > 0
+        except (TypeError, ValueError):
+            return False
+    episodes = [e for e in episodes if _has_valid_audio(e)]
     episodes = episodes[:60]
 
     episodes_file.write_text(
