@@ -9,8 +9,10 @@
   <itunes:summary>毎朝6時配信。AIの最新ニュースを厳選してわかりやすくお届けします。</itunes:summary>
   <link>https://anomalocaress.github.io/ai-news-digest</link>
   <language>ja</language>
+  <author>fujisaki@teraco-labo.com (てらこ先生)</author>
   <managingEditor>fujisaki@teraco-labo.com (てらこ先生)</managingEditor>
-  <itunes:author>てらこAIニュースダイジェスト</itunes:author>
+  <copyright>てらこ先生</copyright>
+  <itunes:author>てらこ先生</itunes:author>
   <itunes:owner>
     <itunes:name>てらこ先生</itunes:name>
     <itunes:email>fujisaki@teraco-labo.com</itunes:email>

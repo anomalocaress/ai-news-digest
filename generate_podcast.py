@@ -318,8 +318,10 @@ def update_feed(date: datetime, audio_file: Path) -> None:
   <itunes:summary>毎朝6時配信。AIの最新ニュースを厳選してわかりやすくお届けします。</itunes:summary>
   <link>{BASE_URL}</link>
   <language>ja</language>
+  <author>{PODCAST_EMAIL} (てらこ先生)</author>
   <managingEditor>{PODCAST_EMAIL} (てらこ先生)</managingEditor>
-  <itunes:author>てらこAIニュースダイジェスト</itunes:author>
+  <copyright>てらこ先生</copyright>
+  <itunes:author>てらこ先生</itunes:author>
   <itunes:owner>
     <itunes:name>てらこ先生</itunes:name>
     <itunes:email>{PODCAST_EMAIL}</itunes:email>
