@@ -406,9 +406,19 @@ def send_email_draft(email_html: str, target_date: datetime) -> bool:
 
 
 def update_index_html(date: datetime):
-    """Update index.html to redirect to latest digest."""
+    """Update index.html to redirect to latest digest (only if date is newer)."""
+    import re as _re
     date_str = date.strftime("%Y-%m-%d")
     latest_file = f"ai-news-{date_str}.html"
+    index_path = REPO_DIR / "index.html"
+
+    # Check current redirect date — don't regress to an older date
+    if index_path.exists():
+        current = index_path.read_text(encoding="utf-8")
+        m = _re.search(r"ai-news-(\d{4}-\d{2}-\d{2})\.html", current)
+        if m and m.group(1) >= date_str:
+            print(f"⏭  index.html already points to {m.group(1)} (≥ {date_str}), skipping")
+            return
 
     index_html = f"""<!DOCTYPE html>
 <html lang="ja">
@@ -423,7 +433,6 @@ def update_index_html(date: datetime):
 </html>
 """
 
-    index_path = REPO_DIR / "index.html"
     with open(index_path, "w", encoding="utf-8") as f:
         f.write(index_html)
 

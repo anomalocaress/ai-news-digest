@@ -1,0 +1,133 @@
+てらこAIニュースダイジェスト。2026年05月05日、火曜日版をお届けします。本日は40件のAIニュースをピックアップしました。
+
+■ モデル・リリース、8件。
+
+1件目。OpenAI releases GPT-5.5 Instant, a new default model for ChatGPT。
+同社によれば、このモデルは、前モデルの低遅延を維持しながら、法律、医療、金融などの機密分野での幻覚を軽減すると述べた。
+
+2件目。Etsy launches its app within ChatGPT as it continues its AI push。
+ChatGPT 内の Etsy の新しいネイティブ アプリは、ユーザーにとって会話型のショッピング体験を提供することを目指しています。
+
+3件目。Salesforce rolls out new Slackbot AI agent as it battles Microsoft and Google in workplace AI。
+Salesforce は火曜日、同社の職場アシスタントである Slackbot の完全に再構築されたバージョンを発表し、これを単なる通知ツールから、経営陣が言うところの、企業を検索できる完全にパワーアップした AI エージェントに変えました。
+
+4件目。Nous Research's NousCoder-14B is an open-source coding model landing right in the Claude Code moment。
+暗号通貨ベンチャー企業パラダイムが支援するオープンソースの人工知能スタートアップ、ヌース・リサーチは月曜日、いくつかの大規模な独自システムに匹敵、あるいはそれを超える新しい競技プログラミングモデルをリリースした（わずか4日で訓練された）
+
+5件目。The creator of Claude Code just revealed his workflow, and developers are losing their minds。
+世界で最も先進的なコーディング エージェントの作成者が話すとき、シリコン バレーはただ聞くだけでなく、メモを取ります。ここ 1 週間、エンジニアリング コミュニティは、作成者であり責任者である Boris Cherny 氏による X に関するスレッドを分析してきました。
+
+6件目。Elon Musk Seemingly Admits xAI Has Used OpenAI’s Models to Train Its Own。
+マスク氏は宣誓の下で質問に答えながら、AI研究所が競合他社のモデルを使用するのが標準的な慣行だと主張した。
+
+7件目。OpenAI Rolls Out ‘Advanced’ Security Mode for At-Risk Accounts。
+OpenAI は、ChatGPT または Codex アカウントがフィッシング攻撃の潜在的なターゲットになる可能性を懸念している人々のために、Advanced Account Security を展開しています。
+
+8件目。Google Home gets upgraded Gemini voice assistant and new camera controls。
+Googleのスマートホームエコシステムは、AIを活用した2025年の刷新以来最大のアップデートを受けることになる。
+
+■ 研究・技術、9件。
+
+1件目。Meta will use AI to analyze height and bone structure to identify if users are underage。
+この視覚分析システムは現在、一部の国で運用されているが、より広範な展開に向けて取り組んでいるとメタ氏は述べている。
+
+2件目。The Download: inside the Musk v. Altman trial, and AI for democracy。
+これは、テクノロジーの世界で何が起こっているかを毎日提供する平日のニュースレター、The Download の今日版です。マスク対アルトマン裁判の第 1 週: 部屋の中の様子 2 人の最も有力な人物
+
+3件目。Week one of the Musk v. Altman trial: What it was like in the room。
+このストーリーは元々、AI に関する週刊ニュースレター『The Algorithm』に掲載されました。このような記事を受信箱に受け取るには、まずここから登録してください。 AI 分野で最も強力な 2 人、サム アルトマンとイーロン マスクがカリフォルニア州オークランドの法廷で対決を開始した
+
+4件目。Inexpensive seafloor-hopping submersibles could stoke deep-sea science—and mining。
+オーストラリアと南米の間で、米国海洋大気局（NOAA）の調査船レーニア号は現在、太平洋の海底の8,000平方海里以上の地図を作成する任務に就いており、重要な物質を探しています。
+
+5件目。Trump’s mass firing just dealt another blow to American science。
+先週、米国の科学に新たな衝撃が走りました。今回の標的は、主要な研究プロジェクトに約90億ドルもの資金を提供する連邦機関である国立科学財団だった。財団の取り組みは監視され、
+
+6件目。He Couldn’t Land a Job Interview. Was AI to Blame?。
+ある医学生は、Python の知識と真っ赤な不公平感を武器に、アルゴリズムが自分の就職応募書を破棄したかどうかを解明するために 6 か月間費やしました。
+
+7件目。Greg Brockman Defends $30B OpenAI Stake: ‘Blood, Sweat, and Tears’。
+OpenAIの共同創設者兼社長は月曜日、連邦裁判所で、自分がAI研究所の最大の個人利害関係者の1人であることを明らかにした。
+
+8件目。Disneyland Now Uses Face Recognition on Visitors。
+さらに、NSA は Anthropic の Mythos Preview をテストして脆弱性を発見し、フィンランドの 10 代の少年が Scattered Spider によるハッキング事件で起訴されるなど、さまざまな事件が起きています。
+
+9件目。RFK Jr. plans to curb antidepressants, which he falsely compares to heroin。
+ケネディはSSRIについて多くの虚偽の主張をしてきたし、これからも主張し続けている。
+
+■ ビジネス・産業、12件。
+
+1件目。ASML CEO Christophe Fouquet on his company’s monopoly: no one is coming for us。
+ASMLで10年以上勤務した後、2024年にASMLのCEOに就任したクリストフ・フーケ氏は、ミルケン研究所グローバルカンファレンスへの出席を前に、火曜日の朝、ビバリーヒルズのホテルの屋上デッキでこの編集者と座った。ドレ
+
+2件目。PayPal says it’s ‘becoming a technology company again’ — that means AI。
+PayPalは、人員削減と技術スタックの最新化に取り組む中で、自動化とリストラを結び付けて15億ドルの節約を目指し、AI主導の立て直しを売り込んでいる。
+
+3件目。ElevenLabs lists BlackRock, Jamie Foxx, and Eva Longoria as new investors。
+イレブンラボは、音声 AI が重要なインターフェイスになるにつれて、新たな投資家を明らかにし、ARR が 5 億ドルに達し、企業のフットプリントを拡大します。
+
+4件目。4 days left: Get 50% off a second TechCrunch Disrupt 2026 pass to make more deals faster。
+今後 4 日間限定で、TechCrunch Disrupt 2026 のパスを 1 枚購入すると、同じタイプのチケットの 2 番目のパスが 50% オフになります。 この期間は 5 月 8 日の午後 11 時 59 分に終了します。 PT. その後は料金が上がり、パートナーや同僚を連れてくるとさらにお金を払うことになります。 R
+
+5件目。Railway secures $100 million to challenge AWS with AI-native cloud infrastructure。
+サンフランシスコに本拠を置き、マーケティングに1ドルも費やすことなく200万人の開発者を密かに集めてきたクラウドプラットフォームであるRailwayは、木曜日、人工知能に対する需要の急増を受けて、シリーズBの資金調達ラウンドで1億ドルを調達したと発表した。
+
+6件目。Listen Labs raises $69M after viral billboard hiring stunt to scale AI customer interviews。
+アルフレッド・ワールフォルスには選択肢がなくなっていた。彼のスタートアップ、Listen Labs は 100 人以上のエンジニアを雇用する必要がありましたが、マーク・ザッカーバーグの 1 億ドルのオファーに対抗することは不可能に見えました。そこで彼は、マーケティング予算の 5 分の 1 である 5,000 ドルを費やして、
+
+7件目。Tailoring AI solutions for health care needs。
+AI 市場には、大きな変革が期待されています。ヘルスケアはこうした約束の主なターゲットだが、財政的圧力、労働力不足、高齢化社会の介護負担の増大に悩まされている。 AI開発者がターゲット
+
+8件目。Musk v. Altman week 1: Elon Musk says he was duped, warns AI could kill us all, and admits that xAI distills OpenAI’s models。
+イーロン・マスク氏とオープンAIの間で行われた画期的な裁判の最初の週、マスク氏はパリッとした黒のスーツとネクタイ姿で証言台に立ち、OpenAIの最高経営責任者（CEO）サム・アルトマンと社長のグレッグ・ブロックマンが自分を騙して会社に資金を提供させたと主張した。途中、彼は、
+
+9件目。The Download: a new Christian phone network, and debugging LLMs。
+これは、テクノロジーの世界で何が起こっているかを毎日提供する平日のニュースレター、The Download の今日版です。キリスト教徒向けの米国の新しい電話ネットワークは、ポルノとジェンダー関連のコンテンツをブロックすることを目的としている
+
+10件目。Google DeepMind Workers Vote to Unionize Over Military AI Deals。
+グーグルのAI研究所の英国スタッフは、同社の人工知能モデルが軍事現場で使用されることを阻止したいと考えている。
+
+11件目。A Dark-Money Campaign Is Paying Influencers to Frame Chinese AI as a Threat。
+OpenAIとアンドリーセン・ホロウィッツの幹部が出資するスーパーPACに関係する非営利団体Build American AIは、AI擁護のメッセージを広め、中国に対する不安を煽るキャンペーンに資金を提供している。
+
+12件目。Good Luck Getting a Mac Mini for the Next ‘Several Months’。
+アップルのティム・クック最高経営責任者（CEO）はアナリストに対し、AIの導入は予想よりも早く進んでいると語った。
+
+■ 政策・倫理、5件。
+
+1件目。Pennsylvania sues Character.AI after a chatbot allegedly posed as a doctor。
+ペンシルベニア州の提出書類によると、Character.AIチャットボットは州の捜査中に公認精神科医を名乗り、州の医師免許のシリアル番号も捏造した。
+
+2件目。A blueprint for using AI to strengthen democracy。
+数世紀ごとに、情報の移動方法が変化し、社会が自らを統治する方法が再構築されます。印刷機は現地語の読み書き能力を広め、宗教改革、そして最終的には代表政府の誕生に貢献しました。電報がそれを可能にした
+
+3件目。Operationalizing AI for Scale and Sovereignty。
+企業は自社のデータを管理して、ニーズに合わせて AI を調整しています。課題は、所有権と、信頼性の高い洞察を実現するために必要な高品質のデータの安全で信頼できるフローとのバランスをとることにあります。この会話は MIT Technology Review&#8 からのものです
+
+4件目。How Shivon Zilis Operated as Elon Musk’s OpenAI Insider。
+裁判で提示されたメッセージは、マスク氏の4人の子供たちの母親であるジリス氏がマスク氏とOpenAIの間の仲介者としてどのように行動したかを明らかにしている。
+
+5件目。Musk v. Altman Kicks Off, DOJ Guts Voting Rights Unit, and Is the AI Job Apocalypse Overhyped?。
+Uncanny Valley のこのエピソードでは、イーロン・マスク対サム・アルトマンの裁判がいかに両者の対立を超えて、OpenAI と AI 業界全体の両方に大きな影響を与える可能性があるかについて説明します。
+
+■ ツール・開発、6件。
+
+1件目。Apple plans to make iOS 27 a Choose Your Own Adventure of AI models。
+Apple の最新のオペレーティング システムのアップデートにより、ユーザーはさまざまなタスクに使用するサードパーティの AI モデルを自由に選択できるようになると言われています。
+
+2件目。CopilotKit raises $27M to help devs deploy app-native AI agents。
+シアトルに本拠を置くこのスタートアップのシリーズAラウンドは、Glilot Capital、NFX、SignalFireが主導したとTechCrunchが独自に入手した。
+
+3件目。Claude Code costs up to $200 a month. Goose does the same thing for free.。
+人工知能コーディング革命には、高価であるという落とし穴があります。コードを自律的に記述、デバッグ、展開できる Anthropic の端末ベース AI エージェントである Claude Code は、世界中のソフトウェア開発者の想像力を魅了しました。
+
+4件目。Anthropic launches Cowork, a Claude Desktop agent that works in your files — no coding required。
+Anthropic は月曜日、大成功を収めた Claude Code ツールの能力を技術者以外のユーザーにも拡張する新しい AI エージェント機能である Cowork をリリースしました。社内関係者によると、チームは約 1 週間で機能全体を構築し、
+
+5件目。Cyber-Insecurity in the AI Era。
+AI がスタックに導入される前から、サイバーセキュリティはすでに負担にさらされていました。現在、AI が攻撃対象領域を拡大し、新たな複雑性が加わっているため、従来のアプローチの限界を無視することが難しくなってきています。 MIT Technology Review の EmTech A によるこのセッション
+
+6件目。Widely used Daemon Tools disk app backdoored in monthlong supply-chain attack。
+デーモン ツール ユーザー: マシンにステルス感染がないかチェックする時期が来ました。
+
+以上、てらこAIニュースダイジェストでした。明日もAIの最新情報をお届けします。
