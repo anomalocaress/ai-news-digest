@@ -317,7 +317,7 @@ def update_feed(date: datetime, audio_file: Path) -> None:
 
     feed_xml = f"""<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0"
-  xmlns:itunes="http://www.itunes.com/dtds/podcast-1_0.dtd"
+  xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd"
   xmlns:podcast="https://podcastindex.org/namespace/1.0">
 <channel>
   <title>てらこAIニュースダイジェスト</title>

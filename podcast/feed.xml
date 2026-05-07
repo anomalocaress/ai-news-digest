@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0"
-  xmlns:itunes="http://www.itunes.com/dtds/podcast-1_0.dtd"
+  xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd"
   xmlns:podcast="https://podcastindex.org/namespace/1.0">
 <channel>
   <title>てらこAIニュースダイジェスト</title>
@@ -35,7 +35,7 @@
     <description>てらこAIニュースダイジェスト - 2026-05-07</description>
     <author>fujisaki@teraco-labo.com</author>
     <itunes:author>てらこAIニュースダイジェスト</itunes:author>
-    <itunes:episode>12</itunes:episode>
+    <itunes:episode>5</itunes:episode>
     <itunes:episodeType>full</itunes:episodeType>
     <itunes:duration>9:47</itunes:duration>
     <itunes:explicit>false</itunes:explicit>
