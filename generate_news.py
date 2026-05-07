@@ -79,7 +79,7 @@ def fetch_rss_news(date: datetime) -> List[Dict]:
                 ).strip()
                 # Strip HTML tags from description
                 import re
-                desc = re.sub(r"<[^>]+>", "", desc)[:300]
+                desc = re.sub(r"<[^>]+>", "", desc)[:600]
 
                 link_elem = item.find("link")
                 link = ""
@@ -200,7 +200,7 @@ def categorize_articles(articles: List[Dict]) -> Dict[str, List[Dict]]:
         category = categorize_by_keywords(title, description)
 
         title_ja = translate_ja(title)
-        summary_ja = translate_ja(description[:250]) if description else "詳細は記事をご覧ください。"
+        summary_ja = translate_ja(description[:500]) if description else "詳細は記事をご覧ください。"
 
         entry = {
             "category": category,
@@ -277,7 +277,8 @@ def generate_html(articles_by_category: Dict[str, List[Dict]], target_date: date
       <div class="card-title-en">{article.get('title_en', '')}</div>
       <div class="card-source">{article.get('source', 'Unknown')} · {article.get('date', date_iso)}</div>
       <div class="card-body">{article.get('summary', '')}</div>
-      <a class="card-link {category}" href="{article.get('url', '#')}" target="_blank" rel="noopener">Read more →</a>
+      <a class="card-link {category}" href="{article.get('url', '#')}" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link {category}" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u={requests.utils.quote(article.get('url',''), safe='')}" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
     </article>
 
 '''
@@ -492,8 +493,27 @@ def build_email_html(categorized: Dict[str, List[Dict]], date: datetime, include
 
   <p>おはようございます！</p>
   <p>てらこAIニュースダイジェスト、本日の最新情報をお届けします。</p>
+  <!-- PODCAST_PLACEHOLDER -->
 """
     )
+
+    # Build podcast box (inserted at top, before articles)
+    date_iso = date.strftime("%Y-%m-%d")
+    audio_url = f"https://anomalocaress.github.io/ai-news-digest/podcast/ai-news-{date_iso}.mp3"
+    total_articles = sum(len(v) for v in categorized.values())
+    podcast_box = (
+        '\n  <div class="podcast-box">\n'
+        '    <h3>🎙️ 本日の音声ダイジェスト（重要ニュースを詳しく解説）</h3>\n'
+        f'    <p>厳選ニュースを音声でお届けします。通勤・家事のお供に。</p>\n'
+        f'    <p style="margin:12px 0;">\n'
+        f'      <a href="{audio_url}" style="background:#0f172a;color:#60a5fa;padding:10px 20px;border-radius:6px;text-decoration:none;font-weight:bold;font-size:15px;">▶ 音声を再生する（MP3）</a>\n'
+        f'    </p>\n'
+        '    <p style="font-size:11px;color:#64748b;">\n'
+        '      <a href="https://anomalocaress.github.io/ai-news-digest/podcast/feed.xml">📡 ポッドキャストRSS</a>\n'
+        '    </p>\n'
+        '  </div>\n\n'
+    )
+    email_html = email_html.replace("  <!-- PODCAST_PLACEHOLDER -->\n", podcast_box)
 
     # Add articles by category
     category_colors = {
@@ -515,29 +535,23 @@ def build_email_html(categorized: Dict[str, List[Dict]], date: datetime, include
 
         for i, article in enumerate(articles, 1):
             title_ja = article.get('title_ja', '')
-            summary = article.get('summary', '')[:150]
+            summary = article.get('summary', '')[:200]
             source = article.get('source', 'Unknown')
+            url = article.get('url', '')
+            translate_url = f"https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u={requests.utils.quote(url, safe='')}" if url else ''
             email_html += f'    <div class="article category-{category}">\n'
             email_html += f'      <div class="article-title">{i}. {title_ja}</div>\n'
             email_html += f'      <div class="article-summary">{summary}</div>\n'
-            email_html += f'      <div class="article-source">{source}</div>\n'
+            email_html += f'      <div class="article-source">{source}'
+            if url:
+                email_html += f' &nbsp;·&nbsp; <a href="{url}" style="color:#60a5fa;">元記事</a>'
+            if translate_url:
+                email_html += f' &nbsp;·&nbsp; <a href="{translate_url}" style="color:#818cf8;">🇯🇵 日本語で読む</a>'
+            email_html += '</div>\n'
             email_html += f'    </div>\n'
 
         email_html += "  </div>\n"
 
-    # Add podcast section
-    date_iso = date.strftime("%Y-%m-%d")
-    audio_url = f"https://anomalocaress.github.io/ai-news-digest/podcast/ai-news-{date_iso}.mp3"
-    email_html += '\n  <div class="podcast-box">\n'
-    email_html += '    <h3>🎙️ 本日の音声ダイジェスト</h3>\n'
-    email_html += f'    <p>全{sum(len(v) for v in categorized.values())}件のニュースを音声でお届けします。</p>\n'
-    email_html += f'    <p style="margin:12px 0;">\n'
-    email_html += f'      <a href="{audio_url}" style="background:#0f172a;color:#60a5fa;padding:8px 16px;border-radius:6px;text-decoration:none;font-weight:bold;">▶ 音声を再生する（MP3）</a>\n'
-    email_html += f'    </p>\n'
-    email_html += '    <p style="font-size:11px;color:#64748b;">\n'
-    email_html += '      <a href="https://anomalocaress.github.io/ai-news-digest/podcast/feed.xml">📡 RSSフィード</a>\n'
-    email_html += '    </p>\n'
-    email_html += '  </div>\n\n'
     email_html += '  <div class="footer">\n'
     email_html += '    <p>AI News Digest | <a href="https://anomalocaress.github.io/ai-news-digest" style="color: #60a5fa; text-decoration: none;">https://anomalocaress.github.io/ai-news-digest</a></p>\n'
     email_html += '  </div>\n'
