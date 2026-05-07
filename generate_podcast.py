@@ -240,7 +240,11 @@ def _rfc2822(date_str: str) -> str:
         return formatdate(usegmt=True)
 
 
-def _hms(seconds: int) -> str:
+def _hms(seconds) -> str:
+    try:
+        seconds = int(seconds)
+    except (TypeError, ValueError):
+        seconds = 0
     h, rem = divmod(seconds, 3600)
     m, s   = divmod(rem, 60)
     return f"{h}:{m:02d}:{s:02d}" if h else f"{m}:{s:02d}"

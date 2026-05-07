@@ -11,19 +11,25 @@
     "date": "2026-05-06",
     "title": "てらこAIニュースダイジェスト - 2026-05-06",
     "url": "https://anomalocaress.github.io/ai-news-digest/podcast/ai-news-2026-05-06.mp3",
-    "size": 6113232
+    "size": 6113232,
+    "duration": 1528,
+    "episode_num": 10
   },
   {
     "date": "2026-05-05",
     "title": "てらこAIニュースダイジェスト - 2026-05-05",
     "url": "https://anomalocaress.github.io/ai-news-digest/podcast/ai-news-2026-05-05.mp3",
-    "size": 6319584
+    "size": 6319584,
+    "duration": 1579,
+    "episode_num": 9
   },
   {
     "date": "2026-05-04",
     "title": "てらこAIニュースダイジェスト - 2026-05-04",
     "url": "https://anomalocaress.github.io/ai-news-digest/podcast/ai-news-2026-05-04.mp3",
-    "size": 6697728
+    "size": 6697728,
+    "duration": 1674,
+    "episode_num": 8
   },
   {
     "title": "AIニュースダイジェスト - 2026年04月29日（水）",
@@ -32,7 +38,8 @@
     "url": "https://anomalocaress.github.io/ai-news-digest/podcast/ai-news-2026-04-29.mp3",
     "length": 1612608,
     "duration": "1:40",
-    "date": "2026-04-29"
+    "date": "2026-04-29",
+    "episode_num": 7
   },
   {
     "title": "AIニュースダイジェスト - 2026年04月28日（火）",
@@ -41,7 +48,8 @@
     "url": "https://anomalocaress.github.io/ai-news-digest/podcast/ai-news-2026-04-28.mp3",
     "length": 1897728,
     "duration": "1:58",
-    "date": "2026-04-28"
+    "date": "2026-04-28",
+    "episode_num": 6
   },
   {
     "title": "AIニュースダイジェスト - 2026年04月27日（月）",
@@ -50,7 +58,8 @@
     "url": "https://anomalocaress.github.io/ai-news-digest/podcast/ai-news-2026-04-27.mp3",
     "length": 1869888,
     "duration": "1:56",
-    "date": "2026-04-27"
+    "date": "2026-04-27",
+    "episode_num": 5
   },
   {
     "title": "AIニュースダイジェスト - 2026年04月26日（日）",
@@ -59,7 +68,8 @@
     "url": "https://anomalocaress.github.io/ai-news-digest/podcast/ai-news-2026-04-26.mp3",
     "length": 1972608,
     "duration": "2:03",
-    "date": "2026-04-26"
+    "date": "2026-04-26",
+    "episode_num": 4
   },
   {
     "title": "AIニュースダイジェスト - 2026年04月22日（水）",
@@ -68,7 +78,8 @@
     "url": "https://anomalocaress.github.io/ai-news-digest/podcast/ai-news-2026-04-22.mp3",
     "length": 1540992,
     "duration": "1:36",
-    "date": "2026-04-22"
+    "date": "2026-04-22",
+    "episode_num": 3
   },
   {
     "title": "AIニュースダイジェスト - 2026年04月21日（火）",
@@ -77,7 +88,8 @@
     "url": "https://anomalocaress.github.io/ai-news-digest/podcast/ai-news-2026-04-21.mp3",
     "length": 4709760,
     "duration": "4:54",
-    "date": "2026-04-21"
+    "date": "2026-04-21",
+    "episode_num": 2
   },
   {
     "title": "AIニュースダイジェスト - 2026年04月20日（月）",
@@ -86,6 +98,7 @@
     "url": "https://anomalocaress.github.io/ai-news-digest/podcast/ai-news-2026-04-20.mp3",
     "length": 4662240,
     "duration": "4:51",
-    "date": "2026-04-20"
+    "date": "2026-04-20",
+    "episode_num": 1
   }
 ]

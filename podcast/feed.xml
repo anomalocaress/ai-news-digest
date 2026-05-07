@@ -1,77 +1,145 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0" xmlns:itunes="http://www.itunes.com/dtds/podcast-1_0.dtd">
+<rss version="2.0"
+  xmlns:itunes="http://www.itunes.com/dtds/podcast-1_0.dtd"
+  xmlns:podcast="https://podcastindex.org/namespace/1.0">
 <channel>
   <title>てらこAIニュースダイジェスト</title>
-  <description>毎朝6時配信、AIの最新ニュースをお届けします。</description>
+  <itunes:title>てらこAIニュースダイジェスト</itunes:title>
+  <description>毎朝6時配信。AIの最新ニュースを厳選してわかりやすくお届けします。</description>
+  <itunes:summary>毎朝6時配信。AIの最新ニュースを厳選してわかりやすくお届けします。</itunes:summary>
   <link>https://anomalocaress.github.io/ai-news-digest</link>
   <language>ja</language>
-  <itunes:author>teraco-labo</itunes:author>
-  <itunes:category text="Technology"/>
+  <itunes:author>てらこAIニュースダイジェスト</itunes:author>
+  <itunes:owner>
+    <itunes:name>teraco-labo</itunes:name>
+    <itunes:email>fujisaki@teraco-labo.com</itunes:email>
+  </itunes:owner>
+  <itunes:image href="https://anomalocaress.github.io/ai-news-digest/podcast/cover.jpg"/>
+  <itunes:explicit>false</itunes:explicit>
+  <itunes:type>episodic</itunes:type>
+  <itunes:category text="Technology">
+    <itunes:category text="Tech News"/>
+  </itunes:category>
   
   <item>
     <title>てらこAIニュースダイジェスト - 2026-05-07</title>
-    <enclosure url="https://anomalocaress.github.io/ai-news-digest/podcast/ai-news-2026-05-07.mp3" length="2241792" type="audio/mpeg"/>
-    <pubDate>2026-05-07</pubDate>
+    <itunes:title>てらこAIニュースダイジェスト - 2026-05-07</itunes:title>
+    <itunes:episode>12</itunes:episode>
+    <itunes:episodeType>full</itunes:episodeType>
+    <itunes:duration>9:47</itunes:duration>
+    <itunes:explicit>false</itunes:explicit>
+    <enclosure url="https://anomalocaress.github.io/ai-news-digest/podcast/ai-news-2026-05-07.mp3" length="2350224" type="audio/mpeg"/>
+    <pubDate>Thu, 07 May 2026 21:00:00 GMT</pubDate>
     <guid isPermaLink="false">https://anomalocaress.github.io/ai-news-digest/podcast/ai-news-2026-05-07.mp3</guid>
   </item>
   <item>
     <title>てらこAIニュースダイジェスト - 2026-05-06</title>
+    <itunes:title>てらこAIニュースダイジェスト - 2026-05-06</itunes:title>
+    <itunes:episode>10</itunes:episode>
+    <itunes:episodeType>full</itunes:episodeType>
+    <itunes:duration>25:28</itunes:duration>
+    <itunes:explicit>false</itunes:explicit>
     <enclosure url="https://anomalocaress.github.io/ai-news-digest/podcast/ai-news-2026-05-06.mp3" length="6113232" type="audio/mpeg"/>
-    <pubDate>2026-05-06</pubDate>
+    <pubDate>Wed, 06 May 2026 21:00:00 GMT</pubDate>
     <guid isPermaLink="false">https://anomalocaress.github.io/ai-news-digest/podcast/ai-news-2026-05-06.mp3</guid>
   </item>
   <item>
     <title>てらこAIニュースダイジェスト - 2026-05-05</title>
+    <itunes:title>てらこAIニュースダイジェスト - 2026-05-05</itunes:title>
+    <itunes:episode>9</itunes:episode>
+    <itunes:episodeType>full</itunes:episodeType>
+    <itunes:duration>26:19</itunes:duration>
+    <itunes:explicit>false</itunes:explicit>
     <enclosure url="https://anomalocaress.github.io/ai-news-digest/podcast/ai-news-2026-05-05.mp3" length="6319584" type="audio/mpeg"/>
-    <pubDate>2026-05-05</pubDate>
+    <pubDate>Tue, 05 May 2026 21:00:00 GMT</pubDate>
     <guid isPermaLink="false">https://anomalocaress.github.io/ai-news-digest/podcast/ai-news-2026-05-05.mp3</guid>
   </item>
   <item>
     <title>てらこAIニュースダイジェスト - 2026-05-04</title>
+    <itunes:title>てらこAIニュースダイジェスト - 2026-05-04</itunes:title>
+    <itunes:episode>8</itunes:episode>
+    <itunes:episodeType>full</itunes:episodeType>
+    <itunes:duration>27:54</itunes:duration>
+    <itunes:explicit>false</itunes:explicit>
     <enclosure url="https://anomalocaress.github.io/ai-news-digest/podcast/ai-news-2026-05-04.mp3" length="6697728" type="audio/mpeg"/>
-    <pubDate>2026-05-04</pubDate>
+    <pubDate>Mon, 04 May 2026 21:00:00 GMT</pubDate>
     <guid isPermaLink="false">https://anomalocaress.github.io/ai-news-digest/podcast/ai-news-2026-05-04.mp3</guid>
   </item>
   <item>
     <title>AIニュースダイジェスト - 2026年04月29日（水）</title>
+    <itunes:title>AIニュースダイジェスト - 2026年04月29日（水）</itunes:title>
+    <itunes:episode>7</itunes:episode>
+    <itunes:episodeType>full</itunes:episodeType>
+    <itunes:duration>0:00</itunes:duration>
+    <itunes:explicit>false</itunes:explicit>
     <enclosure url="https://anomalocaress.github.io/ai-news-digest/podcast/ai-news-2026-04-29.mp3" length="0" type="audio/mpeg"/>
-    <pubDate>2026-04-29</pubDate>
+    <pubDate>Wed, 29 Apr 2026 21:00:00 GMT</pubDate>
     <guid isPermaLink="false">https://anomalocaress.github.io/ai-news-digest/podcast/ai-news-2026-04-29.mp3</guid>
   </item>
   <item>
     <title>AIニュースダイジェスト - 2026年04月28日（火）</title>
+    <itunes:title>AIニュースダイジェスト - 2026年04月28日（火）</itunes:title>
+    <itunes:episode>6</itunes:episode>
+    <itunes:episodeType>full</itunes:episodeType>
+    <itunes:duration>0:00</itunes:duration>
+    <itunes:explicit>false</itunes:explicit>
     <enclosure url="https://anomalocaress.github.io/ai-news-digest/podcast/ai-news-2026-04-28.mp3" length="0" type="audio/mpeg"/>
-    <pubDate>2026-04-28</pubDate>
+    <pubDate>Tue, 28 Apr 2026 21:00:00 GMT</pubDate>
     <guid isPermaLink="false">https://anomalocaress.github.io/ai-news-digest/podcast/ai-news-2026-04-28.mp3</guid>
   </item>
   <item>
     <title>AIニュースダイジェスト - 2026年04月27日（月）</title>
+    <itunes:title>AIニュースダイジェスト - 2026年04月27日（月）</itunes:title>
+    <itunes:episode>5</itunes:episode>
+    <itunes:episodeType>full</itunes:episodeType>
+    <itunes:duration>0:00</itunes:duration>
+    <itunes:explicit>false</itunes:explicit>
     <enclosure url="https://anomalocaress.github.io/ai-news-digest/podcast/ai-news-2026-04-27.mp3" length="0" type="audio/mpeg"/>
-    <pubDate>2026-04-27</pubDate>
+    <pubDate>Mon, 27 Apr 2026 21:00:00 GMT</pubDate>
     <guid isPermaLink="false">https://anomalocaress.github.io/ai-news-digest/podcast/ai-news-2026-04-27.mp3</guid>
   </item>
   <item>
     <title>AIニュースダイジェスト - 2026年04月26日（日）</title>
+    <itunes:title>AIニュースダイジェスト - 2026年04月26日（日）</itunes:title>
+    <itunes:episode>4</itunes:episode>
+    <itunes:episodeType>full</itunes:episodeType>
+    <itunes:duration>0:00</itunes:duration>
+    <itunes:explicit>false</itunes:explicit>
     <enclosure url="https://anomalocaress.github.io/ai-news-digest/podcast/ai-news-2026-04-26.mp3" length="0" type="audio/mpeg"/>
-    <pubDate>2026-04-26</pubDate>
+    <pubDate>Sun, 26 Apr 2026 21:00:00 GMT</pubDate>
     <guid isPermaLink="false">https://anomalocaress.github.io/ai-news-digest/podcast/ai-news-2026-04-26.mp3</guid>
   </item>
   <item>
     <title>AIニュースダイジェスト - 2026年04月22日（水）</title>
+    <itunes:title>AIニュースダイジェスト - 2026年04月22日（水）</itunes:title>
+    <itunes:episode>3</itunes:episode>
+    <itunes:episodeType>full</itunes:episodeType>
+    <itunes:duration>0:00</itunes:duration>
+    <itunes:explicit>false</itunes:explicit>
     <enclosure url="https://anomalocaress.github.io/ai-news-digest/podcast/ai-news-2026-04-22.mp3" length="0" type="audio/mpeg"/>
-    <pubDate>2026-04-22</pubDate>
+    <pubDate>Wed, 22 Apr 2026 21:00:00 GMT</pubDate>
     <guid isPermaLink="false">https://anomalocaress.github.io/ai-news-digest/podcast/ai-news-2026-04-22.mp3</guid>
   </item>
   <item>
     <title>AIニュースダイジェスト - 2026年04月21日（火）</title>
+    <itunes:title>AIニュースダイジェスト - 2026年04月21日（火）</itunes:title>
+    <itunes:episode>2</itunes:episode>
+    <itunes:episodeType>full</itunes:episodeType>
+    <itunes:duration>0:00</itunes:duration>
+    <itunes:explicit>false</itunes:explicit>
     <enclosure url="https://anomalocaress.github.io/ai-news-digest/podcast/ai-news-2026-04-21.mp3" length="0" type="audio/mpeg"/>
-    <pubDate>2026-04-21</pubDate>
+    <pubDate>Tue, 21 Apr 2026 21:00:00 GMT</pubDate>
     <guid isPermaLink="false">https://anomalocaress.github.io/ai-news-digest/podcast/ai-news-2026-04-21.mp3</guid>
   </item>
   <item>
     <title>AIニュースダイジェスト - 2026年04月20日（月）</title>
+    <itunes:title>AIニュースダイジェスト - 2026年04月20日（月）</itunes:title>
+    <itunes:episode>1</itunes:episode>
+    <itunes:episodeType>full</itunes:episodeType>
+    <itunes:duration>0:00</itunes:duration>
+    <itunes:explicit>false</itunes:explicit>
     <enclosure url="https://anomalocaress.github.io/ai-news-digest/podcast/ai-news-2026-04-20.mp3" length="0" type="audio/mpeg"/>
-    <pubDate>2026-04-20</pubDate>
+    <pubDate>Mon, 20 Apr 2026 21:00:00 GMT</pubDate>
     <guid isPermaLink="false">https://anomalocaress.github.io/ai-news-digest/podcast/ai-news-2026-04-20.mp3</guid>
   </item>
 </channel>
