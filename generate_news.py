@@ -36,6 +36,34 @@ CATEGORIES_JA = {
 WEEKDAYS_JA = ["月", "火", "水", "木", "金", "土", "日"]
 
 
+def parse_pub_date(pub_str: str) -> Optional[datetime]:
+    """
+    RSS pubDate（RFC 2822）または Atom published（ISO 8601）を
+    UTC ナイーブ datetime に変換する。失敗時は None を返す。
+    """
+    if not pub_str:
+        return None
+    pub_str = pub_str.strip()
+    # RFC 2822: "Mon, 12 May 2026 06:00:00 +0000"
+    try:
+        from email.utils import parsedate_to_datetime
+        dt = parsedate_to_datetime(pub_str)
+        return dt.astimezone(timezone.utc).replace(tzinfo=None)
+    except Exception:
+        pass
+    # ISO 8601: "2026-05-12T06:00:00Z" / "2026-05-12T06:00:00+00:00"
+    for fmt in ("%Y-%m-%dT%H:%M:%SZ", "%Y-%m-%dT%H:%M:%S"):
+        try:
+            return datetime.strptime(pub_str[:19], fmt)
+        except Exception:
+            pass
+    # 日付のみ: "2026-05-12"
+    try:
+        return datetime.strptime(pub_str[:10], "%Y-%m-%d")
+    except Exception:
+        return None
+
+
 def fetch_rss_news(date: datetime) -> List[Dict]:
     """Fetch AI news from free RSS feeds (no API key required)."""
     RSS_SOURCES = [
@@ -57,6 +85,11 @@ def fetch_rss_news(date: datetime) -> List[Dict]:
     all_articles: List[Dict] = []
     headers = {"User-Agent": "Mozilla/5.0 (compatible; AINewsBot/1.0)"}
 
+    # ---- 直近 24 時間のカットオフ（UTC ナイーブ）----
+    now_utc = datetime.now(timezone.utc).replace(tzinfo=None)
+    cutoff_utc = now_utc - timedelta(hours=24)
+    print(f"  📅 24h フィルター: {cutoff_utc.strftime('%Y-%m-%d %H:%M')} UTC 以降のみ取得")
+
     for source_name, url in RSS_SOURCES:
         try:
             resp = requests.get(url, timeout=15, headers=headers)
@@ -73,6 +106,7 @@ def fetch_rss_news(date: datetime) -> List[Dict]:
                 items = root.findall(".//atom:entry", ns)
 
             count = 0
+            skipped_old = 0
             for item in items:
                 title = (
                     item.findtext("title") or
@@ -94,12 +128,19 @@ def fetch_rss_news(date: datetime) -> List[Dict]:
                 if not link:
                     link = item.findtext("atom:link", namespaces=ns) or ""
 
-                pub = (
+                pub_raw = (
                     item.findtext("pubDate") or
                     item.findtext("atom:published", namespaces=ns) or ""
-                )[:10]  # YYYY-MM-DD
+                )
+                pub_date_str = pub_raw[:10]  # YYYY-MM-DD（表示用）
 
                 if not title or not link:
+                    continue
+
+                # ---- 24 時間フィルター（厳格）----
+                pub_dt = parse_pub_date(pub_raw)
+                if pub_dt is not None and pub_dt < cutoff_utc:
+                    skipped_old += 1
                     continue
 
                 # AI relevance filter for general feeds
@@ -112,14 +153,15 @@ def fetch_rss_news(date: datetime) -> List[Dict]:
                     "title": title,
                     "description": desc,
                     "source": {"name": source_name},
-                    "publishedAt": pub,
+                    "publishedAt": pub_date_str,
                     "url": link,
                 })
                 count += 1
                 if count >= 10:
                     break
 
-            print(f"✓ {source_name}: {count} articles")
+            old_note = f", {skipped_old}件は24h超で除外" if skipped_old else ""
+            print(f"✓ {source_name}: {count} articles{old_note}")
 
         except Exception as e:
             print(f"⚠️  {source_name}: {e}")
