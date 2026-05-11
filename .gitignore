@@ -1,0 +1,21 @@
+# 環境変数・シークレット（絶対にコミットしない）
+.env
+.env.*
+*.env
+
+# API コスト記録（ローカルのみ）
+.api-costs.json
+
+# メールドラフト
+.email-draft-*.html
+
+# Python キャッシュ
+__pycache__/
+*.pyc
+*.pyo
+
+# venv
+venv/
+
+# macOS
+.DS_Store

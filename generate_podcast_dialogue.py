@@ -130,10 +130,10 @@ def build_dialogue_script(articles_by_category: Dict[str, List[Dict]], date: dat
         f"上記のニュースを元に、{date_str}版の「てらこAIニュースダイジェスト」台本を生成してください。"
     )
 
-    print("  Gemini 2.0 Flash で台本生成中...")
+    print("  Gemini Flash で台本生成中...")
     try:
         response = client.models.generate_content(
-            model="gemini-2.0-flash",
+            model="gemini-flash-latest",
             contents=user_prompt,
             config=genai_types.GenerateContentConfig(
                 system_instruction=_DIALOGUE_SYSTEM_PROMPT,
