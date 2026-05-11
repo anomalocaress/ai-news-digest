@@ -3,7 +3,13 @@
 import os
 import json
 import sys
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
+
+# JST = UTC+9
+# GitHub Actions の cron は UTC 21:00（= JST 翌朝 06:00）に走るため、
+# datetime.now() を UTC のままで使うと日付が前日扱いになる。
+# 必ず JST 基準で「今日」を判定する。
+JST = timezone(timedelta(hours=9))
 from pathlib import Path
 from typing import List, Dict, Optional
 import subprocess
@@ -611,7 +617,8 @@ def commit_and_push(date: datetime):
 def main():
     """Main execution."""
     # Parse command line arguments
-    target_date = datetime.now()
+    # 必ず JST 基準で「今日」を判定する (GitHub Actions は UTC で動くため)
+    target_date = datetime.now(JST).replace(tzinfo=None)
     if len(sys.argv) > 2 and sys.argv[1] == "--date":
         try:
             target_date = datetime.strptime(sys.argv[2], "%Y-%m-%d")
