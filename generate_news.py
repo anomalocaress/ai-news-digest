@@ -655,7 +655,7 @@ def main():
     # Step 5: Generate podcast (edge-tts, free)
     print("\n4️⃣  Generating podcast...")
     try:
-        from generate_podcast import generate_podcast
+        from generate_podcast_dialogue import generate_podcast
         generate_podcast(categorized, target_date)
     except Exception as e:
         print(f"⚠️  Podcast generation error: {e}")
