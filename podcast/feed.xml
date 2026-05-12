@@ -30,6 +30,20 @@
   </itunes:category>
   
   <item>
+    <title>てらこAIニュースダイジェスト - 2026-05-13</title>
+    <itunes:title>てらこAIニュースダイジェスト - 2026-05-13</itunes:title>
+    <description>てらこAIニュースダイジェスト - 2026-05-13</description>
+    <author>fujisaki@teraco-labo.com</author>
+    <itunes:author>てらこAIニュースダイジェスト</itunes:author>
+    <itunes:episode>10</itunes:episode>
+    <itunes:episodeType>full</itunes:episodeType>
+    <itunes:duration>24:45</itunes:duration>
+    <itunes:explicit>false</itunes:explicit>
+    <enclosure url="https://anomalocaress.github.io/ai-news-digest/podcast/ai-news-2026-05-13.mp3" length="5943021" type="audio/mpeg"/>
+    <pubDate>Wed, 13 May 2026 21:00:00 GMT</pubDate>
+    <guid isPermaLink="false">https://anomalocaress.github.io/ai-news-digest/podcast/ai-news-2026-05-13.mp3</guid>
+  </item>
+  <item>
     <title>てらこAIニュースダイジェスト - 2026-05-12</title>
     <itunes:title>てらこAIニュースダイジェスト - 2026-05-12</itunes:title>
     <description>てらこAIニュースダイジェスト - 2026-05-12</description>
