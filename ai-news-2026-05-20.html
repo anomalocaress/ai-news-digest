@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI News Digest — 2026-05-20</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --model: #1d4ed8;
+    --research: #6d28d9;
+    --business: #065f46;
+    --policy: #92400e;
+    --tools: #0e7490;
+    --bg: #f8fafc;
+    --card-bg: #ffffff;
+    --text: #1e293b;
+    --text-muted: #64748b;
+    --border: #e2e8f0;
+  }
+  body {
+    font-family: 'Noto Sans JP', 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  header {
+    background: #0f172a;
+    color: #fff;
+    padding: 2rem 1.5rem;
+  }
+  .header-inner {
+    max-width: 1440px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .header-title {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+  .header-title span { color: #60a5fa; }
+  .header-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.2rem;
+  }
+  .header-date {
+    font-size: 0.95rem;
+    color: #94a3b8;
+    font-family: 'Inter', sans-serif;
+  }
+  .header-count {
+    background: #1d4ed8;
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.2rem 0.7rem;
+    border-radius: 999px;
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* CATEGORY BAR */
+  .cat-bar {
+    background: #1e293b;
+    padding: 0.75rem 1.5rem;
+    overflow-x: auto;
+  }
+  .cat-bar-inner {
+    max-width: 1440px;
+    margin: 0 auto;
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+  .cat-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.3rem 0.9rem;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    color: #fff;
+    letter-spacing: 0.03em;
+    white-space: nowrap;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .cat-pill:hover {
+    opacity: 0.85;
+    transform: translateY(-2px);
+  }
+  .cat-pill.model    { background: var(--model); }
+  .cat-pill.research { background: var(--research); }
+  .cat-pill.business { background: var(--business); }
+  .cat-pill.policy   { background: var(--policy); }
+  .cat-pill.tools    { background: var(--tools); }
+
+  /* MAIN */
+  main {
+    max-width: 1440px;
+    margin: 2rem auto;
+    padding: 0 1.5rem;
+  }
+  .section-label {
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* GRID */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+    margin-bottom: 2.5rem;
+  }
+  @media (max-width: 900px) {
+    .grid { grid-template-columns: 1fr; }
+ %}
+
+  /* CARD */
+  .card {
+    background: var(--card-bg);
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    padding: 1.25rem 1.4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    transition: box-shadow 0.2s, transform 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .card:hover {
+    box-shadow: 0 8px 24px rgba(0,0,0,0.09);
+    transform: translateY(-2px);
+  }
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+  }
+  .card.model::before    { background: var(--model); }
+  .card.research::before { background: var(--research); }
+  .card.business::before { background: var(--business); }
+  .card.policy::before   { background: var(--policy); }
+  .card.tools::before    { background: var(--tools); }
+
+  .card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+  .card-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    padding: 0.18rem 0.6rem;
+    border-radius: 4px;
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+  }
+  .card-label.model    { background: var(--model); }
+  .card-label.research { background: var(--research); }
+  .card-label.business { background: var(--business); }
+  .card-label.policy   { background: var(--policy); }
+  .card-label.tools    { background: var(--tools); }
+
+  .stars {
+    display: flex;
+    gap: 2px;
+  }
+  .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: #cbd5e1;
+  }
+  .dot.filled { background: #f59e0b; }
+
+  .card-title-ja {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.45;
+  }
+  .card-title-en {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    font-family: 'Inter', sans-serif;
+    font-style: italic;
+    line-height: 1.4;
+  }
+  .card-source {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .card-source::before {
+    content: '';
+    display: inline-block;
+    width: 4px; height: 4px;
+    background: #94a3b8;
+    border-radius: 50%;
+  }
+  .card-body {
+    font-size: 0.88rem;
+    color: #334155;
+    line-height: 1.7;
+  }
+  .card-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    text-decoration: none;
+    margin-top: auto;
+  }
+  .card-link.model    { color: var(--model); }
+  .card-link.research { color: var(--research); }
+  .card-link.business { color: var(--business); }
+  .card-link.policy   { color: var(--policy); }
+  .card-link.tools    { color: var(--tools); }
+  .card-link:hover { text-decoration: underline; }
+
+  /* FOOTER */
+  footer {
+    background: #1e293b;
+    color: #94a3b8;
+    text-align: center;
+    padding: 1.5rem;
+    font-size: 0.8rem;
+    font-family: 'Inter', sans-serif;
+  }
+  footer strong { color: #e2e8f0; }
+
+  @media (max-width: 640px) {
+    header { padding: 1.25rem 1rem; }
+    main { padding: 0 0.85rem; margin: 1.25rem auto; }
+    .cat-bar { padding: 0.6rem 0.85rem; }
+    .card { padding: 1rem 1.1rem; }
+    .header-title { font-size: 1.25rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="header-title">📰 AI <span>News Digest</span></div>
+    <div class="header-meta">
+      <div class="header-date">2026年05月20日（水）</div>
+      <div class="header-count">31 articles</div>
+    </div>
+  </div>
+</header>
+
+<div class="cat-bar">
+  <div class="cat-bar-inner">
+    <button class="cat-pill model" onclick="document.getElementById('section-model').scrollIntoView({behavior: 'smooth'});">● モデル (8)</button>
+    <button class="cat-pill research" onclick="document.getElementById('section-research').scrollIntoView({behavior: 'smooth'});">● 研究 (7)</button>
+    <button class="cat-pill business" onclick="document.getElementById('section-business').scrollIntoView({behavior: 'smooth'});">● ビジネス (7)</button>
+    <button class="cat-pill policy" onclick="document.getElementById('section-policy').scrollIntoView({behavior: 'smooth'});">● ポリシー (5)</button>
+    <button class="cat-pill tools" onclick="document.getElementById('section-tools').scrollIntoView({behavior: 'smooth'});">● ツール (4)</button>
+  </div>
+</div>
+
+<main>
+
+  <!-- モデル -->
+  <div class="section-label" id="section-model">モデル</div>
+  <div class="grid">
+
+    <article class="card model">
+      <div class="card-top">
+        <span class="card-label model">モデル</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Google IO 2026 で見られたように、Gmail の受信トレイと会話できるようになりました</div>
+      <div class="card-title-en">You can now talk to your Gmail inbox, as seen at Google IO 2026</div>
+      <div class="card-source">TechCrunch AI · Tue, 19 Ma</div>
+      <div class="card-body">Google は Gmail の AI Inbox を会話型音声検索で拡張し、ユーザーが Gemini に埋もれたメールの詳細を検索できるようにします。</div>
+      <a class="card-link model" href="https://techcrunch.com/2026/05/19/you-can-now-talk-to-your-gmail-inbox-as-seen-at-google-io-2026/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link model" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Ftechcrunch.com%2F2026%2F05%2F19%2Fyou-can-now-talk-to-your-gmail-inbox-as-seen-at-google-io-2026%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card model">
+      <div class="card-top">
+        <span class="card-label model">モデル</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Google、メタ氏の著書の一部を抜粋し、新しいオーディオ搭載スマートグラスを発表</div>
+      <div class="card-title-en">Google takes a page out of Meta’s book, announces new audio-powered smart glasses</div>
+      <div class="card-source">TechCrunch AI · Tue, 19 Ma</div>
+      <div class="card-body">Googleは、ユーザーがこれらのデバイスに口頭でコマンドを発行し、Geminiを含む同社のアプリやサービスのエコシステムを通じて物事を実行できるという点で、新しいデバイスを「オーディオグラス」と呼んでいる。</div>
+      <a class="card-link model" href="https://techcrunch.com/2026/05/19/google-takes-a-page-out-of-metas-book-announces-new-audio-powered-smart-glasses/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link model" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Ftechcrunch.com%2F2026%2F05%2F19%2Fgoogle-takes-a-page-out-of-metas-book-announces-new-audio-powered-smart-glasses%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card model">
+      <div class="card-top">
+        <span class="card-label model">モデル</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Google の Genie ワールド モデルは、ストリート ビューで実際の街路をシミュレートできるようになりました</div>
+      <div class="card-title-en">Google’s Genie world model can now simulate real streets with Street View</div>
+      <div class="card-source">TechCrunch AI · Tue, 19 Ma</div>
+      <div class="card-body">Google DeepMind は、ストリート ビューを Project Genie と統合して、ロボット工学、ゲーム、旅行のための没入型でインタラクティブな世界シミュレーションを作成し、ユーザーが環境、天候の変化、まれなシナリオを探索できるようにします。</div>
+      <a class="card-link model" href="https://techcrunch.com/2026/05/19/googles-genie-world-model-can-now-simulate-real-streets-with-street-view/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link model" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Ftechcrunch.com%2F2026%2F05%2F19%2Fgoogles-genie-world-model-can-now-simulate-real-streets-with-street-view%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card model">
+      <div class="card-top">
+        <span class="card-label model">モデル</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Gemini 3.5 Flash で、Google は次の AI の波をチャットボットではなくエージェントに賭けます</div>
+      <div class="card-title-en">With Gemini 3.5 Flash, Google bets its next AI wave on agents, not chatbots</div>
+      <div class="card-source">TechCrunch AI · Tue, 19 Ma</div>
+      <div class="card-body">Google は、同社の年次開発者会議で、これまでで最も強力なコーディングおよびエージェント AI モデルである Gemini 3.5 Flash を発表しました。複雑なタスクを自律的に実行し、ソフトウェアをゼロから構築することができます。</div>
+      <a class="card-link model" href="https://techcrunch.com/2026/05/19/with-gemini-3-5-flash-google-bets-its-next-ai-wave-on-agents-not-chatbots/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link model" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Ftechcrunch.com%2F2026%2F05%2F19%2Fwith-gemini-3-5-flash-google-bets-its-next-ai-wave-on-agents-not-chatbots%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card model">
+      <div class="card-top">
+        <span class="card-label model">モデル</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">OpenAI により、画像が自社のモデルによって作成されたかどうかを簡単に確認できるようになります</div>
+      <div class="card-title-en">OpenAI is making it easier to check if an image was made by their models</div>
+      <div class="card-source">TechCrunch AI · Tue, 19 Ma</div>
+      <div class="card-body">OpenAI は、AI が生成した画像の検出を支援するための 2 つの新しい対策を発表しました。それは、オープン C2PA 標準への参加と、Google の SynthID の製品への追加です。</div>
+      <a class="card-link model" href="https://techcrunch.com/2026/05/19/openai-is-making-it-easier-to-check-if-an-image-was-made-by-their-models/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link model" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Ftechcrunch.com%2F2026%2F05%2F19%2Fopenai-is-making-it-easier-to-check-if-an-image-was-made-by-their-models%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card model">
+      <div class="card-top">
+        <span class="card-label model">モデル</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Google I/O 2026 で発表されたすべて: Gemini、検索、スマート グラス</div>
+      <div class="card-title-en">Everything Announced at Google I/O 2026: Gemini, Search, Smart Glasses</div>
+      <div class="card-source">Wired AI · Tue, 19 Ma</div>
+      <div class="card-body">Google は、Gemini モデルを改良し、検索を刷新し、あらゆるもので AI エージェントを有効にしています。この秋には、気の利いた新しいスマートグラスもいくつか登場します。</div>
+      <a class="card-link model" href="https://www.wired.com/story/everything-google-announced-at-google-io-2026/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link model" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Fwww.wired.com%2Fstory%2Feverything-google-announced-at-google-io-2026%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card model">
+      <div class="card-top">
+        <span class="card-label model">モデル</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Gemini Spark は、OpenClaw の 24 時間年中無休の AI エージェントに対する Google の対応です</div>
+      <div class="card-title-en">Gemini Spark Is Google’s Response to OpenClaw’s 24/7 AI Agent</div>
+      <div class="card-source">Wired AI · Tue, 19 Ma</div>
+      <div class="card-body">Google の常時実行され、データを大量に消費する AI エージェントは、お金を費やしてメールを送信するように設計されています。</div>
+      <a class="card-link model" href="https://www.wired.com/story/googles-response-to-openclaws-24-7-ai-agent/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link model" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Fwww.wired.com%2Fstory%2Fgoogles-response-to-openclaws-24-7-ai-agent%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card model">
+      <div class="card-top">
+        <span class="card-label model">モデル</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Gemini 3.5 Flash は、Gen AI が理解できるほど高速である可能性があります</div>
+      <div class="card-title-en">Gemini 3.5 Flash might be fast enough for gen AI to make sense</div>
+      <div class="card-source">Ars Technica · Tue, 19 Ma</div>
+      <div class="card-body">Google は、より効率的な Gemini 3.5 Flash がエージェント AI の未来への鍵であると述べています。</div>
+      <a class="card-link model" href="https://arstechnica.com/google/2026/05/google-announces-agent-optimized-gemini-3-5-flash-and-a-do-anything-model-called-omni/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link model" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Farstechnica.com%2Fgoogle%2F2026%2F05%2Fgoogle-announces-agent-optimized-gemini-3-5-flash-and-a-do-anything-model-called-omni%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+  </div>
+
+  <!-- 研究 -->
+  <div class="section-label" id="section-research">研究</div>
+  <div class="grid">
+
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">イーロン・マスク氏はサム・アルトマン氏が非営利団体を「盗んだ」と発言したが、裁判で彼も同様の目的を持っていたことが判明した</div>
+      <div class="card-title-en">Elon Musk said Sam Altman “stole” a non-profit — but the trial showed he had similar aims</div>
+      <div class="card-source">TechCrunch AI · Tue, 19 Ma</div>
+      <div class="card-body">「今週末までに、あなたとサムはアメリカで最も嫌われている男になるでしょう。」</div>
+      <a class="card-link research" href="https://techcrunch.com/2026/05/19/elon-musk-said-sam-altman-stole-a-non-profit-but-the-trial-showed-he-had-similar-aims/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link research" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Ftechcrunch.com%2F2026%2F05%2F19%2Felon-musk-said-sam-altman-stole-a-non-profit-but-the-trial-showed-he-had-similar-aims%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">現代のサイバー犯罪情勢を理解する</div>
+      <div class="card-title-en">Understanding the modern cybercrime landscape</div>
+      <div class="card-source">MIT Tech Review · Tue, 19 Ma</div>
+      <div class="card-body">HPE は 2025 年を通じて、サイバー犯罪者の活動方法に大きな変化があることを観察しました。現実世界の脅威を分析する HPE 脅威研究所は、新しい In the Wild レポートでサイバー犯罪者の手口の産業化を強調し、攻撃活動の規模、速度、構造を向上させました。通常、彼らは長年の脆弱性を悪用するために自動化と AI を使用しており、その多くは…</div>
+      <a class="card-link research" href="https://www.technologyreview.com/2026/05/19/1136925/understanding-the-modern-cybercrime-landscape/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link research" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Fwww.technologyreview.com%2F2026%2F05%2F19%2F1136925%2Funderstanding-the-modern-cybercrime-landscape%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">メタ従業員はレイオフを前に福利厚生を急いで使い切ろうとしている</div>
+      <div class="card-title-en">Meta Employees Are Scrambling to Use Up Benefits Ahead of Layoffs</div>
+      <div class="card-source">Wired AI · Tue, 19 Ma</div>
+      <div class="card-body">約8,000人の人員削減を目前に控え、従業員たちはまだ使えるうちにヘッドフォン手当やその他の特典を現金化している。</div>
+      <a class="card-link research" href="https://www.wired.com/story/meta-employees-scramble-benefits-layoffs-ai/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link research" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Fwww.wired.com%2Fstory%2Fmeta-employees-scramble-benefits-layoffs-ai%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Google 検索がエージェント的になり、もうユーザーは必要ありません</div>
+      <div class="card-title-en">Google Search Goes Agentic—and Doesn’t Need You Anymore</div>
+      <div class="card-source">Wired AI · Tue, 19 Ma</div>
+      <div class="card-body">バイブコード化された結果!スーパーウィジェット！眠らないボット！ Google の将来の検索ビジョンは、高度にパーソナライズされ、自動化され、高度に AI 化されたものです。</div>
+      <a class="card-link research" href="https://www.wired.com/story/google-search-goes-agentic-and-doesnt-need-you-anymore/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link research" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Fwww.wired.com%2Fstory%2Fgoogle-search-goes-agentic-and-doesnt-need-you-anymore%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">スパイダーノワールの最終予告編では古典的な悪役が登場します</div>
+      <div class="card-title-en">Spider-Noir final trailer gives us a classic villain</div>
+      <div class="card-source">Ars Technica · Tue, 19 Ma</div>
+      <div class="card-body">ヒーローになるのに遅すぎるということはありません。</div>
+      <a class="card-link research" href="https://arstechnica.com/culture/2026/05/spider-noirs-final-trailer-leans-into-the-deadpan-humor/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link research" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Farstechnica.com%2Fculture%2F2026%2F05%2Fspider-noirs-final-trailer-leans-into-the-deadpan-humor%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Google の SynthID AI 透かし技術は OpenAI、Nvidia などで採用されています</div>
+      <div class="card-title-en">Google's SynthID AI watermarking tech is being adopted by OpenAI, Nvidia, and more</div>
+      <div class="card-source">Ars Technica · Tue, 19 Ma</div>
+      <div class="card-body">AI コンテンツは良くなっていますが、SynthID はフィクションから真実を伝えるのに役立つかもしれません。</div>
+      <a class="card-link research" href="https://arstechnica.com/google/2026/05/googles-synthid-ai-watermarking-tech-is-being-adopted-by-openai-nvidia-and-more/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link research" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Farstechnica.com%2Fgoogle%2F2026%2F05%2Fgoogles-synthid-ai-watermarking-tech-is-being-adopted-by-openai-nvidia-and-more%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">イラン、大手テック企業にホルムズ海峡の海底インターネットケーブル料金の支払いを要求</div>
+      <div class="card-title-en">Iran demands Big Tech pay fees for undersea Internet cables in Strait of Hormuz</div>
+      <div class="card-source">Ars Technica · Tue, 19 Ma</div>
+      <div class="card-body">海底チョークポイントに対するイランの主張により、米国のハイテク企業は陸上光ファイバーへの参入を迫られている。</div>
+      <a class="card-link research" href="https://arstechnica.com/tech-policy/2026/05/iran-demands-big-tech-pay-fees-for-undersea-internet-cables-in-strait-of-hormuz/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link research" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Farstechnica.com%2Ftech-policy%2F2026%2F05%2Firan-demands-big-tech-pay-fees-for-undersea-internet-cables-in-strait-of-hormuz%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+  </div>
+
+  <!-- ビジネス -->
+  <div class="section-label" id="section-business">ビジネス</div>
+  <div class="grid">
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">10 代のハッカーからアイアン ドーム研究者まで、この創設者は AI フィッシングと戦うために 2,800 万ドルを調達</div>
+      <div class="card-title-en">From teen hacker to Iron Dome researcher, this founder raised $28M to fight AI phishing</div>
+      <div class="card-source">TechCrunch AI · Tue, 19 Ma</div>
+      <div class="card-body">エージェント型電子メール セキュリティ プラットフォームである Ocean は、Lightspeed Venture Partners から資金を調達しました。</div>
+      <a class="card-link business" href="https://techcrunch.com/2026/05/19/from-teen-hacker-to-iron-dome-researcher-this-founder-raised-28m-to-fight-ai-phishing/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link business" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Ftechcrunch.com%2F2026%2F05%2F19%2Ffrom-teen-hacker-to-iron-dome-researcher-this-founder-raised-28m-to-fight-ai-phishing%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Google は 25 年ぶりに検索ボックスのデザインを変更しました。それがあなたが思っている以上に重要である理由がここにあります。</div>
+      <div class="card-title-en">Google just redesigned the search box for the first time in 25 years — here’s why it matters more than you think.</div>
+      <div class="card-source">VentureBeat AI · Tue, 19 Ma</div>
+      <div class="card-body">四半世紀にわたり、Google 検索ボックスはコンピューティング界で最もよく知られるインターフェイスの 1 つであり、薄い白い四角形、点滅するカーソル、入力されたいくつかの単語、および青いリンクのリストです。火曜日、Googleはそのパラダイムを正式に廃止する。年次I/O開発者カンファレンスで、Googleは検索ボックス自体の大幅な再設計を発表した。検索ボックスは、毎日数十億のクエリが始まる文字通りのテキストフィールドであり、単純なキーワード入力から動的なAI主導の会話に変換する。</div>
+      <a class="card-link business" href="https://venturebeat.com/technology/google-just-redesigned-the-search-box-for-the-first-time-in-25-years-heres-why-it-matters-more-than-you-think" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link business" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Fventurebeat.com%2Ftechnology%2Fgoogle-just-redesigned-the-search-box-for-the-first-time-in-25-years-heres-why-it-matters-more-than-you-think" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">ラウンドテーブル: マスク対アルトマン裁判の内部</div>
+      <div class="card-title-en">Roundtables: Inside the Musk v. Altman Trial</div>
+      <div class="card-source">MIT Tech Review · Tue, 19 Ma</div>
+      <div class="card-body">セッションを聞くか、以下の動画をご覧ください。イーロン・マスク氏は、OpenAIに対する訴訟で敗訴しました。この訴訟では、CEOのサム・アルトマン氏と社長のグレッグ・ブロックマン氏が会社の非営利ステータスをめぐって騙されたと主張しました。 MIT Technology Review でこの裁判を取材した AI レポーター兼弁護士のミシェル キムが編集者との会話に加わる様子をご覧ください。</div>
+      <a class="card-link business" href="https://www.technologyreview.com/2026/05/19/1137454/roundtables-inside-the-musk-v-altman-trial/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link business" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Fwww.technologyreview.com%2F2026%2F05%2F19%2F1137454%2Froundtables-inside-the-musk-v-altman-trial%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Colossal Biosciences は 3D プリントした人工卵殻でニワトリを育てています</div>
+      <div class="card-title-en">Colossal Biosciences is growing chickens in a 3D-printed artificial eggshell</div>
+      <div class="card-source">MIT Tech Review · Tue, 19 Ma</div>
+      <div class="card-body">雛たちは体を動かし、羽音を立て始め、あるいは孵化しようとしていました。しかし、卵からではありません。  代わりに、これらのニワトリは、Colossal Biosciences のダラス本社にある、3D プリントされた透明なプラスチック カップの中で成長していました。このバイオテクノロジー企業は本日、絶滅した鳥類を復活させる取り組みの一環として「完全人工卵」を開発したと主張した。</div>
+      <a class="card-link business" href="https://www.technologyreview.com/2026/05/19/1137471/colossal-biosciences-is-growing-chickens-in-a-3d-printed-container/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link business" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Fwww.technologyreview.com%2F2026%2F05%2F19%2F1137471%2Fcolossal-biosciences-is-growing-chickens-in-a-3d-printed-container%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">イーロン・マスクがOpenAIに対する訴訟で敗訴した理由は次のとおりです</div>
+      <div class="card-title-en">Here’s why Elon Musk lost his suit against OpenAI</div>
+      <div class="card-source">MIT Tech Review · Tue, 19 Ma</div>
+      <div class="card-body">月曜日、マスク対アルトマン事件の陪審はイーロン・マスク氏に大きな打撃を与え、マスク氏がOpenAIを告訴したのが遅すぎたため、その結果、彼の請求は適用される時効によって妨げられるという全会一致の諮問評決に達した。米国地方判事イヴォンヌ・ゴンザレス・ロジャースは直ちにこの判決を受諾した。  マスク氏はXで次のことを発表しました…</div>
+      <a class="card-link business" href="https://www.technologyreview.com/2026/05/18/1137488/elon-musk-suit-openai-verdict/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link business" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Fwww.technologyreview.com%2F2026%2F05%2F18%2F1137488%2Felon-musk-suit-openai-verdict%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">デミス・ハサビス氏、AIの人員削減は愚かだと考えている</div>
+      <div class="card-title-en">Demis Hassabis Thinks AI Job Cuts Are Dumb</div>
+      <div class="card-source">Wired AI · Tue, 19 Ma</div>
+      <div class="card-body">Google DeepMind の CEO は『WIRED』に対し、企業は従業員を解雇するのではなく、AI による生産性の向上を利用してより多くのことを行うべきだと語った。</div>
+      <a class="card-link business" href="https://www.wired.com/story/demis-hassabis-ai-layoffs-deepmind-google-io/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link business" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Fwww.wired.com%2Fstory%2Fdemis-hassabis-ai-layoffs-deepmind-google-io%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">トム・ステイヤーはカリフォルニアを億万長者から救いたいと考えています。しかし、彼らに離れてほしくない</div>
+      <div class="card-title-en">Tom Steyer Wants to Save California From Billionaires. But Also Doesn’t Want Them to Leave</div>
+      <div class="card-source">Wired AI · Tue, 19 Ma</div>
+      <div class="card-body">ヘッジファンドの億万長者から知事候補になった彼は、カリフォルニアの超富裕層に課税し、AIを規制し、同時にシリコンバレーの幸福を維持したいと考えている。頑張ってください。</div>
+      <a class="card-link business" href="https://www.wired.com/story/the-big-interview-podcast-tom-steyer/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link business" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Fwww.wired.com%2Fstory%2Fthe-big-interview-podcast-tom-steyer%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+  </div>
+
+  <!-- ポリシー -->
+  <div class="section-label" id="section-policy">ポリシー</div>
+  <div class="grid">
+
+    <article class="card policy">
+      <div class="card-top">
+        <span class="card-label policy">ポリシー</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Google の新しい AI エージェントを使用して標準検索を超える方法</div>
+      <div class="card-title-en">How to use Google’s new AI agents to go beyond your standard searches</div>
+      <div class="card-source">TechCrunch AI · Tue, 19 Ma</div>
+      <div class="card-body">Googleは、バックグラウンドでトピックを監視し、更新や変更についてユーザーに積極的に警告できる、AIを活用した「情報エージェント」を立ち上げています。</div>
+      <a class="card-link policy" href="https://techcrunch.com/2026/05/19/how-to-use-googles-new-ai-agents-to-go-beyond-your-standard-searches/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link policy" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Ftechcrunch.com%2F2026%2F05%2F19%2Fhow-to-use-googles-new-ai-agents-to-go-beyond-your-standard-searches%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card policy">
+      <div class="card-top">
+        <span class="card-label policy">ポリシー</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">ご存知のとおり、Google 検索は終わりました</div>
+      <div class="card-title-en">Google Search as you know it is over</div>
+      <div class="card-source">TechCrunch AI · Tue, 19 Ma</div>
+      <div class="card-body">Google は、検索をリンクのリストから、会話型の回答、自律エージェント、対話型インターフェースを備えた AI を活用したエクスペリエンスに変革しています。この変化により、ウェブ上のパブリッシャーへのトラフィックがさらに削減される可能性があります。</div>
+      <a class="card-link policy" href="https://techcrunch.com/2026/05/19/google-search-as-you-know-it-is-over/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link policy" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Ftechcrunch.com%2F2026%2F05%2F19%2Fgoogle-search-as-you-know-it-is-over%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card policy">
+      <div class="card-top">
+        <span class="card-label policy">ポリシー</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">ダウンロード: マスク対アルトマン、戦争用スマート グラス、および Google I/O</div>
+      <div class="card-title-en">The Download: Musk v. Altman, smart glasses for warfare, and Google I/O</div>
+      <div class="card-source">MIT Tech Review · Tue, 19 Ma</div>
+      <div class="card-body">これは、テクノロジーの世界で何が起こっているかを毎日提供する平日のニュースレター、The Download の今日版です。イーロン・マスク氏がOpenAIに対する訴訟で敗訴した理由は次のとおりです。 イーロン・マスク氏は、同社が非営利団体としての設立契約に違反したかどうかを中心としたOpenAIに対する訴訟で敗訴した。あ…</div>
+      <a class="card-link policy" href="https://www.technologyreview.com/2026/05/19/1137505/the-download-musk-altman-trial-smart-glasses-warfare-google-i-o/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link policy" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Fwww.technologyreview.com%2F2026%2F05%2F19%2F1137505%2Fthe-download-musk-altman-trial-smart-glasses-warfare-google-i-o%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card policy">
+      <div class="card-top">
+        <span class="card-label policy">ポリシー</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">OpenAIの元スタッフは、xAIの劣悪な安全記録がSpaceXのIPOを複雑にする可能性があると警告</div>
+      <div class="card-title-en">Former OpenAI Staffers Warn That xAI’s Poor Safety Record Could Complicate SpaceX’s IPO</div>
+      <div class="card-source">Wired AI · Tue, 19 Ma</div>
+      <div class="card-body">新しいAI監視団体を共同設立した元従業員らは、投資家はスペースXが上場する前にxAIの安全慣行についてもっと情報を得る価値があると主張している。</div>
+      <a class="card-link policy" href="https://www.wired.com/story/ex-openai-staffers-warn-spacex-investors-of-ai-safety-risks/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link policy" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Fwww.wired.com%2Fstory%2Fex-openai-staffers-warn-spacex-investors-of-ai-safety-risks%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card policy">
+      <div class="card-top">
+        <span class="card-label policy">ポリシー</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">議会の2026年交通法案に基づき、EVドライバーは年間130ドルを支払うことになる</div>
+      <div class="card-title-en">EV drivers will pay $130 a year under Congress' 2026 transportation bill</div>
+      <div class="card-source">Ars Technica · Tue, 19 Ma</div>
+      <div class="card-body">政治家らはEVに「道路の使用に対する公平な負担」を払ってもらいたいと主張している。</div>
+      <a class="card-link policy" href="https://arstechnica.com/cars/2026/05/bipartisan-bill-in-congress-includes-130-annual-ev-registration-fee/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link policy" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Farstechnica.com%2Fcars%2F2026%2F05%2Fbipartisan-bill-in-congress-includes-130-annual-ev-registration-fee%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+  </div>
+
+  <!-- ツール -->
+  <div class="section-label" id="section-tools">ツール</div>
+  <div class="grid">
+
+    <article class="card tools">
+      <div class="card-top">
+        <span class="card-label tools">ツール</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Google は、IO 2026 で AI 設計の候補者になると宣言したばかりです</div>
+      <div class="card-title-en">Google just declared itself a contender in AI design at IO 2026</div>
+      <div class="card-source">TechCrunch AI · Tue, 19 Ma</div>
+      <div class="card-body">Googleによると、このアプリは教師から中小企業経営者まで誰もがアクセスできるように設計されているという。</div>
+      <a class="card-link tools" href="https://techcrunch.com/2026/05/19/ai-design-tools-are-the-next-big-battleground-and-google-is-going-all-in-at-io-2026/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link tools" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Ftechcrunch.com%2F2026%2F05%2F19%2Fai-design-tools-are-the-next-big-battleground-and-google-is-going-all-in-at-io-2026%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card tools">
+      <div class="card-top">
+        <span class="card-label tools">ツール</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Google で自分自身のディープフェイクが簡単にできる</div>
+      <div class="card-title-en">Google Makes It Easy to Deepfake Yourself</div>
+      <div class="card-source">Wired AI · Tue, 19 Ma</div>
+      <div class="card-body">GoogleのAI作成ソフトウェア「Flow」の全面見直しには、新しいビデオモデルと、アバターと呼ばれる自撮りビデオを生成するツールが含まれている。</div>
+      <a class="card-link tools" href="https://www.wired.com/story/google-makes-it-easy-to-make-a-deepfake-of-yourself/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link tools" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Fwww.wired.com%2Fstory%2Fgoogle-makes-it-easy-to-make-a-deepfake-of-yourself%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card tools">
+      <div class="card-top">
+        <span class="card-label tools">ツール</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">2 人の AI ベースの科学アシスタントが薬物のリターゲティング作業に成功</div>
+      <div class="card-title-en">Two AI-based science assistants succeed with drug-retargeting tasks</div>
+      <div class="card-source">Ars Technica · Tue, 19 Ma</div>
+      <div class="card-body">どちらのツールも仮説を生成します。続いてデータの一部を分析します。</div>
+      <a class="card-link tools" href="https://arstechnica.com/science/2026/05/two-ai-based-science-assistants-succeed-with-drug-retargeting-tasks/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link tools" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Farstechnica.com%2Fscience%2F2026%2F05%2Ftwo-ai-based-science-assistants-succeed-with-drug-retargeting-tasks%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card tools">
+      <div class="card-top">
+        <span class="card-label tools">ツール</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">公開 GitHub リポジトリで見つかった愚かな秘密の CISA 資格情報の見事な表示</div>
+      <div class="card-title-en">In stunning display of stupid, secret CISA credentials found in public GitHub repo</div>
+      <div class="card-source">Ars Technica · Tue, 19 Ma</div>
+      <div class="card-body">SSH キー、平文パスワード、その他の機密データは 2025 年 11 月から存在していました。</div>
+      <a class="card-link tools" href="https://arstechnica.com/information-technology/2026/05/in-stunning-display-of-stupid-secret-cisa-credentials-found-in-public-github-repo/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link tools" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Farstechnica.com%2Finformation-technology%2F2026%2F05%2Fin-stunning-display-of-stupid-secret-cisa-credentials-found-in-public-github-repo%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+  </div>
+
+
+</main>
+
+<footer>
+  <strong>AI News Digest</strong> — 2026年4月13日（月）自動生成 | 12記事収録<br>
+  <span style="font-size:0.72rem; margin-top:0.3rem; display:block;">Model: 2 · Research: 5 · Business: 4 · Policy: 1</span>
+</footer>
+
+</body>
+</html>
