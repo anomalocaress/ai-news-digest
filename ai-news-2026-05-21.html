@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI News Digest — 2026-05-21</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --model: #1d4ed8;
+    --research: #6d28d9;
+    --business: #065f46;
+    --policy: #92400e;
+    --tools: #0e7490;
+    --bg: #f8fafc;
+    --card-bg: #ffffff;
+    --text: #1e293b;
+    --text-muted: #64748b;
+    --border: #e2e8f0;
+  }
+  body {
+    font-family: 'Noto Sans JP', 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  header {
+    background: #0f172a;
+    color: #fff;
+    padding: 2rem 1.5rem;
+  }
+  .header-inner {
+    max-width: 1440px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .header-title {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+  .header-title span { color: #60a5fa; }
+  .header-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.2rem;
+  }
+  .header-date {
+    font-size: 0.95rem;
+    color: #94a3b8;
+    font-family: 'Inter', sans-serif;
+  }
+  .header-count {
+    background: #1d4ed8;
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.2rem 0.7rem;
+    border-radius: 999px;
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* CATEGORY BAR */
+  .cat-bar {
+    background: #1e293b;
+    padding: 0.75rem 1.5rem;
+    overflow-x: auto;
+  }
+  .cat-bar-inner {
+    max-width: 1440px;
+    margin: 0 auto;
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+  .cat-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.3rem 0.9rem;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    color: #fff;
+    letter-spacing: 0.03em;
+    white-space: nowrap;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .cat-pill:hover {
+    opacity: 0.85;
+    transform: translateY(-2px);
+  }
+  .cat-pill.model    { background: var(--model); }
+  .cat-pill.research { background: var(--research); }
+  .cat-pill.business { background: var(--business); }
+  .cat-pill.policy   { background: var(--policy); }
+  .cat-pill.tools    { background: var(--tools); }
+
+  /* MAIN */
+  main {
+    max-width: 1440px;
+    margin: 2rem auto;
+    padding: 0 1.5rem;
+  }
+  .section-label {
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* GRID */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+    margin-bottom: 2.5rem;
+  }
+  @media (max-width: 900px) {
+    .grid { grid-template-columns: 1fr; }
+ %}
+
+  /* CARD */
+  .card {
+    background: var(--card-bg);
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    padding: 1.25rem 1.4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    transition: box-shadow 0.2s, transform 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .card:hover {
+    box-shadow: 0 8px 24px rgba(0,0,0,0.09);
+    transform: translateY(-2px);
+  }
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+  }
+  .card.model::before    { background: var(--model); }
+  .card.research::before { background: var(--research); }
+  .card.business::before { background: var(--business); }
+  .card.policy::before   { background: var(--policy); }
+  .card.tools::before    { background: var(--tools); }
+
+  .card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+  .card-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    padding: 0.18rem 0.6rem;
+    border-radius: 4px;
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+  }
+  .card-label.model    { background: var(--model); }
+  .card-label.research { background: var(--research); }
+  .card-label.business { background: var(--business); }
+  .card-label.policy   { background: var(--policy); }
+  .card-label.tools    { background: var(--tools); }
+
+  .stars {
+    display: flex;
+    gap: 2px;
+  }
+  .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: #cbd5e1;
+  }
+  .dot.filled { background: #f59e0b; }
+
+  .card-title-ja {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.45;
+  }
+  .card-title-en {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    font-family: 'Inter', sans-serif;
+    font-style: italic;
+    line-height: 1.4;
+  }
+  .card-source {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .card-source::before {
+    content: '';
+    display: inline-block;
+    width: 4px; height: 4px;
+    background: #94a3b8;
+    border-radius: 50%;
+  }
+  .card-body {
+    font-size: 0.88rem;
+    color: #334155;
+    line-height: 1.7;
+  }
+  .card-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    text-decoration: none;
+    margin-top: auto;
+  }
+  .card-link.model    { color: var(--model); }
+  .card-link.research { color: var(--research); }
+  .card-link.business { color: var(--business); }
+  .card-link.policy   { color: var(--policy); }
+  .card-link.tools    { color: var(--tools); }
+  .card-link:hover { text-decoration: underline; }
+
+  /* FOOTER */
+  footer {
+    background: #1e293b;
+    color: #94a3b8;
+    text-align: center;
+    padding: 1.5rem;
+    font-size: 0.8rem;
+    font-family: 'Inter', sans-serif;
+  }
+  footer strong { color: #e2e8f0; }
+
+  @media (max-width: 640px) {
+    header { padding: 1.25rem 1rem; }
+    main { padding: 0 0.85rem; margin: 1.25rem auto; }
+    .cat-bar { padding: 0.6rem 0.85rem; }
+    .card { padding: 1rem 1.1rem; }
+    .header-title { font-size: 1.25rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="header-title">📰 AI <span>News Digest</span></div>
+    <div class="header-meta">
+      <div class="header-date">2026年05月21日（木）</div>
+      <div class="header-count">18 articles</div>
+    </div>
+  </div>
+</header>
+
+<div class="cat-bar">
+  <div class="cat-bar-inner">
+    <button class="cat-pill model" onclick="document.getElementById('section-model').scrollIntoView({behavior: 'smooth'});">● モデル (3)</button>
+    <button class="cat-pill research" onclick="document.getElementById('section-research').scrollIntoView({behavior: 'smooth'});">● 研究 (6)</button>
+    <button class="cat-pill business" onclick="document.getElementById('section-business').scrollIntoView({behavior: 'smooth'});">● ビジネス (9)</button>
+  </div>
+</div>
+
+<main>
+
+  <!-- モデル -->
+  <div class="section-label" id="section-model">モデル</div>
+  <div class="grid">
+
+    <article class="card model">
+      <div class="card-top">
+        <span class="card-label model">モデル</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">OpenAI、80年来の数学の問題を解決したと主張 - 今度は本当に解決した</div>
+      <div class="card-title-en">OpenAI claims it solved an 80-year-old math problem — for real this time</div>
+      <div class="card-source">TechCrunch AI · Wed, 20 Ma</div>
+      <div class="card-body">OpenAIは、その推論モデルが1946年以来未解決だった幾何学予想を反証したと主張しているが、今回は、前回の恥ずかしい主張を暴露した数学者らがそれを支持している。</div>
+      <a class="card-link model" href="https://techcrunch.com/2026/05/20/openai-claims-it-solved-an-80-year-old-math-problem-for-real-this-time/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link model" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Ftechcrunch.com%2F2026%2F05%2F20%2Fopenai-claims-it-solved-an-80-year-old-math-problem-for-real-this-time%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card model">
+      <div class="card-top">
+        <span class="card-label model">モデル</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Stability AIが6分の曲を作成できる新しいオーディオモデルをリリース</div>
+      <div class="card-title-en">Stability AI releases a new audio model that can create 6-minute songs</div>
+      <div class="card-source">TechCrunch AI · Wed, 20 Ma</div>
+      <div class="card-body">Stability Audio 3.0 小型モデルはデバイス上で実行でき、2 分間の長さのトラックを生成できます。</div>
+      <a class="card-link model" href="https://techcrunch.com/2026/05/20/stability-ai-release-a-new-audio-model-that-can-create-six-minute-songs/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link model" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Ftechcrunch.com%2F2026%2F05%2F20%2Fstability-ai-release-a-new-audio-model-that-can-create-six-minute-songs%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card model">
+      <div class="card-top">
+        <span class="card-label model">モデル</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">OpenClaw エージェントに肉体を与えました</div>
+      <div class="card-title-en">I Gave My OpenClaw Agent a Physical Body</div>
+      <div class="card-source">Wired AI · Wed, 20 Ma</div>
+      <div class="card-body">AI モデルのコーディング スキルにより、ロボットの構築と展開がはるかに簡単になりつつあります。</div>
+      <a class="card-link model" href="https://www.wired.com/story/i-gave-my-openclaw-agent-physical-body-robot/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link model" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Fwww.wired.com%2Fstory%2Fi-gave-my-openclaw-agent-physical-body-robot%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+  </div>
+
+  <!-- 研究 -->
+  <div class="section-label" id="section-research">研究</div>
+  <div class="grid">
+
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">ダウンロード: 完全人工鶏卵とマスク氏が負けた理由</div>
+      <div class="card-title-en">The Download: fully artificial chicken eggs and why Musk lost</div>
+      <div class="card-source">MIT Tech Review · Wed, 20 Ma</div>
+      <div class="card-body">これは、テクノロジーの世界で何が起こっているかを毎日提供する平日のニュースレター、The Download の今日版です。 Colossal Biosciences は 3D プリントした人工卵の殻でニワトリを育てています。ヒヨコは体を動かし、羽音を立て始め、あるいは孵化しようとしていました。しかし、卵からではありません。代わりに、これらの鶏は…</div>
+      <a class="card-link research" href="https://www.technologyreview.com/2026/05/20/1137579/the-download-colossal-biosciences-egg-musk-altman-trial/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link research" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Fwww.technologyreview.com%2F2026%2F05%2F20%2F1137579%2Fthe-download-colossal-biosciences-egg-musk-altman-trial%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">文学賞受賞者がAI疑惑に直面している。新しい日常のような気がします</div>
+      <div class="card-title-en">Literary Prizewinners Are Facing AI Allegations. It Feels Like the New Normal</div>
+      <div class="card-source">Wired AI · Tue, 19 Ma</div>
+      <div class="card-body">権威ある連邦短編小説賞の地域賞受賞者 5 人のうち 3 人がチャットボットに依存している疑いがある。彼らは確かに一人ではありません。</div>
+      <a class="card-link research" href="https://www.wired.com/story/commonwealth-short-story-prize-ai-allegations/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link research" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Fwww.wired.com%2Fstory%2Fcommonwealth-short-story-prize-ai-allegations%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">マスターズ オブ ザ ユニバースの最終トレーラーは 80 年代のノスタルジーをもたらします</div>
+      <div class="card-title-en">Masters of the Universe final trailer brings the '80s nostalgia</div>
+      <div class="card-source">Ars Technica · Wed, 20 Ma</div>
+      <div class="card-body">「エターニアに平和を取り戻すのはあなただ」</div>
+      <a class="card-link research" href="https://arstechnica.com/culture/2026/05/masters-of-the-universe-final-trailer-brings-the-80s-nostalgia/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link research" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Farstechnica.com%2Fculture%2F2026%2F05%2Fmasters-of-the-universe-final-trailer-brings-the-80s-nostalgia%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">気を引き締めて：Google は 2026 年にエージェント AI で検索を作り直す予定です</div>
+      <div class="card-title-en">Buckle up: Google is set to remake search with agentic AI in 2026</div>
+      <div class="card-source">Ars Technica · Wed, 20 Ma</div>
+      <div class="card-body">Google の AI 検索の進化は I/O 2026 で加速します。</div>
+      <a class="card-link research" href="https://arstechnica.com/google/2026/05/buckle-up-google-is-set-to-remake-search-with-agentic-ai-in-2026/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link research" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Farstechnica.com%2Fgoogle%2F2026%2F05%2Fbuckle-up-google-is-set-to-remake-search-with-agentic-ai-in-2026%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">トランプミーム投稿で投獄された男、83万5000ドルの和解金を獲得</div>
+      <div class="card-title-en">Man jailed for posting Trump meme wins $835,000 settlement</div>
+      <div class="card-source">Ars Technica · Wed, 20 Ma</div>
+      <div class="card-body">保安官は、トランプのミームをフェイスブックに投稿した罪で37日間投獄された男との争いに負けた。</div>
+      <a class="card-link research" href="https://arstechnica.com/tech-policy/2026/05/man-wins-835k-after-sheriff-jailed-him-for-a-month-over-charlie-kirk-post/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link research" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Farstechnica.com%2Ftech-policy%2F2026%2F05%2Fman-wins-835k-after-sheriff-jailed-him-for-a-month-over-charlie-kirk-post%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">インターネットでは、荷物を扱う Figure AI の人型ロボットの監視が止まらない</div>
+      <div class="card-title-en">The Internet can't stop watching Figure AI's humanoid robots handling packages</div>
+      <div class="card-source">Ars Technica · Wed, 20 Ma</div>
+      <div class="card-body">Figure AI の 24 時間年中無休のライブストリームでは、人型ロボットの人間のソフト スポットを紹介します。</div>
+      <a class="card-link research" href="https://arstechnica.com/ai/2026/05/the-internet-cant-stop-watching-figure-ais-humanoid-robots-handling-packages/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link research" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Farstechnica.com%2Fai%2F2026%2F05%2Fthe-internet-cant-stop-watching-figure-ais-humanoid-robots-handling-packages%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+  </div>
+
+  <!-- ビジネス -->
+  <div class="section-label" id="section-business">ビジネス</div>
+  <div class="grid">
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">xAI は昨年、64 億ドルを消費しました。 SpaceXのIPO申請は、支出がまだ終わっていない理由を示している</div>
+      <div class="card-title-en">xAI burned $6.4B last year. SpaceX’s IPO filing shows why the spending is far from over</div>
+      <div class="card-source">TechCrunch AI · Wed, 20 Ma</div>
+      <div class="card-body">SpaceXのIPO申請書は、xAIがGrokの大規模拡張計画中に2025年に64億ドルの損失を出したことを明らかにしており、イーロン・マスク氏のAI財務状況と彼の野心についての詳細が初めて公開される。</div>
+      <a class="card-link business" href="https://techcrunch.com/2026/05/20/xai-burned-6-4b-last-year-spacexs-ipo-filing-shows-why-the-spending-is-far-from-over/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link business" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Ftechcrunch.com%2F2026%2F05%2F20%2Fxai-burned-6-4b-last-year-spacexs-ipo-filing-shows-why-the-spending-is-far-from-over%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Nvidia、新たな記録的な四半期を記録、スタートアップ企業の保有額が430億ドルに上ることが明らかに</div>
+      <div class="card-title-en">Nvidia posts another record quarter, reveals $43 billion of holdings in startups</div>
+      <div class="card-source">TechCrunch AI · Wed, 20 Ma</div>
+      <div class="card-body">Nvidiaは水曜日の市場終了後に新たな記録的な売上高を発表したが、次の四半期には売上高の伸びが鈍化すると予測した。</div>
+      <a class="card-link business" href="https://techcrunch.com/2026/05/20/nvidia-posts-another-record-quarter-reveals-43-billion-of-holdings-in-startups/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link business" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Ftechcrunch.com%2F2026%2F05%2F20%2Fnvidia-posts-another-record-quarter-reveals-43-billion-of-holdings-in-startups%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">マスク氏のxAIは、データセンターの発電機をめぐって訴訟を起こされている。現在、さらに28億ドルを購入している。</div>
+      <div class="card-title-en">Musk’s xAI is being sued over its data center generators. Now, it’s buying $2.8B more.</div>
+      <div class="card-source">TechCrunch AI · Wed, 20 Ma</div>
+      <div class="card-body">スペースX社のIPO申請書によると、イーロン・ムクス氏のxAIは今後3年間で28億ドル相当の天然ガスタービンを購入すると発表した。</div>
+      <a class="card-link business" href="https://techcrunch.com/2026/05/20/musks-xai-is-being-sued-over-its-data-center-generators-now-its-buying-2-8b-more/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link business" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Ftechcrunch.com%2F2026%2F05%2F20%2Fmusks-xai-is-being-sued-over-its-data-center-generators-now-its-buying-2-8b-more%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Anthropic は xAI にコンピューティング費用として月額 12 億 5000 万ドルを支払う</div>
+      <div class="card-title-en">Anthropic will pay xAI $1.25B per month for compute</div>
+      <div class="card-source">TechCrunch AI · Wed, 20 Ma</div>
+      <div class="card-body">イーロン・マスクの xAI は、Anthropic にコンピューティングを売却する契約を結んだとき、AI 界を驚かせました。今、私たちはそれがどれほどの価値があるかを知っています。</div>
+      <a class="card-link business" href="https://techcrunch.com/2026/05/20/anthropic-will-pay-xai-1-25-billion-per-month-for-compute/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link business" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Ftechcrunch.com%2F2026%2F05%2F20%2Fanthropic-will-pay-xai-1-25-billion-per-month-for-compute%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Andrew Ng 氏が支援するスタートアップ IrisGo は、これまで必要だと思っていなかった AI デスクトップの相棒になりそうです</div>
+      <div class="card-title-en">IrisGo, a startup backed by Andrew Ng, looks to become the AI desktop buddy you never knew you needed</div>
+      <div class="card-source">TechCrunch AI · Wed, 20 Ma</div>
+      <div class="card-body">当初は「AI執事」として宣伝されていたIrisは、ユーザーのデスクトップで何が起こっているかを監視し、ユーザーに代わってタスクを実行する方法を自動的に学習すると共同創設者は述べた。</div>
+      <a class="card-link business" href="https://techcrunch.com/2026/05/20/irisgo-a-startup-backed-by-andrew-ng-looks-to-become-the-ai-desktop-buddy-you-never-knew-you-needed/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link business" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Ftechcrunch.com%2F2026%2F05%2F20%2Firisgo-a-startup-backed-by-andrew-ng-looks-to-become-the-ai-desktop-buddy-you-never-knew-you-needed%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">OpenAI、9月に実現する可能性のあるIPOに向けて急ぐ</div>
+      <div class="card-title-en">OpenAI barrels toward IPO that may happen in September</div>
+      <div class="card-source">TechCrunch AI · Wed, 20 Ma</div>
+      <div class="card-body">OpenAIの組織、リーダーシップ、財務を脅かしたイーロン・マスク氏の敗訴から翌日、OpenAIはIPOの準備に戻ったと伝えられている。</div>
+      <a class="card-link business" href="https://techcrunch.com/2026/05/20/openai-barrels-toward-ipo-that-may-happen-in-september/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link business" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Ftechcrunch.com%2F2026%2F05%2F20%2Fopenai-barrels-toward-ipo-that-may-happen-in-september%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">AI検索のスタートアップが爆発的に成長している</div>
+      <div class="card-title-en">AI search startups are blowing up</div>
+      <div class="card-source">TechCrunch AI · Wed, 20 Ma</div>
+      <div class="card-body">AI 検索は、密かに消費者 AI の最も魅力的なターゲットの 1 つになりました。</div>
+      <a class="card-link business" href="https://techcrunch.com/2026/05/20/ai-search-startups-are-blowing-up/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link business" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Ftechcrunch.com%2F2026%2F05%2F20%2Fai-search-startups-are-blowing-up%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">スタートアップ「バトルフィールド 200」の応募は 1 週間で終了: 最も有望なスタートアップを推薦して応募する期間は 5 月 27 日に終了</div>
+      <div class="card-title-en">Startup Battlefield 200 applications close in 1 week: Window to nominate and apply for the most promising startups closes May 27</div>
+      <div class="card-source">TechCrunch AI · Wed, 20 Ma</div>
+      <div class="card-body">スタートアップの Battlefield 200 アプリケーションは 5 月 27 日に終了します。TechCrunch Disrupt に参加して投資家アクセスを獲得し、10 万ドルを獲得し、さらにスケーリング特典を獲得しましょう。初期段階の創業者を指名するか、今すぐスタートアップを提出してください。</div>
+      <a class="card-link business" href="https://techcrunch.com/2026/05/20/startup-battlefield-200-applications-close-in-1-week-window-to-nominate-and-apply-for-the-most-promising-startups-closes-may-27/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link business" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Ftechcrunch.com%2F2026%2F05%2F20%2Fstartup-battlefield-200-applications-close-in-1-week-window-to-nominate-and-apply-for-the-most-promising-startups-closes-may-27%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">環境に優しい鉄鋼のスタートアップ、ボストン・メタルは重要な金属の生産を倍増している</div>
+      <div class="card-title-en">Green steel startup Boston Metal is doubling down on critical metals</div>
+      <div class="card-source">MIT Tech Review · Wed, 20 Ma</div>
+      <div class="card-body">スタートアップのボストン・メタルは、重要な金属を生産するために7,500万ドルの資金調達ラウンドを調達した、とMITテクノロジー・レビューが独占的に報じている。   同社は、今日世界の温室効果ガス排出量の約 8% を占めている鉄鋼産業を浄化する取り組みで主に知られています。追加の資金により、新たな焦点が可能になる可能性があります…</div>
+      <a class="card-link business" href="https://www.technologyreview.com/2026/05/20/1137523/boston-metal-funding-critical-metals/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link business" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Fwww.technologyreview.com%2F2026%2F05%2F20%2F1137523%2Fboston-metal-funding-critical-metals%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+  </div>
+
+
+</main>
+
+<footer>
+  <strong>AI News Digest</strong> — 2026年4月13日（月）自動生成 | 12記事収録<br>
+  <span style="font-size:0.72rem; margin-top:0.3rem; display:block;">Model: 2 · Research: 5 · Business: 4 · Policy: 1</span>
+</footer>
+
+</body>
+</html>
