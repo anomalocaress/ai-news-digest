@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI News Digest — 2026-05-22</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --model: #1d4ed8;
+    --research: #6d28d9;
+    --business: #065f46;
+    --policy: #92400e;
+    --tools: #0e7490;
+    --bg: #f8fafc;
+    --card-bg: #ffffff;
+    --text: #1e293b;
+    --text-muted: #64748b;
+    --border: #e2e8f0;
+  }
+  body {
+    font-family: 'Noto Sans JP', 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  header {
+    background: #0f172a;
+    color: #fff;
+    padding: 2rem 1.5rem;
+  }
+  .header-inner {
+    max-width: 1440px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .header-title {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+  .header-title span { color: #60a5fa; }
+  .header-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.2rem;
+  }
+  .header-date {
+    font-size: 0.95rem;
+    color: #94a3b8;
+    font-family: 'Inter', sans-serif;
+  }
+  .header-count {
+    background: #1d4ed8;
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.2rem 0.7rem;
+    border-radius: 999px;
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* CATEGORY BAR */
+  .cat-bar {
+    background: #1e293b;
+    padding: 0.75rem 1.5rem;
+    overflow-x: auto;
+  }
+  .cat-bar-inner {
+    max-width: 1440px;
+    margin: 0 auto;
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+  .cat-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.3rem 0.9rem;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    color: #fff;
+    letter-spacing: 0.03em;
+    white-space: nowrap;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .cat-pill:hover {
+    opacity: 0.85;
+    transform: translateY(-2px);
+  }
+  .cat-pill.model    { background: var(--model); }
+  .cat-pill.research { background: var(--research); }
+  .cat-pill.business { background: var(--business); }
+  .cat-pill.policy   { background: var(--policy); }
+  .cat-pill.tools    { background: var(--tools); }
+
+  /* MAIN */
+  main {
+    max-width: 1440px;
+    margin: 2rem auto;
+    padding: 0 1.5rem;
+  }
+  .section-label {
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* GRID */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+    margin-bottom: 2.5rem;
+  }
+  @media (max-width: 900px) {
+    .grid { grid-template-columns: 1fr; }
+ %}
+
+  /* CARD */
+  .card {
+    background: var(--card-bg);
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    padding: 1.25rem 1.4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    transition: box-shadow 0.2s, transform 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .card:hover {
+    box-shadow: 0 8px 24px rgba(0,0,0,0.09);
+    transform: translateY(-2px);
+  }
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+  }
+  .card.model::before    { background: var(--model); }
+  .card.research::before { background: var(--research); }
+  .card.business::before { background: var(--business); }
+  .card.policy::before   { background: var(--policy); }
+  .card.tools::before    { background: var(--tools); }
+
+  .card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+  .card-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    padding: 0.18rem 0.6rem;
+    border-radius: 4px;
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+  }
+  .card-label.model    { background: var(--model); }
+  .card-label.research { background: var(--research); }
+  .card-label.business { background: var(--business); }
+  .card-label.policy   { background: var(--policy); }
+  .card-label.tools    { background: var(--tools); }
+
+  .stars {
+    display: flex;
+    gap: 2px;
+  }
+  .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: #cbd5e1;
+  }
+  .dot.filled { background: #f59e0b; }
+
+  .card-title-ja {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.45;
+  }
+  .card-title-en {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    font-family: 'Inter', sans-serif;
+    font-style: italic;
+    line-height: 1.4;
+  }
+  .card-source {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .card-source::before {
+    content: '';
+    display: inline-block;
+    width: 4px; height: 4px;
+    background: #94a3b8;
+    border-radius: 50%;
+  }
+  .card-body {
+    font-size: 0.88rem;
+    color: #334155;
+    line-height: 1.7;
+  }
+  .card-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    text-decoration: none;
+    margin-top: auto;
+  }
+  .card-link.model    { color: var(--model); }
+  .card-link.research { color: var(--research); }
+  .card-link.business { color: var(--business); }
+  .card-link.policy   { color: var(--policy); }
+  .card-link.tools    { color: var(--tools); }
+  .card-link:hover { text-decoration: underline; }
+
+  /* FOOTER */
+  footer {
+    background: #1e293b;
+    color: #94a3b8;
+    text-align: center;
+    padding: 1.5rem;
+    font-size: 0.8rem;
+    font-family: 'Inter', sans-serif;
+  }
+  footer strong { color: #e2e8f0; }
+
+  @media (max-width: 640px) {
+    header { padding: 1.25rem 1rem; }
+    main { padding: 0 0.85rem; margin: 1.25rem auto; }
+    .cat-bar { padding: 0.6rem 0.85rem; }
+    .card { padding: 1rem 1.1rem; }
+    .header-title { font-size: 1.25rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="header-title">📰 AI <span>News Digest</span></div>
+    <div class="header-meta">
+      <div class="header-date">2026年05月22日（金）</div>
+      <div class="header-count">21 articles</div>
+    </div>
+  </div>
+</header>
+
+<div class="cat-bar">
+  <div class="cat-bar-inner">
+    <button class="cat-pill model" onclick="document.getElementById('section-model').scrollIntoView({behavior: 'smooth'});">● モデル (4)</button>
+    <button class="cat-pill research" onclick="document.getElementById('section-research').scrollIntoView({behavior: 'smooth'});">● 研究 (4)</button>
+    <button class="cat-pill business" onclick="document.getElementById('section-business').scrollIntoView({behavior: 'smooth'});">● ビジネス (6)</button>
+    <button class="cat-pill policy" onclick="document.getElementById('section-policy').scrollIntoView({behavior: 'smooth'});">● ポリシー (1)</button>
+    <button class="cat-pill tools" onclick="document.getElementById('section-tools').scrollIntoView({behavior: 'smooth'});">● ツール (6)</button>
+  </div>
+</div>
+
+<main>
+
+  <!-- モデル -->
+  <div class="section-label" id="section-model">モデル</div>
+  <div class="grid">
+
+    <article class="card model">
+      <div class="card-top">
+        <span class="card-label model">モデル</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">トランプ大統領、AIセキュリティに関する大統領令延期、言語が「阻害要因になった可能性がある」と発言</div>
+      <div class="card-title-en">Trump delays AI security executive order, saying language ‘could have been a blocker’</div>
+      <div class="card-source">TechCrunch AI · Thu, 21 Ma</div>
+      <div class="card-body">トランプ大統領は、大統領令の文言への不満を理由に、AIモデルの公開前に政府の安全保障審査を義務付ける大統領令への署名を延期した。</div>
+      <a class="card-link model" href="https://techcrunch.com/2026/05/21/trump-delays-ai-security-executive-order-i-dont-want-to-get-in-the-way-of-that-leading/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link model" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Ftechcrunch.com%2F2026%2F05%2F21%2Ftrump-delays-ai-security-executive-order-i-dont-want-to-get-in-the-way-of-that-leading%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card model">
+      <div class="card-top">
+        <span class="card-label model">モデル</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Tony Robbins と Calm の卒業生によって設立された The Path は、より安全な AI 療法を提供したいと考えています</div>
+      <div class="card-title-en">The Path, founded by Tony Robbins and Calm alums, hopes to offer safer AI therapy</div>
+      <div class="card-source">TechCrunch AI · Thu, 21 Ma</div>
+      <div class="card-body">The Path は、同社の AI モデルがメンタルヘルス安全 AI ベンチマークである Vera-MH で 95 点を獲得したと述べています。これと比較すると、コンシューマ ボットの最高スコアは 65 です。</div>
+      <a class="card-link model" href="https://techcrunch.com/2026/05/21/the-path-founded-by-tony-robbins-and-calm-alums-wants-to-offer-safer-ai-therapy/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link model" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Ftechcrunch.com%2F2026%2F05%2F21%2Fthe-path-founded-by-tony-robbins-and-calm-alums-wants-to-offer-safer-ai-therapy%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card model">
+      <div class="card-top">
+        <span class="card-label model">モデル</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Hark、秘密の「ユニバーサル」AI インターフェースのためにシリーズ A で 7 億ドルを調達</div>
+      <div class="card-title-en">Hark raises $700M Series A for its secretive ‘universal’ AI interface</div>
+      <div class="card-source">TechCrunch AI · Thu, 21 Ma</div>
+      <div class="card-body">Hark は今夏、最初のマルチモーダル モデルをリリースする予定で、これにより既存の製品やサービスと連動するパーソナル AI プラットフォームが強化されると同社は述べています。同社は、これらのシステム専用に構築されたハードウェアデバイスでこれに続くことを期待しています。</div>
+      <a class="card-link model" href="https://techcrunch.com/2026/05/21/hark-raises-700m-series-a-for-its-secretive-universal-ai-interface/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link model" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Ftechcrunch.com%2F2026%2F05%2F21%2Fhark-raises-700m-series-a-for-its-secretive-universal-ai-interface%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card model">
+      <div class="card-top">
+        <span class="card-label model">モデル</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">ラウンドテーブル: AI は世界を理解できるようになりますか?</div>
+      <div class="card-title-en">Roundtables: Can AI Learn to Understand the World?</div>
+      <div class="card-source">MIT Tech Review · Thu, 21 Ma</div>
+      <div class="card-body">AI 企業は、外部の世界を理解し、LLM の制限を克服するシステムを構築したいと考えています。最近の発展により、ワールド モデルが AI 議論の最前線に浮上しました。編集長のマット・ホナン氏、AI 上級編集者のウィル・ダグラス・ヘブン氏、AI レポーターとの会話をご覧ください…</div>
+      <a class="card-link model" href="https://www.technologyreview.com/2026/05/21/1137756/roundtables-can-ai-learn-to-understand-the-world/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link model" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Fwww.technologyreview.com%2F2026%2F05%2F21%2F1137756%2Froundtables-can-ai-learn-to-understand-the-world%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+  </div>
+
+  <!-- 研究 -->
+  <div class="section-label" id="section-research">研究</div>
+  <div class="grid">
+
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Spotify が新しいアプリで Google の NotebookLM に対抗</div>
+      <div class="card-title-en">Spotify takes on Google’s NotebookLM with its new app</div>
+      <div class="card-source">TechCrunch AI · Thu, 21 Ma</div>
+      <div class="card-body">Spotify は、この新しいデスクトップ アプリをリサーチ プレビューとして 20 以上の市場でリリースします。</div>
+      <a class="card-link research" href="https://techcrunch.com/2026/05/21/spotify-debuts-a-new-desktop-app-for-creating-personal-podcasts/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link research" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Ftechcrunch.com%2F2026%2F05%2F21%2Fspotify-debuts-a-new-desktop-app-for-creating-personal-podcasts%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">ダウンロード: オンラインの安全性の未来と気候変動テクノロジーの大きな軸</div>
+      <div class="card-title-en">The Download: online safety’s future and climate tech’s big pivot</div>
+      <div class="card-source">MIT Tech Review · Thu, 21 Ma</div>
+      <div class="card-body">これは、テクノロジーの世界で何が起こっているかを毎日提供する平日のニュースレター、The Download の今日版です。テクノロジー研究者らがオンラインの安全性の将来をめぐってトランプ政権を訴えている トランプ政権は数か月間、ヘイトスピーチを研究し、対抗しようとする研究者らを追及してきた。</div>
+      <a class="card-link research" href="https://www.technologyreview.com/2026/05/21/1137733/the-download-online-safety-climate-tech-pivot/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link research" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Fwww.technologyreview.com%2F2026%2F05%2F21%2F1137733%2Fthe-download-online-safety-climate-tech-pivot%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">テクノロジー研究者らがオンラインの安全性の将来をめぐりトランプ政権を訴えている</div>
+      <div class="card-title-en">Tech researchers are suing the Trump administration over the future of online safety</div>
+      <div class="card-source">MIT Tech Review · Thu, 21 Ma</div>
+      <div class="card-body">トランプ政権は就任当初から、オンライン上のヘイトスピーチ、ハラスメント、プロパガンダ、偽情報を研究し、それに対抗しようとする研究者を追及してきた。  現在、それらの研究者の中には反撃に出ている人もいる。先週、オンラインの安全性と言論の自由に関して世界的な影響を与える可能性がある彼らの訴訟が初めて法廷に出廷した。 …</div>
+      <a class="card-link research" href="https://www.technologyreview.com/2026/05/21/1137632/lawsuit-trump-administration-online-safety-coalition-for-independent-technology-research/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link research" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Fwww.technologyreview.com%2F2026%2F05%2F21%2F1137632%2Flawsuit-trump-administration-online-safety-coalition-for-independent-technology-research%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">メタの危機、Google 検索の変革、AI は卒業生からブーイングを受ける</div>
+      <div class="card-title-en">Meta Is in Crisis, Google Search’s Makeover, and AI Gets Booed by Graduates</div>
+      <div class="card-source">Wired AI · Thu, 21 Ma</div>
+      <div class="card-body">不気味の谷のこのエピソードでは、Meta での大量解雇、Google I/O での重大発表、AI に対する最新の反発を解き明かします。</div>
+      <a class="card-link research" href="https://www.wired.com/story/uncanny-valley-podcast-meta-in-crisis-google-search-makeover-ai-booed-by-graduates/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link research" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Fwww.wired.com%2Fstory%2Funcanny-valley-podcast-meta-in-crisis-google-search-makeover-ai-booed-by-graduates%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+  </div>
+
+  <!-- ビジネス -->
+  <div class="section-label" id="section-business">ビジネス</div>
+  <div class="grid">
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">SpotifyとユニバーサルミュージックがファンメイドのAIカバーとリミックスを許可する契約を締結</div>
+      <div class="card-title-en">Spotify and Universal Music strike deal allowing fan-made AI covers and remixes</div>
+      <div class="card-source">TechCrunch AI · Thu, 21 Ma</div>
+      <div class="card-body">Spotify は Universal Music Group￼ と提携して、プレミアム加入者が AI 生成の曲のカバーやリミックスを作成できるようにし、参加アーティストが収益の一部を受け取ります。</div>
+      <a class="card-link business" href="https://techcrunch.com/2026/05/21/spotify-and-universal-music-strike-deal-allowing-fan-made-ai-covers-and-remixes/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link business" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Ftechcrunch.com%2F2026%2F05%2F21%2Fspotify-and-universal-music-strike-deal-allowing-fan-made-ai-covers-and-remixes%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">アルミニウム価格が 20% 上昇する中、リサイクル関連の新興企業は収益を得るために AI に賭けています</div>
+      <div class="card-title-en">With aluminum prices up 20%, recycling startups bet on AI to cash in</div>
+      <div class="card-source">TechCrunch AI · Thu, 21 Ma</div>
+      <div class="card-body">リサイクルの新興企業は、AI を使用してアルミニウムなどの重要な鉱物の回収率を向上させ、金属の大量供給源を構築することを目指しています。</div>
+      <a class="card-link business" href="https://techcrunch.com/2026/05/21/with-aluminum-prices-up-20-recycling-startups-bet-on-ai-to-cash-in/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link business" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Ftechcrunch.com%2F2026%2F05%2F21%2Fwith-aluminum-prices-up-20-recycling-startups-bet-on-ai-to-cash-in%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">AI 時代における創造性の拡大</div>
+      <div class="card-title-en">Scaling creativity in the age of AI</div>
+      <div class="card-source">MIT Tech Review · Thu, 21 Ma</div>
+      <div class="card-body">ストーリーテリングは人類の DNA の核であり、理想、警告、希望、経験を表現したいという私たちの衝動から生まれます。初期の人類による洞窟壁画用の天然顔料や木炭の革新から、カメラによる文字通りの表現に至るまで、テクノロジーは常に媒体と流通を通じて織り込まれてきました。ストーリーテリングの状況は、私たちの下で変化し続けています…</div>
+      <a class="card-link business" href="https://www.technologyreview.com/2026/05/21/1137613/scaling-creativity-in-the-age-of-ai/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link business" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Fwww.technologyreview.com%2F2026%2F05%2F21%2F1137613%2Fscaling-creativity-in-the-age-of-ai%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">気候変動テクノロジー企業は重要な鉱物に軸足を移している</div>
+      <div class="card-title-en">Climate tech companies are pivoting to critical minerals</div>
+      <div class="card-source">MIT Tech Review · Thu, 21 Ma</div>
+      <div class="card-body">ここ米国では第二次トランプ政権が発足して1年以上が経ちますが、気候変動問題への支持は弱くなっています。しかし、気候変動テクノロジー企業は、脱炭素化以外の潜在的なメリットに焦点を当てるなど、この新しい環境で生き残り、さらには繁栄する方法を見つけようとしています。突然、すべての気候変動テクノロジー企業にストーリーがあるように感じられます…</div>
+      <a class="card-link business" href="https://www.technologyreview.com/2026/05/21/1137622/climate-tech-pivot-critical-minerals/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link business" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Fwww.technologyreview.com%2F2026%2F05%2F21%2F1137622%2Fclimate-tech-pivot-critical-minerals%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">SpaceXはIPO申請においてGrokの「スパイシー」モードをリスクとして挙げた</div>
+      <div class="card-title-en">SpaceX Listed Grok’s ‘Spicy’ Mode as a Risk in Its IPO Filing</div>
+      <div class="card-source">Wired AI · Thu, 21 Ma</div>
+      <div class="card-body">ロケット会社は、Grokが性的な画像を作成したと主張する苦情への対応の一環として、潜在的な訴訟損失に備えて5億ドル以上を積み立てている。</div>
+      <a class="card-link business" href="https://www.wired.com/story/spacex-ipo-grok-spicy-mode-risks/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link business" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Fwww.wired.com%2Fstory%2Fspacex-ipo-grok-spicy-mode-risks%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">SpaceX、AIデータセンター用のガスタービンの購入に28億ドルを費やしている</div>
+      <div class="card-title-en">SpaceX Is Spending $2.8 Billion to Buy Gas Turbines for Its AI Data Centers</div>
+      <div class="card-source">Wired AI · Wed, 20 Ma</div>
+      <div class="card-body">この投資は、イーロン・マスク氏のAI部門が二酸化炭素排出部門に関する苦情に直面しており、クラウド・コンピューティングの大手プレーヤーになろうとしている中で行われた。</div>
+      <a class="card-link business" href="https://www.wired.com/story/elon-musk-spacex-spending-gas-turbines-grok/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link business" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Fwww.wired.com%2Fstory%2Felon-musk-spacex-spending-gas-turbines-grok%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+  </div>
+
+  <!-- ポリシー -->
+  <div class="section-label" id="section-policy">ポリシー</div>
+  <div class="grid">
+
+    <article class="card policy">
+      <div class="card-top">
+        <span class="card-label policy">ポリシー</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">ああ、国際宇宙ステーションからまた水漏れが起きている</div>
+      <div class="card-title-en">Uh-oh, the International Space Station is leaking again</div>
+      <div class="card-source">Ars Technica · Thu, 21 Ma</div>
+      <div class="card-body">「これは、2030年にISSを退役させるという現在の政策が賢明であることをさらに裏付けるものだ。」</div>
+      <a class="card-link policy" href="https://arstechnica.com/space/2026/05/uh-oh-the-international-space-station-is-leaking-again/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link policy" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Farstechnica.com%2Fspace%2F2026%2F05%2Fuh-oh-the-international-space-station-is-leaking-again%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+  </div>
+
+  <!-- ツール -->
+  <div class="section-label" id="section-tools">ツール</div>
+  <div class="grid">
+
+    <article class="card tools">
+      <div class="card-top">
+        <span class="card-label tools">ツール</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Google が本当の Google ではなくなった今、試す価値のある 6 つの検索エンジン</div>
+      <div class="card-title-en">Six search engines worth trying now that Google isn’t really Google anymore</div>
+      <div class="card-source">TechCrunch AI · Thu, 21 Ma</div>
+      <div class="card-body">Google は大きく変わろうとしています。AI 概要機能のファンでなければ、今後登場するものを気に入らないでしょう。</div>
+      <a class="card-link tools" href="https://techcrunch.com/2026/05/21/six-search-engines-worth-trying-now-that-google-isnt-really-google-anymore/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link tools" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Ftechcrunch.com%2F2026%2F05%2F21%2Fsix-search-engines-worth-trying-now-that-google-isnt-really-google-anymore%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card tools">
+      <div class="card-top">
+        <span class="card-label tools">ツール</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Spotify、AI を活用した Q&A とブリーフィング生成機能をポッドキャストに追加</div>
+      <div class="card-title-en">Spotify adds AI-powered Q&A and briefing generation features to podcasts</div>
+      <div class="card-source">TechCrunch AI · Thu, 21 Ma</div>
+      <div class="card-body">Spotify では、プロンプトに基づいて毎日または毎週のブリーフを生成できます</div>
+      <a class="card-link tools" href="https://techcrunch.com/2026/05/21/spotify-adds-ai-powered-qa-and-briefing-generation-features-to-podcasts/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link tools" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Ftechcrunch.com%2F2026%2F05%2F21%2Fspotify-adds-ai-powered-qa-and-briefing-generation-features-to-podcasts%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card tools">
+      <div class="card-top">
+        <span class="card-label tools">ツール</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Spotify が Celebrity を活用したオーディオブック作成ツールを発表</div>
+      <div class="card-title-en">Spotify launches an ElevenLabs-powered audiobook creation tool</div>
+      <div class="card-source">TechCrunch AI · Thu, 21 Ma</div>
+      <div class="card-body">Spotify、今年後半に新しいオーディオブックプランをリリース</div>
+      <a class="card-link tools" href="https://techcrunch.com/2026/05/21/spotify-launches-an-elevenlabs-powered-audiobook-creation-tool/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link tools" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Ftechcrunch.com%2F2026%2F05%2F21%2Fspotify-launches-an-elevenlabs-powered-audiobook-creation-tool%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card tools">
+      <div class="card-top">
+        <span class="card-label tools">ツール</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">GoogleはAIエージェントエコシステムを購入しない可能性のある消費者に売り込んでいる</div>
+      <div class="card-title-en">Google is pitching an AI agent ecosystem to consumers who may not buy it</div>
+      <div class="card-source">TechCrunch AI · Thu, 21 Ma</div>
+      <div class="card-body">火曜日に開催された Google の I/O 開発者カンファレンスで最も有望な発表の 1 つは、消費者がウェブを利用する新しい方法である AI エージェントでした。残念ながら、それが最も混乱を招くものでもありました。</div>
+      <a class="card-link tools" href="https://techcrunch.com/2026/05/21/google-is-pitching-an-ai-agent-ecosystem-to-consumers-who-may-not-buy-it/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link tools" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Ftechcrunch.com%2F2026%2F05%2F21%2Fgoogle-is-pitching-an-ai-agent-ecosystem-to-consumers-who-may-not-buy-it%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card tools">
+      <div class="card-top">
+        <span class="card-label tools">ツール</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Anthropic の Code with Claude は、好むと好まざるにかかわらず、コーディングの未来を誇示しました</div>
+      <div class="card-title-en">Anthropic’s Code with Claude showed off coding’s future—whether you like it or not</div>
+      <div class="card-source">MIT Tech Review · Thu, 21 Ma</div>
+      <div class="card-body">パロアルトでの Google I/O と同じ 5 月 19 日に開幕した、アンスロピックによるロンドンのソフトウェア開発者向け 2 日間イベント Code with Claude の雰囲気は強かった。 (これは偶然ではなく、Anthropic のスタッフが私に保証してくれました。)</div>
+      <a class="card-link tools" href="https://www.technologyreview.com/2026/05/21/1137735/anthropics-code-with-claude-showed-off-codings-future-whether-you-like-it-or-not/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link tools" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Fwww.technologyreview.com%2F2026%2F05%2F21%2F1137735%2Fanthropics-code-with-claude-showed-off-codings-future-whether-you-like-it-or-not%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card tools">
+      <div class="card-top">
+        <span class="card-label tools">ツール</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Gemini の AI アバター ツールを使用して自分自身のクローンを作成しました。結果は私を不安にさせるものでした</div>
+      <div class="card-title-en">I Cloned Myself With Gemini’s AI Avatar Tool. The Result Was Unnervingly Me</div>
+      <div class="card-source">Wired AI · Thu, 21 Ma</div>
+      <div class="card-body">Gemini アプリを使用して、自分のデジタル クローンをフィーチャーした本物のようなビデオを生成しました。 Google はこれを創造の未来と見ています。私はまだゾッとしています。</div>
+      <a class="card-link tools" href="https://www.wired.com/story/i-cloned-myself-with-geminis-ai-avatar-tool-the-result-was-unnervingly-me/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link tools" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Fwww.wired.com%2Fstory%2Fi-cloned-myself-with-geminis-ai-avatar-tool-the-result-was-unnervingly-me%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+  </div>
+
+
+</main>
+
+<footer>
+  <strong>AI News Digest</strong> — 2026年4月13日（月）自動生成 | 12記事収録<br>
+  <span style="font-size:0.72rem; margin-top:0.3rem; display:block;">Model: 2 · Research: 5 · Business: 4 · Policy: 1</span>
+</footer>
+
+</body>
+</html>
