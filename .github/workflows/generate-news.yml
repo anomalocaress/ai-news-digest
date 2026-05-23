@@ -50,20 +50,11 @@ jobs:
           GMAIL_ADDRESS: ${{ secrets.GMAIL_ADDRESS }}
           GMAIL_APP_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          # GITHUB_TOKEN を渡すことで Python 内で push → 待機 → メール送信の順が保証される
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           if [ -n "${{ github.event.inputs.date }}" ]; then
             python generate_news.py --date "${{ github.event.inputs.date }}"
           else
             python generate_news.py
-          fi
-
-      - name: Push changes
-        run: |
-          if [ -n "$(git status --porcelain)" ]; then
-            git add .
-            git commit -m "feat: Auto-generated AI News Digest [skip ci]"
-            git pull --rebase origin main
-            git push
-          else
-            echo "No changes to commit"
           fi

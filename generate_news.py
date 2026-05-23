@@ -648,6 +648,8 @@ def commit_and_push(date: datetime):
             check=True,
             capture_output=True,
         )
+        subprocess.run(["git", "pull", "--rebase", "origin", "main"],
+                       check=True, capture_output=True)
         subprocess.run(["git", "push"], check=True, capture_output=True)
 
         print(f"✓ Git push completed")
@@ -702,28 +704,38 @@ def main():
     except Exception as e:
         print(f"⚠️  Podcast generation error: {e}")
 
-    # Step 6: Build and send email
-    print("\n5️⃣  Building and sending email...")
+    # Step 6: Build email HTML（送信はpush後）
+    print("\n5️⃣  Building email HTML...")
     email_html = build_email_html(categorized, target_date)
     email_file = save_email_html(email_html, target_date)
     print(f"✓ Email draft saved: {email_file.name}")
-
-    # Send email to user
-    email_sent = send_email_draft(email_html, target_date)
-    if not email_sent:
-        print(f"⚠️  Email draft ready at: {email_file.name}")
-        print(f"   Please configure GMAIL_ADDRESS and GMAIL_APP_PASSWORD for auto-sending.")
 
     # Step 7: Update index.html
     print("\n6️⃣  Updating index.html...")
     update_index_html(target_date)
 
-    # Step 8: Commit and push
+    # Step 8: Commit and push（メール送信より先に実行）
+    pushed = False
     if os.getenv("GITHUB_TOKEN"):
         print("\n7️⃣  Committing and pushing...")
         commit_and_push(target_date)
+        pushed = True
     else:
         print("\n⚠️  GITHUB_TOKEN not set. Skipping git operations.")
+
+    # Step 9: メール送信（push 後、GitHub Pages デプロイ待機してから送信）
+    print("\n8️⃣  Sending email...")
+    if pushed:
+        # GitHub Pages のデプロイ完了を待つ（通常 1〜2 分）
+        import time
+        wait_sec = 90
+        print(f"   GitHub Pages デプロイ待機中…（{wait_sec}秒）")
+        time.sleep(wait_sec)
+
+    email_sent = send_email_draft(email_html, target_date)
+    if not email_sent:
+        print(f"⚠️  Email draft ready at: {email_file.name}")
+        print(f"   GMAIL_ADDRESS と GMAIL_APP_PASSWORD を設定すると自動送信されます。")
 
     print(f"\n✅ Success! Generated: {output_file.name}")
 
