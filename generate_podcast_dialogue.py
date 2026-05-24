@@ -135,23 +135,51 @@ def build_dialogue_script(articles_by_category: Dict[str, List[Dict]], date: dat
         f"上記のニュースを元に、{date_str}版の「てらこAIニュースダイジェスト」台本を生成してください。"
     )
 
-    print("  Gemini Flash で台本生成中...")
-    try:
-        response = client.models.generate_content(
-            model="gemini-flash-latest",
-            contents=user_prompt,
-            config=genai_types.GenerateContentConfig(
-                system_instruction=_DIALOGUE_SYSTEM_PROMPT,
-                temperature=0.7,
-                max_output_tokens=4096,
-            ),
-        )
-        script = response.text.strip()
-        print(f"  ✓ 台本生成完了: {len(script)} 文字")
-        return script
-    except Exception as e:
-        print(f"  ⚠️  Gemini API エラー: {e} → フォールバック台本を使用")
-        return _fallback_script(articles_by_category, date)
+    # 最大3回まで再試行（空レスポンス・一時的エラーへの対策）
+    for attempt in range(1, 4):
+        print(f"  Gemini Flash で台本生成中... (試行 {attempt}/3)")
+        try:
+            response = client.models.generate_content(
+                model="gemini-flash-latest",
+                contents=user_prompt,
+                config=genai_types.GenerateContentConfig(
+                    system_instruction=_DIALOGUE_SYSTEM_PROMPT,
+                    temperature=0.7,
+                    max_output_tokens=4096,
+                ),
+            )
+
+            # response.text が None や空のことがある（safety filter / token 制限など）
+            raw_text = response.text or ""
+            script = raw_text.strip()
+
+            # 空 or [てらこ先生]/[ミカ] タグを含まない場合は無効と判定
+            if not script:
+                print(f"  ⚠️  Gemini が空レスポンスを返却（finish_reason を確認）")
+                try:
+                    for cand in (response.candidates or []):
+                        print(f"     finish_reason: {cand.finish_reason}")
+                        if cand.safety_ratings:
+                            for sr in cand.safety_ratings:
+                                print(f"     safety: {sr.category} = {sr.probability}")
+                except Exception:
+                    pass
+                continue
+            if "[てらこ先生]" not in script and "[ミカ]" not in script:
+                print(f"  ⚠️  対話タグが見つかりません（{len(script)} 文字） → リトライ")
+                continue
+
+            print(f"  ✓ 台本生成完了: {len(script)} 文字")
+            return script
+
+        except Exception as e:
+            print(f"  ⚠️  Gemini API エラー (試行 {attempt}): {e}")
+            if attempt < 3:
+                import time
+                time.sleep(5)  # 5秒待ってリトライ
+
+    print("  ⚠️  Gemini で台本生成に失敗 → ルールベースのフォールバック台本を使用します")
+    return _fallback_script(articles_by_category, date)
 
 
 def _fallback_script(articles_by_category: Dict[str, List[Dict]], date: datetime) -> str:

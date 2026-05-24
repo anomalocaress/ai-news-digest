@@ -488,7 +488,7 @@ def update_index_html(date: datetime):
     print(f"✓ Updated index.html → {latest_file}")
 
 
-def build_email_html(categorized: Dict[str, List[Dict]], date: datetime, include_recommendations: bool = True) -> str:
+def build_email_html(categorized: Dict[str, List[Dict]], date: datetime, include_recommendations: bool = True, podcast_available: bool = True) -> str:
     """Build HTML email content with styled articles."""
     date_str = date.strftime("%Y年%m月%d日")
     weekday = WEEKDAYS_JA[date.weekday()]
@@ -547,24 +547,37 @@ def build_email_html(categorized: Dict[str, List[Dict]], date: datetime, include
 
     # Build podcast box (inserted at top, before articles)
     date_iso = date.strftime("%Y-%m-%d")
-    audio_url = f"https://anomalocaress.github.io/ai-news-digest/podcast/ai-news-{date_iso}.mp3"
     total_articles = sum(len(v) for v in categorized.values())
-    podcast_box = (
-        '\n  <div class="podcast-box">\n'
-        '    <h3>🎙️ 本日の音声ダイジェスト（重要ニュースを詳しく解説）</h3>\n'
-        f'    <p>厳選ニュースを音声でお届けします。通勤・家事のお供に。</p>\n'
-        f'    <p style="margin:12px 0;">\n'
-        f'      <a href="{audio_url}" style="background:#0f172a;color:#60a5fa;padding:10px 20px;border-radius:6px;text-decoration:none;font-weight:bold;font-size:15px;">▶ 音声を再生する（MP3）</a>\n'
-        f'    </p>\n'
-        f'    <p style="font-size:12px;color:#475569;margin:6px 0;">\n'
-        f'      💾 <a href="{audio_url}" download style="color:#60a5fa;">ダウンロード</a>'
-        f' &nbsp;·&nbsp; 📁 ファイル名: <code style="font-size:11px;background:#e2e8f0;padding:1px 4px;border-radius:3px;">ai-news-{date_iso}.mp3</code>'
-        f'    </p>\n'
-        '    <p style="font-size:11px;color:#64748b;">\n'
-        '      <a href="https://anomalocaress.github.io/ai-news-digest/podcast/feed.xml" style="color:#94a3b8;">📡 RSSフィード（Spotify登録用）</a>\n'
-        '    </p>\n'
-        '  </div>\n\n'
-    )
+
+    if podcast_available:
+        audio_url = f"https://anomalocaress.github.io/ai-news-digest/podcast/ai-news-{date_iso}.mp3"
+        podcast_box = (
+            '\n  <div class="podcast-box">\n'
+            '    <h3>🎙️ 本日の音声ダイジェスト（重要ニュースを詳しく解説）</h3>\n'
+            f'    <p>厳選ニュースを音声でお届けします。通勤・家事のお供に。</p>\n'
+            f'    <p style="margin:12px 0;">\n'
+            f'      <a href="{audio_url}" style="background:#0f172a;color:#60a5fa;padding:10px 20px;border-radius:6px;text-decoration:none;font-weight:bold;font-size:15px;">▶ 音声を再生する（MP3）</a>\n'
+            f'    </p>\n'
+            f'    <p style="font-size:12px;color:#475569;margin:6px 0;">\n'
+            f'      💾 <a href="{audio_url}" download style="color:#60a5fa;">ダウンロード</a>'
+            f' &nbsp;·&nbsp; 📁 ファイル名: <code style="font-size:11px;background:#e2e8f0;padding:1px 4px;border-radius:3px;">ai-news-{date_iso}.mp3</code>'
+            f'    </p>\n'
+            '    <p style="font-size:11px;color:#64748b;">\n'
+            '      <a href="https://anomalocaress.github.io/ai-news-digest/podcast/feed.xml" style="color:#94a3b8;">📡 RSSフィード（Spotify登録用）</a>\n'
+            '    </p>\n'
+            '  </div>\n\n'
+        )
+    else:
+        # ポッドキャスト生成失敗時：MP3 リンクを出さない（リンク切れ防止）
+        podcast_box = (
+            '\n  <div class="podcast-box" style="background:#fef3c7;border-left:4px solid #f59e0b;">\n'
+            '    <h3>🎙️ 本日の音声ダイジェスト</h3>\n'
+            '    <p style="color:#78350f;">本日はニュース件数が少なく、音声版の生成をスキップしました。下記のテキスト版をご覧ください。</p>\n'
+            '    <p style="font-size:11px;color:#92400e;">\n'
+            '      <a href="https://anomalocaress.github.io/ai-news-digest/podcast/feed.xml" style="color:#92400e;">📡 過去エピソード（RSS / Spotify）</a>\n'
+            '    </p>\n'
+            '  </div>\n\n'
+        )
     email_html = email_html.replace("  <!-- PODCAST_PLACEHOLDER -->\n", podcast_box)
 
     # Add articles by category
@@ -698,15 +711,25 @@ def main():
 
     # Step 5: Generate podcast (edge-tts, free)
     print("\n4️⃣  Generating podcast...")
+    podcast_ok = False
     try:
         from generate_podcast_dialogue import generate_podcast
-        generate_podcast(categorized, target_date)
+        podcast_ok = bool(generate_podcast(categorized, target_date))
     except Exception as e:
         print(f"⚠️  Podcast generation error: {e}")
 
+    # MP3 が物理的に存在しているかを最終チェック
+    expected_mp3 = REPO_DIR / "podcast" / f"ai-news-{target_date.strftime('%Y-%m-%d')}.mp3"
+    if not (expected_mp3.exists() and expected_mp3.stat().st_size > 0):
+        if podcast_ok:
+            print(f"⚠️  MP3 が見つからないため podcast_ok=False に修正: {expected_mp3.name}")
+        podcast_ok = False
+
+    print(f"   ポッドキャスト: {'✓ 生成成功' if podcast_ok else '✗ 生成失敗（メールではリンクを省略）'}")
+
     # Step 6: Build email HTML（送信はpush後）
     print("\n5️⃣  Building email HTML...")
-    email_html = build_email_html(categorized, target_date)
+    email_html = build_email_html(categorized, target_date, podcast_available=podcast_ok)
     email_file = save_email_html(email_html, target_date)
     print(f"✓ Email draft saved: {email_file.name}")
 
