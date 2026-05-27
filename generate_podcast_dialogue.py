@@ -26,9 +26,24 @@ from generate_podcast import (
 VOICE_TERAKO = "ja-JP-KeitaNeural"   # てらこ先生（男性）
 VOICE_MIKA   = "ja-JP-NanamiNeural"  # ミカ（女性）
 
-# セグメント間の無音（ミリ秒）
-SILENCE_SAME_SPEAKER    = 250   # 同一話者の連続発話間
-SILENCE_SPEAKER_CHANGE  = 500   # 話者切り替え時
+# edge-tts の音声パラメータ（rate / pitch）
+# rate="+25%" で約 1.25 倍速、pitch でイントネーションに変化をつける
+VOICE_PARAMS = {
+    "てらこ先生": {
+        "voice": VOICE_TERAKO,
+        "rate":  "+25%",
+        "pitch": "-2Hz",   # 落ち着いた声色を維持
+    },
+    "ミカ": {
+        "voice": VOICE_MIKA,
+        "rate":  "+25%",
+        "pitch": "+5Hz",   # やや明るく、抑揚を強める
+    },
+}
+
+# セグメント間の無音（ミリ秒）— 速度UPに合わせてやや短縮し自然なテンポに
+SILENCE_SAME_SPEAKER    = 180   # 同一話者の連続発話間
+SILENCE_SPEAKER_CHANGE  = 380   # 話者切り替え時
 
 
 # ---------------------------------------------------------------------------
@@ -260,10 +275,21 @@ def parse_dialogue(script: str) -> List[Tuple[str, str]]:
 # edge-tts 非同期 TTS（セグメント単位）
 # ---------------------------------------------------------------------------
 
-async def _tts_segment_async(text: str, voice: str, output_path: Path) -> None:
+async def _tts_segment_async(text: str, voice: str, output_path: Path,
+                              rate: str = "+0%", pitch: str = "+0Hz") -> None:
     import edge_tts
-    communicate = edge_tts.Communicate(preprocess_for_tts(text), voice)
+    communicate = edge_tts.Communicate(
+        preprocess_for_tts(text),
+        voice,
+        rate=rate,
+        pitch=pitch,
+    )
     await communicate.save(str(output_path))
+
+
+def _voice_params_for(speaker: str) -> Dict[str, str]:
+    """話者ごとの voice/rate/pitch を返す。未定義話者は てらこ先生 と同じ。"""
+    return VOICE_PARAMS.get(speaker, VOICE_PARAMS["てらこ先生"])
 
 
 def _run_async(coro):
@@ -325,10 +351,13 @@ def _concat_with_pydub(segments: List[Tuple[str, str]], output_file: Path) -> bo
 
     with tempfile.TemporaryDirectory() as tmpdir:
         for i, (speaker, text) in enumerate(segments):
-            voice    = VOICE_TERAKO if speaker == "てらこ先生" else VOICE_MIKA
+            p        = _voice_params_for(speaker)
             tmp_file = Path(tmpdir) / f"seg_{i:04d}.mp3"
             try:
-                _run_async(_tts_segment_async(text, voice, tmp_file))
+                _run_async(_tts_segment_async(
+                    text, p["voice"], tmp_file,
+                    rate=p["rate"], pitch=p["pitch"],
+                ))
                 seg_audio = AudioSegment.from_mp3(str(tmp_file))
                 if prev_speaker:
                     combined += (sil_change if prev_speaker != speaker else sil_same)
@@ -391,10 +420,13 @@ def _concat_with_ffmpeg(segments: List[Tuple[str, str]], output_file: Path) -> b
         # -- セグメント生成 & concat リスト作成 --
         concat_entries: List[Path] = []
         for i, (speaker, text) in enumerate(segments):
-            voice    = VOICE_TERAKO if speaker == "てらこ先生" else VOICE_MIKA
+            p        = _voice_params_for(speaker)
             seg_file = tmpdir_path / f"seg_{i:04d}.mp3"
             try:
-                _run_async(_tts_segment_async(text, voice, seg_file))
+                _run_async(_tts_segment_async(
+                    text, p["voice"], seg_file,
+                    rate=p["rate"], pitch=p["pitch"],
+                ))
                 if prev_speaker:
                     concat_entries.append(
                         sil_long if prev_speaker != speaker else sil_short
