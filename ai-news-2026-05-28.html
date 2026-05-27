@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI News Digest — 2026-05-28</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --model: #1d4ed8;
+    --research: #6d28d9;
+    --business: #065f46;
+    --policy: #92400e;
+    --tools: #0e7490;
+    --bg: #f8fafc;
+    --card-bg: #ffffff;
+    --text: #1e293b;
+    --text-muted: #64748b;
+    --border: #e2e8f0;
+  }
+  body {
+    font-family: 'Noto Sans JP', 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  header {
+    background: #0f172a;
+    color: #fff;
+    padding: 2rem 1.5rem;
+  }
+  .header-inner {
+    max-width: 1440px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .header-title {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+  .header-title span { color: #60a5fa; }
+  .header-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.2rem;
+  }
+  .header-date {
+    font-size: 0.95rem;
+    color: #94a3b8;
+    font-family: 'Inter', sans-serif;
+  }
+  .header-count {
+    background: #1d4ed8;
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.2rem 0.7rem;
+    border-radius: 999px;
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* CATEGORY BAR */
+  .cat-bar {
+    background: #1e293b;
+    padding: 0.75rem 1.5rem;
+    overflow-x: auto;
+  }
+  .cat-bar-inner {
+    max-width: 1440px;
+    margin: 0 auto;
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+  .cat-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.3rem 0.9rem;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    color: #fff;
+    letter-spacing: 0.03em;
+    white-space: nowrap;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .cat-pill:hover {
+    opacity: 0.85;
+    transform: translateY(-2px);
+  }
+  .cat-pill.model    { background: var(--model); }
+  .cat-pill.research { background: var(--research); }
+  .cat-pill.business { background: var(--business); }
+  .cat-pill.policy   { background: var(--policy); }
+  .cat-pill.tools    { background: var(--tools); }
+
+  /* MAIN */
+  main {
+    max-width: 1440px;
+    margin: 2rem auto;
+    padding: 0 1.5rem;
+  }
+  .section-label {
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* GRID */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+    margin-bottom: 2.5rem;
+  }
+  @media (max-width: 900px) {
+    .grid { grid-template-columns: 1fr; }
+ %}
+
+  /* CARD */
+  .card {
+    background: var(--card-bg);
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    padding: 1.25rem 1.4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    transition: box-shadow 0.2s, transform 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .card:hover {
+    box-shadow: 0 8px 24px rgba(0,0,0,0.09);
+    transform: translateY(-2px);
+  }
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+  }
+  .card.model::before    { background: var(--model); }
+  .card.research::before { background: var(--research); }
+  .card.business::before { background: var(--business); }
+  .card.policy::before   { background: var(--policy); }
+  .card.tools::before    { background: var(--tools); }
+
+  .card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+  .card-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    padding: 0.18rem 0.6rem;
+    border-radius: 4px;
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+  }
+  .card-label.model    { background: var(--model); }
+  .card-label.research { background: var(--research); }
+  .card-label.business { background: var(--business); }
+  .card-label.policy   { background: var(--policy); }
+  .card-label.tools    { background: var(--tools); }
+
+  .stars {
+    display: flex;
+    gap: 2px;
+  }
+  .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: #cbd5e1;
+  }
+  .dot.filled { background: #f59e0b; }
+
+  .card-title-ja {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.45;
+  }
+  .card-title-en {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    font-family: 'Inter', sans-serif;
+    font-style: italic;
+    line-height: 1.4;
+  }
+  .card-source {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .card-source::before {
+    content: '';
+    display: inline-block;
+    width: 4px; height: 4px;
+    background: #94a3b8;
+    border-radius: 50%;
+  }
+  .card-body {
+    font-size: 0.88rem;
+    color: #334155;
+    line-height: 1.7;
+  }
+  .card-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    text-decoration: none;
+    margin-top: auto;
+  }
+  .card-link.model    { color: var(--model); }
+  .card-link.research { color: var(--research); }
+  .card-link.business { color: var(--business); }
+  .card-link.policy   { color: var(--policy); }
+  .card-link.tools    { color: var(--tools); }
+  .card-link:hover { text-decoration: underline; }
+
+  /* FOOTER */
+  footer {
+    background: #1e293b;
+    color: #94a3b8;
+    text-align: center;
+    padding: 1.5rem;
+    font-size: 0.8rem;
+    font-family: 'Inter', sans-serif;
+  }
+  footer strong { color: #e2e8f0; }
+
+  @media (max-width: 640px) {
+    header { padding: 1.25rem 1rem; }
+    main { padding: 0 0.85rem; margin: 1.25rem auto; }
+    .cat-bar { padding: 0.6rem 0.85rem; }
+    .card { padding: 1rem 1.1rem; }
+    .header-title { font-size: 1.25rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="header-title">📰 AI <span>News Digest</span></div>
+    <div class="header-meta">
+      <div class="header-date">2026年05月28日（木）</div>
+      <div class="header-count">20 articles</div>
+    </div>
+  </div>
+</header>
+
+<div class="cat-bar">
+  <div class="cat-bar-inner">
+    <button class="cat-pill model" onclick="document.getElementById('section-model').scrollIntoView({behavior: 'smooth'});">● モデル (1)</button>
+    <button class="cat-pill research" onclick="document.getElementById('section-research').scrollIntoView({behavior: 'smooth'});">● 研究 (5)</button>
+    <button class="cat-pill business" onclick="document.getElementById('section-business').scrollIntoView({behavior: 'smooth'});">● ビジネス (8)</button>
+    <button class="cat-pill policy" onclick="document.getElementById('section-policy').scrollIntoView({behavior: 'smooth'});">● ポリシー (3)</button>
+    <button class="cat-pill tools" onclick="document.getElementById('section-tools').scrollIntoView({behavior: 'smooth'});">● ツール (3)</button>
+  </div>
+</div>
+
+<main>
+
+  <!-- モデル -->
+  <div class="section-label" id="section-model">モデル</div>
+  <div class="grid">
+
+    <article class="card model">
+      <div class="card-top">
+        <span class="card-label model">モデル</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">イレブンラボの新しい音楽生成モデルは、トラックの途中でジャンルを切り替えることができます</div>
+      <div class="card-title-en">ElevenLabs’ new music-generation model can switch genres mid-track</div>
+      <div class="card-source">TechCrunch AI · Wed, 27 Ma</div>
+      <div class="card-body">イレブンラボの新しいモデルを使用すると、ユーザーはトラックの残りの部分に影響を与えることなく、曲の一部を再生成できます。</div>
+      <a class="card-link model" href="https://techcrunch.com/2026/05/27/elevenlabss-new-music-generation-model-can-switch-genres-mid-track/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link model" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Ftechcrunch.com%2F2026%2F05%2F27%2Felevenlabss-new-music-generation-model-can-switch-genres-mid-track%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+  </div>
+
+  <!-- 研究 -->
+  <div class="section-label" id="section-research">研究</div>
+  <div class="grid">
+
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">SEO 戦略は、もう存在しない検索エンジン用に最適化されています。</div>
+      <div class="card-title-en">Your SEO strategy is optimized for a search engine that no longer exists.</div>
+      <div class="card-source">TechCrunch AI · Wed, 27 Ma</div>
+      <div class="card-body">Google I/O がそれを公式に発表しました。現在、AI が生成した回答は検索の最前線にあり、ほとんどのブランドは AI が顧客に対してどのように説明しているかをほとんど把握していません。 10 個の青いリンクを中心に戦略を構築することに何年も費やしてきた人にとって、ルールは非常に重要な形で変更されました。  TechCrunch のエクイティ ポッドキャストのこのエピソードでは、レベッカ […]</div>
+      <a class="card-link research" href="https://techcrunch.com/podcast/your-seo-strategy-is-optimized-for-a-search-engine-that-no-longer-exists/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link research" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Ftechcrunch.com%2Fpodcast%2Fyour-seo-strategy-is-optimized-for-a-search-engine-that-no-longer-exists%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">TechCrunch Disrupt 2026 早期割引チケット割引は 3 日で終了</div>
+      <div class="card-title-en">TechCrunch Disrupt 2026 Early Bird ticket savings end in 3 days</div>
+      <div class="card-source">TechCrunch AI · Wed, 27 Ma</div>
+      <div class="card-body">TechCrunch Disrupt 2026 へのチケットを最大 $410 節約できる期間は残り 3 日です。早期割引価格は 5 月 29 日午後 11 時 59 分に終了します。 PT、締め切りを過ぎるとチケットの価格が上がります。今年、テクノロジー業界で最も影響力のある集会の 1 つに参加する予定がある場合は、料金が再び上昇する前に、今がパスを確保する時期です。</div>
+      <a class="card-link research" href="https://techcrunch.com/2026/05/27/techcrunch-disrupt-2026-early-bird-ticket-savings-end-in-3-days/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link research" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Ftechcrunch.com%2F2026%2F05%2F27%2Ftechcrunch-disrupt-2026-early-bird-ticket-savings-end-in-3-days%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">中国はますます優秀な AI 人材を国内に留めておくようになっています</div>
+      <div class="card-title-en">China is increasingly keeping its best AI talent to itself</div>
+      <div class="card-source">TechCrunch AI · Wed, 27 Ma</div>
+      <div class="card-body">中国のAIブームは世界クラスの人材を輩出しており、中国政府は彼らを他国に逃がすことにますます消極的である。</div>
+      <a class="card-link research" href="https://techcrunch.com/2026/05/27/china-is-increasingly-keeping-its-best-ai-talent-to-itself/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link research" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Ftechcrunch.com%2F2026%2F05%2F27%2Fchina-is-increasingly-keeping-its-best-ai-talent-to-itself%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">トランプ政権、エボラ出血熱に感染した米国人の入国を阻止しケニアに移住へ</div>
+      <div class="card-title-en">Trump admin to block Ebola-exposed Americans from US, move them to Kenya</div>
+      <div class="card-source">Ars Technica · Wed, 27 Ma</div>
+      <div class="card-body">トランプ当局者はCDC職員に対し、空港で旅行者の検査をボランティアで行うよう要請した。</div>
+      <a class="card-link research" href="https://arstechnica.com/health/2026/05/us-walls-itself-off-from-ebola-beefed-up-travel-ban-no-citizen-repatriation/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link research" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Farstechnica.com%2Fhealth%2F2026%2F05%2Fus-walls-itself-off-from-ebola-beefed-up-travel-ban-no-citizen-repatriation%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">YouTube、AI動画の自動ラベル付けを開始</div>
+      <div class="card-title-en">YouTube to begin automatically labeling AI videos</div>
+      <div class="card-source">Ars Technica · Wed, 27 Ma</div>
+      <div class="card-body">ただし、アニメーション、非現実的、または AI がほんの少ししか含まれていない AI 動画では、依然としてその起源が隠されている可能性があります。</div>
+      <a class="card-link research" href="https://arstechnica.com/google/2026/05/youtube-to-begin-automatically-labeling-ai-videos/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link research" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Farstechnica.com%2Fgoogle%2F2026%2F05%2Fyoutube-to-begin-automatically-labeling-ai-videos%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+  </div>
+
+  <!-- ビジネス -->
+  <div class="section-label" id="section-business">ビジネス</div>
+  <div class="grid">
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Amazon にとってさらに良いニュースは、Snowflake が AI CPU チップに関して AWS と 60 億ドルの契約を締結したことです</div>
+      <div class="card-title-en">In more good news for Amazon, Snowflake signs $6B deal with AWS for AI CPU chips</div>
+      <div class="card-source">TechCrunch AI · Wed, 27 Ma</div>
+      <div class="card-body">Snowflake は、AI 用途のチップを確保するために Amazon と新たに巨額の 5 年間契約を締結しました。 Nvidiaが再び注目を集めている。</div>
+      <a class="card-link business" href="https://techcrunch.com/2026/05/27/in-more-good-news-for-amazon-snowflake-signs-6b-deal-with-aws-for-ai-cpu-chips/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link business" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Ftechcrunch.com%2F2026%2F05%2F27%2Fin-more-good-news-for-amazon-snowflake-signs-6b-deal-with-aws-for-ai-cpu-chips%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">給与計算スタートアップの Remote は、人員を増やさずに従業員 1 人あたりの収益が 50% 増加したと発表</div>
+      <div class="card-title-en">Payroll startup Remote says it grew revenue 50% per employee without adding headcount</div>
+      <div class="card-source">TechCrunch AI · Wed, 27 Ma</div>
+      <div class="card-body">給与計算サービス プロバイダーである Remote は、最近年間経常収益 (ARR) が 3 億ドルを超え、AI 導入による従業員 1 人当たりの収益の 50% 増加により、キャッシュフローが黒字になりました。</div>
+      <a class="card-link business" href="https://techcrunch.com/2026/05/27/payroll-startup-remote-says-it-grew-revenue-50-per-employee-without-adding-headcount/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link business" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Ftechcrunch.com%2F2026%2F05%2F27%2Fpayroll-startup-remote-says-it-grew-revenue-50-per-employee-without-adding-headcount%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">AI コーディングのスタートアップ Cognition がプレマネー評価額 250 億ドルで 10 億ドルを調達</div>
+      <div class="card-title-en">AI coding startup Cognition raises $1B at $25B pre-money valuation</div>
+      <div class="card-source">TechCrunch AI · Wed, 27 Ma</div>
+      <div class="card-body">コグニションの年間収益ランレートは4億9,200万ドルに達し、8か月で評価額が2倍以上になったという。</div>
+      <a class="card-link business" href="https://techcrunch.com/2026/05/27/ai-coding-startup-cognition-raises-1b-at-25b-pre-money-valuation/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link business" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Ftechcrunch.com%2F2026%2F05%2F27%2Fai-coding-startup-cognition-raises-1b-at-25b-pre-money-valuation%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">スタートアップ バトルフィールド 200 の応募は本日締め切りです: 創設者を指名するか、スタートアップを提出してください</div>
+      <div class="card-title-en">Startup Battlefield 200 applications close today: Nominate a founder or submit your startup</div>
+      <div class="card-source">TechCrunch AI · Wed, 27 Ma</div>
+      <div class="card-body">今日は、Startup Battlefield 200 へのスタートアップの応募または推薦の最終日です。午後 11 時 59 分に時計が鳴ったら、 PT、株式なしの資金調達で 100,000 ドルを競い合い、世界的な知名度を獲得し、投資家と直接つながり、TechCrunch Disrupt ステージで立ち上げるチャンスの窓は閉ざされています。</div>
+      <a class="card-link business" href="https://techcrunch.com/2026/05/27/startup-battlefield-200-applications-close-today-nominate-a-founder-or-submit-your-startup/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link business" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Ftechcrunch.com%2F2026%2F05%2F27%2Fstartup-battlefield-200-applications-close-today-nominate-a-founder-or-submit-your-startup%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Bose の元睡眠責任者による睡眠技術スタートアップ SOND が 700 万ドルでステルス撤退</div>
+      <div class="card-title-en">SOND, a sleep tech startup from Bose’s former head of sleep, exits stealth with $7M</div>
+      <div class="card-source">TechCrunch AI · Wed, 27 Ma</div>
+      <div class="card-body">SOND は、そのデビュー製品である Dreambuds を発表しました。これは、着用者から 12 の生理学的信号を捕捉し、リアルタイムでそれらの信号に作用して、消費者の睡眠の改善を支援する閉ループのインイヤー システムです。</div>
+      <a class="card-link business" href="https://techcrunch.com/2026/05/27/sond-a-sleep-tech-startup-from-boses-former-head-of-sleep-exits-stealth-with-7m/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link business" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Ftechcrunch.com%2F2026%2F05%2F27%2Fsond-a-sleep-tech-startup-from-boses-former-head-of-sleep-exits-stealth-with-7m%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">ファーウェイの「チップクイーン」が挑戦を打ち切る</div>
+      <div class="card-title-en">Huawei's ‘Chip Queen’ Throws Down the Gauntlet</div>
+      <div class="card-source">Wired AI · Wed, 27 Ma</div>
+      <div class="card-body">この中国企業は、チップ生産の指針であるムーアの法則の終焉に適応しようとしている。それは米国のチップ支配を複雑にする可能性がある。</div>
+      <a class="card-link business" href="https://www.wired.com/story/huawei-chip-queen-moores-law-tau/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link business" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Fwww.wired.com%2Fstory%2Fhuawei-chip-queen-moores-law-tau%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">教皇レオはテクノロジー兄弟たちにトールキンについて教えた</div>
+      <div class="card-title-en">Pope Leo Schooled the Tech Bros on Tolkien</div>
+      <div class="card-source">Wired AI · Tue, 26 Ma</div>
+      <div class="card-body">教皇は、回勅の中で『指輪物語』について言及した。AIとは、シリーズを誤解し続けるハイテク億万長者の（意図的ではないにしても）専門家による荒らしである。</div>
+      <a class="card-link business" href="https://www.wired.com/story/pope-leo-schooled-the-tech-bros-on-tolkien/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link business" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Fwww.wired.com%2Fstory%2Fpope-leo-schooled-the-tech-bros-on-tolkien%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">米国をAIハブにするというトランプ大統領の計画が裏目に出たため、NVIDIAは台湾に1500億ドルを賭けた</div>
+      <div class="card-title-en">Nvidia bets $150B on Taiwan as Trump's plan to make US an AI hub backfires</div>
+      <div class="card-source">Ars Technica · Wed, 27 Ma</div>
+      <div class="card-body">Nvidiaは台湾をAIの「震源地」にするために年間1500億ドルを投資する予定だ。</div>
+      <a class="card-link business" href="https://arstechnica.com/tech-policy/2026/05/nvidia-ceo-wants-taiwan-to-be-center-of-ai-revolution-not-us/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link business" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Farstechnica.com%2Ftech-policy%2F2026%2F05%2Fnvidia-ceo-wants-taiwan-to-be-center-of-ai-revolution-not-us%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+  </div>
+
+  <!-- ポリシー -->
+  <div class="section-label" id="section-policy">ポリシー</div>
+  <div class="grid">
+
+    <article class="card policy">
+      <div class="card-top">
+        <span class="card-label policy">ポリシー</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">ダウンロード: AI の最新情報と体外受精の未来</div>
+      <div class="card-title-en">The Download: keeping up with AI, and the future of IVF</div>
+      <div class="card-source">MIT Tech Review · Wed, 27 Ma</div>
+      <div class="card-body">これは、テクノロジーの世界で何が起こっているかを毎日提供する平日のニュースレター、The Download の今日版です。この夏、AI で何が起こっているのかを常に把握しましょう。MIT Technology Review では、人工知能の世界からのニュースがどれほど容赦ないペースであるかを正確に理解しています…</div>
+      <a class="card-link policy" href="https://www.technologyreview.com/2026/05/27/1138048/the-download-ai-future-ivf-technology/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link policy" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Fwww.technologyreview.com%2F2026%2F05%2F27%2F1138048%2Fthe-download-ai-future-ivf-technology%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card policy">
+      <div class="card-top">
+        <span class="card-label policy">ポリシー</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">カリフォルニア州、人種差別訴訟を棄却しようとするテスラの試みを破る</div>
+      <div class="card-title-en">California defeats Tesla's attempt to throw out racial discrimination lawsuit</div>
+      <div class="card-source">Ars Technica · Wed, 27 Ma</div>
+      <div class="card-body">カリフォルニア公民権局はテスラに対する勝利を歓迎し、7月に裁判が始まると予想している。</div>
+      <a class="card-link policy" href="https://arstechnica.com/tech-policy/2026/05/california-defeats-teslas-attempt-to-throw-out-racial-discrimination-lawsuit/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link policy" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Farstechnica.com%2Ftech-policy%2F2026%2F05%2Fcalifornia-defeats-teslas-attempt-to-throw-out-racial-discrimination-lawsuit%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card policy">
+      <div class="card-top">
+        <span class="card-label policy">ポリシー</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">AIへの憎しみが高まる中、米国の法執行機関が「反テクノロジー過激主義」を警告</div>
+      <div class="card-title-en">US law enforcement warns of "anti-tech extremism" as AI hatred grows</div>
+      <div class="card-source">Ars Technica · Wed, 27 Ma</div>
+      <div class="card-body">連邦当局は新たなカテゴリーの脅威について警鐘を鳴らしている。</div>
+      <a class="card-link policy" href="https://arstechnica.com/ai/2026/05/us-law-enforcement-warns-of-anti-tech-extremism-as-ai-hatred-grows/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link policy" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Farstechnica.com%2Fai%2F2026%2F05%2Fus-law-enforcement-warns-of-anti-tech-extremism-as-ai-hatred-grows%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+  </div>
+
+  <!-- ツール -->
+  <div class="section-label" id="section-tools">ツール</div>
+  <div class="grid">
+
+    <article class="card tools">
+      <div class="card-top">
+        <span class="card-label tools">ツール</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Meta が Instagram、Facebook、WhatsApp のサブスクリプションを開始、AI プランなどさらに追加予定</div>
+      <div class="card-title-en">Meta launches Instagram, Facebook, and WhatsApp subscriptions, with more to come, including AI plans</div>
+      <div class="card-source">TechCrunch AI · Wed, 27 Ma</div>
+      <div class="card-body">Meta は、Instagram、Facebook、WhatsApp の有料サブスクリプション プランを世界中で展開すると同時に、より広範な「Meta One」サブスクリプション ブランドの下で、AI、クリエイター、ビジネスに焦点を当てた新しいサービスをテストしています。</div>
+      <a class="card-link tools" href="https://techcrunch.com/2026/05/27/meta-officially-launches-instagram-facebook-and-whatsapp-subscriptions-with-more-to-come-including-ai-plans/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link tools" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Ftechcrunch.com%2F2026%2F05%2F27%2Fmeta-officially-launches-instagram-facebook-and-whatsapp-subscriptions-with-more-to-come-including-ai-plans%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card tools">
+      <div class="card-top">
+        <span class="card-label tools">ツール</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">GoogleとAppleの元研究者がAIに欠けているフィードバックループを構築するスタートアップを立ち上げる</div>
+      <div class="card-title-en">Former Google and Apple Researchers Launch a Startup to Build AI’s Missing Feedback Loop</div>
+      <div class="card-source">Wired AI · Wed, 27 Ma</div>
+      <div class="card-body">Trajectory は、あらゆる種類の企業が継続的に学習する AI 製品を開発する際に、スーパーチャージされたバイブコーディングが役立つ可能性があると、迅速な反復サイクルに賭けています。</div>
+      <a class="card-link tools" href="https://www.wired.com/story/ex-google-apple-ai-researchers-want-to-make-ai-that-gets-smarter-as-you-use-it/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link tools" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Fwww.wired.com%2Fstory%2Fex-google-apple-ai-researchers-want-to-make-ai-that-gets-smarter-as-you-use-it%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card tools">
+      <div class="card-top">
+        <span class="card-label tools">ツール</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">ディスクロージャー・デイの最終予告編にはスピルバーグ自身が登場</div>
+      <div class="card-title-en">Disclosure Day final trailer features Spielberg himself</div>
+      <div class="card-source">Ars Technica · Wed, 27 Ma</div>
+      <div class="card-body">監督は映画の映像を交えながら、エイリアンの存在に対する見方がどのように変化したかを説明する。</div>
+      <a class="card-link tools" href="https://arstechnica.com/culture/2026/05/disclosure-day-final-trailer-features-spielberg-himself/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link tools" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Farstechnica.com%2Fculture%2F2026%2F05%2Fdisclosure-day-final-trailer-features-spielberg-himself%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+  </div>
+
+
+</main>
+
+<footer>
+  <strong>AI News Digest</strong> — 2026年4月13日（月）自動生成 | 12記事収録<br>
+  <span style="font-size:0.72rem; margin-top:0.3rem; display:block;">Model: 2 · Research: 5 · Business: 4 · Policy: 1</span>
+</footer>
+
+</body>
+</html>
