@@ -550,17 +550,19 @@ def build_email_html(categorized: Dict[str, List[Dict]], date: datetime, include
     total_articles = sum(len(v) for v in categorized.values())
 
     if podcast_available:
-        audio_url = f"https://anomalocaress.github.io/ai-news-digest/podcast/ai-news-{date_iso}.mp3"
+        # プレイヤーページ（速度調整・スキップ・台本表示付き）
+        player_url = f"https://anomalocaress.github.io/ai-news-digest/podcast/player.html?date={date_iso}"
+        audio_url  = f"https://anomalocaress.github.io/ai-news-digest/podcast/ai-news-{date_iso}.mp3"
         podcast_box = (
             '\n  <div class="podcast-box">\n'
             '    <h3>🎙️ 本日の音声ダイジェスト（重要ニュースを詳しく解説）</h3>\n'
             f'    <p>厳選ニュースを音声でお届けします。通勤・家事のお供に。</p>\n'
             f'    <p style="margin:12px 0;">\n'
-            f'      <a href="{audio_url}" style="background:#0f172a;color:#60a5fa;padding:10px 20px;border-radius:6px;text-decoration:none;font-weight:bold;font-size:15px;">▶ 音声を再生する（MP3）</a>\n'
+            f'      <a href="{player_url}" style="background:#0f172a;color:#60a5fa;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:bold;font-size:16px;display:inline-block;">▶ プレイヤーを開く（速度調整・台本付き）</a>\n'
             f'    </p>\n'
             f'    <p style="font-size:12px;color:#475569;margin:6px 0;">\n'
-            f'      💾 <a href="{audio_url}" download style="color:#60a5fa;">ダウンロード</a>'
-            f' &nbsp;·&nbsp; 📁 ファイル名: <code style="font-size:11px;background:#e2e8f0;padding:1px 4px;border-radius:3px;">ai-news-{date_iso}.mp3</code>'
+            f'      🎧 <a href="{audio_url}" style="color:#60a5fa;">MP3を直接再生</a>'
+            f' &nbsp;·&nbsp; 💾 <a href="{audio_url}" download style="color:#60a5fa;">ダウンロード</a>'
             f'    </p>\n'
             '    <p style="font-size:11px;color:#64748b;">\n'
             '      <a href="https://anomalocaress.github.io/ai-news-digest/podcast/feed.xml" style="color:#94a3b8;">📡 RSSフィード（Spotify登録用）</a>\n'

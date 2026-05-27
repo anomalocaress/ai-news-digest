@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0f172a">
+<title>てらこAIニュースダイジェスト</title>
+<style>
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
+    background: #0f172a;
+    color: #e2e8f0;
+    min-height: 100vh;
+    padding: 16px;
+    line-height: 1.7;
+  }
+  .container { max-width: 720px; margin: 0 auto; }
+
+  .header {
+    text-align: center;
+    padding: 24px 0 16px;
+  }
+  .header h1 {
+    font-size: 18px;
+    color: #94a3b8;
+    margin: 0 0 6px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+  }
+  .header .date {
+    font-size: 28px;
+    font-weight: 700;
+    color: #f1f5f9;
+    margin: 0;
+  }
+  .header .weekday {
+    font-size: 14px;
+    color: #64748b;
+    margin-top: 4px;
+  }
+
+  /* ---- プレイヤーカード ---- */
+  .player-card {
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    border-radius: 20px;
+    padding: 28px 24px;
+    margin: 16px 0;
+    border: 1px solid #334155;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+  }
+
+  /* ---- 進捗バー ---- */
+  .progress-wrap {
+    margin: 0 0 16px;
+  }
+  .progress-bar {
+    width: 100%;
+    height: 6px;
+    background: #334155;
+    border-radius: 3px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #60a5fa, #818cf8);
+    width: 0;
+    border-radius: 3px;
+    transition: width 0.1s linear;
+  }
+  .time-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: #94a3b8;
+    margin-top: 6px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ---- メインコントロール ---- */
+  .controls-main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    margin: 20px 0 16px;
+  }
+  .btn {
+    background: none;
+    border: none;
+    color: #e2e8f0;
+    cursor: pointer;
+    padding: 12px;
+    border-radius: 50%;
+    transition: background 0.15s, transform 0.1s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .btn:hover, .btn:active { background: rgba(255,255,255,0.08); }
+  .btn:active { transform: scale(0.92); }
+  .btn svg { display: block; }
+  .btn.skip { padding: 10px; }
+  .btn.skip .skip-label {
+    font-size: 9px;
+    position: absolute;
+    color: #cbd5e1;
+    font-weight: 700;
+  }
+  .btn.play {
+    background: linear-gradient(135deg, #60a5fa 0%, #818cf8 100%);
+    width: 64px;
+    height: 64px;
+    padding: 0;
+    box-shadow: 0 4px 20px rgba(96,165,250,0.4);
+  }
+  .btn.play:hover { transform: scale(1.05); }
+  .btn.play:active { transform: scale(0.95); }
+
+  /* ---- 速度ボタン ---- */
+  .speed-row {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-top: 12px;
+  }
+  .speed-btn {
+    background: #1e293b;
+    border: 1px solid #334155;
+    color: #cbd5e1;
+    padding: 6px 12px;
+    border-radius: 16px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s;
+    font-variant-numeric: tabular-nums;
+  }
+  .speed-btn:hover { border-color: #60a5fa; color: #f1f5f9; }
+  .speed-btn.active {
+    background: #60a5fa;
+    border-color: #60a5fa;
+    color: #0f172a;
+  }
+
+  /* ---- 副情報 ---- */
+  .meta-row {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    margin-top: 16px;
+    font-size: 12px;
+    color: #64748b;
+  }
+  .meta-row a {
+    color: #94a3b8;
+    text-decoration: none;
+    padding: 4px 10px;
+    border-radius: 12px;
+    background: rgba(148,163,184,0.08);
+    transition: background 0.15s;
+  }
+  .meta-row a:hover { background: rgba(148,163,184,0.18); color: #e2e8f0; }
+
+  /* ---- 台本セクション ---- */
+  .transcript {
+    margin-top: 24px;
+    background: #1e293b;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid #334155;
+  }
+  .transcript summary {
+    padding: 16px 20px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #cbd5e1;
+    font-weight: 600;
+    user-select: none;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .transcript summary::-webkit-details-marker { display: none; }
+  .transcript summary::after {
+    content: "▾";
+    color: #64748b;
+    transition: transform 0.2s;
+  }
+  .transcript[open] summary::after { transform: rotate(180deg); }
+  .transcript-body {
+    padding: 0 20px 20px;
+    max-height: 480px;
+    overflow-y: auto;
+    font-size: 14px;
+    line-height: 1.85;
+  }
+  .turn {
+    margin: 12px 0;
+    padding: 10px 14px;
+    border-radius: 10px;
+    background: #0f172a;
+    border-left: 3px solid #475569;
+  }
+  .turn.terako { border-left-color: #60a5fa; }
+  .turn.mika   { border-left-color: #f472b6; }
+  .turn .speaker {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #94a3b8;
+    margin-bottom: 4px;
+  }
+  .turn.terako .speaker { color: #60a5fa; }
+  .turn.mika   .speaker { color: #f472b6; }
+  .turn .text { color: #e2e8f0; }
+
+  /* ---- フッター ---- */
+  .footer {
+    text-align: center;
+    margin: 32px 0 16px;
+    font-size: 12px;
+    color: #64748b;
+  }
+  .footer a { color: #64748b; text-decoration: none; }
+  .footer a:hover { color: #94a3b8; text-decoration: underline; }
+
+  /* ---- エラー / ローディング ---- */
+  .status {
+    text-align: center;
+    padding: 32px 20px;
+    color: #94a3b8;
+    font-size: 14px;
+  }
+
+  @media (max-width: 480px) {
+    .header .date { font-size: 22px; }
+    .player-card { padding: 22px 18px; }
+    .btn.play { width: 56px; height: 56px; }
+    .speed-btn { padding: 5px 10px; font-size: 11px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="header">
+    <h1>🎙️ てらこAIニュースダイジェスト</h1>
+    <p class="date" id="dateLabel">読み込み中...</p>
+    <p class="weekday" id="weekdayLabel"></p>
+  </div>
+
+  <div class="player-card">
+    <audio id="audio" preload="metadata"></audio>
+
+    <div class="progress-wrap">
+      <div class="progress-bar" id="progressBar">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+      <div class="time-row">
+        <span id="currentTime">0:00</span>
+        <span id="totalTime">--:--</span>
+      </div>
+    </div>
+
+    <div class="controls-main">
+      <button class="btn skip" id="back30" aria-label="30秒戻る" title="30秒戻る" style="position:relative;">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="1 4 1 10 7 10"></polyline>
+          <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
+        </svg>
+        <span class="skip-label">30</span>
+      </button>
+
+      <button class="btn skip" id="back10" aria-label="10秒戻る" title="10秒戻る" style="position:relative;">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="1 4 1 10 7 10"></polyline>
+          <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
+        </svg>
+        <span class="skip-label">10</span>
+      </button>
+
+      <button class="btn play" id="playBtn" aria-label="再生">
+        <svg id="playIcon" width="28" height="28" viewBox="0 0 24 24" fill="#0f172a">
+          <polygon points="6,4 20,12 6,20"/>
+        </svg>
+        <svg id="pauseIcon" width="28" height="28" viewBox="0 0 24 24" fill="#0f172a" style="display:none;">
+          <rect x="6" y="4" width="4" height="16"/>
+          <rect x="14" y="4" width="4" height="16"/>
+        </svg>
+      </button>
+
+      <button class="btn skip" id="fwd10" aria-label="10秒進む" title="10秒進む" style="position:relative;">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="transform:scaleX(-1);">
+          <polyline points="1 4 1 10 7 10"></polyline>
+          <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
+        </svg>
+        <span class="skip-label">10</span>
+      </button>
+
+      <button class="btn skip" id="fwd30" aria-label="30秒進む" title="30秒進む" style="position:relative;">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="transform:scaleX(-1);">
+          <polyline points="1 4 1 10 7 10"></polyline>
+          <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
+        </svg>
+        <span class="skip-label">30</span>
+      </button>
+    </div>
+
+    <div class="speed-row" id="speedRow">
+      <button class="speed-btn" data-rate="0.75">0.75×</button>
+      <button class="speed-btn" data-rate="1.0">1.0×</button>
+      <button class="speed-btn active" data-rate="1.25">1.25×</button>
+      <button class="speed-btn" data-rate="1.5">1.5×</button>
+      <button class="speed-btn" data-rate="1.75">1.75×</button>
+      <button class="speed-btn" data-rate="2.0">2.0×</button>
+    </div>
+
+    <div class="meta-row">
+      <a id="mp3Link" href="#" download>💾 MP3ダウンロード</a>
+      <a id="newsLink" href="#">📰 元記事HTMLへ</a>
+    </div>
+  </div>
+
+  <details class="transcript" id="transcriptBox">
+    <summary>📝 台本を表示</summary>
+    <div class="transcript-body" id="transcriptBody">
+      読み込み中...
+    </div>
+  </details>
+
+  <div class="footer">
+    📡 <a href="feed.xml">RSSフィード（Spotify登録用）</a>
+    ・
+    <a href="https://open.spotify.com/show/033cDtX8MpRhSYox" target="_blank" rel="noopener">Spotify</a>
+    ・
+    <a href="../">過去エピソード</a>
+  </div>
+
+</div>
+
+<script>
+(function() {
+  const WEEKDAYS = ['日', '月', '火', '水', '木', '金', '土'];
+
+  // -------- 日付の解決 --------
+  function resolveDate() {
+    // 1. URLパラメータ ?date=YYYY-MM-DD
+    const p = new URLSearchParams(location.search);
+    const d = p.get('date');
+    if (d && /^\d{4}-\d{2}-\d{2}$/.test(d)) return d;
+    // 2. ハッシュ #2026-05-24
+    if (location.hash && /^#\d{4}-\d{2}-\d{2}$/.test(location.hash)) {
+      return location.hash.slice(1);
+    }
+    // 3. ファイル名末尾 player-2026-05-24.html / 2026-05-24.html
+    const name = location.pathname.split('/').pop();
+    const m = name && name.match(/(\d{4}-\d{2}-\d{2})/);
+    if (m) return m[1];
+    // 4. デフォルト: 今日の日付（JST）
+    const now = new Date(Date.now() + 9*3600*1000); // JST
+    return now.toISOString().slice(0, 10);
+  }
+
+  const dateIso = resolveDate();
+  const dateObj = new Date(dateIso + 'T00:00:00+09:00');
+  const audioUrl = 'ai-news-' + dateIso + '.mp3';
+  const scriptUrl = 'script-' + dateIso + '.txt';
+  const newsHtml = '../ai-news-' + dateIso + '.html';
+
+  // -------- ヘッダー描画 --------
+  document.getElementById('dateLabel').textContent =
+    dateObj.getFullYear() + '年' + (dateObj.getMonth()+1) + '月' + dateObj.getDate() + '日';
+  document.getElementById('weekdayLabel').textContent =
+    WEEKDAYS[dateObj.getDay()] + '曜日 配信';
+  document.getElementById('mp3Link').href = audioUrl;
+  document.getElementById('mp3Link').download = audioUrl;
+  document.getElementById('newsLink').href = newsHtml;
+  document.title = 'てらこAIニュース ' + dateIso;
+
+  // -------- audio --------
+  const audio = document.getElementById('audio');
+  audio.src = audioUrl;
+
+  const playBtn   = document.getElementById('playBtn');
+  const playIcon  = document.getElementById('playIcon');
+  const pauseIcon = document.getElementById('pauseIcon');
+
+  function setPlaying(p) {
+    playIcon.style.display  = p ? 'none'  : 'block';
+    pauseIcon.style.display = p ? 'block' : 'none';
+    playBtn.setAttribute('aria-label', p ? '一時停止' : '再生');
+  }
+
+  playBtn.addEventListener('click', () => {
+    if (audio.paused) audio.play(); else audio.pause();
+  });
+  audio.addEventListener('play',  () => setPlaying(true));
+  audio.addEventListener('pause', () => setPlaying(false));
+  audio.addEventListener('ended', () => setPlaying(false));
+
+  // -------- スキップ --------
+  function skip(sec) {
+    audio.currentTime = Math.max(0, Math.min(audio.duration || 0, audio.currentTime + sec));
+  }
+  document.getElementById('back30').addEventListener('click', () => skip(-30));
+  document.getElementById('back10').addEventListener('click', () => skip(-10));
+  document.getElementById('fwd10').addEventListener('click',  () => skip(10));
+  document.getElementById('fwd30').addEventListener('click',  () => skip(30));
+
+  // -------- 進捗バー --------
+  const progressBar  = document.getElementById('progressBar');
+  const progressFill = document.getElementById('progressFill');
+  const currentTimeEl = document.getElementById('currentTime');
+  const totalTimeEl   = document.getElementById('totalTime');
+
+  function fmt(sec) {
+    if (!isFinite(sec)) return '--:--';
+    sec = Math.max(0, Math.floor(sec));
+    const m = Math.floor(sec / 60);
+    const s = sec % 60;
+    return m + ':' + (s < 10 ? '0' + s : s);
+  }
+
+  audio.addEventListener('loadedmetadata', () => {
+    totalTimeEl.textContent = fmt(audio.duration);
+  });
+  audio.addEventListener('timeupdate', () => {
+    const pct = audio.duration ? (audio.currentTime / audio.duration * 100) : 0;
+    progressFill.style.width = pct + '%';
+    currentTimeEl.textContent = fmt(audio.currentTime);
+  });
+
+  function seekFromEvent(e) {
+    const rect = progressBar.getBoundingClientRect();
+    const x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
+    const pct = Math.max(0, Math.min(1, x / rect.width));
+    if (audio.duration) audio.currentTime = audio.duration * pct;
+  }
+  progressBar.addEventListener('click', seekFromEvent);
+
+  // -------- 速度 --------
+  const speedRow = document.getElementById('speedRow');
+  const SAVED_RATE_KEY = 'terako-ai-news-rate';
+  const savedRate = parseFloat(localStorage.getItem(SAVED_RATE_KEY) || '1.25');
+
+  function setRate(r) {
+    audio.playbackRate = r;
+    speedRow.querySelectorAll('.speed-btn').forEach(btn => {
+      btn.classList.toggle('active', parseFloat(btn.dataset.rate) === r);
+    });
+    try { localStorage.setItem(SAVED_RATE_KEY, String(r)); } catch (e) {}
+  }
+  setRate(savedRate);
+
+  speedRow.addEventListener('click', (e) => {
+    const t = e.target.closest('.speed-btn');
+    if (!t) return;
+    setRate(parseFloat(t.dataset.rate));
+  });
+
+  // -------- キーボードショートカット --------
+  document.addEventListener('keydown', (e) => {
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+    switch (e.key) {
+      case ' ':
+      case 'k':
+        e.preventDefault();
+        if (audio.paused) audio.play(); else audio.pause();
+        break;
+      case 'ArrowLeft':  skip(-10); break;
+      case 'ArrowRight': skip(10);  break;
+      case 'j': skip(-30); break;
+      case 'l': skip(30);  break;
+    }
+  });
+
+  // -------- 台本ロード --------
+  fetch(scriptUrl)
+    .then(r => r.ok ? r.text() : Promise.reject('not found'))
+    .then(text => {
+      const body = document.getElementById('transcriptBody');
+      const lines = text.split('\n');
+      const html = [];
+      for (const line of lines) {
+        const m = line.match(/^\[(てらこ先生|ミカ)\]\s*(.+)$/);
+        if (m) {
+          const cls = m[1] === 'てらこ先生' ? 'terako' : 'mika';
+          html.push(
+            '<div class="turn ' + cls + '">' +
+            '<div class="speaker">' + m[1] + '</div>' +
+            '<div class="text">' + escapeHtml(m[2]) + '</div>' +
+            '</div>'
+          );
+        }
+      }
+      body.innerHTML = html.length
+        ? html.join('')
+        : '<p style="color:#94a3b8;">本日の台本はまだ準備中です。</p>';
+    })
+    .catch(() => {
+      document.getElementById('transcriptBody').innerHTML =
+        '<p style="color:#94a3b8;">台本を読み込めませんでした。</p>';
+    });
+
+  function escapeHtml(s) {
+    return s.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  }
+})();
+</script>
+</body>
+</html>
