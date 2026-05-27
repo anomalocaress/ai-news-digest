@@ -313,7 +313,8 @@ def _generate_dialogue_audio(
 
 
 def _concat_with_pydub(segments: List[Tuple[str, str]], output_file: Path) -> bool:
-    """pydub を使った音声結合（Python ≤ 3.12 推奨）。"""
+    """pydub を使った音声結合（Python ≤ 3.12 推奨）。
+    出力は 44.1kHz stereo 80kbps の最も互換性の高い MP3。"""
     from pydub import AudioSegment
 
     sil_same   = AudioSegment.silent(duration=SILENCE_SAME_SPEAKER)
@@ -343,13 +344,25 @@ def _concat_with_pydub(segments: List[Tuple[str, str]], output_file: Path) -> bo
             print("  ❌ 全セグメントが失敗しました（pydub）")
             return False
 
-        combined.export(str(output_file), format="mp3", bitrate="64k")
-        print(f"  ✓ 結合完了（pydub）: {ok_count}/{len(segments)} セグメント")
+        # 44.1kHz stereo に強制変換してエクスポート（プレイヤー互換性最大化）
+        combined = combined.set_frame_rate(44100).set_channels(2)
+        combined.export(
+            str(output_file),
+            format="mp3",
+            bitrate="80k",
+            parameters=["-write_xing", "1", "-id3v2_version", "3"],
+        )
+        print(f"  ✓ 結合完了（pydub, 44.1kHz stereo 80k）: {ok_count}/{len(segments)} セグメント")
     return True
 
 
 def _concat_with_ffmpeg(segments: List[Tuple[str, str]], output_file: Path) -> bool:
-    """ffmpeg subprocess を直接呼び出す音声結合（Python 3.13+ 対応）。"""
+    """ffmpeg subprocess を直接呼び出す音声結合（Python 3.13+ 対応）。
+
+    プレイヤー互換性のため 2 パス方式：
+      1. 全セグメントを concat フィルタで PCM ストリームとして結合
+      2. 44.1kHz stereo 80kbps の単一の MP3 として再エンコード
+    """
     import subprocess
     import shutil
 
@@ -363,13 +376,13 @@ def _concat_with_ffmpeg(segments: List[Tuple[str, str]], output_file: Path) -> b
     with tempfile.TemporaryDirectory() as tmpdir:
         tmpdir_path = Path(tmpdir)
 
-        # -- 無音ファイルを生成 --
+        # -- 無音ファイルを生成（24kHz mono は edge-tts と一致させる）--
         sil_short = tmpdir_path / "sil_short.mp3"
         sil_long  = tmpdir_path / "sil_long.mp3"
         for sil_file, duration in [(sil_short, "0.25"), (sil_long, "0.5")]:
             subprocess.run([
                 "ffmpeg", "-y",
-                "-f", "lavfi", "-i", f"anullsrc=r=24000:cl=mono",
+                "-f", "lavfi", "-i", "anullsrc=r=24000:cl=mono",
                 "-t", duration,
                 "-codec:a", "libmp3lame", "-b:a", "64k",
                 str(sil_file),
@@ -382,7 +395,6 @@ def _concat_with_ffmpeg(segments: List[Tuple[str, str]], output_file: Path) -> b
             seg_file = tmpdir_path / f"seg_{i:04d}.mp3"
             try:
                 _run_async(_tts_segment_async(text, voice, seg_file))
-                # 無音を挿入
                 if prev_speaker:
                     concat_entries.append(
                         sil_long if prev_speaker != speaker else sil_short
@@ -403,23 +415,38 @@ def _concat_with_ffmpeg(segments: List[Tuple[str, str]], output_file: Path) -> b
         concat_list = tmpdir_path / "concat.txt"
         with open(concat_list, "w") as f:
             for entry in concat_entries:
-                # Windows パス対策: シングルクォートをエスケープ
                 f.write(f"file '{str(entry)}'\n")
 
-        # -- ffmpeg concat フィルタで結合 --
+        # -- パス1: concat → 中間 MP3 (24kHz mono) --
+        intermediate = tmpdir_path / "intermediate.mp3"
         result = subprocess.run([
             "ffmpeg", "-y",
             "-f", "concat", "-safe", "0",
             "-i", str(concat_list),
             "-codec:a", "libmp3lame", "-b:a", "64k",
-            str(output_file),
+            str(intermediate),
         ], capture_output=True)
-
         if result.returncode != 0:
-            print(f"  ❌ ffmpeg 結合エラー: {result.stderr.decode()[-300:]}")
+            print(f"  ❌ ffmpeg concat エラー: {result.stderr.decode()[-300:]}")
             return False
 
-        print(f"  ✓ 結合完了（ffmpeg）: {ok_count}/{len(segments)} セグメント")
+        # -- パス2: 44.1kHz stereo 80kbps にクリーン再エンコード（プレイヤー互換性） --
+        result = subprocess.run([
+            "ffmpeg", "-y",
+            "-i", str(intermediate),
+            "-ar", "44100",
+            "-ac", "2",
+            "-codec:a", "libmp3lame",
+            "-b:a", "80k",
+            "-write_xing", "1",
+            "-id3v2_version", "3",
+            str(output_file),
+        ], capture_output=True)
+        if result.returncode != 0:
+            print(f"  ❌ ffmpeg 再エンコードエラー: {result.stderr.decode()[-300:]}")
+            return False
+
+        print(f"  ✓ 結合完了（ffmpeg, 44.1kHz stereo 80k）: {ok_count}/{len(segments)} セグメント")
     return True
 
 

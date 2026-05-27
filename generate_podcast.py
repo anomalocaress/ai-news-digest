@@ -265,8 +265,25 @@ def update_feed(date: datetime, audio_file: Path) -> None:
     date_str   = date.strftime("%Y-%m-%d")
     audio_url  = f"{BASE_URL}/podcast/{audio_file.name}"
     size_bytes = audio_file.stat().st_size
-    # 32kbps MP3 として duration を概算
-    duration_sec = size_bytes // 4000
+
+    # ffprobe で正確な duration を取得（ビットレートが可変でも正しい値）
+    duration_sec = 0
+    try:
+        import subprocess, shutil
+        if shutil.which("ffprobe"):
+            r = subprocess.run([
+                "ffprobe", "-v", "error",
+                "-show_entries", "format=duration",
+                "-of", "default=noprint_wrappers=1:nokey=1",
+                str(audio_file),
+            ], capture_output=True, text=True, timeout=10)
+            if r.returncode == 0 and r.stdout.strip():
+                duration_sec = int(float(r.stdout.strip()))
+    except Exception:
+        pass
+    # フォールバック: 80kbps として概算
+    if not duration_sec:
+        duration_sec = size_bytes // 10000
 
     ep_num = len(episodes) + 1  # 既存エピソード数 + 1
 
