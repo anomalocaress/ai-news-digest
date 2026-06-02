@@ -28,8 +28,11 @@ jobs:
           python-version: '3.11'
           cache: 'pip'
 
-      - name: Install system dependencies
-        run: sudo apt-get install -y ffmpeg
+      - name: Set up ffmpeg
+        # 静的ビルド済みのバイナリを使用（apt 経由よりはるかに安定）
+        uses: FedericoCarboni/setup-ffmpeg@v3
+        with:
+          ffmpeg-version: release
 
       - name: Install dependencies
         run: |
