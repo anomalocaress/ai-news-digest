@@ -316,8 +316,8 @@
 
     <div class="speed-row" id="speedRow">
       <button class="speed-btn" data-rate="0.75">0.75×</button>
-      <button class="speed-btn" data-rate="1.0">1.0×</button>
-      <button class="speed-btn active" data-rate="1.25">1.25×</button>
+      <button class="speed-btn active" data-rate="1.0">1.0×</button>
+      <button class="speed-btn" data-rate="1.25">1.25×</button>
       <button class="speed-btn" data-rate="1.5">1.5×</button>
       <button class="speed-btn" data-rate="1.75">1.75×</button>
       <button class="speed-btn" data-rate="2.0">2.0×</button>
@@ -448,8 +448,9 @@
 
   // -------- 速度 --------
   const speedRow = document.getElementById('speedRow');
-  const SAVED_RATE_KEY = 'terako-ai-news-rate';
-  const savedRate = parseFloat(localStorage.getItem(SAVED_RATE_KEY) || '1.25');
+  // キー名を v2 に更新して、旧バージョンで保存された 1.25 倍設定をリセットする
+  const SAVED_RATE_KEY = 'terako-ai-news-rate-v2';
+  const savedRate = parseFloat(localStorage.getItem(SAVED_RATE_KEY) || '1.0');
 
   function setRate(r) {
     audio.playbackRate = r;
