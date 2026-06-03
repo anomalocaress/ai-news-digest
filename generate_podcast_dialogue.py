@@ -160,9 +160,19 @@ def build_dialogue_script(articles_by_category: Dict[str, List[Dict]], date: dat
                 config=genai_types.GenerateContentConfig(
                     system_instruction=_DIALOGUE_SYSTEM_PROMPT,
                     temperature=0.7,
-                    max_output_tokens=4096,
+                    # 台本が途中で切れないよう上限を引き上げる
+                    # （gemini-flash-latest は 8192 まで対応）
+                    max_output_tokens=8192,
                 ),
             )
+
+            # finish_reason を取得（MAX_TOKENS = トークン上限で切れた）
+            finish_reason = None
+            try:
+                if response.candidates:
+                    finish_reason = str(response.candidates[0].finish_reason or "")
+            except Exception:
+                pass
 
             # response.text が None や空のことがある（safety filter / token 制限など）
             raw_text = response.text or ""
@@ -170,10 +180,9 @@ def build_dialogue_script(articles_by_category: Dict[str, List[Dict]], date: dat
 
             # 空 or [てらこ先生]/[ミカ] タグを含まない場合は無効と判定
             if not script:
-                print(f"  ⚠️  Gemini が空レスポンスを返却（finish_reason を確認）")
+                print(f"  ⚠️  Gemini が空レスポンスを返却（finish_reason={finish_reason}）")
                 try:
                     for cand in (response.candidates or []):
-                        print(f"     finish_reason: {cand.finish_reason}")
                         if cand.safety_ratings:
                             for sr in cand.safety_ratings:
                                 print(f"     safety: {sr.category} = {sr.probability}")
@@ -184,7 +193,12 @@ def build_dialogue_script(articles_by_category: Dict[str, List[Dict]], date: dat
                 print(f"  ⚠️  対話タグが見つかりません（{len(script)} 文字） → リトライ")
                 continue
 
-            print(f"  ✓ 台本生成完了: {len(script)} 文字")
+            # トークン上限で台本が途中で切れた場合の救済
+            if finish_reason and "MAX_TOKENS" in finish_reason.upper():
+                print(f"  ⚠️  台本がトークン上限で途中終了（{len(script)} 文字）→ 末尾を整える")
+                script = _repair_truncated_script(script, date)
+            else:
+                print(f"  ✓ 台本生成完了: {len(script)} 文字")
             return script
 
         except Exception as e:
@@ -195,6 +209,51 @@ def build_dialogue_script(articles_by_category: Dict[str, List[Dict]], date: dat
 
     print("  ⚠️  Gemini で台本生成に失敗 → ルールベースのフォールバック台本を使用します")
     return _fallback_script(articles_by_category, date)
+
+
+def _repair_truncated_script(script: str, date: datetime) -> str:
+    """
+    トークン上限で途中終了した台本の末尾を整える。
+    - 不完全な最終行（タグだけ／極端に短い発話）を削除
+    - 自然なクロージングを追加
+    """
+    date_str = date.strftime("%Y年%m月%d日")
+    lines = script.splitlines()
+
+    # 末尾から、内容のある対話行まで遡る
+    cleaned: List[str] = []
+    for line in lines:
+        cleaned.append(line)
+
+    # 末尾の不完全な行を除去（タグのみ、または15文字未満の中身しかない発話）
+    while cleaned:
+        last = cleaned[-1].strip()
+        if not last:
+            cleaned.pop()
+            continue
+        m = re.match(r"^\[(てらこ先生|ミカ)\]\s*(.*)$", last)
+        if m:
+            body = m.group(2).strip()
+            # 「はい。」のような相槌だけ、または文が途中で切れている場合は削除
+            if len(body) < 15 or not re.search(r"[。！？」）]$", body):
+                cleaned.pop()
+                continue
+        break
+
+    # クロージングを追加（最後の話者と重複しないようにミカ→てらこ先生で締める）
+    cleaned.append("")
+    cleaned.append(
+        "[ミカ] さて、今日もあっという間でしたね。盛りだくさんの内容をお届けしました。"
+    )
+    cleaned.append(
+        f"[てらこ先生] そうですね。以上、{date_str}版の「てらこAIニュースダイジェスト」でした。"
+        "それでは、また次回お会いしましょう。"
+    )
+    cleaned.append("[ミカ] ありがとうございました。")
+
+    repaired = "\n".join(cleaned)
+    print(f"  ✓ 台本を補修してクロージングを追加: {len(repaired)} 文字")
+    return repaired
 
 
 def _fallback_script(articles_by_category: Dict[str, List[Dict]], date: datetime) -> str:
