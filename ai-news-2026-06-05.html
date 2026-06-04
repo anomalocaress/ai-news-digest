@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI News Digest — 2026-06-05</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --model: #1d4ed8;
+    --research: #6d28d9;
+    --business: #065f46;
+    --policy: #92400e;
+    --tools: #0e7490;
+    --bg: #f8fafc;
+    --card-bg: #ffffff;
+    --text: #1e293b;
+    --text-muted: #64748b;
+    --border: #e2e8f0;
+  }
+  body {
+    font-family: 'Noto Sans JP', 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  header {
+    background: #0f172a;
+    color: #fff;
+    padding: 2rem 1.5rem;
+  }
+  .header-inner {
+    max-width: 1440px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .header-title {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+  .header-title span { color: #60a5fa; }
+  .header-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.2rem;
+  }
+  .header-date {
+    font-size: 0.95rem;
+    color: #94a3b8;
+    font-family: 'Inter', sans-serif;
+  }
+  .header-count {
+    background: #1d4ed8;
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.2rem 0.7rem;
+    border-radius: 999px;
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* CATEGORY BAR */
+  .cat-bar {
+    background: #1e293b;
+    padding: 0.75rem 1.5rem;
+    overflow-x: auto;
+  }
+  .cat-bar-inner {
+    max-width: 1440px;
+    margin: 0 auto;
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+  .cat-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.3rem 0.9rem;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    color: #fff;
+    letter-spacing: 0.03em;
+    white-space: nowrap;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .cat-pill:hover {
+    opacity: 0.85;
+    transform: translateY(-2px);
+  }
+  .cat-pill.model    { background: var(--model); }
+  .cat-pill.research { background: var(--research); }
+  .cat-pill.business { background: var(--business); }
+  .cat-pill.policy   { background: var(--policy); }
+  .cat-pill.tools    { background: var(--tools); }
+
+  /* MAIN */
+  main {
+    max-width: 1440px;
+    margin: 2rem auto;
+    padding: 0 1.5rem;
+  }
+  .section-label {
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* GRID */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+    margin-bottom: 2.5rem;
+  }
+  @media (max-width: 900px) {
+    .grid { grid-template-columns: 1fr; }
+ %}
+
+  /* CARD */
+  .card {
+    background: var(--card-bg);
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    padding: 1.25rem 1.4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    transition: box-shadow 0.2s, transform 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .card:hover {
+    box-shadow: 0 8px 24px rgba(0,0,0,0.09);
+    transform: translateY(-2px);
+  }
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+  }
+  .card.model::before    { background: var(--model); }
+  .card.research::before { background: var(--research); }
+  .card.business::before { background: var(--business); }
+  .card.policy::before   { background: var(--policy); }
+  .card.tools::before    { background: var(--tools); }
+
+  .card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+  .card-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    padding: 0.18rem 0.6rem;
+    border-radius: 4px;
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+  }
+  .card-label.model    { background: var(--model); }
+  .card-label.research { background: var(--research); }
+  .card-label.business { background: var(--business); }
+  .card-label.policy   { background: var(--policy); }
+  .card-label.tools    { background: var(--tools); }
+
+  .stars {
+    display: flex;
+    gap: 2px;
+  }
+  .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: #cbd5e1;
+  }
+  .dot.filled { background: #f59e0b; }
+
+  .card-title-ja {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.45;
+  }
+  .card-title-en {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    font-family: 'Inter', sans-serif;
+    font-style: italic;
+    line-height: 1.4;
+  }
+  .card-source {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .card-source::before {
+    content: '';
+    display: inline-block;
+    width: 4px; height: 4px;
+    background: #94a3b8;
+    border-radius: 50%;
+  }
+  .card-body {
+    font-size: 0.88rem;
+    color: #334155;
+    line-height: 1.7;
+  }
+  .card-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    text-decoration: none;
+    margin-top: auto;
+  }
+  .card-link.model    { color: var(--model); }
+  .card-link.research { color: var(--research); }
+  .card-link.business { color: var(--business); }
+  .card-link.policy   { color: var(--policy); }
+  .card-link.tools    { color: var(--tools); }
+  .card-link:hover { text-decoration: underline; }
+
+  /* FOOTER */
+  footer {
+    background: #1e293b;
+    color: #94a3b8;
+    text-align: center;
+    padding: 1.5rem;
+    font-size: 0.8rem;
+    font-family: 'Inter', sans-serif;
+  }
+  footer strong { color: #e2e8f0; }
+
+  @media (max-width: 640px) {
+    header { padding: 1.25rem 1rem; }
+    main { padding: 0 0.85rem; margin: 1.25rem auto; }
+    .cat-bar { padding: 0.6rem 0.85rem; }
+    .card { padding: 1rem 1.1rem; }
+    .header-title { font-size: 1.25rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="header-title">📰 AI <span>News Digest</span></div>
+    <div class="header-meta">
+      <div class="header-date">2026年06月05日（金）</div>
+      <div class="header-count">19 articles</div>
+    </div>
+  </div>
+</header>
+
+<div class="cat-bar">
+  <div class="cat-bar-inner">
+    <button class="cat-pill model" onclick="document.getElementById('section-model').scrollIntoView({behavior: 'smooth'});">● モデル (2)</button>
+    <button class="cat-pill research" onclick="document.getElementById('section-research').scrollIntoView({behavior: 'smooth'});">● 研究 (3)</button>
+    <button class="cat-pill business" onclick="document.getElementById('section-business').scrollIntoView({behavior: 'smooth'});">● ビジネス (5)</button>
+    <button class="cat-pill policy" onclick="document.getElementById('section-policy').scrollIntoView({behavior: 'smooth'});">● ポリシー (7)</button>
+    <button class="cat-pill tools" onclick="document.getElementById('section-tools').scrollIntoView({behavior: 'smooth'});">● ツール (2)</button>
+  </div>
+</div>
+
+<main>
+
+  <!-- モデル -->
+  <div class="section-label" id="section-model">モデル</div>
+  <div class="grid">
+
+    <article class="card model">
+      <div class="card-top">
+        <span class="card-label model">モデル</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">シリコンバレーは人々の家にロボットを導入する準備ができていますか?こんにちはロボットです。</div>
+      <div class="card-title-en">Is Silicon Valley ready to put robots in people’s homes? Hello Robot is.</div>
+      <div class="card-source">TechCrunch AI · Thu, 04 Ju</div>
+      <div class="card-body">カリフォルニアの新興企業は、家庭支援ロボット「ストレッチ」の第 4 世代をリリースした。</div>
+      <a class="card-link model" href="https://techcrunch.com/2026/06/04/is-silicon-valley-ready-to-put-robots-in-peoples-homes-hello-robot-is/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link model" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Ftechcrunch.com%2F2026%2F06%2F04%2Fis-silicon-valley-ready-to-put-robots-in-peoples-homes-hello-robot-is%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card model">
+      <div class="card-top">
+        <span class="card-label model">モデル</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Lovable が Google Cloud と複数年契約を締​​結し、使用量を 5 倍に増やすと関係者が語る</div>
+      <div class="card-title-en">Lovable signs multiyear deal with Google Cloud to up usage 5x, source says</div>
+      <div class="card-source">TechCrunch AI · Wed, 03 Ju</div>
+      <div class="card-body">Lovable と Google は、Google Cloud 上の Lovable のフットプリントを 5 倍に拡大し、Anthropic Claude へのアクセスを拡大することを含む拡張複数年契約を締​​結しました。</div>
+      <a class="card-link model" href="https://techcrunch.com/2026/06/03/lovable-signs-multi-year-deal-with-google-cloud-to-up-usage-5x-source-says/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link model" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Ftechcrunch.com%2F2026%2F06%2F03%2Flovable-signs-multi-year-deal-with-google-cloud-to-up-usage-5x-source-says%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+  </div>
+
+  <!-- 研究 -->
+  <div class="section-label" id="section-research">研究</div>
+  <div class="grid">
+
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Meta が Facebook で新しい AI クリエイター アシスタントを公開</div>
+      <div class="card-title-en">Meta rolls out a new AI creator assistant on Facebook</div>
+      <div class="card-source">TechCrunch AI · Thu, 04 Ju</div>
+      <div class="card-body">クリエイターはパフォーマンスを理解するためにチャートやダッシュボードを解析する必要があることがよくありますが、新しい AI アシスタントを使用すると、「いつ投稿すればよいですか?」などの質問に対してすぐに答えを得ることができます。 「私のコメントで人々は何と言っているのですか？」</div>
+      <a class="card-link research" href="https://techcrunch.com/2026/06/04/meta-rolls-out-a-new-ai-creator-assistant-on-facebook/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link research" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Ftechcrunch.com%2F2026%2F06%2F04%2Fmeta-rolls-out-a-new-ai-creator-assistant-on-facebook%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">AIが開発した生物兵器を阻止するためのOpenAIと人類の署名書</div>
+      <div class="card-title-en">OpenAI and Anthropic Sign Letter to Prevent AI-Developed Biological Weapons</div>
+      <div class="card-source">Wired AI · Thu, 04 Ju</div>
+      <div class="card-body">主要なAI研究所、幹部、科学者らは議員らに書簡を送り、生物兵器に使用される可能性のある合成DNA配列の追跡を改善するよう要請している。</div>
+      <a class="card-link research" href="https://www.wired.com/story/openai-anthropic-letter-ai-biological-weapons/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link research" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Fwww.wired.com%2Fstory%2Fopenai-anthropic-letter-ai-biological-weapons%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">あまり農業っぽくない：2026 スバル ソルテラのレビュー</div>
+      <div class="card-title-en">It doesn't feel very agricultural: The 2026 Subaru Solterra review</div>
+      <div class="card-source">Ars Technica · Thu, 04 Ju</div>
+      <div class="card-body">スバルのバッジエンジニアリングSUVは、新型トレイルシーカーと並行して販売され続けている。</div>
+      <a class="card-link research" href="https://arstechnica.com/cars/2026/06/2026-subaru-solterra-review-the-badge-engineered-bz-aint-bad/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link research" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Farstechnica.com%2Fcars%2F2026%2F06%2F2026-subaru-solterra-review-the-badge-engineered-bz-aint-bad%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+  </div>
+
+  <!-- ビジネス -->
+  <div class="section-label" id="section-business">ビジネス</div>
+  <div class="grid">
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">6 月 18 日の StrictlyVC ロサンゼルスでは、防衛技術、AI、資金調達が中心舞台に</div>
+      <div class="card-title-en">Defense tech, AI, and fundraising take center stage at StrictlyVC Los Angeles on June 18</div>
+      <div class="card-source">TechCrunch AI · Thu, 04 Ju</div>
+      <div class="card-body">6 月 18 日木曜日、エアロスペース コーポレーション キャンパスでは、投資家、創業者、技術リーダーが夜の会話のために集まり、ベンチャー キャピタル、防衛技術、人工知能、先端産業全体で起こっている最も重大な変化のいくつかを探ります。 今すぐあなたの場所を確保してください。</div>
+      <a class="card-link business" href="https://techcrunch.com/2026/06/04/defense-tech-ai-and-fundraising-take-center-stage-at-strictlyvc-los-angeles-on-june-18/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link business" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Ftechcrunch.com%2F2026%2F06%2F04%2Fdefense-tech-ai-and-fundraising-take-center-stage-at-strictlyvc-los-angeles-on-june-18%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Apple、App Storeの請求額と売上高は1兆4000億ドル、その90％は手数料なしだと宣伝</div>
+      <div class="card-title-en">Apple touts $1.4 trillion in App Store billings and sales, 90% without a commission</div>
+      <div class="card-source">TechCrunch AI · Thu, 04 Ju</div>
+      <div class="card-body">AppleのApp Storeの売上高は1兆4000億ドルと、昨年の1兆3000億ドルから増加し、そのうちデジタル商品の売上高は1490億ドルだった。</div>
+      <a class="card-link business" href="https://techcrunch.com/2026/06/04/apple-touts-1-4-trillion-in-app-store-billings-and-sales-90-without-a-commission/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link business" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Ftechcrunch.com%2F2026%2F06%2F04%2Fapple-touts-1-4-trillion-in-app-store-billings-and-sales-90-without-a-commission%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">AIのIPOレースが激化、DOGEの内部告発者がイーロン・マスクを告訴、インスタグラムがハッキングされる</div>
+      <div class="card-title-en">The AI IPO Race Heats Up, DOGE Whistleblower Sues Elon Musk, and Instagram Gets Hacked</div>
+      <div class="card-source">Wired AI · Thu, 04 Ju</div>
+      <div class="card-body">Uncanny Valley では、トップ AI 企業が IPO の大成功に乗り出し、一部の不動産上場企業が通常の古い現金だけでなく、人類の株式を探しているところまで掘り下げます。</div>
+      <a class="card-link business" href="https://www.wired.com/story/uncanny-valley-podcast-ai-ipo-race-elon-musk-doge-whistleblower-instagram-hacking-incident/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link business" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Fwww.wired.com%2Fstory%2Funcanny-valley-podcast-ai-ipo-race-elon-musk-doge-whistleblower-instagram-hacking-incident%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">ジェフ・ベゾス、脳の「コアアルゴリズム」のワイルドハントに資金提供中</div>
+      <div class="card-title-en">Jeff Bezos Is Funding a Wild Hunt for the Brain’s ‘Core Algorithm’</div>
+      <div class="card-source">Wired AI · Thu, 04 Ju</div>
+      <div class="card-body">5 億ドルの資金と 25 億ドルの評価額が報告されている Flourish 氏は、本物のニューロンを顕微鏡下に置き、AI を再発明したいと考えています。</div>
+      <a class="card-link business" href="https://www.wired.com/story/jeff-bezos-is-funding-a-wild-hunt-for-the-brains-core-algorithm/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link business" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Fwww.wired.com%2Fstory%2Fjeff-bezos-is-funding-a-wild-hunt-for-the-brains-core-algorithm%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">量子コンピューティングは公開市場の瞬間を迎える</div>
+      <div class="card-title-en">Quantum Computing Is Having Its Public Market Moment</div>
+      <div class="card-source">Wired AI · Thu, 04 Ju</div>
+      <div class="card-body">量子コンピューティングの新興企業Quantinuumは数百万ドルの損失を被っている。投資家はとにかく参入したいのです。</div>
+      <a class="card-link business" href="https://www.wired.com/story/quantum-computing-is-having-its-public-market-moment-quantinuum/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link business" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Fwww.wired.com%2Fstory%2Fquantum-computing-is-having-its-public-market-moment-quantinuum%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+  </div>
+
+  <!-- ポリシー -->
+  <div class="section-label" id="section-policy">ポリシー</div>
+  <div class="grid">
+
+    <article class="card policy">
+      <div class="card-top">
+        <span class="card-label policy">ポリシー</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">メタがテスラから戦術を盗み、テント内にデータセンターを建設</div>
+      <div class="card-title-en">Meta steals a tactic from Tesla and builds data centers in tents</div>
+      <div class="card-source">TechCrunch AI · Thu, 04 Ju</div>
+      <div class="card-body">Meta は、膨大なデータセンター費用を削減する方法の 1 つであるテントを見つけたかもしれません。</div>
+      <a class="card-link policy" href="https://techcrunch.com/2026/06/04/meta-steals-a-tactic-from-tesla-and-builds-data-centers-in-tents/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link policy" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Ftechcrunch.com%2F2026%2F06%2F04%2Fmeta-steals-a-tactic-from-tesla-and-builds-data-centers-in-tents%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card policy">
+      <div class="card-top">
+        <span class="card-label policy">ポリシー</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">ダウンロード: AI が生成した訴訟とデータセンター向けの仮想発電所</div>
+      <div class="card-title-en">The Download: AI-generated lawsuits and virtual power plants for data centers</div>
+      <div class="card-source">MIT Tech Review · Thu, 04 Ju</div>
+      <div class="card-body">これは、テクノロジーの世界で何が起こっているかを毎日提供する平日のニュースレター、The Download の今日版です。 AI が生成する大量の訴訟に法廷はどのように対処しているか コロラド州の連邦判事マリッツァ・ブラズウェル判事は、ほとんどの日、法廷で、次の人物が書いた文書の束を調べている。</div>
+      <a class="card-link policy" href="https://www.technologyreview.com/2026/06/04/1138408/the-download-ai-lawsuits-virtual-power-plants-data-centers/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link policy" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Fwww.technologyreview.com%2F2026%2F06%2F04%2F1138408%2Fthe-download-ai-lawsuits-virtual-power-plants-data-centers%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card policy">
+      <div class="card-top">
+        <span class="card-label policy">ポリシー</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">AIが生み出す大量の訴訟に裁判所はどう対処しているか</div>
+      <div class="card-title-en">How courts are coping with a flood of AI-generated lawsuits</div>
+      <div class="card-source">MIT Tech Review · Thu, 04 Ju</div>
+      <div class="card-body">コロラド州の連邦判事マリッツァ・ブラズウェル判事は、ほとんどの日を法廷で、弁護士のいない人々が書いた文書の山を調べている。彼らの多くは弁護士を雇う余裕がありませんし、訴訟が弱すぎたり小さすぎて関心を持たない人もいます。彼女は、どれだけ気の遠くなるような内容であるかを念頭に置きながら、それぞれを注意深く読みました。</div>
+      <a class="card-link policy" href="https://www.technologyreview.com/2026/06/04/1138391/courts-coping-ai-lawsuits/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link policy" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Fwww.technologyreview.com%2F2026%2F06%2F04%2F1138391%2Fcourts-coping-ai-lawsuits%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card policy">
+      <div class="card-top">
+        <span class="card-label policy">ポリシー</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">アルファ スクールのリッツィ ニューヨーク市キャンパスは年間 65,000 ドルかかるが、実際には学校ではない</div>
+      <div class="card-title-en">Alpha School’s Ritzy New York City Campus Costs $65,000 a Year—but Isn’t Actually a School</div>
+      <div class="card-source">Wired AI · Thu, 04 Ju</div>
+      <div class="card-body">マンハッタンのホームスクール センターは、同社の全国展開の一環です。内部文書には、「開業日 > 安全性」という同社の戦略が明らかにされています。</div>
+      <a class="card-link policy" href="https://www.wired.com/story/alpha-schools-new-york-city-campus-isnt-actually-a-school/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link policy" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Fwww.wired.com%2Fstory%2Falpha-schools-new-york-city-campus-isnt-actually-a-school%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card policy">
+      <div class="card-top">
+        <span class="card-label policy">ポリシー</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">イーロン・マスク、Xデータ処理に関するFTC監査を再び逃れようとする</div>
+      <div class="card-title-en">Elon Musk tries again to escape FTC audits of X data handling</div>
+      <div class="card-source">Ars Technica · Thu, 04 Ju</div>
+      <div class="card-body">Xユーザーのプライバシーを守るマスク氏を信頼できないとパブリックコメンターはFTCに警告している。</div>
+      <a class="card-link policy" href="https://arstechnica.com/tech-policy/2026/06/elon-musk-tries-again-to-escape-ftc-audits-of-x-data-handling/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link policy" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Farstechnica.com%2Ftech-policy%2F2026%2F06%2Felon-musk-tries-again-to-escape-ftc-audits-of-x-data-handling%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card policy">
+      <div class="card-top">
+        <span class="card-label policy">ポリシー</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">ケーブルロビーはFCCが外国ルーターの禁止を緩めなければ大混乱になると警告</div>
+      <div class="card-title-en">Cable lobby warns of chaos if FCC doesn't relax ban on foreign routers</div>
+      <div class="card-source">Ars Technica · Thu, 04 Ju</div>
+      <div class="card-body">NCTAはメモリと基板の不足を理由に、外国ルーター禁止の免除を求めている。</div>
+      <a class="card-link policy" href="https://arstechnica.com/tech-policy/2026/06/cable-lobby-warns-of-chaos-if-fcc-doesnt-relax-ban-on-foreign-routers/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link policy" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Farstechnica.com%2Ftech-policy%2F2026%2F06%2Fcable-lobby-warns-of-chaos-if-fcc-doesnt-relax-ban-on-foreign-routers%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card policy">
+      <div class="card-top">
+        <span class="card-label policy">ポリシー</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">一部のデータセンター運営者は水の使用問題にどのように取り組んでいるか</div>
+      <div class="card-title-en">How some data center operators are tackling their water use problems</div>
+      <div class="card-source">Ars Technica · Thu, 04 Ju</div>
+      <div class="card-body">ハイパースケーラーは、水質と水の利用可能性への影響について厳しい監視を受けています。</div>
+      <a class="card-link policy" href="https://arstechnica.com/ai/2026/06/how-data-center-operators-are-tackling-their-water-use-problems/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link policy" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Farstechnica.com%2Fai%2F2026%2F06%2Fhow-data-center-operators-are-tackling-their-water-use-problems%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+  </div>
+
+  <!-- ツール -->
+  <div class="section-label" id="section-tools">ツール</div>
+  <div class="grid">
+
+    <article class="card tools">
+      <div class="card-top">
+        <span class="card-label tools">ツール</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Apple、Poke を Messages for Business プラットフォームの最初の AI エージェントとして承認</div>
+      <div class="card-title-en">Apple approves Poke as the first AI agent on its Messages for Business platform</div>
+      <div class="card-source">TechCrunch AI · Thu, 04 Ju</div>
+      <div class="card-body">Poke は、簡単なテキスト メッセージを通じて AI エージェントを使用できるようにするスタートアップで、Apple の Messages for Business プラットフォームで承認された最初の AI エージェントになりました。</div>
+      <a class="card-link tools" href="https://techcrunch.com/2026/06/04/apple-approves-poke-as-the-first-ai-agent-on-its-messages-for-business-platform/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link tools" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Ftechcrunch.com%2F2026%2F06%2F04%2Fapple-approves-poke-as-the-first-ai-agent-on-its-messages-for-business-platform%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card tools">
+      <div class="card-top">
+        <span class="card-label tools">ツール</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">WWDC 2026 で期待できること: 待望の Siri の改良と Apple Intelligence のアップデート</div>
+      <div class="card-title-en">What to expect from WWDC 2026: Siri’s highly anticipated revamp and Apple Intelligence updates</div>
+      <div class="card-source">TechCrunch AI · Thu, 04 Ju</div>
+      <div class="card-body">Apple の WWDC が近づいています。楽しみにできることは次のとおりです。</div>
+      <a class="card-link tools" href="https://techcrunch.com/2026/06/04/what-to-expect-from-wwdc-2026-siris-highly-anticipated-revamp-and-apple-intelligence-updates/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link tools" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Ftechcrunch.com%2F2026%2F06%2F04%2Fwhat-to-expect-from-wwdc-2026-siris-highly-anticipated-revamp-and-apple-intelligence-updates%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+  </div>
+
+
+</main>
+
+<footer>
+  <strong>AI News Digest</strong> — 2026年4月13日（月）自動生成 | 12記事収録<br>
+  <span style="font-size:0.72rem; margin-top:0.3rem; display:block;">Model: 2 · Research: 5 · Business: 4 · Policy: 1</span>
+</footer>
+
+</body>
+</html>
