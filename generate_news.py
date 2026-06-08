@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import os
+import re
 import json
 import sys
 from datetime import datetime, timedelta, timezone
@@ -166,6 +167,16 @@ def fetch_rss_news(date: datetime) -> List[Dict]:
         except Exception as e:
             print(f"⚠️  {source_name}: {e}")
 
+    # ---- リアルタイム情報源を追加（X / Hacker News）----
+    try:
+        all_articles.extend(fetch_x_news(cutoff_utc))
+    except Exception as e:
+        print(f"⚠️  X 取得エラー: {e}")
+    try:
+        all_articles.extend(fetch_hackernews(cutoff_utc))
+    except Exception as e:
+        print(f"⚠️  Hacker News 取得エラー: {e}")
+
     # Deduplicate by normalised title prefix
     seen: set = set()
     unique: List[Dict] = []
@@ -175,8 +186,137 @@ def fetch_rss_news(date: datetime) -> List[Dict]:
             seen.add(key)
             unique.append(a)
 
-    print(f"✓ Total: {len(unique)} unique articles from RSS")
-    return unique[:40]
+    print(f"✓ Total: {len(unique)} unique articles from all sources")
+    return unique[:60]
+
+
+def fetch_x_news(cutoff_utc: datetime) -> List[Dict]:
+    """
+    X（旧Twitter）のAI主要アカウントの投稿を Nitter 経由で取得する（無料・APIキー不要）。
+    Nitter インスタンスは不安定なため複数を順に試し、全滅したらスキップする。
+    """
+    # 監視するAI主要アカウント（公式・キーパーソン・発信頻度の高い識者）
+    X_ACCOUNTS = [
+        "OpenAI", "AnthropicAI", "GoogleDeepMind", "GoogleAI",
+        "sama", "demishassabis", "AndrewYNg", "ylecun",
+        "karpathy", "DrJimFan", "alexandr_wang", "_akhaliq",
+        "rowancheung", "OfficialLoganK",
+    ]
+    # X は個々のアカウントの投稿頻度が低いため、本文より広い48時間枠で拾う
+    x_cutoff = cutoff_utc - timedelta(hours=24)
+    # Nitter インスタンス（生きているものを順に試す）
+    NITTER_INSTANCES = [
+        "https://nitter.net",
+        "https://nitter.poast.org",
+        "https://nitter.privacydev.net",
+    ]
+    headers = {"User-Agent": "Mozilla/5.0 (compatible; AINewsBot/1.0)"}
+
+    # 生きている Nitter インスタンスを1つ選ぶ
+    active_instance = None
+    for inst in NITTER_INSTANCES:
+        try:
+            r = requests.get(f"{inst}/OpenAI/rss", timeout=8, headers=headers)
+            if r.status_code == 200 and b"<item>" in r.content:
+                active_instance = inst
+                break
+        except Exception:
+            continue
+
+    if not active_instance:
+        print("⚠️  X (Nitter): 利用可能なインスタンスなし → X はスキップ")
+        return []
+
+    print(f"  🐦 X (Nitter): {active_instance} を使用")
+    results: List[Dict] = []
+
+    for account in X_ACCOUNTS:
+        try:
+            resp = requests.get(f"{active_instance}/{account}/rss",
+                                timeout=10, headers=headers)
+            if resp.status_code != 200:
+                continue
+            root = ET.fromstring(resp.content)
+            count = 0
+            for item in root.findall(".//item"):
+                title = (item.findtext("title") or "").strip()
+                if not title:
+                    continue
+                # リツイート・リプライは除外（ノイズ削減）
+                if title.startswith("RT by ") or title.startswith("R to "):
+                    continue
+                pub_dt = parse_pub_date(item.findtext("pubDate") or "")
+                if pub_dt is not None and pub_dt < x_cutoff:
+                    continue
+                link = (item.findtext("link") or "").replace(
+                    active_instance, "https://x.com").split("#")[0]
+                desc = re.sub(r"<[^>]+>", "", item.findtext("description") or "")[:400]
+                results.append({
+                    "title": title[:200],
+                    "description": desc,
+                    "source": {"name": f"X / @{account}"},
+                    "publishedAt": (item.findtext("pubDate") or "")[:10],
+                    "url": link,
+                    # X はリアルタイム性が高いので重要度をやや高めに設定
+                    "importance": 3,
+                })
+                count += 1
+                if count >= 3:   # 1アカウントあたり最大3件
+                    break
+        except Exception:
+            continue
+
+    print(f"✓ X (Nitter): {len(results)} posts from {len(X_ACCOUNTS)} accounts")
+    return results
+
+
+def fetch_hackernews(cutoff_utc: datetime) -> List[Dict]:
+    """
+    Hacker News から直近24時間の高ポイントAI記事を取得する（Algolia API・無料）。
+    ポイント数が「一般ユーザーの関心の高さ」を示す良い指標になる。
+    """
+    import time as _time
+    cutoff_ts = int(_time.mktime(cutoff_utc.timetuple()))
+    queries = ["AI", "LLM", "OpenAI", "Anthropic", "machine learning"]
+    seen_ids: set = set()
+    results: List[Dict] = []
+
+    for q in queries:
+        try:
+            url = (
+                "https://hn.algolia.com/api/v1/search_by_date"
+                f"?query={requests.utils.quote(q)}&tags=story"
+                f"&numericFilters=points%3E80,created_at_i%3E{cutoff_ts}"
+                "&hitsPerPage=10"
+            )
+            resp = requests.get(url, timeout=12)
+            if resp.status_code != 200:
+                continue
+            for hit in resp.json().get("hits", []):
+                oid = hit.get("objectID")
+                if oid in seen_ids:
+                    continue
+                seen_ids.add(oid)
+                title = (hit.get("title") or "").strip()
+                points = hit.get("points", 0)
+                if not title:
+                    continue
+                hn_url = f"https://news.ycombinator.com/item?id={oid}"
+                results.append({
+                    "title": title,
+                    "description": f"Hacker News で{points}ポイント獲得。コミュニティで注目を集めている話題。",
+                    "source": {"name": "Hacker News"},
+                    "publishedAt": (hit.get("created_at") or "")[:10],
+                    "url": hit.get("url") or hn_url,
+                    # ポイント数で重要度を段階付け
+                    "importance": 3 if points >= 200 else 2,
+                })
+        except Exception:
+            continue
+
+    # ポイント順で上位のみ
+    print(f"✓ Hacker News: {len(results)} stories (points>80, 24h)")
+    return results
 
 
 def categorize_by_keywords(title: str, description: str) -> str:
@@ -258,7 +398,8 @@ def categorize_articles(articles: List[Dict]) -> Dict[str, List[Dict]]:
             "source": source,
             "date": article.get("publishedAt", "")[:10],
             "url": url,
-            "importance": 2,
+            # 取得元が設定した importance を尊重（X=3, HN=2〜3, 通常RSS=2）
+            "importance": article.get("importance", 2),
         }
         result[category].append(entry)
         print(f"✓ [{category}] {title_ja[:60]}")
@@ -430,6 +571,11 @@ def send_email_draft(email_html: str, target_date: datetime) -> bool:
         msg["Subject"] = f"てらこAIニュースダイジェスト - {date_str}"
         msg["From"] = gmail_user
         msg["To"] = email_to
+        # 標準の配信停止ヘッダー（メールクライアントの「配信停止」ボタンに対応）
+        msg["List-Unsubscribe"] = (
+            f"<mailto:{gmail_user}?subject=配信停止希望>"
+        )
+        msg["List-Unsubscribe-Post"] = "List-Unsubscribe=One-Click"
 
         # Attach HTML content
         part = MIMEText(email_html, "html", "utf-8")
@@ -619,8 +765,19 @@ def build_email_html(categorized: Dict[str, List[Dict]], date: datetime, include
 
         email_html += "  </div>\n"
 
+    unsubscribe_mailto = (
+        "mailto:fujisaki@teraco-labo.com"
+        "?subject=配信停止希望"
+        "&body=このメールをそのまま送信すると、てらこAIニュースダイジェストの配信を停止します。"
+    )
     email_html += '  <div class="footer">\n'
-    email_html += '    <p>AI News Digest | <a href="https://anomalocaress.github.io/ai-news-digest" style="color: #60a5fa; text-decoration: none;">https://anomalocaress.github.io/ai-news-digest</a></p>\n'
+    email_html += '    <p>てらこAIニュースダイジェスト | <a href="https://anomalocaress.github.io/ai-news-digest" style="color: #60a5fa; text-decoration: none;">サイトを見る</a></p>\n'
+    email_html += (
+        '    <p style="margin-top:10px;font-size:11px;color:#94a3b8;">\n'
+        '      このメールは「てらこAIニュースダイジェスト」の購読者にお届けしています。<br>\n'
+        f'      配信を停止したい場合は <a href="{unsubscribe_mailto}" style="color:#94a3b8;text-decoration:underline;">こちらから配信停止</a> してください。\n'
+        '    </p>\n'
+    )
     email_html += '  </div>\n'
     email_html += '</div>\n'
     email_html += '</body>\n'
