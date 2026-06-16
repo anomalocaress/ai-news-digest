@@ -30,14 +30,14 @@ BASE_URL = "https://anomalocaress.github.io/ai-news-digest"
 COVER_URL = f"{BASE_URL}/podcast/cover.jpg"
 PODCAST_EMAIL = "fujisaki@teraco-labo.com"
 
-# カテゴリごとの最大記事数（合計 10 件程度）
-# 重要度順で選ばれ、最終的に Gemini がさらに厳選して10分以内にまとめる
+# カテゴリごとの最大記事数（合計 14 件程度を Gemini に渡す）
+# 重要度順で選ばれ、最終的に Gemini が9〜11件を選んで15分前後に深掘りする
 MAX_PER_CATEGORY = {
-    "model":    2,
-    "research": 2,
-    "business": 2,
+    "model":    3,
+    "research": 3,
+    "business": 3,
     "policy":   2,
-    "tools":    2,
+    "tools":    3,
 }
 
 # 記事間のつなぎフレーズ（ローテーション）
