@@ -395,6 +395,9 @@ def categorize_articles(articles: List[Dict]) -> Dict[str, List[Dict]]:
             "title_ja": title_ja,
             "title_en": title,
             "summary": summary_ja,
+            # 英語原文も保持する。ポッドキャスト台本生成では機械翻訳ではなく
+            # この原文を Gemini に渡し、自然な日本語に噛み砕かせる（翻訳調を防ぐ）
+            "summary_en": (description or "")[:500],
             "source": source,
             "date": article.get("publishedAt", "")[:10],
             "url": url,
