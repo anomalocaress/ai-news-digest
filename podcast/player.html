@@ -315,11 +315,12 @@
     </div>
 
     <div class="speed-row" id="speedRow">
-      <button class="speed-btn" data-rate="0.5">0.5×</button>
       <button class="speed-btn" data-rate="0.75">0.75×</button>
       <button class="speed-btn active" data-rate="1.0">1.0×</button>
       <button class="speed-btn" data-rate="1.25">1.25×</button>
       <button class="speed-btn" data-rate="1.5">1.5×</button>
+      <button class="speed-btn" data-rate="2.0">2.0×</button>
+      <button class="speed-btn" data-rate="2.5">2.5×</button>
     </div>
 
     <div class="meta-row">
@@ -447,8 +448,8 @@
 
   // -------- 速度 --------
   const speedRow = document.getElementById('speedRow');
-  // キー名を v4 に更新して過去の保存設定をリセットし、デフォルトを 1.0 倍（等速）にする
-  const SAVED_RATE_KEY = 'terako-ai-news-rate-v4';
+  // キー名を v5 に更新して過去の保存設定をリセットし、デフォルトを 1.0 倍（等速）にする
+  const SAVED_RATE_KEY = 'terako-ai-news-rate-v5';
   const savedRate = parseFloat(localStorage.getItem(SAVED_RATE_KEY) || '1.0');
 
   function setRate(r) {
