@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI News Digest — 2026-06-27</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --model: #1d4ed8;
+    --research: #6d28d9;
+    --business: #065f46;
+    --policy: #92400e;
+    --tools: #0e7490;
+    --bg: #f8fafc;
+    --card-bg: #ffffff;
+    --text: #1e293b;
+    --text-muted: #64748b;
+    --border: #e2e8f0;
+  }
+  body {
+    font-family: 'Noto Sans JP', 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  header {
+    background: #0f172a;
+    color: #fff;
+    padding: 2rem 1.5rem;
+  }
+  .header-inner {
+    max-width: 1440px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .header-title {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+  .header-title span { color: #60a5fa; }
+  .header-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.2rem;
+  }
+  .header-date {
+    font-size: 0.95rem;
+    color: #94a3b8;
+    font-family: 'Inter', sans-serif;
+  }
+  .header-count {
+    background: #1d4ed8;
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.2rem 0.7rem;
+    border-radius: 999px;
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* CATEGORY BAR */
+  .cat-bar {
+    background: #1e293b;
+    padding: 0.75rem 1.5rem;
+    overflow-x: auto;
+  }
+  .cat-bar-inner {
+    max-width: 1440px;
+    margin: 0 auto;
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+  .cat-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.3rem 0.9rem;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    color: #fff;
+    letter-spacing: 0.03em;
+    white-space: nowrap;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .cat-pill:hover {
+    opacity: 0.85;
+    transform: translateY(-2px);
+  }
+  .cat-pill.model    { background: var(--model); }
+  .cat-pill.research { background: var(--research); }
+  .cat-pill.business { background: var(--business); }
+  .cat-pill.policy   { background: var(--policy); }
+  .cat-pill.tools    { background: var(--tools); }
+
+  /* MAIN */
+  main {
+    max-width: 1440px;
+    margin: 2rem auto;
+    padding: 0 1.5rem;
+  }
+  .section-label {
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* GRID */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+    margin-bottom: 2.5rem;
+  }
+  @media (max-width: 900px) {
+    .grid { grid-template-columns: 1fr; }
+ %}
+
+  /* CARD */
+  .card {
+    background: var(--card-bg);
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    padding: 1.25rem 1.4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    transition: box-shadow 0.2s, transform 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .card:hover {
+    box-shadow: 0 8px 24px rgba(0,0,0,0.09);
+    transform: translateY(-2px);
+  }
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+  }
+  .card.model::before    { background: var(--model); }
+  .card.research::before { background: var(--research); }
+  .card.business::before { background: var(--business); }
+  .card.policy::before   { background: var(--policy); }
+  .card.tools::before    { background: var(--tools); }
+
+  .card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+  .card-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    padding: 0.18rem 0.6rem;
+    border-radius: 4px;
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+  }
+  .card-label.model    { background: var(--model); }
+  .card-label.research { background: var(--research); }
+  .card-label.business { background: var(--business); }
+  .card-label.policy   { background: var(--policy); }
+  .card-label.tools    { background: var(--tools); }
+
+  .stars {
+    display: flex;
+    gap: 2px;
+  }
+  .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: #cbd5e1;
+  }
+  .dot.filled { background: #f59e0b; }
+
+  .card-title-ja {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.45;
+  }
+  .card-title-en {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    font-family: 'Inter', sans-serif;
+    font-style: italic;
+    line-height: 1.4;
+  }
+  .card-source {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .card-source::before {
+    content: '';
+    display: inline-block;
+    width: 4px; height: 4px;
+    background: #94a3b8;
+    border-radius: 50%;
+  }
+  .card-body {
+    font-size: 0.88rem;
+    color: #334155;
+    line-height: 1.7;
+  }
+  .card-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    text-decoration: none;
+    margin-top: auto;
+  }
+  .card-link.model    { color: var(--model); }
+  .card-link.research { color: var(--research); }
+  .card-link.business { color: var(--business); }
+  .card-link.policy   { color: var(--policy); }
+  .card-link.tools    { color: var(--tools); }
+  .card-link:hover { text-decoration: underline; }
+
+  /* FOOTER */
+  footer {
+    background: #1e293b;
+    color: #94a3b8;
+    text-align: center;
+    padding: 1.5rem;
+    font-size: 0.8rem;
+    font-family: 'Inter', sans-serif;
+  }
+  footer strong { color: #e2e8f0; }
+
+  @media (max-width: 640px) {
+    header { padding: 1.25rem 1rem; }
+    main { padding: 0 0.85rem; margin: 1.25rem auto; }
+    .cat-bar { padding: 0.6rem 0.85rem; }
+    .card { padding: 1rem 1.1rem; }
+    .header-title { font-size: 1.25rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="header-title">📰 AI <span>News Digest</span></div>
+    <div class="header-meta">
+      <div class="header-date">2026年06月27日（土）</div>
+      <div class="header-count">38 articles</div>
+    </div>
+  </div>
+</header>
+
+<div class="cat-bar">
+  <div class="cat-bar-inner">
+    <button class="cat-pill model" onclick="document.getElementById('section-model').scrollIntoView({behavior: 'smooth'});">● モデル (11)</button>
+    <button class="cat-pill research" onclick="document.getElementById('section-research').scrollIntoView({behavior: 'smooth'});">● 研究 (13)</button>
+    <button class="cat-pill business" onclick="document.getElementById('section-business').scrollIntoView({behavior: 'smooth'});">● ビジネス (7)</button>
+    <button class="cat-pill policy" onclick="document.getElementById('section-policy').scrollIntoView({behavior: 'smooth'});">● ポリシー (3)</button>
+    <button class="cat-pill tools" onclick="document.getElementById('section-tools').scrollIntoView({behavior: 'smooth'});">● ツール (4)</button>
+  </div>
+</div>
+
+<main>
+
+  <!-- モデル -->
+  <div class="section-label" id="section-model">モデル</div>
+  <div class="grid">
+
+    <article class="card model">
+      <div class="card-top">
+        <span class="card-label model">モデル</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">もうAnthropic vs. OpenAIの問題ではない</div>
+      <div class="card-title-en">It’s not about Anthropic vs. OpenAI anymore</div>
+      <div class="card-source">TechCrunch AI · Fri, 26 Ju</div>
+      <div class="card-body">AI モデルは、その機能が現実の政治的影響をもたらす段階まで進歩しました。それらの結果に対処するには、集団的な行動が必要です。</div>
+      <a class="card-link model" href="https://techcrunch.com/2026/06/26/its-not-about-anthropic-vs-openai-anymore/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link model" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Ftechcrunch.com%2F2026%2F06%2F26%2Fits-not-about-anthropic-vs-openai-anymore%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card model">
+      <div class="card-top">
+        <span class="card-label model">モデル</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">ホワイトハウスはOpenAIに対し、安全性への懸念から新モデルのリリースを遅らせるよう求めている</div>
+      <div class="card-title-en">The White House is asking OpenAI to slow roll the release of its new model over safety concerns</div>
+      <div class="card-source">TechCrunch AI · Thu, 25 Ju</div>
+      <div class="card-body">OpenAI は、最新モデルである GPT 5.6 を、より広範な一般の人々ではなく、選ばれたパートナーのグループと共有する予定であると伝えられています。理由は、トランプ政権がそうするよう指示したからだ。</div>
+      <a class="card-link model" href="https://techcrunch.com/2026/06/25/the-white-house-is-asking-openai-to-slow-roll-the-release-of-its-new-model-over-safety-concerns/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link model" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Ftechcrunch.com%2F2026%2F06%2F25%2Fthe-white-house-is-asking-openai-to-slow-roll-the-release-of-its-new-model-over-safety-concerns%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card model">
+      <div class="card-top">
+        <span class="card-label model">モデル</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">OpenAI には新しい AI モデルがあります。使用できない理由は次のとおりです</div>
+      <div class="card-title-en">OpenAI Has New AI Models. Here’s Why You Can’t Use Them</div>
+      <div class="card-source">Wired AI · Fri, 26 Ju</div>
+      <div class="card-body">Anthropicが最先端のAIモデルをオフラインにしなければならなくなってから2週間後、ホワイトハウスはOpenAIに対し、GPT-5.6 AIモデルの展開を遅らせるよう要請した。</div>
+      <a class="card-link model" href="https://www.wired.com/story/openai-gpt-56-model-release-trump-admin-approval/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link model" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Fwww.wired.com%2Fstory%2Fopenai-gpt-56-model-release-trump-admin-approval%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card model">
+      <div class="card-top">
+        <span class="card-label model">モデル</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">ヨーロッパはうんざりし、独自の AI を望んでいる</div>
+      <div class="card-title-en">Europe Is Fed Up and Wants Its Own AI</div>
+      <div class="card-source">Wired AI · Fri, 26 Ju</div>
+      <div class="card-body">大陸がトップレベルのモデルを構築できると考えるのは行き過ぎですが、ドナルド・トランプという利点があります。</div>
+      <a class="card-link model" href="https://www.wired.com/story/europe-is-fed-up-and-wants-its-own-ai/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link model" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Fwww.wired.com%2Fstory%2Feurope-is-fed-up-and-wants-its-own-ai%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card model">
+      <div class="card-top">
+        <span class="card-label model">モデル</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+        </div>
+      </div>
+      <div class="card-title-ja">当社の次世代フロンティア モデルである GPT-5.6 Sol の限定プレビュー、日常の効率的な作業のためのバランスのとれたモデルである GPT-5.6 Terra、および高速かつ手頃な価格のモデルである GPT-5.6 Luna の限定プレビューを紹介します。</div>
+      <div class="card-title-en">Introducing a limited preview of GPT-5.6 Sol, our next generation frontier model, as well as GPT-5.6 Terra, a balanced model for efficient, everyday work, and GPT-5.6 Luna, a fast and affordable model</div>
+      <div class="card-source">X / @OpenAI · Fri, 26 Ju</div>
+      <div class="card-body">当社の次世代フロンティア モデルである GPT-5.6 Sol、効率的な日常作業向けのバランスの取れたモデルである GPT-5.6 Terra、および大量の作業向けの高速かつ手頃な価格のモデルである GPT-5.6 Luna の限定プレビューを紹介します。
+
+openai.com/index/previewing-…
+
+リンク
+
+
+
+次世代モデル GPT-5.6 Sol をプレビュー
+
+OpenAI が、より強力な codin 機能を備えた次世代モデルである GPT-5.6 Sol をプレビュー</div>
+      <a class="card-link model" href="https://x.com/OpenAI/status/2070555272230384038" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link model" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Fx.com%2FOpenAI%2Fstatus%2F2070555272230384038" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card model">
+      <div class="card-top">
+        <span class="card-label model">モデル</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+        </div>
+      </div>
+      <div class="card-title-ja">チームでスパイシーに調理</div>
+      <div class="card-title-en">team cooked, spicily</div>
+      <div class="card-source">X / @sama · Fri, 26 Ju</div>
+      <div class="card-body">チームでスパイシーに調理
+
+
+オープンAI (@OpenAI)
+
+私たちは最初の AI チップ、ハラペーニョを設計、構築しました。
+
+OpenAI によってゼロから設計され、@Broadcom によって本番環境に導入された Jalapeño は、ChatGPT、Codex、API、および将来のエージェント製品を強化する LLM ワークロード専用に構築されています。
+
+チップは AI 経済の基盤です。独自の構築により、製品からモードまでフルスタック プラットフォームを拡張します</div>
+      <a class="card-link model" href="https://x.com/sama/status/2070614666288795703" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link model" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Fx.com%2Fsama%2Fstatus%2F2070614666288795703" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card model">
+      <div class="card-top">
+        <span class="card-label model">モデル</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+        </div>
+      </div>
+      <div class="card-title-ja">その他のニュースとして、今週、chatgpt で使用される 5.5 インスタント モデルを更新しました。その雰囲気が好きです。</div>
+      <div class="card-title-en">in other news, we updated the 5.5 instant model used in chatgpt this week. i like its vibes.</div>
+      <div class="card-source">X / @sama · Fri, 26 Ju</div>
+      <div class="card-body">その他のニュースとして、今週、chatgpt で使用される 5.5 インスタント モデルを更新しました。
+
+その雰囲気が好きです。</div>
+      <a class="card-link model" href="https://x.com/sama/status/2070612055225483692" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link model" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Fx.com%2Fsama%2Fstatus%2F2070612055225483692" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card model">
+      <div class="card-top">
+        <span class="card-label model">モデル</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+        </div>
+      </div>
+      <div class="card-title-ja">まず良い点: Sol はスマートで効率的で、重要な前進です。 GPT-5.5と同価格です。 GPT-5.6 ファミリでは、5.5 レベルのパフォーマンスを半額の価格で提供する Terra も発売されます。</div>
+      <div class="card-title-en">Good new first: Sol is a smart, efficient, and a significant step forward. It is the same price as GPT-5.5. Also launching in the GPT-5.6 family is Terra, with 5.5-level performance at half the price.</div>
+      <div class="card-source">X / @sama · Fri, 26 Ju</div>
+      <div class="card-body">まず良い点: Sol はスマートで効率的で、重要な前進です。 GPT-5.5と同価格です。 GPT-5.6 ファミリでは、5.5 レベルのパフォーマンスを半額の価格で提供する Terra も発売されます。
+
+悪いニュース: 米国政府の要請により、予定していたオープンアクセスでの公開ではなく、本日限定プレビューで公開されることになりました。私たちは政府と協力して一般向けAVに取り組んでいます</div>
+      <a class="card-link model" href="https://x.com/sama/status/2070607488274358364" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link model" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Fx.com%2Fsama%2Fstatus%2F2070607488274358364" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card model">
+      <div class="card-top">
+        <span class="card-label model">モデル</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+        </div>
+      </div>
+      <div class="card-title-ja">誰が GPT-5.6 を使用できるかは米国政府が決定する</div>
+      <div class="card-title-en">U.S. government will decide who gets to use GPT-5.6</div>
+      <div class="card-source">Hacker News · 2026-06-26</div>
+      <div class="card-body">Hacker Newsで606ポイント獲得。コミュニティで注目を集めている話題。</div>
+      <a class="card-link model" href="https://www.washingtonpost.com/technology/2026/06/26/openai-says-us-government-will-vet-users-its-latest-ai-model/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link model" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Fwww.washingtonpost.com%2Ftechnology%2F2026%2F06%2F26%2Fopenai-says-us-government-will-vet-users-its-latest-ai-model%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card model">
+      <div class="card-top">
+        <span class="card-label model">モデル</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">HN を表示: Claude、Codex、および Cursor で直接スマート モデル ルーティングを実行</div>
+      <div class="card-title-en">Show HN: Smart model routing directly in Claude, Codex and Cursor</div>
+      <div class="card-source">Hacker News · 2026-06-26</div>
+      <div class="card-body">Hacker Newsで116ポイント獲得。コミュニティで注目を集めている話題。</div>
+      <a class="card-link model" href="https://github.com/workweave/router" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link model" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Fgithub.com%2Fworkweave%2Frouter" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card model">
+      <div class="card-top">
+        <span class="card-label model">モデル</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+        </div>
+      </div>
+      <div class="card-title-ja">次世代モデル GPT‑5.6 Sol をプレビュー</div>
+      <div class="card-title-en">Previewing GPT‑5.6 Sol: a next-generation model</div>
+      <div class="card-source">Hacker News · 2026-06-26</div>
+      <div class="card-body">Hacker Newsで699ポイント獲得。コミュニティで注目を集めている話題。</div>
+      <a class="card-link model" href="https://openai.com/index/previewing-gpt-5-6-sol/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link model" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Fopenai.com%2Findex%2Fpreviewing-gpt-5-6-sol%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+  </div>
+
+  <!-- 研究 -->
+  <div class="section-label" id="section-research">研究</div>
+  <div class="grid">
+
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">TechCrunch Founder Summit の早期割引価格は今夜終了します</div>
+      <div class="card-title-en">Early Bird pricing ends tonight for TechCrunch Founder Summit</div>
+      <div class="card-source">TechCrunch AI · Fri, 26 Ju</div>
+      <div class="card-body">TechCrunch Founder Summit 2026 へのパスを最大 190 ドル節約できます。早割価格は本日午後 11 時 59 分に終了します。 PT、その後レートが上昇します。今すぐ登録してください。</div>
+      <a class="card-link research" href="https://techcrunch.com/2026/06/26/early-bird-pricing-ends-tonight-for-techcrunch-founder-summit/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link research" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Ftechcrunch.com%2F2026%2F06%2F26%2Fearly-bird-pricing-ends-tonight-for-techcrunch-founder-summit%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">ダウンロード: 脳が溶けるような熱波と前例のない OpenAI 制限</div>
+      <div class="card-title-en">The Download: brain-melting heatwaves and unprecedented OpenAI restrictions</div>
+      <div class="card-source">MIT Tech Review · Fri, 26 Ju</div>
+      <div class="card-body">これは、テクノロジーの世界で何が起こっているかを毎日提供する平日のニュースレター、The Download の今日版です。熱波は脳を混乱させます。科学者たちはその理由を解明しようとしている。 —ジェシカ・ハムゼロウ 今週のロンドンは暑い日が続いています。本当に暑いです。危険な熱波が西部を襲いました…</div>
+      <a class="card-link research" href="https://www.technologyreview.com/2026/06/26/1139780/the-download-heatwaves-brain-health-openai-restrictions/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link research" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Fwww.technologyreview.com%2F2026%2F06%2F26%2F1139780%2Fthe-download-heatwaves-brain-health-openai-restrictions%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">熱波は脳を混乱させます。科学者たちはその理由を解明しようとしている。</div>
+      <div class="card-title-en">Heat waves mess with your brain. Scientists are trying to figure out why.</div>
+      <div class="card-source">MIT Tech Review · Fri, 26 Ju</div>
+      <div class="card-body">今週のロンドンは暑いですね。本当に暑いです。危険な熱波が西ヨーロッパを襲いました。昨日、英国は6月としては史上最高気温となる36.1℃（約97°F）を記録した。しかし、携帯電話の天気予報アプリで確認したところ、体感温度は 39 °C でした。このような気温が続いているのは恐ろしいことです…</div>
+      <a class="card-link research" href="https://www.technologyreview.com/2026/06/26/1139760/heat-waves-mess-with-your-brain-scientists-are-trying-to-figure-out-why/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link research" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Fwww.technologyreview.com%2F2026%2F06%2F26%2F1139760%2Fheat-waves-mess-with-your-brain-scientists-are-trying-to-figure-out-why%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">カタールがFIFAのテクノロジーテストラボになった経緯</div>
+      <div class="card-title-en">How Qatar Became FIFA’s Technology Test Lab</div>
+      <div class="card-source">Wired AI · Fri, 26 Ju</div>
+      <div class="card-body">カタールは、FIFAが次世代のサッカーテクノロジーを実験する場所となっている。その結果は今年のワールドカップ全体ですでに目に見えています。</div>
+      <a class="card-link research" href="https://www.wired.com/story/how-qatar-became-fifas-technology-test-lab/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link research" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Fwww.wired.com%2Fstory%2Fhow-qatar-became-fifas-technology-test-lab%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Amazon が OpenAI ムービーを公開しなかった理由、データセンター従業員の反撃、そして従業員データのメタ漏洩</div>
+      <div class="card-title-en">Why Amazon Dropped Its OpenAI Movie, Data Center Workers Fight Back, and Meta Leaks Employee Data</div>
+      <div class="card-source">Wired AI · Thu, 25 Ju</div>
+      <div class="card-body">Amazon傘下のMGMスタジオによるOpenAI映画の公開中止の決定は、AIと映画業界の絡み合いがますます高まっていることの一部にすぎない。 Uncanny Valley では、このすべてがどこに向かっているのかを見ていきます。</div>
+      <a class="card-link research" href="https://www.wired.com/story/uncanny-valley-podcast-amazon-mgm-openai-movie-data-center-workers-fight-back-meta-leaks-employee-data/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link research" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Fwww.wired.com%2Fstory%2Funcanny-valley-podcast-amazon-mgm-openai-movie-data-center-workers-fight-back-meta-leaks-employee-data%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">ニューヨークタイムズ、OpenAI用の著作権侵害スーパーコンピュータを開発したマイクロソフトを非難</div>
+      <div class="card-title-en">NYT slams Microsoft for building copyright-infringing supercomputer for OpenAI</div>
+      <div class="card-source">Ars Technica · Fri, 26 Ju</div>
+      <div class="card-body">NYTは、ソニーに対するSCOTUS判決を受けて、OpenAI/Microsoftの著作権主張を変更した。</div>
+      <a class="card-link research" href="https://arstechnica.com/tech-policy/2026/06/microsoft-built-supercomputer-to-help-openai-infringe-copyrights-nyt-alleged/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link research" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Farstechnica.com%2Ftech-policy%2F2026%2F06%2Fmicrosoft-built-supercomputer-to-help-openai-infringe-copyrights-nyt-alleged%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">FCC、カー委員長とDOGEおよびマスクとのメッセージを隠蔽した疑いで告発</div>
+      <div class="card-title-en">FCC accused of hiding Chairman Carr's messages with DOGE and Musk</div>
+      <div class="card-source">Ars Technica · Fri, 26 Ju</div>
+      <div class="card-body">提出書類によれば、FCCはメッセージの提供を拒否し、法廷での時間を「1年無駄にした」という。</div>
+      <a class="card-link research" href="https://arstechnica.com/tech-policy/2026/06/fcc-accused-of-hiding-chairman-carrs-messages-with-doge-and-musk/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link research" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Farstechnica.com%2Ftech-policy%2F2026%2F06%2Ffcc-accused-of-hiding-chairman-carrs-messages-with-doge-and-musk%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+        </div>
+      </div>
+      <div class="card-title-ja">AI の進歩に歩調を合わせるために、私たちはクロードの経済的影響の研究方法を進めています。時間ごとのサンプリングと調査データは、生活のリズムが使用法をどのように形作っているのか、人々がクロードとともに何を生み出すのか、そして</div>
+      <div class="card-title-en">To keep pace with AI progress, we're advancing how we study Claude's economic impact. Hourly sampling and survey data show us how the cadences of life shape usage, what people produce with Claude, and</div>
+      <div class="card-source">X / @AnthropicAI · Fri, 26 Ju</div>
+      <div class="card-body">AI の進歩に歩調を合わせるために、私たちはクロードの経済的影響の研究方法を進めています。 
+
+時間ごとのサンプリングと調査データは、生活の使用リズム、人々がクロードを使って何を生み出すか、AI の影響に対する認識がどのように変化するかを示しています。 anthropic.com/research/econo…
+
+リンク
+
+
+
+人類経済指数レポート: ケイデンス
+
+最新の人類経済指数レポートでは、人々がどのようなときに、</div>
+      <a class="card-link research" href="https://x.com/AnthropicAI/status/2070528961235575278" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link research" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Fx.com%2FAnthropicAI%2Fstatus%2F2070528961235575278" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+        </div>
+      </div>
+      <div class="card-title-ja">ViQ 任意の解像度でのテキストに合わせた視覚的な量子化表現</div>
+      <div class="card-title-en">ViQ Text-Aligned Visual Quantized Representations at Any Resolution</div>
+      <div class="card-source">X / @_akhaliq · Fri, 26 Ju</div>
+      <div class="card-body">ViQ
+
+任意の解像度でのテキストに合わせた視覚的な量子化表現</div>
+      <a class="card-link research" href="https://x.com/_akhaliq/status/2070532756044439938" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link research" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Fx.com%2F_akhaliq%2Fstatus%2F2070532756044439938" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Gemma 4...デバイス上のすべての人にインテリジェンスを！</div>
+      <div class="card-title-en">Gemma 4... intelligence for everyone on device!</div>
+      <div class="card-source">X / @OfficialLoganK · Thu, 25 Ju</div>
+      <div class="card-body">Gemma 4...デバイス上のすべての人にインテリジェンスを！
+
+ビデオ</div>
+      <a class="card-link research" href="https://x.com/OfficialLoganK/status/2070181261772210449" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link research" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Fx.com%2FOfficialLoganK%2Fstatus%2F2070181261772210449" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">AIの反発はまだ始まったばかりだ</div>
+      <div class="card-title-en">The AI backlash is only getting started</div>
+      <div class="card-source">Hacker News · 2026-06-26</div>
+      <div class="card-body">Hacker Newsで85ポイント獲得。コミュニティで注目を集めている話題。</div>
+      <a class="card-link research" href="https://www.economist.com/leaders/2026/06/25/the-ai-backlash-is-only-getting-started" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link research" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Fwww.economist.com%2Fleaders%2F2026%2F06%2F25%2Fthe-ai-backlash-is-only-getting-started" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">現在の LLM コストが持続可能ではない理由</div>
+      <div class="card-title-en">Why current LLM costs are not sustainable</div>
+      <div class="card-source">Hacker News · 2026-06-26</div>
+      <div class="card-body">Hacker Newsで107ポイント獲得。コミュニティで注目を集めている話題。</div>
+      <a class="card-link research" href="https://aditya.patadia.org/p/ai-and-cloud-costs" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link research" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Faditya.patadia.org%2Fp%2Fai-and-cloud-costs" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+        </div>
+      </div>
+      <div class="card-title-ja">AI児童書 ボディホラー編</div>
+      <div class="card-title-en">AI children's books, body horror edition</div>
+      <div class="card-source">Hacker News · 2026-06-26</div>
+      <div class="card-body">Hacker Newsで203ポイント獲得。コミュニティで注目を集めている話題。</div>
+      <a class="card-link research" href="https://lcamtuf.substack.com/p/ai-childrens-books-body-horror-edition" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link research" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Flcamtuf.substack.com%2Fp%2Fai-childrens-books-body-horror-edition" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+  </div>
+
+  <!-- ビジネス -->
+  <div class="section-label" id="section-business">ビジネス</div>
+  <div class="grid">
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">OpenAI、ウーバー・インディアの責任者を引き抜いて米国外の最大市場を率いる</div>
+      <div class="card-title-en">OpenAI poaches Uber India chief to lead its biggest market outside the US</div>
+      <div class="card-source">TechCrunch AI · Fri, 26 Ju</div>
+      <div class="card-body">この雇用は、OpenAIのインドへの最近の進出を示し、オフィス、パートナーシップ、雇用を拡大している。</div>
+      <a class="card-link business" href="https://techcrunch.com/2026/06/26/openai-poaches-uber-india-chief-to-lead-its-biggest-market-outside-the-u-s/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link business" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Ftechcrunch.com%2F2026%2F06%2F26%2Fopenai-poaches-uber-india-chief-to-lead-its-biggest-market-outside-the-u-s%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">OpenAI から SpaceX まで、誰もが独自のチップを開発している理由 (そして Nvidia への熱意を高めている)</div>
+      <div class="card-title-en">Why everyone from OpenAI to SpaceX is building their own chips (and turning up the heat on Nvidia)</div>
+      <div class="card-source">TechCrunch AI · Fri, 26 Ju</div>
+      <div class="card-body">Nvidia は長年にわたって AI チップ市場を独占してきましたが、完全に依存する時代は終わりを迎えようとしています。   OpenAI は、Broadcom と共同開発したカスタム推論チップである Jalapeño で事態を盛り上げる計画を共有しました。これにより、単一サプライヤーのリスクから抜け出す方法を構築する企業の増加するリストに Google、Apple、SpaceX が加わります。目標はそれほどではありません […]</div>
+      <a class="card-link business" href="https://techcrunch.com/video/why-everyone-from-openai-to-spacex-is-building-their-own-chips-and-turning-up-the-heat-on-nvidia/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link business" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Ftechcrunch.com%2Fvideo%2Fwhy-everyone-from-openai-to-spacex-is-building-their-own-chips-and-turning-up-the-heat-on-nvidia%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">OpenAI の Jalapeño チップは、ビッグテックによる Nvidia からの最もスパイシーな離脱です</div>
+      <div class="card-title-en">OpenAI’s Jalapeño chip is Big Tech’s spiciest move away from Nvidia</div>
+      <div class="card-source">TechCrunch AI · Fri, 26 Ju</div>
+      <div class="card-body">Nvidia は長年にわたって AI チップ市場を独占してきましたが、完全に依存する時代は終わりを迎えようとしています。   OpenAI は、Broadcom と共同開発したカスタム推論チップである Jalapeño で事態を盛り上げる計画を共有しました。これにより、単一サプライヤーのリスクから抜け出す方法を構築する企業の増加するリストに Google、Apple、SpaceX が加わります。目標はそれほどではありません […]</div>
+      <a class="card-link business" href="https://techcrunch.com/podcast/openais-jalapeno-chip-is-big-techs-spiciest-move-away-from-nvidia/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link business" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Ftechcrunch.com%2Fpodcast%2Fopenais-jalapeno-chip-is-big-techs-spiciest-move-away-from-nvidia%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Anthropic は自社の成功が AI を安全にする鍵であると考えている</div>
+      <div class="card-title-en">Anthropic Thinks Its Own Success Is Key to Making AI Safe</div>
+      <div class="card-source">Wired AI · Fri, 26 Ju</div>
+      <div class="card-body">Anthropic の批評家たちは、Anthropic が急速に権力を蓄積していると主張している。同社によれば、それが責任あるAI開発の姿だという。</div>
+      <a class="card-link business" href="https://www.wired.com/story/anthropic-thinks-ai-can-only-be-safe-under-its-control/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link business" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Fwww.wired.com%2Fstory%2Fanthropic-thinks-ai-can-only-be-safe-under-its-control%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+        </div>
+      </div>
+      <div class="card-title-ja">OpenAI での仕事は、あらゆる部門のエージェントによって変革されています。会社全体で、人々は Codex を使用して、より複雑で長期にわたる、ますます部門横断的な作業を行っています。</div>
+      <div class="card-title-en">Work at OpenAI is being transformed by agents, in every department. Across our entire company, people are using Codex to do work that is more complex, longer-running, and increasingly cross-functional</div>
+      <div class="card-source">X / @OpenAI · Thu, 25 Ju</div>
+      <div class="card-body">OpenAI での仕事は、あらゆる部門のエージェントによって変革されています。
+
+当社全体で、人々は Codex を使用して、より複雑で長期にわたる、ますます部門間横断的な作業を行っています。
+
+私たちの内部使用法では、エージェント ツールがより高機能になり、広く利用可能になるにつれて、どのように作業を再構築するかを早期に確認できます。</div>
+      <a class="card-link business" href="https://x.com/OpenAI/status/2070196105745518913" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link business" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Fx.com%2FOpenAI%2Fstatus%2F2070196105745518913" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+        </div>
+      </div>
+      <div class="card-title-ja">DanceOPD オンポリシー生成フィールド蒸留</div>
+      <div class="card-title-en">DanceOPD On-Policy Generative Field Distillation</div>
+      <div class="card-source">X / @_akhaliq · Fri, 26 Ju</div>
+      <div class="card-body">ダンスOPD
+
+ポリシーに基づく生成フィールド蒸留
+
+ビデオ</div>
+      <a class="card-link business" href="https://x.com/_akhaliq/status/2070532336886648899" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link business" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Fx.com%2F_akhaliq%2Fstatus%2F2070532336886648899" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">AI業界は米国選挙に数百万ドルを注ぎ込んでいる</div>
+      <div class="card-title-en">The AI industry is pouring millions into US elections</div>
+      <div class="card-source">Hacker News · 2026-06-26</div>
+      <div class="card-body">Hacker Newsで108ポイント獲得。コミュニティで注目を集めている話題。</div>
+      <a class="card-link business" href="https://www.bloodinthemachine.com/p/the-ai-industry-is-pouring-hundreds" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link business" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Fwww.bloodinthemachine.com%2Fp%2Fthe-ai-industry-is-pouring-hundreds" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+  </div>
+
+  <!-- ポリシー -->
+  <div class="section-label" id="section-policy">ポリシー</div>
+  <div class="grid">
+
+    <article class="card policy">
+      <div class="card-top">
+        <span class="card-label policy">ポリシー</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">OpenAI、政府の要請を受けてGPT-5.6の展開を制限、制限は標準的であるべきではないと主張</div>
+      <div class="card-title-en">OpenAI limits GPT-5.6 rollout after government request, says restrictions shouldn’t be the norm</div>
+      <div class="card-source">TechCrunch AI · Fri, 26 Ju</div>
+      <div class="card-body">「私たちは、この種の政府によるアクセスプロセスが長期的なデフォルトになるべきだとは考えていません」とOpenAIは言う。 「最高のツールを、それらを必要とするユーザー、開発者、企業、サイバー防御者、グローバルパートナーから確保します。」</div>
+      <a class="card-link policy" href="https://techcrunch.com/2026/06/26/openai-limits-gpt-5-6-rollout-after-government-request-says-restrictions-shouldnt-be-the-norm/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link policy" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Ftechcrunch.com%2F2026%2F06%2F26%2Fopenai-limits-gpt-5-6-rollout-after-government-request-says-restrictions-shouldnt-be-the-norm%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card policy">
+      <div class="card-top">
+        <span class="card-label policy">ポリシー</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">医師らは男性が脳腫瘍を患っていると疑った。実は彼には虫がいたのです。</div>
+      <div class="card-title-en">Doctors suspected man had brain cancer. He actually had worms.</div>
+      <div class="card-source">Ars Technica · Fri, 26 Ju</div>
+      <div class="card-body">彼の医師たちは癌を探しに行き、その後虫の頭を見つけました。</div>
+      <a class="card-link policy" href="https://arstechnica.com/health/2026/06/doctors-suspected-man-had-brain-cancer-he-actually-had-worms/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link policy" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Farstechnica.com%2Fhealth%2F2026%2F06%2Fdoctors-suspected-man-had-brain-cancer-he-actually-had-worms%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card policy">
+      <div class="card-top">
+        <span class="card-label policy">ポリシー</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+        </div>
+      </div>
+      <div class="card-title-ja">@raiseus_ai が創設パートナーとして参加します。 RAISE US は、雇用主主導の行動、AI を活用したトレーニング、政策革新を通じてアメリカの労働力を強化するために活動する非営利連合です。</div>
+      <div class="card-title-en">We're joining @raiseus_ai as a founding partner. RAISE US is a nonprofit coalition working to strengthen the American workforce through employer-led action, AI-enabled training, and policy innovation </div>
+      <div class="card-source">X / @AnthropicAI · Thu, 25 Ju</div>
+      <div class="card-body">@raiseus_ai が創設パートナーとして参加します。
+
+RAISE US は、雇用主主導の行動、AI 対応トレーニング、革新的な AI への移行をサポートする政策革新を通じて米国の労働力を強化するために活動している非営利連合です。
+
+
+RAISE US (@raiseus_ai)
+
+本日、RAISE US を立ち上げます。アメリカにはAIに関する技術戦略があります。人材戦略はまだありません。私たちはここにいます</div>
+      <a class="card-link policy" href="https://x.com/AnthropicAI/status/2070183531612172697" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link policy" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Fx.com%2FAnthropicAI%2Fstatus%2F2070183531612172697" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+  </div>
+
+  <!-- ツール -->
+  <div class="section-label" id="section-tools">ツール</div>
+  <div class="grid">
+
+    <article class="card tools">
+      <div class="card-top">
+        <span class="card-label tools">ツール</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Netflix では、すべてのユーザー プロフィールを一意のメール アドレスに関連付けることが義務付けられています</div>
+      <div class="card-title-en">Netflix now requires every user profile to be tied to unique email address</div>
+      <div class="card-source">Ars Technica · Fri, 26 Ju</div>
+      <div class="card-body">6 月 15 日にアップデートが開始され、ログイン情報を共有できなくなります。</div>
+      <a class="card-link tools" href="https://arstechnica.com/gadgets/2026/06/netflix-now-requires-every-user-profile-to-be-tied-to-unique-email-address/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link tools" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Farstechnica.com%2Fgadgets%2F2026%2F06%2Fnetflix-now-requires-every-user-profile-to-be-tied-to-unique-email-address%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card tools">
+      <div class="card-top">
+        <span class="card-label tools">ツール</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+        </div>
+      </div>
+      <div class="card-title-ja">固定: Gemini 3.5 フラッシュは、ネイティブ コンピューターでの使用をサポートするようになりました。この組み込みツールを使用すると、開発者はブラウザ、モバイル、デスクトップ インターフェイス全体を確認してアクションを実行できるカスタム エージェントを構築できます。探し出す</div>
+      <div class="card-title-en">Pinned: Gemini 3.5 Flash now supports native computer use. This built-in tool lets developers build custom agents that can see and take action across browser, mobile, and desktop interfaces. Find out </div>
+      <div class="card-source">X / @GoogleDeepMind · Thu, 25 Ju</div>
+      <div class="card-body">Gemini 3.5 フラッシュは、ネイティブ コンピューターでの使用をサポートするようになりました。
+
+この組み込みツールを使用すると、開発者はブラウザ、モバイル、デスクトップ インターフェイス全体を確認してアクションを実行できるカスタム エージェントを構築できます。
+
+詳細はこちら → goo.gle/4f4sNQA
+
+ビデオ</div>
+      <a class="card-link tools" href="https://x.com/GoogleDeepMind/status/2070180509523546481" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link tools" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Fx.com%2FGoogleDeepMind%2Fstatus%2F2070180509523546481" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card tools">
+      <div class="card-top">
+        <span class="card-label tools">ツール</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+        </div>
+      </div>
+      <div class="card-title-ja">確実なビデオ理解のための信頼性を意識したツール オーケストレーション</div>
+      <div class="card-title-en">Confidence-Aware Tool Orchestration for Robust Video Understanding</div>
+      <div class="card-source">X / @_akhaliq · Fri, 26 Ju</div>
+      <div class="card-body">確実なビデオ理解のための信頼性を意識したツール オーケストレーション</div>
+      <a class="card-link tools" href="https://x.com/_akhaliq/status/2070478699019804872" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link tools" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Fx.com%2F_akhaliq%2Fstatus%2F2070478699019804872" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card tools">
+      <div class="card-top">
+        <span class="card-label tools">ツール</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+        </div>
+      </div>
+      <div class="card-title-ja">2,000 人が私の AI アシスタントをハッキングしようとした後、何が起こったのか</div>
+      <div class="card-title-en">What happened after 2k people tried to hack my AI assistant</div>
+      <div class="card-source">Hacker News · 2026-06-26</div>
+      <div class="card-body">Hacker Newsで347ポイント獲得。コミュニティで注目を集めている話題。</div>
+      <a class="card-link tools" href="https://www.fernandoi.cl/posts/hackmyclaw/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link tools" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Fwww.fernandoi.cl%2Fposts%2Fhackmyclaw%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+  </div>
+
+
+</main>
+
+<footer>
+  <strong>AI News Digest</strong> — 2026年4月13日（月）自動生成 | 12記事収録<br>
+  <span style="font-size:0.72rem; margin-top:0.3rem; display:block;">Model: 2 · Research: 5 · Business: 4 · Policy: 1</span>
+</footer>
+
+</body>
+</html>
