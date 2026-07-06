@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI News Digest — 2026-07-07</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --model: #1d4ed8;
+    --research: #6d28d9;
+    --business: #065f46;
+    --policy: #92400e;
+    --tools: #0e7490;
+    --bg: #f8fafc;
+    --card-bg: #ffffff;
+    --text: #1e293b;
+    --text-muted: #64748b;
+    --border: #e2e8f0;
+  }
+  body {
+    font-family: 'Noto Sans JP', 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  header {
+    background: #0f172a;
+    color: #fff;
+    padding: 2rem 1.5rem;
+  }
+  .header-inner {
+    max-width: 1440px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .header-title {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+  .header-title span { color: #60a5fa; }
+  .header-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.2rem;
+  }
+  .header-date {
+    font-size: 0.95rem;
+    color: #94a3b8;
+    font-family: 'Inter', sans-serif;
+  }
+  .header-count {
+    background: #1d4ed8;
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.2rem 0.7rem;
+    border-radius: 999px;
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* CATEGORY BAR */
+  .cat-bar {
+    background: #1e293b;
+    padding: 0.75rem 1.5rem;
+    overflow-x: auto;
+  }
+  .cat-bar-inner {
+    max-width: 1440px;
+    margin: 0 auto;
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+  .cat-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.3rem 0.9rem;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    color: #fff;
+    letter-spacing: 0.03em;
+    white-space: nowrap;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .cat-pill:hover {
+    opacity: 0.85;
+    transform: translateY(-2px);
+  }
+  .cat-pill.model    { background: var(--model); }
+  .cat-pill.research { background: var(--research); }
+  .cat-pill.business { background: var(--business); }
+  .cat-pill.policy   { background: var(--policy); }
+  .cat-pill.tools    { background: var(--tools); }
+
+  /* MAIN */
+  main {
+    max-width: 1440px;
+    margin: 2rem auto;
+    padding: 0 1.5rem;
+  }
+  .section-label {
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* GRID */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+    margin-bottom: 2.5rem;
+  }
+  @media (max-width: 900px) {
+    .grid { grid-template-columns: 1fr; }
+ %}
+
+  /* CARD */
+  .card {
+    background: var(--card-bg);
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    padding: 1.25rem 1.4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    transition: box-shadow 0.2s, transform 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .card:hover {
+    box-shadow: 0 8px 24px rgba(0,0,0,0.09);
+    transform: translateY(-2px);
+  }
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+  }
+  .card.model::before    { background: var(--model); }
+  .card.research::before { background: var(--research); }
+  .card.business::before { background: var(--business); }
+  .card.policy::before   { background: var(--policy); }
+  .card.tools::before    { background: var(--tools); }
+
+  .card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+  .card-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    padding: 0.18rem 0.6rem;
+    border-radius: 4px;
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+  }
+  .card-label.model    { background: var(--model); }
+  .card-label.research { background: var(--research); }
+  .card-label.business { background: var(--business); }
+  .card-label.policy   { background: var(--policy); }
+  .card-label.tools    { background: var(--tools); }
+
+  .stars {
+    display: flex;
+    gap: 2px;
+  }
+  .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: #cbd5e1;
+  }
+  .dot.filled { background: #f59e0b; }
+
+  .card-title-ja {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.45;
+  }
+  .card-title-en {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    font-family: 'Inter', sans-serif;
+    font-style: italic;
+    line-height: 1.4;
+  }
+  .card-source {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .card-source::before {
+    content: '';
+    display: inline-block;
+    width: 4px; height: 4px;
+    background: #94a3b8;
+    border-radius: 50%;
+  }
+  .card-body {
+    font-size: 0.88rem;
+    color: #334155;
+    line-height: 1.7;
+  }
+  .card-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    text-decoration: none;
+    margin-top: auto;
+  }
+  .card-link.model    { color: var(--model); }
+  .card-link.research { color: var(--research); }
+  .card-link.business { color: var(--business); }
+  .card-link.policy   { color: var(--policy); }
+  .card-link.tools    { color: var(--tools); }
+  .card-link:hover { text-decoration: underline; }
+
+  /* FOOTER */
+  footer {
+    background: #1e293b;
+    color: #94a3b8;
+    text-align: center;
+    padding: 1.5rem;
+    font-size: 0.8rem;
+    font-family: 'Inter', sans-serif;
+  }
+  footer strong { color: #e2e8f0; }
+
+  @media (max-width: 640px) {
+    header { padding: 1.25rem 1rem; }
+    main { padding: 0 0.85rem; margin: 1.25rem auto; }
+    .cat-bar { padding: 0.6rem 0.85rem; }
+    .card { padding: 1rem 1.1rem; }
+    .header-title { font-size: 1.25rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="header-title">📰 AI <span>News Digest</span></div>
+    <div class="header-meta">
+      <div class="header-date">2026年07月07日（火）</div>
+      <div class="header-count">28 articles</div>
+    </div>
+  </div>
+</header>
+
+<div class="cat-bar">
+  <div class="cat-bar-inner">
+    <button class="cat-pill model" onclick="document.getElementById('section-model').scrollIntoView({behavior: 'smooth'});">● モデル (7)</button>
+    <button class="cat-pill research" onclick="document.getElementById('section-research').scrollIntoView({behavior: 'smooth'});">● 研究 (11)</button>
+    <button class="cat-pill business" onclick="document.getElementById('section-business').scrollIntoView({behavior: 'smooth'});">● ビジネス (5)</button>
+    <button class="cat-pill policy" onclick="document.getElementById('section-policy').scrollIntoView({behavior: 'smooth'});">● ポリシー (2)</button>
+    <button class="cat-pill tools" onclick="document.getElementById('section-tools').scrollIntoView({behavior: 'smooth'});">● ツール (3)</button>
+  </div>
+</div>
+
+<main>
+
+  <!-- モデル -->
+  <div class="section-label" id="section-model">モデル</div>
+  <div class="grid">
+
+    <article class="card model">
+      <div class="card-top">
+        <span class="card-label model">モデル</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Vercel CEOのGuillermo Rauch氏、エージェントからモデルを分離する戦いについて語る</div>
+      <div class="card-title-en">Vercel CEO Guillermo Rauch on the fight to split off models from agents</div>
+      <div class="card-source">TechCrunch AI · Mon, 06 Ju</div>
+      <div class="card-body">「現実には、生産を最適化するときは、価格とパフォーマンスを考慮し始めるのです」と Guillermo Rauch 氏は TechCrunch に語ります。</div>
+      <a class="card-link model" href="https://techcrunch.com/2026/07/06/vercel-ceo-guillermo-rauch-on-the-fight-to-split-off-models-from-agents/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link model" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Ftechcrunch.com%2F2026%2F07%2F06%2Fvercel-ceo-guillermo-rauch-on-the-fight-to-split-off-models-from-agents%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card model">
+      <div class="card-top">
+        <span class="card-label model">モデル</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Google を使用している場合、その AI をトレーニングしていることになります。オプトアウトする方法は次のとおりです。</div>
+      <div class="card-title-en">If you use Google, you’re training its AI. Here’s how to opt out.</div>
+      <div class="card-source">TechCrunch AI · Mon, 06 Ju</div>
+      <div class="card-body">これは遅ればせながらの PSA だと考えてください。Google のプライバシー設定に対する最近の変更により、Google は AI モデルを改善するために、「画像、ファイル、オーディオおよびビデオの記録」などのメディアを含む、より多くのデータを保存できるようになりました。</div>
+      <a class="card-link model" href="https://techcrunch.com/2026/07/06/if-you-use-google-youre-training-its-ai-heres-how-to-opt-out/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link model" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Ftechcrunch.com%2F2026%2F07%2F06%2Fif-you-use-google-youre-training-its-ai-heres-how-to-opt-out%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card model">
+      <div class="card-top">
+        <span class="card-label model">モデル</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Anthropic の反監視姿勢を受けて秘密のクロード追跡者がユーザーに衝撃を与える</div>
+      <div class="card-title-en">Secret Claude tracker shocks users after Anthropic’s anti-surveillance stance</div>
+      <div class="card-source">Ars Technica · Mon, 06 Ju</div>
+      <div class="card-body">ユーザーをスパイした疑いで人類告発。エンジニアは「実験」は終了したと言っています。</div>
+      <a class="card-link model" href="https://arstechnica.com/tech-policy/2026/07/anthropic-outed-for-claude-tracker-that-secretly-monitored-chinese-users/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link model" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Farstechnica.com%2Ftech-policy%2F2026%2F07%2Fanthropic-outed-for-claude-tracker-that-secretly-monitored-chinese-users%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card model">
+      <div class="card-top">
+        <span class="card-label model">モデル</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+        </div>
+      </div>
+      <div class="card-title-ja">新しい人類研究: 言語モデルのグローバル ワークスペース。今、あなたの脳内で起こっているすべてのうち、意識的にアクセスできるのはほんの一部だけです。つまり、説明したり、心に留めたり、</div>
+      <div class="card-title-en">New Anthropic research: A global workspace in language models. Of everything happening in your brain right now, only a tiny fraction is consciously accessible—thoughts you can describe, hold in mind, </div>
+      <div class="card-source">X / @AnthropicAI · Mon, 06 Ju</div>
+      <div class="card-body">新しい人類研究: 言語モデルのグローバル ワークスペース。
+
+今、あなたの脳内で起こっているすべてのうち、意識的にアクセスできるのはほんの一部、つまり説明したり、心に留めたり、推論したりできる思考だけです。
+
+私たちはクロードの中に驚くほど似た分裂を発見しました。
+
+ビデオ</div>
+      <a class="card-link model" href="https://x.com/AnthropicAI/status/2074185348142280912" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link model" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Fx.com%2FAnthropicAI%2Fstatus%2F2074185348142280912" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card model">
+      <div class="card-top">
+        <span class="card-label model">モデル</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+        </div>
+      </div>
+      <div class="card-title-ja">上の子が初めて 2 つの単語を組み合わせました。私は GPT-5.6 で新しい数学を発見したのと同じくらい、この認知能力の妙技に驚いています。</div>
+      <div class="card-title-en">our older kid put two words together for the first time and i am approximately as amazed by this cognitive feat as i am by GPT-5.6 discovering new math</div>
+      <div class="card-source">X / @sama · Sun, 05 Ju</div>
+      <div class="card-body">上の子が初めて 2 つの単語を組み合わせました。私は GPT-5.6 で新しい数学を発見したのと同じくらい、この認知能力の妙技に驚いています。</div>
+      <a class="card-link model" href="https://x.com/sama/status/2073791666553844074" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link model" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Fx.com%2Fsama%2Fstatus%2F2073791666553844074" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card model">
+      <div class="card-top">
+        <span class="card-label model">モデル</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+        </div>
+      </div>
+      <div class="card-title-ja">トレーニング ポリシー最適化の蜃気楼 LLM 強化学習の真の目的としての単調推論ポリシー</div>
+      <div class="card-title-en">The Mirage of Optimizing Training Policies Monotonic Inference Policies as the Real Objective for LLM Reinforcement Learning</div>
+      <div class="card-source">X / @_akhaliq · Mon, 06 Ju</div>
+      <div class="card-body">トレーニングポリシーの最適化がもたらす蜃気楼
+
+LLM 強化学習の真の目的としての単調推論ポリシー</div>
+      <a class="card-link model" href="https://x.com/_akhaliq/status/2074191328590671928" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link model" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Fx.com%2F_akhaliq%2Fstatus%2F2074191328590671928" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card model">
+      <div class="card-top">
+        <span class="card-label model">モデル</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">言語モデルのグローバル ワークスペース</div>
+      <div class="card-title-en">A global workspace in language models</div>
+      <div class="card-source">Hacker News · 2026-07-06</div>
+      <div class="card-body">Hacker Newsで190ポイント獲得。コミュニティで注目を集めている話題。</div>
+      <a class="card-link model" href="https://www.anthropic.com/research/global-workspace" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link model" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Fwww.anthropic.com%2Fresearch%2Fglobal-workspace" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+  </div>
+
+  <!-- 研究 -->
+  <div class="section-label" id="section-research">研究</div>
+  <div class="grid">
+
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">マイクロソフト、Xboxと商業販売全体で5,000人近くの従業員を解雇</div>
+      <div class="card-title-en">Microsoft lays off nearly 5,000 employees across Xbox, commercial sales</div>
+      <div class="card-source">TechCrunch AI · Mon, 06 Ju</div>
+      <div class="card-body">マイクロソフトは月曜日、全世界の従業員の2.1％に相当する約4,800人の役職を削減した。これはAIが仕事を代替するのではないかとの懸念を煽る一連の人員削減の最新のものである。 人員削減はXboxと商用​​売上に最も大きな打撃を与えるだろう。</div>
+      <a class="card-link research" href="https://techcrunch.com/2026/07/06/microsoft-lays-off-nearly-5000-employees-across-xbox-commercial-sales/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link research" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Ftechcrunch.com%2F2026%2F07%2F06%2Fmicrosoft-lays-off-nearly-5000-employees-across-xbox-commercial-sales%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">あなたの家族の OpenAI への 300 ドルの株式</div>
+      <div class="card-title-en">Your family’s $300 stake in OpenAI</div>
+      <div class="card-source">MIT Tech Review · Mon, 06 Ju</div>
+      <div class="card-body">このストーリーは元々、AI に関する週刊ニュースレター『The Algorithm』に掲載されました。このような記事を受信箱に受け取るには、まずここから登録してください。 OpenAIの最高経営責任者（CEO）サム・アルトマン氏がAIが生み出す富をアメリカ人が分かち合うというよく話題になった約束が、先週再びニュースになった。木曜日、フィナンシャル・タイムズ紙は、アルトマン氏が…</div>
+      <a class="card-link research" href="https://www.technologyreview.com/2026/07/06/1140176/your-familys-300-stake-in-openai/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link research" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Fwww.technologyreview.com%2F2026%2F07%2F06%2F1140176%2Fyour-familys-300-stake-in-openai%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+        </div>
+      </div>
+      <div class="card-title-ja">アメリカという概念を生み出した人々、過去 250 年間にわたってアメリカを築き上げたすべての人々、そして次の 250 年間にそれを推進する人々に感謝します。最も印象的な社会実験</div>
+      <div class="card-title-en">grateful to the people that created the idea of america, everyone who built it over the past 250 years, and the people who will carry it forward for the next 250. most impressive social experiment in </div>
+      <div class="card-source">X / @sama · Sun, 05 Ju</div>
+      <div class="card-body">アメリカという概念を生み出した人々、過去 250 年間にわたってアメリカを築いたすべての人、そして次の 250 年にそれを引き継いでいく人々に感謝します。
+
+歴史上最も印象的な社会実験。</div>
+      <a class="card-link research" href="https://x.com/sama/status/2073635910512726444" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link research" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Fx.com%2Fsama%2Fstatus%2F2073635910512726444" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+        </div>
+      </div>
+      <div class="card-title-ja">bottlecapai/ThinkingCap-Qwen3.6-27B Qwen3.6-27B の機能で、思考トークンが平均して 50% 減少し、最良の場合は 90% 以上減少します。 Qwen3.6-27B (Qwen Team、2026) とステータスを微調整することで達成</div>
+      <div class="card-title-en">bottlecapai/ThinkingCap-Qwen3.6-27B Capability of Qwen3.6-27B with 50% less thinking tokens on average, and over 90% less in best cases. Achieved via finetuning Qwen3.6-27B (Qwen Team, 2026) with stat</div>
+      <div class="card-source">X / @_akhaliq · Mon, 06 Ju</div>
+      <div class="card-body">ボトルキャパイ/ThinkingCap-Qwen3.6-27B
+
+Qwen3.6-27B の能力。思考トークンは平均して 50% 減少し、最良の場合は 90% 以上減少します。さまざまなドメインと難易度の厳選された問題セットに対する最先端の微調整アルゴリズムを使用した Qwen3.6-27B (Qwen Team、2026) の微調整によって達成</div>
+      <a class="card-link research" href="https://x.com/_akhaliq/status/2074195249732128870" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link research" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Fx.com%2F_akhaliq%2Fstatus%2F2074195249732128870" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">大手テクノロジー企業が突然、AI雇用全滅シナリオをひっくり返した</div>
+      <div class="card-title-en">Big Tech Has Suddenly Flipped on the AI Jobs Wipeout Scenario</div>
+      <div class="card-source">Hacker News · 2026-07-06</div>
+      <div class="card-body">Hacker Newsで88ポイント獲得。コミュニティで注目を集めている話題。</div>
+      <a class="card-link research" href="https://www.wsj.com/tech/ai/ai-workers-tech-ceos-job-losses-afc71e15" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link research" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Fwww.wsj.com%2Ftech%2Fai%2Fai-workers-tech-ceos-job-losses-afc71e15" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">OfficeCLI: AI エージェントが Microsoft Office ファイルを読み取り、編集するための Office スイート</div>
+      <div class="card-title-en">OfficeCLI: Office suite for AI agents to read and edit Microsoft Office files</div>
+      <div class="card-source">Hacker News · 2026-07-06</div>
+      <div class="card-body">Hacker Newsで90ポイント獲得。コミュニティで注目を集めている話題。</div>
+      <a class="card-link research" href="https://github.com/iOfficeAI/OfficeCLI" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link research" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Fgithub.com%2FiOfficeAI%2FOfficeCLI" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+        </div>
+      </div>
+      <div class="card-title-ja">AMD Ryzen AI Halo – 4,000 ドルの AI 開発キット</div>
+      <div class="card-title-en">AMD Ryzen AI Halo – $4k AI Dev Kit</div>
+      <div class="card-source">Hacker News · 2026-07-06</div>
+      <div class="card-body">Hacker Newsで248ポイント獲得。コミュニティで注目を集めている話題。</div>
+      <a class="card-link research" href="https://www.lttlabs.com/articles/2026/07/06/amd-ryzen-ai-halo" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link research" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Fwww.lttlabs.com%2Farticles%2F2026%2F07%2F06%2Famd-ryzen-ai-halo" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">AI のコストがエンジニアよりも高い場合</div>
+      <div class="card-title-en">When AI Costs More Than the Engineer</div>
+      <div class="card-source">Hacker News · 2026-07-06</div>
+      <div class="card-body">Hacker Newsで123ポイント獲得。コミュニティで注目を集めている話題。</div>
+      <a class="card-link research" href="https://tomtunguz.com/ai-spend-breakeven-2029/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link research" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Ftomtunguz.com%2Fai-spend-breakeven-2029%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">アル・ヴィジェ氏「カナダのAI戦略にはパランティアの秘密法案を含めるべきではない」</div>
+      <div class="card-title-en">Al Vigier: Canada's AI strategy shouldn't include secret Palantir bills</div>
+      <div class="card-source">Hacker News · 2026-07-06</div>
+      <div class="card-body">Hacker Newsで163ポイント獲得。コミュニティで注目を集めている話題。</div>
+      <a class="card-link research" href="https://www.readtheline.ca/p/al-vigier-canadas-ai-strategy-shouldnt" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link research" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Fwww.readtheline.ca%2Fp%2Fal-vigier-canadas-ai-strategy-shouldnt" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+        </div>
+      </div>
+      <div class="card-title-ja">エルムへの道 1.0</div>
+      <div class="card-title-en">Road to Elm 1.0</div>
+      <div class="card-source">Hacker News · 2026-07-06</div>
+      <div class="card-body">Hacker Newsで286ポイント獲得。コミュニティで注目を集めている話題。</div>
+      <a class="card-link research" href="https://elm-lang.org/news/faster-builds" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link research" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Felm-lang.org%2Fnews%2Ffaster-builds" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+        </div>
+      </div>
+      <div class="card-title-ja">いくつかの簡単なステップで好意を失うアンスロピックの方法</div>
+      <div class="card-title-en">Anthropic's Method to Losing Goodwill in a Few Easy Steps</div>
+      <div class="card-source">Hacker News · 2026-07-06</div>
+      <div class="card-body">Hacker Newsで235ポイント獲得。コミュニティで注目を集めている話題。</div>
+      <a class="card-link research" href="https://raheeljunaid.com/blog/anthropics-method-to-losing-goodwill-in-a-few-easy-steps/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link research" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Fraheeljunaid.com%2Fblog%2Fanthropics-method-to-losing-goodwill-in-a-few-easy-steps%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+  </div>
+
+  <!-- ビジネス -->
+  <div class="section-label" id="section-business">ビジネス</div>
+  <div class="grid">
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Station F はヨーロッパで最もホットな AI スタートアップの出発点として機能を強化</div>
+      <div class="card-title-en">Station F ramps up as a launchpad for Europe’s hottest AI startups</div>
+      <div class="card-source">TechCrunch AI · Mon, 06 Ju</div>
+      <div class="card-body">フランスの億万長者ザビエル・ニエルが設立したパリを拠点とするスタートアップハブ、ステーション F は、有望な AI スタートアップへの足がかりとしての地位を強化するために、F/ai アクセラレーター プログラムの新版に向けた準備を進めている。</div>
+      <a class="card-link business" href="https://techcrunch.com/2026/07/06/station-f-ramps-up-as-a-launchpad-for-europes-hottest-ai-startups/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link business" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Ftechcrunch.com%2F2026%2F07%2F06%2Fstation-f-ramps-up-as-a-launchpad-for-europes-hottest-ai-startups%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">ダウンロード: 韓国で最もホットな独身者と進歩する眼移植</div>
+      <div class="card-title-en">The Download: South Korea’s hottest bachelors, and advancing eye transplants</div>
+      <div class="card-source">MIT Tech Review · Mon, 06 Ju</div>
+      <div class="card-body">これは、テクノロジーの世界で何が起こっているかを毎日提供する平日のニュースレター、The Download の今日版です。韓国で最も人気のある独身者は半導体関連の従業員である 韓国の半導体大手SKハイニックスでマネージャーを務める35歳のペク氏は、1年前に結婚相談所に登録していた。で…</div>
+      <a class="card-link business" href="https://www.technologyreview.com/2026/07/06/1140172/the-download-south-korea-ai-chipworkers-eye-transplants/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link business" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Fwww.technologyreview.com%2F2026%2F07%2F06%2F1140172%2Fthe-download-south-korea-ai-chipworkers-eye-transplants%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">韓国で最もホットな独身者はチップス労働者だ</div>
+      <div class="card-title-en">South Korea’s hottest new bachelors are chip workers</div>
+      <div class="card-source">MIT Tech Review · Mon, 06 Ju</div>
+      <div class="card-body">韓国の半導体大手SKハイニックスでマネージャーを務める35歳のペク氏は、1年前にソウルに拠点を置く結婚相手紹介会社Sunooに登録した。心配性の韓国の親によくある行動として、彼の母親は息子のために良い妻を見つけたいと考えて、彼と契約を結んだ。最近、ペクさんはこう言います（誰から頼まれたか…）</div>
+      <a class="card-link business" href="https://www.technologyreview.com/2026/07/06/1140000/south-korea-bachelors-samsung-skhynix-chip-workers/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link business" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Fwww.technologyreview.com%2F2026%2F07%2F06%2F1140000%2Fsouth-korea-bachelors-samsung-skhynix-chip-workers%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">英国の規制当局、金融サービスにおけるAI利用に追いつくための「軍拡競争」を警告</div>
+      <div class="card-title-en">UK regulator warns of "arms race" to keep up with AI use in financial services</div>
+      <div class="card-source">Ars Technica · Mon, 06 Ju</div>
+      <div class="card-body">FCA関係者は、数百万人が個人の財務上の意思決定にテクノロジーを利用する中、監視機関の権限強化を主張している。</div>
+      <a class="card-link business" href="https://arstechnica.com/ai/2026/07/uk-regulator-warns-of-arms-race-to-keep-up-with-ai-use-in-financial-services/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link business" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Farstechnica.com%2Fai%2F2026%2F07%2Fuk-regulator-warns-of-arms-race-to-keep-up-with-ai-use-in-financial-services%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+        </div>
+      </div>
+      <div class="card-title-ja">勝つことに飽きた</div>
+      <div class="card-title-en">Tired of winning</div>
+      <div class="card-source">X / @ylecun · Mon, 06 Ju</div>
+      <div class="card-body">勝つことに飽きた
+
+
+スティーブ・ラトナー (@SteveRattner)
+
+労働参加率は61.5%に低下し、2021年以来最低となり、パンデミック後の回復全体が台無しになった。 
+
+トランプ大統領の就任以来、100万人以上が労働市場から撤退しており、これが先月失業率が低下した理由の一部を説明している。
+
+
+
+
+
+— https://nitter.net/SteveRattner/status/2074137281644925160#m</div>
+      <a class="card-link business" href="https://x.com/ylecun/status/2074143203591073926" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link business" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Fx.com%2Fylecun%2Fstatus%2F2074143203591073926" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+  </div>
+
+  <!-- ポリシー -->
+  <div class="section-label" id="section-policy">ポリシー</div>
+  <div class="grid">
+
+    <article class="card policy">
+      <div class="card-top">
+        <span class="card-label policy">ポリシー</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">2026 年に行われるすべての主要なテクノロジー部門の人員削減で AI の名前が確認される</div>
+      <div class="card-title-en">Every major tech layoff in 2026 that has name-checked AI</div>
+      <div class="card-source">TechCrunch AI · Mon, 06 Ju</div>
+      <div class="card-body">今年、AI を明言した大規模な人員削減を発表した大手テクノロジー企業を時系列の逆順で概観します。</div>
+      <a class="card-link policy" href="https://techcrunch.com/2026/07/06/the-running-list-major-tech-layoffs-in-2026-where-employers-cited-ai/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link policy" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Ftechcrunch.com%2F2026%2F07%2F06%2Fthe-running-list-major-tech-layoffs-in-2026-where-employers-cited-ai%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card policy">
+      <div class="card-top">
+        <span class="card-label policy">ポリシー</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">英国のF1：期待を打ち砕く原因は自動化ソフトウェアにある</div>
+      <div class="card-title-en">F1 in Britain: Automated software to blame for crushing expectations</div>
+      <div class="card-source">Ars Technica · Mon, 06 Ju</div>
+      <div class="card-body">セーフティカーの先でレースが終了することもありますが、必ずしも満足できるものではありません。</div>
+      <a class="card-link policy" href="https://arstechnica.com/cars/2026/07/f1-in-britain-automated-software-to-blame-for-crushing-expectations/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link policy" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Farstechnica.com%2Fcars%2F2026%2F07%2Ff1-in-britain-automated-software-to-blame-for-crushing-expectations%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+  </div>
+
+  <!-- ツール -->
+  <div class="section-label" id="section-tools">ツール</div>
+  <div class="grid">
+
+    <article class="card tools">
+      <div class="card-top">
+        <span class="card-label tools">ツール</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">最新のiOS 27ベータ版でSiriのペースと表現力をカスタマイズできるようになりました</div>
+      <div class="card-title-en">You can now customize Siri’s pace and expressivity in the latest iOS 27 beta</div>
+      <div class="card-source">TechCrunch AI · Mon, 06 Ju</div>
+      <div class="card-body">このアップデートは、生成型 AI を中心にアシスタントを再構築し、Siri をより自然で個人的なものにしようとする Apple の広範な取り組みの一環です。</div>
+      <a class="card-link tools" href="https://techcrunch.com/2026/07/06/you-can-now-customize-siris-pace-and-expressivity-in-the-latest-ios-27-beta/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link tools" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Ftechcrunch.com%2F2026%2F07%2F06%2Fyou-can-now-customize-siris-pace-and-expressivity-in-the-latest-ios-27-beta%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card tools">
+      <div class="card-top">
+        <span class="card-label tools">ツール</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Reddit は、LLM が主に作成した問題を解決するために LLM を使用しています</div>
+      <div class="card-title-en">Reddit is using LLMs to solve a problem LLMs largely created</div>
+      <div class="card-source">TechCrunch AI · Mon, 06 Ju</div>
+      <div class="card-body">AI 時代において、プラットフォームはスパムを排除するために火で対抗するしかありません。</div>
+      <a class="card-link tools" href="https://techcrunch.com/2026/07/06/reddit-is-using-llms-to-solve-a-problem-llms-largely-created/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link tools" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Ftechcrunch.com%2F2026%2F07%2F06%2Freddit-is-using-llms-to-solve-a-problem-llms-largely-created%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card tools">
+      <div class="card-top">
+        <span class="card-label tools">ツール</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+        </div>
+      </div>
+      <div class="card-title-ja">@Apptronik がロボット パーク施設を拡張する中で、私たちの研究パートナーシップは、最新のアポロ 2 人型プラットフォームによって収集された現実世界のデータがジェミニ ロボティクスの訓練と進歩に役立つことを意味します。 🤖 を見つけてください</div>
+      <div class="card-title-en">As @Apptronik expands their Robot Park facility, our research partnership means real-world data collected by the latest Apollo 2 humanoid platform will help train and advance Gemini Robotics. 🤖 Find o</div>
+      <div class="card-source">X / @GoogleDeepMind · Mon, 06 Ju</div>
+      <div class="card-body">@Apptronik がロボット パーク施設を拡張する中で、私たちの研究パートナーシップは、最新のアポロ 2 人型プラットフォームによって収集された現実世界のデータがジェミニ ロボティクスの訓練と進歩に役立つことを意味します。 🤖
+
+詳細はこちら → goo.gle/4vOPwpO</div>
+      <a class="card-link tools" href="https://x.com/GoogleDeepMind/status/2074157282477154597" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link tools" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Fx.com%2FGoogleDeepMind%2Fstatus%2F2074157282477154597" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+  </div>
+
+
+</main>
+
+<footer>
+  <strong>AI News Digest</strong> — 2026年4月13日（月）自動生成 | 12記事収録<br>
+  <span style="font-size:0.72rem; margin-top:0.3rem; display:block;">Model: 2 · Research: 5 · Business: 4 · Policy: 1</span>
+</footer>
+
+</body>
+</html>
