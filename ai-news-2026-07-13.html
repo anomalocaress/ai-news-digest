@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI News Digest — 2026-07-13</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --model: #1d4ed8;
+    --research: #6d28d9;
+    --business: #065f46;
+    --policy: #92400e;
+    --tools: #0e7490;
+    --bg: #f8fafc;
+    --card-bg: #ffffff;
+    --text: #1e293b;
+    --text-muted: #64748b;
+    --border: #e2e8f0;
+  }
+  body {
+    font-family: 'Noto Sans JP', 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  header {
+    background: #0f172a;
+    color: #fff;
+    padding: 2rem 1.5rem;
+  }
+  .header-inner {
+    max-width: 1440px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .header-title {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+  .header-title span { color: #60a5fa; }
+  .header-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.2rem;
+  }
+  .header-date {
+    font-size: 0.95rem;
+    color: #94a3b8;
+    font-family: 'Inter', sans-serif;
+  }
+  .header-count {
+    background: #1d4ed8;
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.2rem 0.7rem;
+    border-radius: 999px;
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* CATEGORY BAR */
+  .cat-bar {
+    background: #1e293b;
+    padding: 0.75rem 1.5rem;
+    overflow-x: auto;
+  }
+  .cat-bar-inner {
+    max-width: 1440px;
+    margin: 0 auto;
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+  .cat-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.3rem 0.9rem;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    color: #fff;
+    letter-spacing: 0.03em;
+    white-space: nowrap;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .cat-pill:hover {
+    opacity: 0.85;
+    transform: translateY(-2px);
+  }
+  .cat-pill.model    { background: var(--model); }
+  .cat-pill.research { background: var(--research); }
+  .cat-pill.business { background: var(--business); }
+  .cat-pill.policy   { background: var(--policy); }
+  .cat-pill.tools    { background: var(--tools); }
+
+  /* MAIN */
+  main {
+    max-width: 1440px;
+    margin: 2rem auto;
+    padding: 0 1.5rem;
+  }
+  .section-label {
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* GRID */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+    margin-bottom: 2.5rem;
+  }
+  @media (max-width: 900px) {
+    .grid { grid-template-columns: 1fr; }
+ %}
+
+  /* CARD */
+  .card {
+    background: var(--card-bg);
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    padding: 1.25rem 1.4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    transition: box-shadow 0.2s, transform 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .card:hover {
+    box-shadow: 0 8px 24px rgba(0,0,0,0.09);
+    transform: translateY(-2px);
+  }
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+  }
+  .card.model::before    { background: var(--model); }
+  .card.research::before { background: var(--research); }
+  .card.business::before { background: var(--business); }
+  .card.policy::before   { background: var(--policy); }
+  .card.tools::before    { background: var(--tools); }
+
+  .card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+  .card-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    padding: 0.18rem 0.6rem;
+    border-radius: 4px;
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+  }
+  .card-label.model    { background: var(--model); }
+  .card-label.research { background: var(--research); }
+  .card-label.business { background: var(--business); }
+  .card-label.policy   { background: var(--policy); }
+  .card-label.tools    { background: var(--tools); }
+
+  .stars {
+    display: flex;
+    gap: 2px;
+  }
+  .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: #cbd5e1;
+  }
+  .dot.filled { background: #f59e0b; }
+
+  .card-title-ja {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.45;
+  }
+  .card-title-en {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    font-family: 'Inter', sans-serif;
+    font-style: italic;
+    line-height: 1.4;
+  }
+  .card-source {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .card-source::before {
+    content: '';
+    display: inline-block;
+    width: 4px; height: 4px;
+    background: #94a3b8;
+    border-radius: 50%;
+  }
+  .card-body {
+    font-size: 0.88rem;
+    color: #334155;
+    line-height: 1.7;
+  }
+  .card-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    text-decoration: none;
+    margin-top: auto;
+  }
+  .card-link.model    { color: var(--model); }
+  .card-link.research { color: var(--research); }
+  .card-link.business { color: var(--business); }
+  .card-link.policy   { color: var(--policy); }
+  .card-link.tools    { color: var(--tools); }
+  .card-link:hover { text-decoration: underline; }
+
+  /* FOOTER */
+  footer {
+    background: #1e293b;
+    color: #94a3b8;
+    text-align: center;
+    padding: 1.5rem;
+    font-size: 0.8rem;
+    font-family: 'Inter', sans-serif;
+  }
+  footer strong { color: #e2e8f0; }
+
+  @media (max-width: 640px) {
+    header { padding: 1.25rem 1rem; }
+    main { padding: 0 0.85rem; margin: 1.25rem auto; }
+    .cat-bar { padding: 0.6rem 0.85rem; }
+    .card { padding: 1rem 1.1rem; }
+    .header-title { font-size: 1.25rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="header-title">📰 AI <span>News Digest</span></div>
+    <div class="header-meta">
+      <div class="header-date">2026年07月13日（月）</div>
+      <div class="header-count">16 articles</div>
+    </div>
+  </div>
+</header>
+
+<div class="cat-bar">
+  <div class="cat-bar-inner">
+    <button class="cat-pill model" onclick="document.getElementById('section-model').scrollIntoView({behavior: 'smooth'});">● モデル (5)</button>
+    <button class="cat-pill research" onclick="document.getElementById('section-research').scrollIntoView({behavior: 'smooth'});">● 研究 (10)</button>
+    <button class="cat-pill policy" onclick="document.getElementById('section-policy').scrollIntoView({behavior: 'smooth'});">● ポリシー (1)</button>
+  </div>
+</div>
+
+<main>
+
+  <!-- モデル -->
+  <div class="section-label" id="section-model">モデル</div>
+  <div class="grid">
+
+    <article class="card model">
+      <div class="card-top">
+        <span class="card-label model">モデル</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+        </div>
+      </div>
+      <div class="card-title-ja">おっと</div>
+      <div class="card-title-en">whoa</div>
+      <div class="card-source">X / @sama · Sat, 11 Ju</div>
+      <div class="card-body">おっと
+
+
+ティボ (@thsottiaux)
+
+過去 2 週間の合計よりも 1 日で成長した場合、それが良いモデルであることがわかります。
+
+chatgpt.com/download/ からデスクトップ アプリをインストールして、試してみてください。
+
+
+
+
+
+— https://nitter.net/thsottiaux/status/2076021263945039876#m</div>
+      <a class="card-link model" href="https://x.com/sama/status/2076034163418014199" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link model" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Fx.com%2Fsama%2Fstatus%2F2076034163418014199" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card model">
+      <div class="card-top">
+        <span class="card-label model">モデル</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Muse Spark 1.1 は、新しい挑戦的な有限モデル理論 / 理論的 Cs 評価において、Opus、grok 4.5、および Gemini よりも優れたパフォーマンスを発揮します</div>
+      <div class="card-title-en">muse spark 1.1 outperforms opus, grok 4.5, and gemini on a new challenging finite model theory / theoretical cs eval</div>
+      <div class="card-source">X / @alexandr_wang · Sun, 12 Ju</div>
+      <div class="card-body">Muse Spark 1.1 は、新しい挑戦的な有限モデル理論 / 理論的 Cs 評価において、Opus、grok 4.5、および Gemini よりも優れたパフォーマンスを発揮します
+
+
+セラフィム・バツォグルー (@s_batzoglou)
+
+新しいモデル (Sol、Terra、Luna、Fable 5、Meta Muse Spark 1.1、Grok 4.5) を帰納推論タスクでベンチマークしました。 
+
+これは昨日更新された表で、私のベンチマークは ICML '26 のスポットライトとして説明されています。
+
+表の見方:
+
+の</div>
+      <a class="card-link model" href="https://x.com/alexandr_wang/status/2076348827641037289" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link model" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Fx.com%2Falexandr_wang%2Fstatus%2F2076348827641037289" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card model">
+      <div class="card-top">
+        <span class="card-label model">モデル</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Muse Spark はパーティクル プレイグラウンドのニーズをすべて満たします</div>
+      <div class="card-title-en">muse spark can serve all your particle playground needs</div>
+      <div class="card-source">X / @alexandr_wang · Sat, 11 Ju</div>
+      <div class="card-body">Muse Spark はパーティクル プレイグラウンドのニーズをすべて満たします
+
+
+プルケット (@justpulket)
+
+ChatGPT Sol Medium、Claude Opus 4.8、および Meta Muse Spark 1.1 に対してまったく同じプロンプトを表示しました。
+
+正直に言うと、Meta Muse Spark 1.1 が一番驚きました。出力は洗練され、インタラクティブで、他の出力と非常に同等でありながら、コストは大幅に低くなりました 🔥
+
+ビデオ
+  
+
+
+
+
+
+— https://nitter.net/justpulket/status/207582693417</div>
+      <a class="card-link model" href="https://x.com/alexandr_wang/status/2076040063306072398" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link model" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Fx.com%2Falexandr_wang%2Fstatus%2F2076040063306072398" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card model">
+      <div class="card-top">
+        <span class="card-label model">モデル</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+        </div>
+      </div>
+      <div class="card-title-ja">素晴らしいモデルは非常に高品質で厳選されたデータで構築されているということを理解していない人がいかに多いかは私には驚きですが、このデータを作成/取得する新しい方法を見つけることは大きな利点です</div>
+      <div class="card-title-en">it’s surprising to me how many people seem to not understand that great models are built with super high quality curated data finding novel ways to create / get this data is a huge edge</div>
+      <div class="card-source">X / @OfficialLoganK · Sun, 12 Ju</div>
+      <div class="card-body">素晴らしいモデルは超高品質で厳選されたデータから構築されるということを理解していない人がいかに多いかに私は驚いています。
+
+このデータを作成/取得する新しい方法を見つけることは大きな利点です</div>
+      <a class="card-link model" href="https://x.com/OfficialLoganK/status/2076393038843375810" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link model" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Fx.com%2FOfficialLoganK%2Fstatus%2F2076393038843375810" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card model">
+      <div class="card-top">
+        <span class="card-label model">モデル</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Claude Code は、プロンプトを読む前に 33,000 個のトークンを送信します。 OpenCode が 7k を送信</div>
+      <div class="card-title-en">Claude Code sends 33k tokens before reading the prompt; OpenCode sends 7k</div>
+      <div class="card-source">Hacker News · 2026-07-12</div>
+      <div class="card-body">Hacker Newsで324ポイント獲得。コミュニティで注目を集めている話題。</div>
+      <a class="card-link model" href="https://systima.ai/blog/claude-code-vs-opencode-token-overhead" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link model" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Fsystima.ai%2Fblog%2Fclaude-code-vs-opencode-token-overhead" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+  </div>
+
+  <!-- 研究 -->
+  <div class="section-label" id="section-research">研究</div>
+  <div class="grid">
+
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">科学者の副業？ AI と量子コンピューティングを使用して新しいペプチドを生成する</div>
+      <div class="card-title-en">Scientists’ Side Hustle? Using AI and Quantum Computing to Generate New Peptides</div>
+      <div class="card-source">Wired AI · Sun, 12 Ju</div>
+      <div class="card-body">研究者らは資金と時間を結集して、十分なサービスを受けられない人々を支援し、希少疾患と闘うための医薬品の開発に量子コンピューティングがどのように役立つかを示した。</div>
+      <a class="card-link research" href="https://www.wired.com/story/scientists-using-ai-and-quantum-computing-to-generate-new-peptides/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link research" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Fwww.wired.com%2Fstory%2Fscientists-using-ai-and-quantum-computing-to-generate-new-peptides%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">モアナの背後にある本当の謎: 1,700 年後、なぜポリネシア人は突然東へ航海したのでしょうか?</div>
+      <div class="card-title-en">The real mystery behind Moana: After 1,700 years, why did Polynesians suddenly sail east?</div>
+      <div class="card-source">Ars Technica · Sun, 12 Ju</div>
+      <div class="card-body">新しい気候証拠は、これらの長い航海に背景を追加します。</div>
+      <a class="card-link research" href="https://arstechnica.com/culture/2026/07/the-real-mystery-behind-moana-after-1700-years-why-did-polynesians-suddenly-sail-east/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link research" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Farstechnica.com%2Fculture%2F2026%2F07%2Fthe-real-mystery-behind-moana-after-1700-years-why-did-polynesians-suddenly-sail-east%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+        </div>
+      </div>
+      <div class="card-title-ja">人々が 5.6 sol で構築した興味深いものを見てみたいと思っています。最もクールなものを作った人に、openai アーカイブから特別なギフトを送ります。</div>
+      <div class="card-title-en">i'd love to see interesting things people have built with 5.6 sol. i will send the person who made the coolest thing a special gift from the openai archives.</div>
+      <div class="card-source">X / @sama · Sun, 12 Ju</div>
+      <div class="card-body">人々が 5.6 sol で構築した興味深いものを見てみたいと思っています。
+
+最もクールなものを作った人に、openai アーカイブから特別なギフトを送ります。</div>
+      <a class="card-link research" href="https://x.com/sama/status/2076398253332140410" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link research" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Fx.com%2Fsama%2Fstatus%2F2076398253332140410" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+        </div>
+      </div>
+      <div class="card-title-ja">よし、これは楽しそうだ</div>
+      <div class="card-title-en">okay this looks fun</div>
+      <div class="card-source">X / @alexandr_wang · Sat, 11 Ju</div>
+      <div class="card-body">よし、これは楽しそうだ
+
+
+ビジャンボウエン (@bijanbowen)
+
+Muse Spark 1.1「Street Yeet」ゲーム結果
+
+ビデオ
+  
+
+
+
+
+
+— https://nitter.net/bijanbowen/status/2075983262019715402#m</div>
+      <a class="card-link research" href="https://x.com/alexandr_wang/status/2076038889500807471" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link research" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Fx.com%2Falexandr_wang%2Fstatus%2F2076038889500807471" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+        </div>
+      </div>
+      <div class="card-title-ja">私たちが前進し続けるにつれて進歩の感触を感じることができるのは何という光栄なことでしょう</div>
+      <div class="card-title-en">what a privilege it is to feel the texture of progress as we keep pushing</div>
+      <div class="card-source">X / @OfficialLoganK · Sat, 11 Ju</div>
+      <div class="card-body">私たちが前進し続けるにつれて進歩の感触を感じることができるのは何という光栄なことでしょう</div>
+      <a class="card-link research" href="https://x.com/OfficialLoganK/status/2075732875329339687" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link research" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Fx.com%2FOfficialLoganK%2Fstatus%2F2075732875329339687" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">AIは研究者のキャリアを促進するが、探求されるアイデアの範囲を狭める：研究</div>
+      <div class="card-title-en">AI boosts research careers but narrow the span of ideas explored: study</div>
+      <div class="card-source">Hacker News · 2026-07-12</div>
+      <div class="card-body">Hacker Newsで131ポイント獲得。コミュニティで注目を集めている話題。</div>
+      <a class="card-link research" href="https://spectrum.ieee.org/ai-science-research-flattens-discovery" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link research" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Fspectrum.ieee.org%2Fai-science-research-flattens-discovery" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">連邦規則の下では、大学は卒業生の生活を良くしなければならない、さもなければ財政援助を失うことになる</div>
+      <div class="card-title-en">Under federal rule, colleges must leave grads better off or lose financial aid</div>
+      <div class="card-source">Hacker News · 2026-07-12</div>
+      <div class="card-body">Hacker Newsで187ポイント獲得。コミュニティで注目を集めている話題。</div>
+      <a class="card-link research" href="https://www.npr.org/2026/06/30/nx-s1-5835631/turner-camhi-do-no-harm-college-loans" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link research" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Fwww.npr.org%2F2026%2F06%2F30%2Fnx-s1-5835631%2Fturner-camhi-do-no-harm-college-loans" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+        </div>
+      </div>
+      <div class="card-title-ja">Mesh LLM: iroh 上の分散 AI コンピューティング</div>
+      <div class="card-title-en">Mesh LLM: distributed AI computing on iroh</div>
+      <div class="card-source">Hacker News · 2026-07-11</div>
+      <div class="card-body">Hacker Newsで328ポイント獲得。コミュニティで注目を集めている話題。</div>
+      <a class="card-link research" href="https://www.iroh.computer/blog/mesh-llm" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link research" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Fwww.iroh.computer%2Fblog%2Fmesh-llm" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+        </div>
+      </div>
+      <div class="card-title-ja">私は LLM が大好きですが、誇大宣伝は嫌いです</div>
+      <div class="card-title-en">I love LLMs, I hate hype</div>
+      <div class="card-source">Hacker News · 2026-07-12</div>
+      <div class="card-body">Hacker Newsで232ポイント獲得。コミュニティで注目を集めている話題。</div>
+      <a class="card-link research" href="https://geohot.github.io//blog/jekyll/update/2026/07/12/i-love-llms.html" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link research" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Fgeohot.github.io%2F%2Fblog%2Fjekyll%2Fupdate%2F2026%2F07%2F12%2Fi-love-llms.html" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
+        </div>
+      </div>
+      <div class="card-title-ja">LLMに頼むように言うのはやめてください</div>
+      <div class="card-title-en">Stop Telling Me to Ask an LLM</div>
+      <div class="card-source">Hacker News · 2026-07-11</div>
+      <div class="card-body">Hacker Newsで191ポイント獲得。コミュニティで注目を集めている話題。</div>
+      <a class="card-link research" href="https://blog.yaelwrites.com/stop-telling-me-to-ask-an-llm/" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link research" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Fblog.yaelwrites.com%2Fstop-telling-me-to-ask-an-llm%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+  </div>
+
+  <!-- ポリシー -->
+  <div class="section-label" id="section-policy">ポリシー</div>
+  <div class="grid">
+
+    <article class="card policy">
+      <div class="card-top">
+        <span class="card-label policy">ポリシー</span>
+        <div class="stars">
+          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+        </div>
+      </div>
+      <div class="card-title-ja">少なくともこれまでのところ、AI が正味の雇用を創出していると私は確信しています。これは私が期待していたものではありませんでした。私は他の人よりもはるかに悲観的ではありませんでしたが、このレベルの能力であれば、ある程度の結果は得られるだろうと思っていました。</div>
+      <div class="card-title-en">so far at least, i'm pretty sure AI has been net job-creating. this was not what i expected--although i was much less pessimistic than others, i thought by this level of capability we'd have seen some</div>
+      <div class="card-source">X / @sama · Sat, 11 Ju</div>
+      <div class="card-body">少なくともこれまでのところ、AI が正味の雇用を創出していると私は確信しています。
+
+これは私が予想していたものではありませんでした。私は他の人よりもはるかに悲観的ではありませんでしたが、このレベルの能力であれば、ある程度の影響は見られるだろうと考えていました。
+
+この方向性が今後も続く可能性があります。</div>
+      <a class="card-link policy" href="https://x.com/sama/status/2076036901824532530" target="_blank" rel="noopener">元記事 →</a>
+      <a class="card-link policy" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Fx.com%2Fsama%2Fstatus%2F2076036901824532530" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
+    </article>
+
+  </div>
+
+
+</main>
+
+<footer>
+  <strong>AI News Digest</strong> — 2026年4月13日（月）自動生成 | 12記事収録<br>
+  <span style="font-size:0.72rem; margin-top:0.3rem; display:block;">Model: 2 · Research: 5 · Business: 4 · Policy: 1</span>
+</footer>
+
+</body>
+</html>
