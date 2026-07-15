@@ -1,5 +1,13 @@
 [
   {
+    "date": "2026-07-16",
+    "title": "てらこAIニュースダイジェスト - 2026-07-16",
+    "url": "https://anomalocaress.github.io/ai-news-digest/podcast/ai-news-2026-07-16.mp3",
+    "size": 7907572,
+    "duration": 790,
+    "episode_num": 61
+  },
+  {
     "date": "2026-07-15",
     "title": "てらこAIニュースダイジェスト - 2026-07-15",
     "url": "https://anomalocaress.github.io/ai-news-digest/podcast/ai-news-2026-07-15.mp3",
@@ -470,13 +478,5 @@
     "size": 6113232,
     "duration": 1528,
     "episode_num": 10
-  },
-  {
-    "date": "2026-05-05",
-    "title": "てらこAIニュースダイジェスト - 2026-05-05",
-    "url": "https://anomalocaress.github.io/ai-news-digest/podcast/ai-news-2026-05-05.mp3",
-    "size": 6319584,
-    "duration": 1579,
-    "episode_num": 9
   }
 ]
