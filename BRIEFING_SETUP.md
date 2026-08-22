@@ -53,6 +53,26 @@
 
 Actions タブ → 「Generate Morning Briefing」→ Run workflow で手動実行できます。
 
+## ローカルの LINE ブリーフィングへの組み込み
+
+Mac ローカルで実装中の LINE 送信版ブリーフィングからは、このスクリプトを
+「Chatwork/Mキャリ情報の取得部品」として呼び出せます（メール送信は行われません）：
+
+```bash
+# LINE メッセージにそのまま使えるプレーンテキスト（LINE上限に合わせ4900字で切り詰め済み）
+CHATWORK_API_TOKEN="xxxx" python3 generate_briefing.py --format text
+
+# 自前のメッセージ組み立てに使う場合は構造化JSON
+CHATWORK_API_TOKEN="xxxx" python3 generate_briefing.py --format json
+```
+
+- どちらも**標準出力にデータだけ**が出ます（ログは標準エラー）ので、
+  そのままパイプ・変数取り込みできます
+- JSON のキー: `date` / `my_name` / `mcareer_room_names` /
+  `mcareer_tasks`・`other_tasks`（`body`, `label`, `urgency` 0=期限切れ 1=今日 2=3日以内 3=それ以降, `room_name`, `assigned_by`）/
+  `mentions`・`recent`（`sender`, `time`, `body`, `room_name`）
+- 取得には Chatwork API トークンが必要です（取得方法は上記手順1）
+
 ## ローカルテスト
 
 ```bash

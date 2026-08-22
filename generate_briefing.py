@@ -235,6 +235,50 @@ def demo_data() -> Dict:
 
 
 # ---------------------------------------------------------------------------
+# テキスト生成（LINE などプレーンテキスト向け）
+# ---------------------------------------------------------------------------
+
+def build_briefing_text(data: Dict, date: datetime) -> str:
+    """LINE メッセージ等にそのまま使えるプレーンテキストを作る。
+
+    ローカルの LINE ブリーフィング実装からは
+    `python generate_briefing.py --format text` の標準出力を取り込む想定。
+    """
+    lines = [f"☀️ 朝のブリーフィング {date.strftime('%-m/%-d')}（{WEEKDAYS_JA[date.weekday()]}）"]
+
+    lines.append("")
+    lines.append(f"🔔 要返信（Mキャリ・自分宛） {len(data['mentions'])}件")
+    for m in data["mentions"]:
+        lines.append(f"・{m['sender']} {m['time']}")
+        lines.append(f"  {truncate(m['body'], 60)}")
+    if not data["mentions"]:
+        lines.append("・なし")
+
+    lines.append("")
+    lines.append(f"🎬 Mキャリのタスク {len(data['mcareer_tasks'])}件")
+    for t in data["mcareer_tasks"]:
+        lines.append(f"・[{t['label']}] {truncate(t['body'], 50)}")
+    if not data["mcareer_tasks"]:
+        lines.append("・なし")
+
+    if data["recent"]:
+        lines.append("")
+        lines.append(f"💬 Mキャリの直近のやりとり {len(data['recent'])}件")
+        for m in data["recent"][:5]:
+            lines.append(f"・{m['sender']}: {truncate(m['body'], 50)}")
+
+    if data["other_tasks"]:
+        lines.append("")
+        lines.append(f"📋 その他のタスク {len(data['other_tasks'])}件")
+        for t in data["other_tasks"]:
+            lines.append(f"・[{t['label']}] {truncate(t['body'], 50)}")
+
+    text = "\n".join(lines)
+    # LINE Messaging API の text メッセージ上限は 5000 文字
+    return text[:4900]
+
+
+# ---------------------------------------------------------------------------
 # HTML 生成
 # ---------------------------------------------------------------------------
 
@@ -412,35 +456,55 @@ def send_briefing_email(briefing_html: str, date: datetime, urgent_count: int) -
 
 def main():
     parser = argparse.ArgumentParser(description="朝のブリーフィング生成")
-    parser.add_argument("--demo", action="store_true", help="サンプルデータでHTMLを生成（API不要）")
+    parser.add_argument("--demo", action="store_true", help="サンプルデータで生成（API不要）")
     parser.add_argument("--no-email", action="store_true", help="メール送信をスキップ")
+    parser.add_argument(
+        "--format", choices=["html", "text", "json"], default="html",
+        help="html: HTML生成＋メール送信（デフォルト） / "
+             "text: LINE向けプレーンテキストを標準出力 / "
+             "json: 収集データをJSONで標準出力（外部のブリーフィング実装への組み込み用）",
+    )
     args = parser.parse_args()
 
     now = datetime.now(JST)
-    print(f"☀️ 朝のブリーフィング生成: {now.strftime('%Y-%m-%d %H:%M')} JST")
+    quiet = args.format in ("text", "json")  # 標準出力をデータで占有するためログは stderr へ
+
+    def log(msg):
+        print(msg, file=sys.stderr if quiet else sys.stdout)
+
+    log(f"☀️ 朝のブリーフィング生成: {now.strftime('%Y-%m-%d %H:%M')} JST")
 
     if args.demo:
         data = demo_data()
     else:
         token = os.getenv("CHATWORK_API_TOKEN")
         if not token:
-            print("❌ CHATWORK_API_TOKEN が設定されていません。BRIEFING_SETUP.md を参照してください。")
+            log("❌ CHATWORK_API_TOKEN が設定されていません。BRIEFING_SETUP.md を参照してください。")
             sys.exit(1)
         client = ChatworkClient(token)
         try:
             data = gather_briefing_data(client, now)
         except requests.RequestException as e:
-            print(f"❌ Chatwork API エラー: {e}")
+            log(f"❌ Chatwork API エラー: {e}")
             sys.exit(1)
 
-    print(f"  Mキャリルーム: {len(data['mcareer_room_names'])}件 / "
-          f"Mキャリタスク: {len(data['mcareer_tasks'])}件 / "
-          f"その他タスク: {len(data['other_tasks'])}件 / "
-          f"要返信: {len(data['mentions'])}件")
+    log(f"  Mキャリルーム: {len(data['mcareer_room_names'])}件 / "
+        f"Mキャリタスク: {len(data['mcareer_tasks'])}件 / "
+        f"その他タスク: {len(data['other_tasks'])}件 / "
+        f"要返信: {len(data['mentions'])}件")
+
+    if args.format == "json":
+        import json
+        print(json.dumps({"date": now.strftime("%Y-%m-%d"), **data}, ensure_ascii=False, indent=2))
+        return
+
+    if args.format == "text":
+        print(build_briefing_text(data, now))
+        return
 
     briefing_html = build_briefing_html(data, now)
     path = save_briefing_html(briefing_html, now)
-    print(f"✓ Briefing saved: {path.name}")
+    log(f"✓ Briefing saved: {path.name}")
 
     if not args.no_email:
         # 「要対応」= 期限切れ・今日までのタスク + 自分宛メンション
