@@ -5,10 +5,6 @@ on:
     # 毎日 UTC 21:15 (JST 6:15 AM) に実行（ニュースダイジェストの直後）
     - cron: '15 21 * * *'
   workflow_dispatch:
-  # 一時的な動作確認用トリガー（main マージ前に削除する）
-  push:
-    branches:
-      - claude/mcareer-briefing-chatwork-h4yh3y
 
 jobs:
   briefing:
