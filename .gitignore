@@ -9,6 +9,9 @@
 # メールドラフト
 .email-draft-*.html
 
+# 朝のブリーフィング（業務内容を含むためコミットしない）
+.briefing-*.html
+
 # Python キャッシュ
 __pycache__/
 *.pyc
