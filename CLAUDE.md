@@ -14,6 +14,16 @@
 - `remotion/` — Remotionによる動画生成 (Node.js/React。詳細は `remotion/README.md`)
 - `.github/workflows/generate-news.yml` — 毎日 UTC 21:00 (JST 朝6:00) に自動実行
 
+## このフォルダ（ローカル環境）についての注意
+
+**ローカルのフォルダ名は `~/teraco-labo-website` だが、ホームページではない。**
+GitHubの接続先は `teraco-labo/ai-news-digest`、中身は日々のAIニュースHTMLと生成スクリプト。
+
+- ホームページの正規リポジトリは `~/Documents/GitHub/teraco-labo-website-v2`
+- **このローカルフォルダの名前は変更しないこと。** 自動処理（launchd / GitHub Actions）がこのパスを見ている
+- AIニュース以外の案件は、**すべて `~/Documents/GitHub/<プロジェクト名>/` に新しくフォルダを作って**そちらで作業すること。過去にここへ紛れ込んだ別案件（顧客管理・FINSスケジューラー・LINE配信・スマホ講座スライド）は 2026-08-18 に `~/Documents/GitHub/` へ救出済み。ここに残っているのは元データ
+- `pwa-reserve/` `customer-tool/` `teraco-voice-v2/` も本来ここの住人ではない
+
 ## 注意点
 
 - 日付は必ずJST基準で判定する (GitHub ActionsはUTCで動くため。`generate_news.py` 冒頭参照)
