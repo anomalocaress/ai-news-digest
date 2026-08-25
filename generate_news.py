@@ -31,6 +31,8 @@ try:
     import monetize
     import seo_builder
     import social_kit
+    import curate
+    import digest_page
     MONETIZE_AVAILABLE = True
     SITE_URL = monetize.site_url()
     PODCAST_URL = monetize.podcast_url()
@@ -426,121 +428,20 @@ def categorize_articles(articles: List[Dict]) -> Dict[str, List[Dict]]:
     return result
 
 
-def generate_html(articles_by_category: Dict[str, List[Dict]], target_date: datetime) -> str:
-    """Generate HTML from articles (dict keyed by category)."""
+def generate_html(articles_by_category: Dict[str, List[Dict]], target_date: datetime,
+                  overview: Optional[List[str]] = None,
+                  podcast_available: bool = False) -> str:
+    """ダイジェストHTMLを生成する。
 
-    # Count articles per category
-    category_counts = {cat: len(articles_by_category.get(cat, [])) for cat in CATEGORIES}
-
-    # Filter out empty categories
-    active_categories = {
-        k: v for k, v in articles_by_category.items() if v
-    }
-
-    # Prepare template variables
-    total_count = sum(category_counts.values())
-    weekday = WEEKDAYS_JA[target_date.weekday()]
-    date_str = target_date.strftime("%Y年%m月%d日")
-    date_iso = target_date.strftime("%Y-%m-%d")
-
-    # Read template HTML
-    template_path = REPO_DIR / "ai-news-2026-04-13.html"
-    with open(template_path, "r", encoding="utf-8") as f:
-        template_content = f.read()
-
-    # Simple template substitution (not using Jinja2 for full file)
-    # We'll inject articles into the template by replacing placeholders
-
-    # Build articles HTML
-    articles_html = ""
-
-    for category in CATEGORIES:
-        if not active_categories.get(category):
-            continue
-
-        cat_articles = active_categories[category]
-        cat_display = CATEGORIES_JA.get(category, category.upper())
-
-        articles_html += f'  <!-- {cat_display} -->\n'
-        articles_html += f'  <div class="section-label" id="section-{category}">{cat_display}</div>\n'
-        articles_html += f'  <div class="grid">\n\n'
-
-        for article in cat_articles:
-            importance = article.get("importance", 2)
-            stars_html = ""
-            for i in range(3):
-                filled = "filled" if i < importance else ""
-                stars_html += f'<div class="dot {filled}"></div>'
-
-            articles_html += f'''    <article class="card {category}">
-      <div class="card-top">
-        <span class="card-label {category}">{CATEGORIES_JA.get(category, category.upper())}</span>
-        <div class="stars">
-          {stars_html}
-        </div>
-      </div>
-      <div class="card-title-ja">{article.get('title_ja', '')}</div>
-      <div class="card-title-en">{article.get('title_en', '')}</div>
-      <div class="card-source">{article.get('source', 'Unknown')} · {article.get('date', date_iso)}</div>
-      <div class="card-body">{article.get('summary', '')}</div>
-      <a class="card-link {category}" href="{article.get('url', '#')}" target="_blank" rel="noopener">元記事 →</a>
-      <a class="card-link {category}" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u={requests.utils.quote(article.get('url',''), safe='')}" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
-    </article>
-
-'''
-
-        articles_html += f'  </div>\n\n'
-
-    # Build category bar
-    cat_bar_html = ""
-    for category in CATEGORIES:
-        if category_counts[category] > 0:
-            cat_display = CATEGORIES_JA.get(category, category.upper())
-            cat_bar_html += f'    <button class="cat-pill {category}" onclick="document.getElementById(\'section-{category}\').scrollIntoView({{behavior: \'smooth\'}});">● {cat_display} ({category_counts[category]})</button>\n'
-
-    # Replace placeholders in template
-    html_output = template_content
-
-    # Replace header date
-    html_output = html_output.replace(
-        '<div class="header-date">2026年4月13日（月）</div>',
-        f'<div class="header-date">{date_str}（{weekday}）</div>',
+    旧実装は過去の HTML を読み込んで文字列置換していたが、構造が固定され
+    記事が何件あっても同じグリッドに敷き詰められる作りだった。
+    描画は digest_page.py に移し、重要度順・要点先出しのレイアウトにしている。
+    """
+    import digest_page
+    return digest_page.render(
+        articles_by_category, target_date,
+        overview=overview, podcast_available=podcast_available,
     )
-
-    # Replace article count
-    html_output = html_output.replace(
-        '<div class="header-count">12 articles</div>',
-        f'<div class="header-count">{total_count} articles</div>',
-    )
-
-    # Replace title in <title> tag
-    html_output = html_output.replace(
-        '<title>AI News Digest — 2026.04.13</title>',
-        f'<title>AI News Digest — {date_iso}</title>',
-    )
-
-    # Replace category bar
-    start_marker = '  <div class="cat-bar-inner">\n'
-    end_marker = '  </div>\n</div>\n\n<main>'
-
-    start_idx = html_output.find(start_marker)
-    end_idx = html_output.find(end_marker)
-
-    if start_idx >= 0 and end_idx >= 0:
-        before = html_output[:start_idx + len(start_marker)]
-        after = html_output[end_idx:]
-        html_output = before + cat_bar_html + after
-
-    # Replace main content (articles)
-    main_start = html_output.find('<main>\n\n  <!-- ')
-    footer_start = html_output.find('\n</main>\n\n<footer>')
-
-    if main_start >= 0 and footer_start >= 0:
-        before = html_output[:main_start + 6]  # len('<main>')
-        after = html_output[footer_start:]
-        html_output = before + "\n\n" + articles_html + after
-
-    return html_output
 
 
 def save_html(html_content: str, date: datetime) -> Path:
@@ -869,32 +770,28 @@ def main():
         print("❌ No articles fetched. Exiting.")
         return
 
-    # Step 2: Categorize by keywords
-    print("\n2️⃣  Categorizing articles...")
-    categorized = categorize_articles(articles)
+    # Step 2: 掲載する記事を選び、日本語で書き直す（Claude）
+    print("\n2️⃣  Curating articles...")
+    overview: List[str] = []
+    categorized = None
+    if MONETIZE_AVAILABLE:
+        curated = curate.curate(articles)
+        if curated:
+            categorized = curated["categorized"]
+            overview = curated["overview"]
+
+    if categorized is None:
+        # キュレーションが使えない場合は従来のキーワード分類にフォールバックする
+        print("   キーワード分類にフォールバックします")
+        categorized = categorize_articles(articles)
 
     total = sum(len(v) for v in categorized.values())
     if total == 0:
         print("❌ No articles successfully categorized. Exiting.")
         return
 
-    # Step 3: Generate HTML
-    print("\n3️⃣  Generating HTML...")
-    html_content = generate_html(categorized, target_date)
-
-    # SEOメタ（OGP/canonical/JSON-LD）とアフィリエイト枠を後付けで注入する。
-    # 案件URLが未設定なら何も差し込まれないため、設定前でも安全に動く。
-    if MONETIZE_AVAILABLE:
-        try:
-            html_content = monetize.apply_to_digest(html_content, categorized, target_date)
-        except Exception as e:
-            print(f"⚠️  収益化レイヤーの注入をスキップしました: {e}")
-
-    # Step 4: Save HTML
-    output_file = save_html(html_content, target_date)
-
-    # Step 5: Generate podcast (edge-tts, free)
-    print("\n4️⃣  Generating podcast...")
+    # Step 3: Generate podcast (edge-tts, free)
+    print("\n3️⃣  Generating podcast...")
     podcast_ok = False
     try:
         from generate_podcast_dialogue import generate_podcast
@@ -911,13 +808,28 @@ def main():
 
     print(f"   ポッドキャスト: {'✓ 生成成功' if podcast_ok else '✗ 生成失敗（メールではリンクを省略）'}")
 
-    # Step 6: Build email HTML（送信はpush後）
+    # Step 4: HTMLを組み立てて保存（音声の有無が確定してから描画する）
+    print("\n4️⃣  Generating HTML...")
+    html_content = generate_html(categorized, target_date,
+                                 overview=overview, podcast_available=podcast_ok)
+
+    # SEOメタ（OGP/canonical/JSON-LD）とアフィリエイト枠を後付けで注入する。
+    # 案件URLが未設定なら何も差し込まれないため、設定前でも安全に動く。
+    if MONETIZE_AVAILABLE:
+        try:
+            html_content = monetize.apply_to_digest(html_content, categorized, target_date)
+        except Exception as e:
+            print(f"⚠️  収益化レイヤーの注入をスキップしました: {e}")
+
+    output_file = save_html(html_content, target_date)
+
+    # Step 5: Build email HTML（送信はpush後）
     print("\n5️⃣  Building email HTML...")
     email_html = build_email_html(categorized, target_date, podcast_available=podcast_ok)
     email_file = save_email_html(email_html, target_date)
     print(f"✓ Email draft saved: {email_file.name}")
 
-    # Step 7: サイト全体を再構築（トップ / アーカイブ / 解説記事 / sitemap / RSS）
+    # Step 6: サイト全体を再構築（トップ / アーカイブ / 解説記事 / sitemap / RSS）
     print("\n6️⃣  Building site (index / archive / articles / sitemap / feed)...")
     if MONETIZE_AVAILABLE:
         try:
@@ -935,7 +847,7 @@ def main():
         except Exception as e:
             print(f"⚠️  SNS投稿キットの生成をスキップしました: {e}")
 
-    # Step 8: Commit and push（メール送信より先に実行）
+    # Step 7: Commit and push（メール送信より先に実行）
     pushed = False
     if os.getenv("GITHUB_TOKEN"):
         print("\n7️⃣  Committing and pushing...")
@@ -944,7 +856,7 @@ def main():
     else:
         print("\n⚠️  GITHUB_TOKEN not set. Skipping git operations.")
 
-    # Step 9: メール送信（push 後、GitHub Pages デプロイ待機してから送信）
+    # Step 8: メール送信（push 後、GitHub Pages デプロイ待機してから送信）
     print("\n8️⃣  Sending email...")
     if pushed:
         # GitHub Pages のデプロイ完了を待つ（通常 1〜2 分）

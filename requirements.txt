@@ -4,3 +4,4 @@ edge-tts>=6.1.9
 google-genai>=1.0.0
 pydub>=0.25.1
 markdown>=3.5
+anthropic>=1.0.0

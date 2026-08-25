@@ -12,10 +12,28 @@ JPY_PER_USD = 150
 # API Pricing (as of 2026)
 PRICING = {
     "anthropic": {
+        "claude-opus-5": {
+            "input_per_mtok": 5.00,
+            "output_per_mtok": 25.00,
+            "display_name": "Claude Opus 5",
+            "color": "#EC4899"
+        },
+        "claude-sonnet-5": {
+            "input_per_mtok": 2.00,
+            "output_per_mtok": 10.00,
+            "display_name": "Claude Sonnet 5",
+            "color": "#06B6D4"
+        },
+        "claude-haiku-4-5": {
+            "input_per_mtok": 1.00,
+            "output_per_mtok": 5.00,
+            "display_name": "Claude Haiku 4.5",
+            "color": "#8B5CF6"
+        },
         "claude-haiku-4-5-20251001": {
-            "input_per_mtok": 0.80,  # $0.80 per million input tokens
-            "output_per_mtok": 4.00,  # $4 per million output tokens
-            "display_name": "Claude Haiku",
+            "input_per_mtok": 1.00,
+            "output_per_mtok": 5.00,
+            "display_name": "Claude Haiku 4.5",
             "color": "#8B5CF6"
         },
         "claude-3-5-sonnet-20241022": {
