@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI最新ニュースまとめ 2026年8月25日 | てらこAIニュースダイジェスト</title>
+<title>AI最新ニュースまとめ 2026年8月25日 | 世界一わかりやすいAIニュース</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -122,21 +122,49 @@
     border:1px dashed var(--border); border-radius:8px; font-size:0.8rem; color:var(--text-muted); }
   .subscribe a { color:var(--accent); font-weight:600; text-decoration:none; }
   @media (max-width:640px){ .card{padding:1.15rem 1.2rem} .card.top .card-title-ja{font-size:1.1rem} }
+
+  .t { color:var(--accent); border-bottom:1px dashed currentColor; cursor:help;
+    font-weight:500; }
+  .t:hover, .t:focus-visible { background:rgba(14,116,144,0.10); outline:none; border-radius:2px; }
+  #tip { position:absolute; z-index:60; max-width:min(22rem,88vw); padding:0.85rem 1rem;
+    background:var(--card-bg); border:1px solid var(--border); border-radius:8px;
+    box-shadow:0 8px 28px rgba(15,23,42,0.16); font-size:0.84rem; line-height:1.8;
+    opacity:0; visibility:hidden; transition:opacity .12s; pointer-events:none; }
+  #tip.on { opacity:1; visibility:visible; pointer-events:auto; }
+  #tip .tip-n { font-weight:700; display:block; margin-bottom:0.3rem; }
+  #tip .tip-m { display:inline-block; margin-top:0.5rem; font-size:0.78rem;
+    font-weight:600; color:var(--accent); text-decoration:none; }
+  #sheet { position:fixed; left:0; right:0; bottom:0; z-index:70; padding:1.4rem 1.4rem 2rem;
+    background:var(--card-bg); border-top:1px solid var(--border);
+    border-radius:16px 16px 0 0; box-shadow:0 -8px 32px rgba(15,23,42,0.22);
+    transform:translateY(102%); transition:transform .22s ease; }
+  #sheet.on { transform:translateY(0); }
+  #sheet .sheet-grip { width:36px; height:4px; border-radius:2px; background:var(--border);
+    margin:0 auto 1rem; }
+  #sheet .tip-n { font-size:1.05rem; font-weight:700; display:block; margin-bottom:0.5rem; }
+  #sheet .tip-s { font-size:0.92rem; line-height:1.95; color:var(--text-muted); }
+  #sheet .tip-m { display:block; margin-top:1.1rem; padding:0.75rem; text-align:center;
+    background:var(--accent); color:#fff; border-radius:8px; font-size:0.88rem;
+    font-weight:700; text-decoration:none; }
+  #veil { position:fixed; inset:0; z-index:69; background:rgba(15,23,42,0.35);
+    opacity:0; visibility:hidden; transition:opacity .22s; }
+  #veil.on { opacity:1; visibility:visible; }
+  @media (prefers-reduced-motion:reduce){ #sheet,#veil,#tip{transition:none} }
 </style>
 <!-- monetize.py: SEO / analytics -->
 <meta name="description" content="Hugging Faceが約130億ドルでの買収交渉と報じられ、AI基盤の勢力図が揺れています。">
 <link rel="canonical" href="https://teraco-labo.github.io/ai-news-digest/ai-news-2026-08-25.html">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta property="og:type" content="article">
-<meta property="og:title" content="AI最新ニュースまとめ 2026年8月25日 | てらこAIニュースダイジェスト">
+<meta property="og:title" content="AI最新ニュースまとめ 2026年8月25日 | 世界一わかりやすいAIニュース">
 <meta property="og:description" content="Hugging Faceが約130億ドルでの買収交渉と報じられ、AI基盤の勢力図が揺れています。">
 <meta property="og:url" content="https://teraco-labo.github.io/ai-news-digest/ai-news-2026-08-25.html">
-<meta property="og:site_name" content="てらこAIニュースダイジェスト">
+<meta property="og:site_name" content="世界一わかりやすいAIニュース">
 <meta property="og:locale" content="ja_JP">
 <meta property="og:image" content="https://teraco-labo.github.io/ai-news-digest/podcast/cover.jpg">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="alternate" type="application/rss+xml" title="てらこAIニュースダイジェスト" href="https://teraco-labo.github.io/ai-news-digest/feed.xml">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "NewsArticle", "headline": "AI最新ニュースまとめ 2026年8月25日 | てらこAIニュースダイジェスト", "description": "Hugging Faceが約130億ドルでの買収交渉と報じられ、AI基盤の勢力図が揺れています。", "url": "https://teraco-labo.github.io/ai-news-digest/ai-news-2026-08-25.html", "inLanguage": "ja", "author": {"@type": "Person", "name": "てらこ先生"}, "publisher": {"@type": "Organization", "name": "てらこAIニュースダイジェスト"}, "datePublished": "2026-08-25T06:00:00+09:00", "dateModified": "2026-08-25T06:00:00+09:00"}</script>
+<link rel="alternate" type="application/rss+xml" title="世界一わかりやすいAIニュース" href="https://teraco-labo.github.io/ai-news-digest/feed.xml">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "NewsArticle", "headline": "AI最新ニュースまとめ 2026年8月25日 | 世界一わかりやすいAIニュース", "description": "Hugging Faceが約130億ドルでの買収交渉と報じられ、AI基盤の勢力図が揺れています。", "url": "https://teraco-labo.github.io/ai-news-digest/ai-news-2026-08-25.html", "inLanguage": "ja", "author": {"@type": "Person", "name": "てらこ先生"}, "publisher": {"@type": "Organization", "name": "世界一わかりやすいAIニュース"}, "datePublished": "2026-08-25T06:00:00+09:00", "dateModified": "2026-08-25T06:00:00+09:00"}</script>
 
 <style id="mz-style">
   .mz-disclosure { max-width: 1100px; margin: 0 auto 1rem; padding: 0.5rem 0.75rem;
@@ -174,15 +202,15 @@
 <link rel="canonical" href="https://teraco-labo.github.io/ai-news-digest/ai-news-2026-08-25.html">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta property="og:type" content="article">
-<meta property="og:title" content="AI最新ニュースまとめ 2026年08月25日 | てらこAIニュースダイジェスト">
+<meta property="og:title" content="AI最新ニュースまとめ 2026年08月25日 | 世界一わかりやすいAIニュース">
 <meta property="og:description" content="2026年08月25日のAI関連ニュース12件を日本語で要約。モデル・研究・ビジネス・ポリシー・ツールの5カテゴリで重要ニュースだけを厳選しています。">
 <meta property="og:url" content="https://teraco-labo.github.io/ai-news-digest/ai-news-2026-08-25.html">
-<meta property="og:site_name" content="てらこAIニュースダイジェスト">
+<meta property="og:site_name" content="世界一わかりやすいAIニュース">
 <meta property="og:locale" content="ja_JP">
 <meta property="og:image" content="https://teraco-labo.github.io/ai-news-digest/podcast/cover.jpg">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="alternate" type="application/rss+xml" title="てらこAIニュースダイジェスト" href="https://teraco-labo.github.io/ai-news-digest/feed.xml">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "NewsArticle", "headline": "AI最新ニュースまとめ 2026年08月25日 | てらこAIニュースダイジェスト", "description": "2026年08月25日のAI関連ニュース12件を日本語で要約。モデル・研究・ビジネス・ポリシー・ツールの5カテゴリで重要ニュースだけを厳選しています。", "url": "https://teraco-labo.github.io/ai-news-digest/ai-news-2026-08-25.html", "inLanguage": "ja", "author": {"@type": "Person", "name": "てらこ先生"}, "publisher": {"@type": "Organization", "name": "てらこAIニュースダイジェスト"}, "datePublished": "2026-08-25T06:00:00+09:00", "dateModified": "2026-08-25T06:00:00+09:00"}</script>
+<link rel="alternate" type="application/rss+xml" title="世界一わかりやすいAIニュース" href="https://teraco-labo.github.io/ai-news-digest/feed.xml">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "NewsArticle", "headline": "AI最新ニュースまとめ 2026年08月25日 | 世界一わかりやすいAIニュース", "description": "2026年08月25日のAI関連ニュース12件を日本語で要約。モデル・研究・ビジネス・ポリシー・ツールの5カテゴリで重要ニュースだけを厳選しています。", "url": "https://teraco-labo.github.io/ai-news-digest/ai-news-2026-08-25.html", "inLanguage": "ja", "author": {"@type": "Person", "name": "てらこ先生"}, "publisher": {"@type": "Organization", "name": "世界一わかりやすいAIニュース"}, "datePublished": "2026-08-25T06:00:00+09:00", "dateModified": "2026-08-25T06:00:00+09:00"}</script>
 
 <style id="mz-style">
   .mz-disclosure { max-width: 1100px; margin: 0 auto 1rem; padding: 0.5rem 0.75rem;
@@ -218,12 +246,13 @@
 <body>
 <div class="hero">
   <div class="hero-inner">
-    <div class="crumbs"><a href="./">てらこAIニュースダイジェスト</a></div>
+    <div class="crumbs"><a href="./">世界一わかりやすいAIニュース</a></div>
     <h1>2026年8月25日（火）のAIニュース</h1>
     <p>厳選 12 件。3分で今日のAIがわかります。</p>
     <div class="top-nav">
       <a href="./">トップ</a>
       <a href="articles/">読み物</a>
+      <a href="terms/">AI用語集</a>
       <a href="archive.html">バックナンバー</a><a href="#listen">🎧 音声で聴く</a>
     </div>
   </div>
@@ -260,32 +289,26 @@
         <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div></div>
       </div>
       <div class="card-title-ja">AIの打撃は新卒層に集中、Stanfordが調査</div>
-      <div class="card-title-en">AI is hitting entry-level jobs hardest, Stanford study finds</div>
-      <div class="card-source">Ars Technica · Mon, 24 Au</div>
+      <div class="card-source">Ars Technica</div>
       <div class="card-body">Stanfordの研究チームが、AIの影響を受けやすい職種で若年層の雇用が減少していると報告しました。AIに置き換わりにくい職種と比べ、若手の雇用は19%も落ち込んでいます。全体の雇用者数ではなく、エントリーレベルに偏って影響が出ている点がこの調査の要点です。定型的な下積み業務がAIに吸収されると、若手が経験を積む入口そのものが細ります。採用計画と育成設計を同時に見直す必要があることを示すデータです。</div>
-      <a class="card-link" href="https://arstechnica.com/ai/2026/08/ai-is-hitting-entry-level-jobs-hardest-stanford-study-finds/" target="_blank" rel="noopener">元記事を読む →</a>
     </article>
     <article class="card business top">
       <div class="card-top">
         <span class="card-label business">ビジネス</span>
         <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div></div>
       </div>
-      <div class="card-title-ja">Hugging Face、約130億ドルでの買収交渉と報道</div>
-      <div class="card-title-en">Hugging Face reportedly in talks to be acquired for $13B</div>
-      <div class="card-source">TechCrunch AI · Mon, 24 Au</div>
-      <div class="card-body">オープンソースAIの共有基盤であるHugging Faceが、複数の買収提案を受けていると報じられました。評価額は約130億ドル（約13B）規模とされ、成立すればAI業界でも屈指の大型案件になります。ただし創業陣はコミュニティに対する責任を強く意識しており、実際に売却に至るかは不透明だと見られています。モデルやデータセットの配布拠点が特定企業の傘下に入れば、公開モデルの流通経路そのものが変質しかねません。日本の開発現場もモデル調達をHugging Faceに依存しているだけに、交渉の行方は無視できない論点です。</div>
-      <a class="card-link" href="https://techcrunch.com/2026/08/24/hugging-face-reportedly-in-talks-to-be-acquired-for-13b/" target="_blank" rel="noopener">元記事を読む →</a>
+      <div class="card-title-ja"><span class="t" data-t="hugging-face" tabindex="0" role="button" aria-label="Hugging Faceの説明を見る">Hugging Face</span>、約130億ドルでの買収交渉と報道</div>
+      <div class="card-source">TechCrunch AI</div>
+      <div class="card-body"><span class="t" data-t="open-source" tabindex="0" role="button" aria-label="オープンソースの説明を見る">オープンソース</span>AIの共有基盤であるHugging Faceが、複数の買収提案を受けていると報じられました。<span class="t" data-t="valuation" tabindex="0" role="button" aria-label="評価額の説明を見る">評価額</span>は約130億ドル（約13B）規模とされ、成立すればAI業界でも屈指の大型案件になります。ただし創業陣はコミュニティに対する責任を強く意識しており、実際に売却に至るかは不透明だと見られています。モデルやデータセットの配布拠点が特定企業の傘下に入れば、公開モデルの流通経路そのものが変質しかねません。日本の開発現場もモデル調達をHugging Faceに依存しているだけに、交渉の行方は無視できない論点です。</div>
     </article>
     <article class="card tools top">
       <div class="card-top">
         <span class="card-label tools">ツール</span>
         <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div></div>
       </div>
-      <div class="card-title-ja">OpenAI、GPT-5.6 Solを値下げ 11月21日まで</div>
-      <div class="card-title-en">OpenAI: GPT 5.6 Sol price reduction (until at least Nov 21)</div>
-      <div class="card-source">Hacker News · 2026-08-24</div>
-      <div class="card-body">OpenAIがGPT-5.6 Solの利用価格を引き下げると発表しました。値下げは少なくとも11月21日まで継続されるとされ、期限付きの施策として案内されています。Hacker Newsでは324ポイントを集め、コスト構造の変化として開発者の関心を引きました。推論コストの低下は、これまで採算が合わなかった常時実行型のエージェントやバッチ処理を現実的な選択肢に変えます。既存プロダクトのモデル選定を見直す好機と言えます。</div>
-      <a class="card-link" href="https://developers.openai.com/api/docs/pricing" target="_blank" rel="noopener">元記事を読む →</a>
+      <div class="card-title-ja"><span class="t" data-t="openai" tabindex="0" role="button" aria-label="OpenAIの説明を見る">OpenAI</span>、<span class="t" data-t="gpt" tabindex="0" role="button" aria-label="GPT-5の説明を見る">GPT-5</span>.6 Solを値下げ 11月21日まで</div>
+      <div class="card-source">Hacker News</div>
+      <div class="card-body">OpenAIがGPT-5.6 Solの利用価格を引き下げると発表しました。値下げは少なくとも11月21日まで継続されるとされ、期限付きの施策として案内されています。Hacker Newsでは324ポイントを集め、コスト構造の変化として開発者の関心を引きました。<span class="t" data-t="inference-cost" tabindex="0" role="button" aria-label="推論コストの説明を見る">推論コスト</span>の低下は、これまで採算が合わなかった常時実行型の<span class="t" data-t="ai-agent" tabindex="0" role="button" aria-label="エージェントの説明を見る">エージェント</span>やバッチ処理を現実的な選択肢に変えます。既存プロダクトのモデル選定を見直す好機と言えます。</div>
     </article>
   </div>
   <div class="tier">ジャンル別のニュース（タップで開く）</div>
@@ -298,10 +321,8 @@
         <div class="stars"><div class="dot filled"></div><div class="dot"></div><div class="dot"></div></div>
       </div>
       <div class="card-title-ja">AI依存でコーディング能力は失われるのか</div>
-      <div class="card-title-en">Coding expertise is going to collapse from AI reliance</div>
-      <div class="card-source">Hacker News · 2026-08-24</div>
+      <div class="card-source">Hacker News</div>
       <div class="card-body">AIへの依存によってプログラミングの専門性が崩壊するという主張が、大きな議論を呼んでいます。Hacker Newsでは514ポイントを集め、当日でも上位の話題となりました。論点は、コード生成の効率化そのものではなく、設計判断やデバッグを支える理解が育たなくなることにあります。生成されたコードを読んで検証できる人材が減れば、品質保証の最後の砦が消えます。AI前提の開発体制を組む組織ほど、育成カリキュラムの再設計が課題になります。</div>
-      <a class="card-link" href="https://larsfaye.com/articles/ai-coding-will-prevent-expertise" target="_blank" rel="noopener">元記事を読む →</a>
     </article>
     <article class="card research">
       <div class="card-top">
@@ -309,10 +330,8 @@
         <div class="stars"><div class="dot filled"></div><div class="dot"></div><div class="dot"></div></div>
       </div>
       <div class="card-title-ja">The Download: 子どもはなぜAIより速く学ぶのか</div>
-      <div class="card-title-en">The Download: kids outlearning AI, and space travel agents</div>
-      <div class="card-source">MIT Tech Review · Mon, 24 Au</div>
-      <div class="card-body">MIT Technology Reviewの平日ニュースレターThe Downloadが、子どもの学習効率をめぐる謎を取り上げました。コンピュータに人間の言語を習得させるには、人間離れした量のデータが必要になります。LLMは子どもが触れる言語データの10万倍規模を処理できてしまう一方で、学習効率では子どもに及びません。この差がどこから生まれるのかは、いまだ解明されていません。スケーリング一辺倒とは別の道筋を探るうえで、根本的な問いを投げかけるテーマです。</div>
-      <a class="card-link" href="https://www.technologyreview.com/2026/08/24/1142863/the-download-kids-outlearning-ai-space-travel-agents/" target="_blank" rel="noopener">元記事を読む →</a>
+      <div class="card-source">MIT Tech Review</div>
+      <div class="card-body">MIT Technology Reviewの平日ニュースレターThe Downloadが、子どもの学習効率をめぐる謎を取り上げました。コンピュータに人間の言語を習得させるには、人間離れした量のデータが必要になります。<span class="t" data-t="llm" tabindex="0" role="button" aria-label="LLMの説明を見る">LLM</span>は子どもが触れる言語データの10万倍規模を処理できてしまう一方で、学習効率では子どもに及びません。この差がどこから生まれるのかは、いまだ解明されていません。スケーリング一辺倒とは別の道筋を探るうえで、根本的な問いを投げかけるテーマです。</div>
     </article>
     </div>
   </details>
@@ -325,10 +344,8 @@
         <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
       </div>
       <div class="card-title-ja">General Intuition、60億ドル評価で調達交渉</div>
-      <div class="card-title-en">Valor, Point72 back General Intuition at $6B valuation as AI startup pushes into robotics</div>
-      <div class="card-source">TechCrunch AI · Mon, 24 Au</div>
+      <div class="card-source">TechCrunch AI</div>
       <div class="card-body">汎用AIエージェントに空間と時間の中での動き方を学習させる基盤モデルを開発するGeneral Intuitionが、新規調達の交渉に入りました。プレマネー評価額は60億ドルで、Valor Ventures、Point72 Ventures、Seven Seven Sixが新規投資家として名を連ねています。同社はこの資金でロボティクス領域への展開を進める構えです。言語や画像ではなく「動き」を学習対象に据えた基盤モデルに、これだけの評価額が付いた点が注目されます。フィジカルAIへの資金流入が本格化していることを示す案件です</div>
-      <a class="card-link" href="https://techcrunch.com/2026/08/24/valor-point72-back-general-intuition-at-6b-valuation-as-ai-startup-pushes-into-robotics/" target="_blank" rel="noopener">元記事を読む →</a>
     </article>
     <article class="card business">
       <div class="card-top">
@@ -336,10 +353,8 @@
         <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
       </div>
       <div class="card-title-ja">上海のロボット「カーニバル」に見る中国の本気度</div>
-      <div class="card-title-en">I spent a day at a robot “carnival” in Shanghai. Here’s what I saw.</div>
-      <div class="card-source">MIT Tech Review · Tue, 25 Au</div>
+      <div class="card-source">MIT Tech Review</div>
       <div class="card-body">MIT Technology Reviewの記者が、上海で開かれたヒューマノイドロボットの展示イベントを取材しました。中国ではヒューマノイドが一種のブームとなっており、AIを日常生活に溶け込ませる国家戦略の一部に位置づけられています。AIを物理システムに埋め込むエンボディドAIは、中国の最新の五カ年計画で重点項目とされました。中国企業はすでにヒューマノイド分野で世界の先頭集団にいます。ソフトウェア中心のAI競争が、量産と部品供給の勝負へ移りつつあることを示す現地報告です。</div>
-      <a class="card-link" href="https://www.technologyreview.com/2026/08/25/1141907/dispatch-shanghai-humanoid-robot-carnival/" target="_blank" rel="noopener">元記事を読む →</a>
     </article>
     </div>
   </details>
@@ -351,11 +366,9 @@
         <span class="card-label policy">ポリシー</span>
         <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
       </div>
-      <div class="card-title-ja">NVIDIA幹部、AIサーバー中国密輸に関与で起訴</div>
-      <div class="card-title-en">Nvidia senior manager linked to Supermicro scheme smuggling AI servers to China</div>
-      <div class="card-source">Ars Technica · Mon, 24 Au</div>
-      <div class="card-body">NVIDIAのシニアマネージャーが、Supermicro製AIサーバーを中国へ密輸するスキームに関与したとして起訴されました。この件をめぐっては、CEOのJensen HuangがSupermicroに対してAIサーバーの密輸問題を叱責していた経緯があります。社外の販売網ではなく、規制対象製品を作る当事者側の社員が名指しされた点が深刻です。米国のAI半導体輸出規制が、企業の内部統制の問題として跳ね返ってきた形になります。GPU調達のサプライチェーンを持つ企業にとって、取引先審査の重みが増す事案です。</div>
-      <a class="card-link" href="https://arstechnica.com/tech-policy/2026/08/nvidia-senior-manager-linked-to-supermicro-scheme-smuggling-ai-servers-to-china/" target="_blank" rel="noopener">元記事を読む →</a>
+      <div class="card-title-ja"><span class="t" data-t="nvidia" tabindex="0" role="button" aria-label="NVIDIAの説明を見る">NVIDIA</span>幹部、AIサーバー中国密輸に関与で起訴</div>
+      <div class="card-source">Ars Technica</div>
+      <div class="card-body">NVIDIAのシニアマネージャーが、Supermicro製AIサーバーを中国へ密輸するスキームに関与したとして起訴されました。この件をめぐっては、CEOのJensen HuangがSupermicroに対してAIサーバーの密輸問題を叱責していた経緯があります。社外の販売網ではなく、規制対象製品を作る当事者側の社員が名指しされた点が深刻です。米国のAI半導体輸出規制が、企業の内部統制の問題として跳ね返ってきた形になります。<span class="t" data-t="gpu" tabindex="0" role="button" aria-label="GPUの説明を見る">GPU</span>調達のサプライチェーンを持つ企業にとって、取引先審査の重みが増す事案です。</div>
     </article>
     <article class="card policy">
       <div class="card-top">
@@ -363,21 +376,17 @@
         <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
       </div>
       <div class="card-title-ja">AIアシスタントInstinctに privacy 懸念</div>
-      <div class="card-title-en">Instinct’s powerful AI assistant is raising privacy and security concerns</div>
-      <div class="card-source">TechCrunch AI · Mon, 24 Au</div>
+      <div class="card-source">TechCrunch AI</div>
       <div class="card-body">高性能AIアシスタントのInstinctが、初期テスターから高い評価を得る一方で、プライバシーとセキュリティの懸念を招いています。問題視されているのは、広範なアクセス権限、包括的すぎる利用規約、そしてユーザーに代わって行動する能力の組み合わせです。便利さと引き換えに何を渡しているのかが見えにくい、という指摘が出ています。エージェント型アシスタントは権限を広く取るほど有用になるという構造的な緊張を抱えています。導入を検討する企業は、機能評価と同じ熱量で権限設計を検証すべきです。</div>
-      <a class="card-link" href="https://techcrunch.com/2026/08/24/instincts-powerful-ai-assistant-is-raising-privacy-and-security-concerns/" target="_blank" rel="noopener">元記事を読む →</a>
     </article>
     <article class="card policy">
       <div class="card-top">
         <span class="card-label policy">ポリシー</span>
         <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
       </div>
-      <div class="card-title-ja">推論エンジンの脆弱性でLLMがホストを掌握しうる</div>
-      <div class="card-title-en">LLMs could control their host machines by exploiting inference engines</div>
-      <div class="card-source">Hacker News · 2026-08-24</div>
+      <div class="card-title-ja"><span class="t" data-t="inference" tabindex="0" role="button" aria-label="推論の説明を見る">推論</span>エンジンの脆弱性でLLMがホストを掌握しうる</div>
+      <div class="card-source">Hacker News</div>
       <div class="card-body">LLMが推論エンジンの脆弱性を突いて、自身を動かしているホストマシンを制御しうるという指摘が公開されました。Hacker Newsで145ポイントを集め、AIインフラのセキュリティ議論として注目されています。モデルの出力内容ではなく、モデルを実行する基盤そのものが攻撃面になるという整理が新しい論点です。自社でLLMをホストする構成では、推論サーバーの権限分離やサンドボックス化が現実的な防御策になります。エージェント実行環境を設計している開発者は確認しておきたいテーマです。</div>
-      <a class="card-link" href="https://boydkane.com/essays/llms-could-control-their-host-machines-by-exploiting-inference-engines" target="_blank" rel="noopener">元記事を読む →</a>
     </article>
     <article class="card policy">
       <div class="card-top">
@@ -385,10 +394,8 @@
         <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
       </div>
       <div class="card-title-ja">Spirit Airlines、Googleへのデータ売却に反発</div>
-      <div class="card-title-en">Spirit Airlines Wants to Sell Its Data to Google. Former Flight Attendants Are Freaked Out</div>
-      <div class="card-source">Wired AI · Tue, 25 Au</div>
-      <div class="card-body">Spirit Airlinesが保有データをGoogleへ販売しようとしていることに、元客室乗務員から強い懸念が示されています。「AIのために私たちの個人データを売るほど大胆だとは思わなかった」という当事者の声が報じられました。焦点は乗客データだけでなく、従業員自身のデータが取引対象に含まれる点にあります。AI学習データの需要が高まるほど、企業が抱えるあらゆるデータに値段が付く構図が強まります。従業員データの二次利用について、雇用契約と同意の範囲が問われる事例です。</div>
-      <a class="card-link" href="https://www.wired.com/story/spirit-airlines-wants-to-sell-its-data-to-google-former-flight-attendants-are-freaked-out/" target="_blank" rel="noopener">元記事を読む →</a>
+      <div class="card-source">Wired AI</div>
+      <div class="card-body">Spirit Airlinesが保有データをGoogleへ販売しようとしていることに、元客室乗務員から強い懸念が示されています。「AIのために私たちの個人データを売るほど大胆だとは思わなかった」という当事者の声が報じられました。焦点は乗客データだけでなく、従業員自身のデータが取引対象に含まれる点にあります。AI<span class="t" data-t="training-data" tabindex="0" role="button" aria-label="学習データの説明を見る">学習データ</span>の需要が高まるほど、企業が抱えるあらゆるデータに値段が付く構図が強まります。従業員データの二次利用について、雇用契約と同意の範囲が問われる事例です。</div>
     </article>
     </div>
   </details>
@@ -401,10 +408,8 @@
         <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
       </div>
       <div class="card-title-ja">OpenAI、AIエージェントの大衆化に本腰</div>
-      <div class="card-title-en">OpenAI is building AI agents for everything. Will everyone use them?</div>
-      <div class="card-source">TechCrunch AI · Mon, 24 Au</div>
+      <div class="card-source">TechCrunch AI</div>
       <div class="card-body">OpenAIが、あらゆる用途に向けたAIエージェントの構築を進めています。これまで主な顧客だったソフトウェアエンジニア層を超えて、一般ユーザーにエージェントを届けることが狙いです。ただし、専門職以外のユーザーが日常的にエージェントへ仕事を委ねるかどうかは依然として未知数です。エージェントが普及すれば、アプリを開いて操作するという利用形態そのものが変わります。プロダクト側は「操作されるUI」から「委任される窓口」への転換を迫られます。</div>
-      <a class="card-link" href="https://techcrunch.com/2026/08/24/openai-is-building-an-ai-agent-for-everything-will-everyone-use-them/" target="_blank" rel="noopener">元記事を読む →</a>
     </article>
     </div>
   </details>
@@ -419,9 +424,88 @@
 </main>
 
 <footer>
-  <strong>てらこAIニュースダイジェスト</strong> — 2026年8月25日（火）／ 12 件収録<br>
+  <strong>世界一わかりやすいAIニュース</strong> — 2026年8月25日（火）／ 12 件収録<br>
   毎朝6時に自動生成しています。
-  <div class="footer-links"><a href="">トップ</a> ／ <a href="articles/">読み物</a> ／ <a href="archive.html">バックナンバー</a> ／ <a href="about.html">運営者情報・免責事項</a> ／ <a href="https://teraco-labo.com">TERACO.LABO</a></div>
+  <div class="footer-links"><a href="">トップ</a> ／ <a href="terms/">AI用語集</a> ／ <a href="articles/">読み物</a> ／ <a href="archive.html">バックナンバー</a> ／ <a href="about.html">運営者情報・免責事項</a> ／ <a href="https://teraco-labo.com">TERACO.LABO</a></div>
 </footer>
+<script type="application/json" id="glossary-data">{"ai-agent": {"n": "AIエージェント", "s": "指示を受けて、自分で手順を考えながら複数の作業を実行してくれるAIのことです。「答える」から「やってくれる」への進化です。", "u": "terms/ai-agent.html"}, "gpt": {"n": "GPT", "s": "OpenAIが開発しているAIモデルのシリーズ名です。ChatGPTの中身がこれにあたります。", "u": "terms/gpt.html"}, "gpu": {"n": "GPU", "s": "大量の計算を同時に行える半導体で、AIの学習と実行に欠かせない部品です。", "u": "terms/gpu.html"}, "hugging-face": {"n": "Hugging Face", "s": "AIモデルやデータセットを誰でも公開・共有できるプラットフォームです。「AI版GitHub」と呼ばれます。", "u": "terms/hugging-face.html"}, "inference": {"n": "推論", "s": "学習済みのAIを実際に動かして答えを出させることです。AIを「使う」場面はすべて推論にあたります。", "u": "terms/inference.html"}, "inference-cost": {"n": "推論コスト", "s": "AIを動かすたびにかかる費用のことです。AIサービスの採算を左右する最も重要な数字です。", "u": "terms/inference-cost.html"}, "llm": {"n": "LLM", "s": "大量の文章を学習して、人間のように読み書きできるAIのことです。ChatGPTやClaudeの「頭脳」にあたる部分がこれです。", "u": "terms/llm.html"}, "nvidia": {"n": "NVIDIA", "s": "AI開発に不可欠なGPUを作っている半導体企業です。生成AIブームの最大の受益者と言われています。", "u": "terms/nvidia.html"}, "open-source": {"n": "オープンソース", "s": "ソフトウェアの中身が公開され、誰でも自由に使ったり改良したりできる形態のことです。", "u": "terms/open-source.html"}, "openai": {"n": "OpenAI", "s": "ChatGPTを開発したアメリカのAI企業です。2022年のChatGPT公開が、今の生成AIブームの引き金になりました。", "u": "terms/openai.html"}, "training-data": {"n": "学習データ", "s": "AIを訓練するために読み込ませる大量のデータのことです。AIの性能と偏りの両方を決める土台です。", "u": "terms/training-data.html"}, "valuation": {"n": "評価額", "s": "投資を受ける際に算定される企業の価値のことです。「10億ドルの評価額で調達」のように使われます。", "u": "terms/valuation.html"}}</script>
+
+<script>
+(function(){
+  var el = document.getElementById('glossary-data');
+  if (!el) return;
+  var G; try { G = JSON.parse(el.textContent); } catch(e) { return; }
+
+  // 指でも操作する端末ではシート、マウスがある端末ではポップアップにする
+  var hoverable = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+  var tip = document.createElement('div'); tip.id = 'tip';
+  var veil = document.createElement('div'); veil.id = 'veil';
+  var sheet = document.createElement('div'); sheet.id = 'sheet';
+  sheet.innerHTML = '<div class="sheet-grip"></div><span class="tip-n"></span>'
+    + '<div class="tip-s"></div><a class="tip-m" href="#">くわしい解説を読む →</a>';
+  document.body.appendChild(tip);
+  document.body.appendChild(veil);
+  document.body.appendChild(sheet);
+
+  function showTip(node, d){
+    tip.innerHTML = '<span class="tip-n"></span><span class="tip-s"></span>'
+      + '<a class="tip-m" href="#">くわしい解説 →</a>';
+    tip.querySelector('.tip-n').textContent = d.n;
+    tip.querySelector('.tip-s').textContent = d.s;
+    tip.querySelector('.tip-m').href = d.u;
+    tip.classList.add('on');
+    var r = node.getBoundingClientRect();
+    var w = tip.offsetWidth, h = tip.offsetHeight;
+    var left = Math.min(Math.max(8, r.left + r.width/2 - w/2), window.innerWidth - w - 8);
+    var top = r.top - h - 10;
+    if (top < 8) top = r.bottom + 10;           // 上に入らなければ下に出す
+    tip.style.left = (left + window.scrollX) + 'px';
+    tip.style.top  = (top + window.scrollY) + 'px';
+  }
+  function hideTip(){ tip.classList.remove('on'); }
+
+  function openSheet(d){
+    sheet.querySelector('.tip-n').textContent = d.n;
+    sheet.querySelector('.tip-s').textContent = d.s;
+    sheet.querySelector('.tip-m').href = d.u;
+    sheet.classList.add('on'); veil.classList.add('on');
+  }
+  function closeSheet(){ sheet.classList.remove('on'); veil.classList.remove('on'); }
+  veil.addEventListener('click', closeSheet);
+
+  var hideTimer;
+  document.addEventListener('mouseover', function(e){
+    if (!hoverable) return;
+    var n = e.target.closest('.t'); if (!n) return;
+    clearTimeout(hideTimer);
+    var d = G[n.getAttribute('data-t')]; if (d) showTip(n, d);
+  });
+  document.addEventListener('mouseout', function(e){
+    if (!hoverable) return;
+    if (e.target.closest('.t') && !tip.contains(e.relatedTarget)) {
+      hideTimer = setTimeout(hideTip, 180);
+    }
+  });
+  tip.addEventListener('mouseenter', function(){ clearTimeout(hideTimer); });
+  tip.addEventListener('mouseleave', hideTip);
+
+  document.addEventListener('click', function(e){
+    var n = e.target.closest('.t'); if (!n) return;
+    var d = G[n.getAttribute('data-t')]; if (!d) return;
+    e.preventDefault();
+    if (hoverable) { location.href = d.u; } else { openSheet(d); }
+  });
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape') { hideTip(); closeSheet(); return; }
+    if (e.key !== 'Enter' && e.key !== ' ') return;
+    var n = document.activeElement; if (!n || !n.classList.contains('t')) return;
+    var d = G[n.getAttribute('data-t')]; if (!d) return;
+    e.preventDefault();
+    hoverable ? (location.href = d.u) : openSheet(d);
+  });
+})();
+</script>
+
 </body>
 </html>
