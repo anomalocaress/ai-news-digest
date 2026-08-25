@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://teraco-labo.github.io/ai-news-digest/sitemap.xml

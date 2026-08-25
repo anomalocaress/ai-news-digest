@@ -1,0 +1,153 @@
+{
+  "_readme": "収益化の全設定はこのファイルだけで完結します。url が空の案件は一切表示されません（空の広告枠は出ません）。MONETIZATION.md の手順に従って埋めてください。",
+
+  "site": {
+    "base_url": "https://teraco-labo.github.io/ai-news-digest",
+    "name": "てらこAIニュースダイジェスト",
+    "tagline": "毎朝6時、AIの最新ニュースを日本語で3分キャッチアップ",
+    "author": "てらこ先生",
+    "description": "AIの最新ニュースを毎朝6時に自動収集・日本語要約してお届けするダイジェストサイト。モデル・研究・ビジネス・ポリシー・ツールの5カテゴリで、その日の重要ニュースだけを厳選。音声（ポッドキャスト）版も配信中。",
+    "locale": "ja_JP",
+    "twitter": ""
+  },
+
+  "podcast": {
+    "_note": "Spotify等に登録済みのRSSはURLを変えると配信が壊れるため、site.base_url とは別管理にしています。移行が済むまで触らないでください。",
+    "base_url": "https://anomalocaress.github.io/ai-news-digest"
+  },
+
+  "disclosure": {
+    "enabled": true,
+    "text": "本サイトは広告・アフィリエイトプログラムを利用しています。リンク経由でのお申し込みにより運営者が報酬を受け取る場合があります（記事の選定・要約は広告主の影響を受けません）。"
+  },
+
+  "analytics": {
+    "_note": "GA4 は必須級です。どのページ・どのリンクが稼いでいるか分からないと改善できません。",
+    "ga4_measurement_id": "",
+    "clarity_id": ""
+  },
+
+  "adsense": {
+    "enabled": false,
+    "client_id": "",
+    "in_article_slot": ""
+  },
+
+  "slots": {
+    "header_disclosure": true,
+    "in_content_offers": 2,
+    "footer_offers": 3,
+    "home_offers": 4,
+    "cta_block": true
+  },
+
+  "cta": {
+    "_note": "自社商品・メルマガ等。url が空なら非表示。",
+    "enabled": true,
+    "heading": "AIをちゃんと使えるようになりたい方へ",
+    "body": "毎朝のニュースだけでは追いつかない「実際の使い方」を、てらこ先生が基礎から解説しています。",
+    "button_label": "",
+    "url": ""
+  },
+
+  "offers": [
+    {
+      "id": "conoha-wing",
+      "name": "ConoHa WING",
+      "headline": "AIブログ・自作サイトを始めるならまずサーバー",
+      "body": "国内最速級のレンタルサーバー。独自ドメイン永久無料つきで、WordPressが最短10分で立ち上がります。",
+      "badge": "高単価",
+      "url": "",
+      "signup_url": "https://px.a8.net/",
+      "asp": "A8.net",
+      "payout_jpy_est": 8000,
+      "categories": ["tools", "business"],
+      "keywords": ["blog", "wordpress", "website", "hosting", "server", "saas", "launch"],
+      "priority": 10
+    },
+    {
+      "id": "xserver",
+      "name": "エックスサーバー",
+      "headline": "老舗の安定感で長く運営したいなら",
+      "body": "国内シェア上位の高速レンタルサーバー。表示速度と安定性重視の定番です。",
+      "badge": "高単価",
+      "url": "",
+      "signup_url": "https://px.a8.net/",
+      "asp": "A8.net",
+      "payout_jpy_est": 7000,
+      "categories": ["tools", "business"],
+      "keywords": ["hosting", "server", "wordpress", "website"],
+      "priority": 9
+    },
+    {
+      "id": "kikagaku",
+      "name": "キカガク 長期コース",
+      "headline": "AI・機械学習を体系的に学びたい人向け",
+      "body": "AI・データサイエンスを実務レベルまで学べる長期講座。給付金対象コースあり。",
+      "badge": "高単価",
+      "url": "",
+      "signup_url": "https://px.a8.net/",
+      "asp": "A8.net",
+      "payout_jpy_est": 20000,
+      "categories": ["research", "model", "business"],
+      "keywords": ["machine learning", "deep learning", "training", "education", "learn", "model", "研究"],
+      "priority": 10
+    },
+    {
+      "id": "techacademy",
+      "name": "TechAcademy",
+      "headline": "働きながらオンラインで学ぶなら",
+      "body": "現役エンジニアのメンターがつくオンラインスクール。AI・Pythonコースあり。",
+      "badge": "高単価",
+      "url": "",
+      "signup_url": "https://px.a8.net/",
+      "asp": "A8.net",
+      "payout_jpy_est": 15000,
+      "categories": ["tools", "research"],
+      "keywords": ["python", "coding", "developer", "engineer", "education", "learn"],
+      "priority": 8
+    },
+    {
+      "id": "levtech",
+      "name": "レバテックキャリア",
+      "headline": "AI人材の市場価値を確かめる",
+      "body": "IT・Web エンジニア専門の転職エージェント。年収相場を知るだけでも登録の価値あり。",
+      "badge": "高単価",
+      "url": "",
+      "signup_url": "https://px.a8.net/",
+      "asp": "A8.net",
+      "payout_jpy_est": 15000,
+      "categories": ["business", "policy"],
+      "keywords": ["hiring", "job", "career", "layoff", "salary", "engineer", "recruit", "採用"],
+      "priority": 9
+    },
+    {
+      "id": "udemy",
+      "name": "Udemy",
+      "headline": "気になった技術をピンポイントで学ぶ",
+      "body": "セール時なら1,500円前後から。生成AI・LLM関連の日本語講座が急増しています。",
+      "badge": "",
+      "url": "",
+      "signup_url": "https://af.moshimo.com/",
+      "asp": "もしもアフィリエイト",
+      "payout_jpy_est": 1500,
+      "categories": ["tools", "model", "research"],
+      "keywords": ["llm", "agent", "tutorial", "learn", "course", "api"],
+      "priority": 5
+    },
+    {
+      "id": "amazon-book",
+      "name": "AI関連書籍（Amazon）",
+      "headline": "今日のニュースの背景を本で押さえる",
+      "body": "生成AI・LLM の基礎を体系立てて理解したい方に。",
+      "badge": "",
+      "url": "",
+      "signup_url": "https://af.moshimo.com/",
+      "asp": "もしもアフィリエイト（Amazon）",
+      "payout_jpy_est": 100,
+      "categories": ["model", "research", "policy"],
+      "keywords": ["book", "paper", "research", "基礎"],
+      "priority": 3
+    }
+  ]
+}
