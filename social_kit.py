@@ -66,7 +66,7 @@ _CARD_RE = re.compile(
     r'<div class="card-body">(.*?)</div>',
     re.DOTALL,
 )
-_STARS_RE = re.compile(r'<div class="dot filled"></div>')
+_STARS_RE = re.compile(r'<div class="stars">(.*?)</div>\s*</div>', re.DOTALL)
 
 
 def load_from_html(date_iso: str) -> Dict[str, List[Dict]]:
@@ -83,12 +83,15 @@ def load_from_html(date_iso: str) -> Dict[str, List[Dict]]:
         if not m:
             continue
         category, title, source, body = m.groups()
-        card_head = block[: block.find("</div>", block.find("stars"))] if "stars" in block else ""
+        # stars ブロックは <div class="dot filled"> を内包するため、
+        # 単純に最初の </div> まで切ると 0 個に数えてしまう。stars 全体を取る。
+        sm = _STARS_RE.search(block)
+        importance = sm.group(1).count("dot filled") if sm else 2
         result.setdefault(category, []).append({
             "title_ja": _html.unescape(re.sub(r"<.*?>", "", title)).strip(),
             "source": _html.unescape(re.sub(r"<.*?>", "", source)).strip().split(" · ")[0],
             "summary": _html.unescape(re.sub(r"<.*?>", "", body)).strip(),
-            "importance": len(_STARS_RE.findall(card_head)) or 2,
+            "importance": importance or 2,
         })
     return result
 
