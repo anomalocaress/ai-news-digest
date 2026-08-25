@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 <channel>
-  <title>てらこAIニュースダイジェスト</title>
+  <title>世界一わかりやすいAIニュース</title>
   <link>https://teraco-labo.github.io/ai-news-digest/</link>
   <atom:link href="https://teraco-labo.github.io/ai-news-digest/feed.xml" rel="self" type="application/rss+xml"/>
-  <description>AIの最新ニュースを毎朝6時に自動収集・日本語要約してお届けするダイジェストサイト。モデル・研究・ビジネス・ポリシー・ツールの5カテゴリで、その日の重要ニュースだけを厳選。音声（ポッドキャスト）版も配信中。</description>
+  <description>AIの最新ニュースを毎朝6時に日本語でお届けします。企業名・ツール名・専門用語にはすべて解説がつくので、予備知識がなくても読むだけで理解が深まります。音声版もあります。</description>
   <language>ja</language>
   <item>
     <title>AI最新ニュースまとめ 2026年8月26日（水）</title>

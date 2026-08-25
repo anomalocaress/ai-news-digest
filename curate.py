@@ -23,6 +23,7 @@
 
 import json
 import os
+import re
 from typing import Dict, List, Optional
 
 import monetize
@@ -70,7 +71,17 @@ SYSTEM_PROMPT = """あなたは日本のAI専門メディアの編集者です�
 - 2: 知っておきたいが、決定的ではないもの
 - 1: 参考程度
 
-判断に迷ったら「載せない」を選んでください。件数を埋めるために質を落とさないこと。"""
+判断に迷ったら「載せない」を選んでください。件数を埋めるために質を落とさないこと。
+
+## 用語の抽出
+
+このサイトは「専門用語にすべて解説がつく」ことを売りにしています。
+選んだ記事に出てくる企業名・ツール名・専門用語のうち、**まだ用語集に無いもの**を
+最大5件まで new_terms に入れてください。登録済みの語は入れないこと。
+
+- 読者がつまずきそうな語だけを選ぶ。一般名詞や、その日限りの固有名詞は入れない
+- short は専門用語を使わずに2文で書く。「〜とは」で始めない
+- detail は3〜4文。なぜ重要か、実務でどう関わるかまで書く"""
 
 
 CURATION_SCHEMA = {
@@ -101,8 +112,32 @@ CURATION_SCHEMA = {
                 "additionalProperties": False,
             },
         },
+        "new_terms": {
+            "type": "array",
+            "description": ("今日の記事に出てきたが用語集に未登録で、読者がつまずきそうな"
+                            "企業名・ツール名・専門用語。最大5件。無ければ空配列。"),
+            "items": {
+                "type": "object",
+                "properties": {
+                    "slug": {"type": "string",
+                             "description": "URLに使う英小文字とハイフンのみの識別子（例: vector-db）"},
+                    "term": {"type": "string", "description": "表示名"},
+                    "aliases": {"type": "array", "items": {"type": "string"},
+                                "description": "日本語訳や別表記。無ければ空配列"},
+                    "category": {"type": "string",
+                                 "enum": ["基礎", "使い方", "企業", "モデル", "インフラ",
+                                          "安全性", "規制", "評価", "ビジネス"]},
+                    "short": {"type": "string",
+                              "description": "初心者向けの説明。2文。専門用語を使わずに書く"},
+                    "detail": {"type": "string",
+                               "description": "中級者向けの補足。3〜4文。背景や実務上の意味"},
+                },
+                "required": ["slug", "term", "aliases", "category", "short", "detail"],
+                "additionalProperties": False,
+            },
+        },
     },
-    "required": ["overview", "articles"],
+    "required": ["overview", "articles", "new_terms"],
     "additionalProperties": False,
 }
 
@@ -154,6 +189,18 @@ def _normalize_category(value) -> Optional[str]:
     return _CATEGORY_ALIASES.get(value.strip()) or _CATEGORY_ALIASES.get(v)
 
 
+def _known_terms_line() -> str:
+    """登録済みの用語をモデルに伝え、重複した提案を防ぐ。"""
+    try:
+        import glossary
+        names = sorted({t["term"] for t in glossary.published()})
+        if names:
+            return "【用語集に登録済み（これらは new_terms に入れない）】\n" + "、".join(names) + "\n"
+    except Exception:
+        pass
+    return ""
+
+
 def _build_user_message(articles: List[Dict], min_n: int, max_n: int) -> str:
     lines = [
         f"本日集まった記事は {len(articles)} 件です。"
@@ -161,6 +208,7 @@ def _build_user_message(articles: List[Dict], min_n: int, max_n: int) -> str:
         "",
         "AIに関係する記事が少ない日は、無理に件数を埋めず少なくて構いません。",
         "",
+        _known_terms_line(),
         "---",
         "",
     ]
@@ -447,6 +495,8 @@ def _assemble(data: Dict, articles: List[Dict], verbose: bool) -> Optional[Dict]
     if total == 0:
         return None
 
+    _merge_new_terms(data.get("new_terms", []), verbose)
+
     overview = [s.strip() for s in data.get("overview", []) if s and s.strip()]
     if verbose:
         print(f"   ✓ {len(articles)} 件 → {total} 件に選別しました")
@@ -455,6 +505,61 @@ def _assemble(data: Dict, articles: List[Dict], verbose: bool) -> Optional[Dict]
                 print(f"      {c}: {len(categorized[c])} 件")
 
     return {"overview": overview, "categorized": categorized}
+
+
+_SLUG_RE = re.compile(r"[^a-z0-9-]")
+
+
+def _merge_new_terms(new_terms: List[Dict], verbose: bool = True) -> int:
+    """モデルが見つけた新出用語を glossary.json に追記する。
+
+    毎日のニュースから用語集がひとりでに育つ仕組み。用語ページはニュースと違って
+    古びないため、これが検索流入の資産として積み上がっていく。
+    """
+    if not new_terms:
+        return 0
+    try:
+        import glossary
+    except Exception:
+        return 0
+
+    cfg = monetize.load_config().get("glossary", {})
+    if not cfg.get("auto_discover", True):
+        return 0
+
+    data = glossary.load()
+    existing_slugs = {t["slug"] for t in data.get("terms", [])}
+    existing_names = {n.lower() for t in data.get("terms", [])
+                      for n in [t.get("term", "")] + t.get("aliases", []) if n}
+
+    added = []
+    for item in new_terms:
+        slug = _SLUG_RE.sub("-", str(item.get("slug", "")).lower()).strip("-")
+        name = str(item.get("term", "")).strip()
+        if not slug or not name or slug in existing_slugs or name.lower() in existing_names:
+            continue
+        if not str(item.get("short", "")).strip():
+            continue
+        data.setdefault("terms", []).append({
+            "slug": slug,
+            "term": name,
+            "aliases": [a for a in item.get("aliases", []) if isinstance(a, str) and a.strip()],
+            "category": item.get("category", "基礎"),
+            "short": item["short"].strip(),
+            "detail": str(item.get("detail", "")).strip(),
+            "related": [],
+            "status": "published",
+            "auto": True,   # 自動追加であることを残す（あとで人が見直せるように）
+        })
+        existing_slugs.add(slug)
+        existing_names.add(name.lower())
+        added.append(name)
+
+    if added:
+        glossary.save(data)
+        if verbose:
+            print(f"   ✓ 用語集に {len(added)} 語を追加: {'、'.join(added)}")
+    return len(added)
 
 
 if __name__ == "__main__":

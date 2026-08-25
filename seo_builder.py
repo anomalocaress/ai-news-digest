@@ -21,9 +21,10 @@ import re
 import html as _html
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
-from typing import Dict, List
+from typing import Dict, List, Optional
 
 import article_builder
+import glossary
 import monetize
 import site_theme
 
@@ -89,6 +90,7 @@ def build_home(issues: List[Dict], articles: List[Dict], config: Dict) -> str:
     hero_actions = ""
     if latest:
         hero_actions += f'      <a class="btn btn-primary" href="{latest["file"]}">最新号を読む（{latest["label"]}）</a>\n'
+    hero_actions += '      <a class="btn btn-ghost" href="terms/">📘 AI用語集</a>\n'
     hero_actions += '      <a class="btn btn-ghost" href="archive.html">バックナンバー</a>\n'
     if pod_base:
         hero_actions += f'      <a class="btn btn-ghost" href="{pod_base}/podcast/feed.xml">🎧 ポッドキャスト</a>\n'
@@ -325,7 +327,8 @@ def build_about(config: Dict) -> str:
 
 # ---------------------------------------------------------------- 機械向け出力
 
-def build_sitemap(issues: List[Dict], articles: List[Dict], config: Dict) -> str:
+def build_sitemap(issues: List[Dict], articles: List[Dict], config: Dict,
+                  terms: Optional[List[Dict]] = None) -> str:
     base = config.get("site", {}).get("base_url", "").rstrip("/")
     if not base:
         return ""
@@ -338,6 +341,17 @@ def build_sitemap(issues: List[Dict], articles: List[Dict], config: Dict) -> str
         urls.append(
             f"  <url><loc>{base}/about.html</loc><lastmod>{today}</lastmod>"
             f"<changefreq>yearly</changefreq><priority>0.2</priority></url>"
+        )
+    for t in (terms or []):
+        # 用語ページはニュースと違って古びないため、検索資産として優先度を高くする
+        urls.append(
+            f"  <url><loc>{base}/terms/{t['slug']}.html</loc><lastmod>{today}</lastmod>"
+            f"<changefreq>monthly</changefreq><priority>0.7</priority></url>"
+        )
+    if terms:
+        urls.append(
+            f"  <url><loc>{base}/terms/</loc><lastmod>{today}</lastmod>"
+            f"<changefreq>weekly</changefreq><priority>0.8</priority></url>"
         )
     if articles:
         urls.append(
@@ -420,13 +434,14 @@ def build_all(verbose: bool = True) -> Dict[str, int]:
     issues = collect_issues()
     # 解説記事を先にビルドしてから、トップ・サイトマップ・RSS に反映する
     articles = article_builder.build_all(verbose=verbose)
+    terms = glossary.build_all(config, verbose=verbose)
     written = {}
 
     outputs = {
         "index.html": build_home(issues, articles, config),
         "archive.html": build_archive(issues, config),
         "about.html": build_about(config),
-        "sitemap.xml": build_sitemap(issues, articles, config),
+        "sitemap.xml": build_sitemap(issues, articles, config, terms),
         "feed.xml": build_feed(issues, articles, config),
         "robots.txt": build_robots(config),
     }
@@ -441,7 +456,7 @@ def build_all(verbose: bool = True) -> Dict[str, int]:
             print(f"✓ {filename} ({len(content):,} bytes)")
 
     if verbose:
-        print(f"✓ 収録号数: {len(issues)} / 解説記事: {len(articles)}")
+        print(f"✓ 収録号数: {len(issues)} / 解説記事: {len(articles)} / 用語: {len(terms)}")
     return written
 
 

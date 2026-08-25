@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-てらこAIニュースダイジェスト — 音声生成
+世界一わかりやすいAIニュース — 音声生成
 edge-tts (Microsoft Neural voices) を使用。APIキー・費用不要。
 """
 
@@ -296,7 +296,7 @@ def update_feed(date: datetime, audio_file: Path) -> None:
     episodes = [e for e in episodes if e.get("date") != date_str]
     episodes.insert(0, {
         "date":        date_str,
-        "title":       f"てらこAIニュースダイジェスト - {date_str}",
+        "title":       f"世界一わかりやすいAIニュース - {date_str}",
         "url":         audio_url,
         "size":        size_bytes,
         "duration":    duration_sec,
@@ -328,7 +328,7 @@ def update_feed(date: datetime, audio_file: Path) -> None:
     <itunes:title>{ep['title']}</itunes:title>
     <description>{ep['title']}</description>
     <author>{PODCAST_EMAIL}</author>
-    <itunes:author>てらこAIニュースダイジェスト</itunes:author>
+    <itunes:author>世界一わかりやすいAIニュース</itunes:author>
     <itunes:episode>{ep_ep_num}</itunes:episode>
     <itunes:episodeType>full</itunes:episodeType>
     <itunes:duration>{dur_hms}</itunes:duration>
@@ -343,8 +343,8 @@ def update_feed(date: datetime, audio_file: Path) -> None:
   xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd"
   xmlns:podcast="https://podcastindex.org/namespace/1.0">
 <channel>
-  <title>てらこAIニュースダイジェスト</title>
-  <itunes:title>てらこAIニュースダイジェスト</itunes:title>
+  <title>世界一わかりやすいAIニュース</title>
+  <itunes:title>世界一わかりやすいAIニュース</itunes:title>
   <description>毎朝6時配信。AIの最新ニュースを厳選してわかりやすくお届けします。</description>
   <itunes:summary>毎朝6時配信。AIの最新ニュースを厳選してわかりやすくお届けします。</itunes:summary>
   <link>{BASE_URL}</link>
@@ -359,7 +359,7 @@ def update_feed(date: datetime, audio_file: Path) -> None:
   </itunes:owner>
   <image>
     <url>{COVER_URL}</url>
-    <title>てらこAIニュースダイジェスト</title>
+    <title>世界一わかりやすいAIニュース</title>
     <link>{BASE_URL}</link>
   </image>
   <itunes:image href="{COVER_URL}"/>

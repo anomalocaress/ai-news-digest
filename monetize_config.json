@@ -2,17 +2,19 @@
   "_readme": "収益化の全設定はこのファイルだけで完結します。url が空の案件は一切表示されません（空の広告枠は出ません）。MONETIZATION.md の手順に従って埋めてください。",
   "site": {
     "base_url": "https://teraco-labo.github.io/ai-news-digest",
-    "name": "てらこAIニュースダイジェスト",
-    "tagline": "毎朝6時、AIの最新ニュースを日本語で3分キャッチアップ",
+    "name": "世界一わかりやすいAIニュース",
+    "tagline": "読むだけで賢くなる。専門用語ぜんぶ解説つき。",
     "author": "てらこ先生",
-    "description": "AIの最新ニュースを毎朝6時に自動収集・日本語要約してお届けするダイジェストサイト。モデル・研究・ビジネス・ポリシー・ツールの5カテゴリで、その日の重要ニュースだけを厳選。音声（ポッドキャスト）版も配信中。",
+    "description": "AIの最新ニュースを毎朝6時に日本語でお届けします。企業名・ツール名・専門用語にはすべて解説がつくので、予備知識がなくても読むだけで理解が深まります。音声版もあります。",
     "locale": "ja_JP",
     "twitter": "",
     "operator": "TERACO.LABO（てらこ先生）",
     "contact_email": "fujisaki@teraco-labo.com",
     "parent_site_name": "TERACO.LABO",
     "parent_site_url": "https://teraco-labo.com",
-    "_base_url_note": "サイトのURLはここ1箇所で決まります。DNS設定が済んだら https://news.teraco-labo.com に書き換えてください（手順は DOMAIN_SETUP.md）。"
+    "_base_url_note": "サイトのURLはここ1箇所で決まります。DNS設定が済んだら https://news.teraco-labo.com に書き換えてください（手順は DOMAIN_SETUP.md）。",
+    "lang": "ja",
+    "_lang_note": "将来の多言語展開用。lang を切り替え、glossary.json と curate.py のプロンプトを言語ごとに用意すれば別言語版を出せる構造にしてあります。"
   },
   "podcast": {
     "_note": "2026-08-22 のアカウント移管(anomalocaress→teraco-labo)で旧URLは404になりました。GitHub Pages はアカウント間の移管ではリダイレクトされません。現在は site.base_url と同じURLを使います。",
@@ -234,5 +236,11 @@
     "effort": "medium",
     "min_articles": 8,
     "max_articles": 12
+  },
+  "glossary": {
+    "_note": "用語解説の設定。auto_discover を有効にすると、毎朝のキュレーション時に新出用語を検出して glossary.json へ自動追加します。",
+    "enabled": true,
+    "auto_discover": true,
+    "max_marks_per_page": 14
   }
 }

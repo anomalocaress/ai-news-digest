@@ -103,6 +103,7 @@ def footer_links(config: dict, prefix: str = "") -> str:
     """全ページ共通のフッターリンク。運営者情報は広告を出す以上、どのページからも辿れる必要がある。"""
     items = [
         (f"{prefix}", "トップ"),
+        (f"{prefix}terms/", "AI用語集"),
         (f"{prefix}articles/", "読み物"),
         (f"{prefix}archive.html", "バックナンバー"),
     ]

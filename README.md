@@ -1,6 +1,7 @@
-# てらこAIニュースダイジェスト
+# 世界一わかりやすいAIニュース
 
 AIの最新ニュースを毎朝6時に自動収集し、日本語で要約して配信するシステム。
+**企業名・ツール名・専門用語にはすべて解説がつく**のが他のニュースまとめとの違いです。
 サイト・ポッドキャスト・メールの3経路で届きます。
 
 ## 動いているもの
@@ -8,6 +9,8 @@ AIの最新ニュースを毎朝6時に自動収集し、日本語で要約し�
 - **日次ダイジェスト** — RSS/Hacker Newsから収集 → 5カテゴリに分類 → Claude Haikuで日本語要約 → HTML生成
 - **ポッドキャスト** — 対話形式の台本を生成 → `edge-tts` で音声化 → RSS配信
 - **メール配信** — 毎朝Gmailで送信
+- **AI用語集** — 記事中の専門用語を自動でマークし、ホバー（PC）/タップ（スマホ）で解説を表示。
+  解説ページの中の用語にもさらに解説がつく入れ子構造。毎朝のキュレーションで用語が自動追加される
 - **解説記事** — `articles/*.md` から静的HTMLを生成（検索流入用）
 - **SNS投稿キット** — その日のダイジェストからコピペ用の投稿文を生成
 
@@ -30,7 +33,8 @@ cp .env.example .env    # APIキーを設定
 python generate_news.py                  # ダイジェストを生成（全工程）
 python generate_news.py --date 2026-07-16
 
-python seo_builder.py                    # サイト再構築（トップ/アーカイブ/sitemap/RSS/記事）
+python seo_builder.py                    # サイト再構築（トップ/アーカイブ/用語集/sitemap/RSS/記事）
+python glossary.py                       # 用語ページだけ再生成
 python article_builder.py --preview      # 解説記事の下書きプレビュー
 python social_kit.py                     # SNS投稿文を生成
 python social_kit.py --backfill 30       # 過去30日ぶんをまとめて生成

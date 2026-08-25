@@ -21,6 +21,7 @@ import html as _html
 from datetime import datetime
 from typing import Dict, List, Optional
 
+import glossary
 import monetize
 import site_theme
 
@@ -121,7 +122,7 @@ def _flatten(categorized: Dict[str, List[Dict]]) -> List[Dict]:
     return items
 
 
-def _card(article: Dict, emphasize: bool) -> str:
+def _card(article: Dict, emphasize: bool, ann=None) -> str:
     category = article.get("category", "research")
     importance = max(1, min(3, int(article.get("importance", 2))))
     stars = "".join(
@@ -133,6 +134,7 @@ def _card(article: Dict, emphasize: bool) -> str:
     url = article.get("url", "")
     link_html = (f'      <a class="card-link" href="{_html.escape(url)}" target="_blank" '
                  f'rel="noopener">元記事を読む →</a>\n' if url else "")
+    mark = ann if ann is not None else (lambda x: x)
     source = article.get("source", "")
     if isinstance(source, dict):  # RSS 由来の {"name": ...} 形式に耐える
         source = source.get("name", "")
@@ -145,19 +147,20 @@ def _card(article: Dict, emphasize: bool) -> str:
         f'        <span class="card-label {category}">{CATEGORIES_JA.get(category, category)}</span>\n'
         f'        <div class="stars">{stars}</div>\n'
         '      </div>\n'
-        f'      <div class="card-title-ja">{_html.escape(article.get("title_ja", ""))}</div>\n'
+        f'      <div class="card-title-ja">{mark(_html.escape(article.get("title_ja", "")))}</div>\n'
         f'{title_en_html}'
         f'      <div class="card-source">{_html.escape(source_line)}</div>\n'
-        f'      <div class="card-body">{_html.escape(article.get("summary", ""))}</div>\n'
+        f'      <div class="card-body">{mark(_html.escape(article.get("summary", "")))}</div>\n'
         f'{link_html}'
         '    </article>\n'
     )
 
 
-def _lead(overview: List[str]) -> str:
+def _lead(overview: List[str], ann=None) -> str:
     if not overview:
         return ""
-    items = "".join(f"      <li>{_html.escape(line)}</li>\n" for line in overview)
+    mark = ann if ann is not None else (lambda x: x)
+    items = "".join(f"      <li>{mark(_html.escape(line))}</li>\n" for line in overview)
     return (
         '  <div class="lead">\n'
         '    <div class="lead-label">今日の3行まとめ</div>\n'
@@ -223,6 +226,11 @@ def render(categorized: Dict[str, List[Dict]], date: datetime,
 
     listen_nav = '<a href="#listen">🎧 音声で聴く</a>' if podcast_available else ""
 
+    # 用語マークは3行まとめ→注目→ジャンル別の順に付く。上限に達したら以降は素通し。
+    gcfg = config.get("glossary", {})
+    ann = (glossary.Annotator(limit=int(gcfg.get("max_marks_per_page", 14)))
+           if gcfg.get("enabled", True) else None)
+
     head = monetize.build_head_tags(
         config,
         page_url=f"{base}/ai-news-{date_iso}.html" if base else "",
@@ -244,7 +252,7 @@ def render(categorized: Dict[str, List[Dict]], date: datetime,
     body_parts = []
     if top:
         body_parts.append('  <div class="tier">注目のニュース</div>\n  <div class="digest">\n')
-        body_parts += [_card(a, emphasize=True) for a in top]
+        body_parts += [_card(a, emphasize=True, ann=ann) for a in top]
         body_parts.append("  </div>\n")
     if rest:
         body_parts.append('  <div class="tier">ジャンル別のニュース（タップで開く）</div>\n')
@@ -254,7 +262,7 @@ def render(categorized: Dict[str, List[Dict]], date: datetime,
                 continue
             # 少数日はすべて開いておく（畳む価値がないため）
             open_attr = " open" if len(rest) <= 4 else ""
-            cards = "".join(_card(a, emphasize=False) for a in cat_items)
+            cards = "".join(_card(a, emphasize=False, ann=ann) for a in cat_items)
             body_parts.append(
                 f'  <details class="genre {category}"{open_attr}>\n'
                 f'    <summary><span class="genre-dot"></span>'
@@ -272,13 +280,14 @@ def render(categorized: Dict[str, List[Dict]], date: datetime,
     <div class="top-nav">
       <a href="./">トップ</a>
       <a href="articles/">読み物</a>
+      <a href="terms/">AI用語集</a>
       <a href="archive.html">バックナンバー</a>{listen_nav}
     </div>
   </div>
 </div>
 
 <main>
-{_lead(overview or [])}
+{_lead(overview or [], ann)}
 {_listen(date, podcast_available)}
 {"".join(body_parts)}
 {_subscribe(config)}
@@ -288,10 +297,12 @@ def render(categorized: Dict[str, List[Dict]], date: datetime,
   <strong>{_html.escape(name)}</strong> — {date_str}（{weekday}）／ {total} 件収録<br>
   毎朝6時に自動生成しています。
   {site_theme.footer_links(config)}
-</footer>"""
+</footer>
+{glossary.assets(ann) if ann else ""}"""
 
     return site_theme.page_shell(
-        f"AI最新ニュースまとめ {date_str} | {name}", head, body, extra_css=DIGEST_CSS
+        f"AI最新ニュースまとめ {date_str} | {name}", head, body,
+        extra_css=DIGEST_CSS + (glossary.TOOLTIP_CSS if ann else ""),
     )
 
 

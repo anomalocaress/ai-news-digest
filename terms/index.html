@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI用語集 | 世界一わかりやすいAIニュース</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root { --bg:#f8fafc; --card-bg:#fff; --text:#1e293b; --text-muted:#64748b; --border:#e2e8f0; --accent:#0e7490; }
+  body { font-family:'Noto Sans JP','Inter',sans-serif; background:var(--bg); color:var(--text);
+    line-height:1.7; -webkit-font-smoothing:antialiased; }
+  a { color:inherit; }
+  .hero { background:linear-gradient(135deg,#0f172a,#1e293b); color:#fff; padding:3rem 1.5rem; }
+  .hero-inner { max-width:1100px; margin:0 auto; }
+  .hero h1 { font-size:1.8rem; font-weight:700; letter-spacing:0.01em; }
+  .hero p { margin-top:0.6rem; font-size:0.95rem; color:#cbd5e1; max-width:640px; }
+  .hero-actions { margin-top:1.5rem; display:flex; flex-wrap:wrap; gap:0.75rem; }
+  .crumbs { font-size:0.75rem; color:#94a3b8; margin-bottom:0.75rem; }
+  .crumbs a { text-decoration:none; }
+  .crumbs a:hover { text-decoration:underline; }
+  .btn { display:inline-block; padding:0.6rem 1.3rem; border-radius:6px; font-size:0.85rem;
+    font-weight:700; text-decoration:none; }
+  .btn-primary { background:#22d3ee; color:#0f172a; }
+  .btn-ghost { border:1px solid rgba(255,255,255,0.35); color:#e2e8f0; }
+  main { max-width:1100px; margin:0 auto; padding:2.5rem 1.5rem 4rem; }
+  .section-label { font-size:0.75rem; font-weight:700; letter-spacing:0.12em; color:var(--text-muted);
+    text-transform:uppercase; margin:2.5rem 0 1rem; }
+  .section-label:first-child { margin-top:0; }
+  .issue-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:1rem; }
+  .issue { display:block; padding:1rem 1.1rem; background:var(--card-bg); border:1px solid var(--border);
+    border-radius:8px; text-decoration:none; transition:border-color .15s; }
+  .issue:hover { border-color:var(--accent); }
+  .issue .d { font-size:0.95rem; font-weight:700; }
+  .issue .m { margin-top:0.25rem; font-size:0.75rem; color:var(--text-muted); }
+  .issue-list { list-style:none; columns:2; column-gap:2rem; }
+  .issue-list li { break-inside:avoid; padding:0.35rem 0; border-bottom:1px solid var(--border); }
+  .issue-list a { font-size:0.85rem; text-decoration:none; }
+  .issue-list a:hover { color:var(--accent); }
+  .issue-list .m { font-size:0.72rem; color:var(--text-muted); margin-left:0.5rem; }
+  footer { border-top:1px solid var(--border); padding:2rem 1.5rem; text-align:center;
+    font-size:0.78rem; color:var(--text-muted); }
+  .footer-links { margin-top:0.9rem; font-size:0.75rem; }
+  .footer-links a { color:var(--text-muted); text-decoration:none; }
+  .footer-links a:hover { color:var(--accent); text-decoration:underline; }
+  @media (max-width:640px){ .issue-list{columns:1;} .hero h1{font-size:1.4rem;} }
+
+  .term-hero-cat { display:inline-block; margin-bottom:0.6rem; padding:3px 10px;
+    border-radius:999px; background:rgba(255,255,255,0.14); font-size:0.72rem; font-weight:600; }
+  .term-body { max-width:720px; margin:0 auto; }
+  .term-easy { padding:1.4rem 1.6rem; background:var(--card-bg); border:1px solid var(--border);
+    border-left:3px solid var(--accent); border-radius:8px; }
+  .term-easy .lbl, .term-more .lbl { display:block; font-size:0.7rem; font-weight:700;
+    letter-spacing:0.12em; color:var(--text-muted); margin-bottom:0.6rem; }
+  .term-easy p { font-size:1.02rem; line-height:2.0; }
+  .term-more { margin-top:2rem; }
+  .term-more p { font-size:0.94rem; line-height:2.0; color:var(--text-muted); }
+  .chips { display:flex; flex-wrap:wrap; gap:0.5rem; margin-top:0.9rem; }
+  .chips a { padding:0.4rem 0.9rem; background:var(--card-bg); border:1px solid var(--border);
+    border-radius:999px; font-size:0.82rem; text-decoration:none; }
+  .chips a:hover { border-color:var(--accent); color:var(--accent); }
+  .seen { margin-top:0.9rem; display:flex; flex-direction:column; gap:0.4rem; }
+  .seen a { font-size:0.85rem; text-decoration:none; color:var(--text-muted); }
+  .seen a:hover { color:var(--accent); text-decoration:underline; }
+  .term-index-group { max-width:760px; margin:0 auto 2rem; }
+  .term-index-group h2 { font-size:0.75rem; font-weight:700; letter-spacing:0.12em;
+    color:var(--text-muted); margin-bottom:0.8rem; }
+  .term-list { display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:0.7rem; }
+  .term-list a { display:block; padding:0.85rem 1rem; background:var(--card-bg);
+    border:1px solid var(--border); border-radius:8px; text-decoration:none; }
+  .term-list a:hover { border-color:var(--accent); }
+  .term-list .n { font-weight:700; font-size:0.92rem; }
+  .term-list .s { margin-top:0.25rem; font-size:0.76rem; color:var(--text-muted);
+    display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+</style>
+<!-- monetize.py: SEO / analytics -->
+<meta name="description" content="AIのニュースによく出てくる企業名・ツール名・専門用語を、初心者にも中級者にもわかる言葉で解説した用語集です。">
+<link rel="canonical" href="https://teraco-labo.github.io/ai-news-digest/terms/">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="website">
+<meta property="og:title" content="AI用語集 — 49語をわかりやすく | 世界一わかりやすいAIニュース">
+<meta property="og:description" content="AIのニュースによく出てくる企業名・ツール名・専門用語を、初心者にも中級者にもわかる言葉で解説した用語集です。">
+<meta property="og:url" content="https://teraco-labo.github.io/ai-news-digest/terms/">
+<meta property="og:site_name" content="世界一わかりやすいAIニュース">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:image" content="https://teraco-labo.github.io/ai-news-digest/podcast/cover.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="alternate" type="application/rss+xml" title="世界一わかりやすいAIニュース" href="https://teraco-labo.github.io/ai-news-digest/feed.xml">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "NewsArticle", "headline": "AI用語集 — 49語をわかりやすく | 世界一わかりやすいAIニュース", "description": "AIのニュースによく出てくる企業名・ツール名・専門用語を、初心者にも中級者にもわかる言葉で解説した用語集です。", "url": "https://teraco-labo.github.io/ai-news-digest/terms/", "inLanguage": "ja", "author": {"@type": "Person", "name": "てらこ先生"}, "publisher": {"@type": "Organization", "name": "世界一わかりやすいAIニュース"}}</script>
+
+<style id="mz-style">
+  .mz-disclosure { max-width: 1100px; margin: 0 auto 1rem; padding: 0.5rem 0.75rem;
+    font-size: 0.7rem; line-height: 1.6; color: var(--text-muted, #64748b);
+    background: rgba(148,163,184,0.10); border-radius: 6px; }
+  .mz-block { max-width: 1100px; margin: 2rem auto; }
+  .mz-head { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem; }
+  .mz-head h2 { font-size: 0.9rem; font-weight: 700; color: var(--text, #1e293b); letter-spacing: 0.02em; }
+  .mz-pr { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.08em; padding: 2px 6px;
+    border-radius: 3px; background: #94a3b8; color: #fff; }
+  .mz-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1rem; }
+  .mz-card { display: flex; flex-direction: column; gap: 0.4rem; padding: 1rem;
+    background: var(--card-bg, #fff); border: 1px solid var(--border, #e2e8f0);
+    border-left: 3px solid #0e7490; border-radius: 8px; }
+  .mz-card .mz-name { font-size: 0.68rem; font-weight: 600; color: var(--text-muted, #64748b); letter-spacing: 0.04em; }
+  .mz-card .mz-title { font-size: 0.95rem; font-weight: 700; color: var(--text, #1e293b); line-height: 1.5; }
+  .mz-card .mz-body { font-size: 0.8rem; line-height: 1.7; color: var(--text-muted, #64748b); }
+  .mz-card .mz-cta { margin-top: auto; padding-top: 0.6rem; font-size: 0.8rem; font-weight: 600;
+    color: #0e7490; text-decoration: none; }
+  .mz-card .mz-cta:hover { text-decoration: underline; }
+  .mz-badge { align-self: flex-start; font-size: 0.6rem; font-weight: 700; padding: 2px 6px;
+    border-radius: 3px; background: #0e7490; color: #fff; }
+  .mz-cta-block { max-width: 1100px; margin: 2rem auto; padding: 1.5rem;
+    background: linear-gradient(135deg, #0f172a, #1e293b); border-radius: 10px; color: #e2e8f0; }
+  .mz-cta-block h2 { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.5rem; color: #fff; }
+  .mz-cta-block p { font-size: 0.85rem; line-height: 1.8; color: #cbd5e1; }
+  .mz-cta-block a { display: inline-block; margin-top: 0.9rem; padding: 0.6rem 1.4rem;
+    background: #22d3ee; color: #0f172a; font-size: 0.85rem; font-weight: 700;
+    border-radius: 6px; text-decoration: none; }
+  .mz-ad { max-width: 1100px; margin: 2rem auto; text-align: center; }
+</style>
+</head>
+<body>
+<div class="hero">
+  <div class="hero-inner">
+    <div class="crumbs"><a href="../">世界一わかりやすいAIニュース</a></div>
+    <h1>AI用語集</h1>
+    <p>ニュースに出てくる企業名・ツール名・専門用語を 49 語、やさしく解説しています。</p>
+    <div class="top-nav">
+      <a href="../">トップ</a>
+      <a href="../archive.html">バックナンバー</a>
+    </div>
+  </div>
+</div>
+
+<main>
+  <div class="term-index-group">
+    <h2>基礎</h2>
+    <div class="term-list">
+    <a href="agi.html">
+      <div class="n">AGI</div>
+      <div class="s">人間ができる知的作業を、分野を問わず一通りこなせるAIのことです。まだ実現しておらず、定義自体も定まっていません。</div>
+    </a>
+    <a href="llm.html">
+      <div class="n">LLM</div>
+      <div class="s">大量の文章を学習して、人間のように読み書きできるAIのことです。ChatGPTやClaudeの「頭脳」にあたる部分がこれです。</div>
+    </a>
+    <a href="transformer.html">
+      <div class="n">Transformer</div>
+      <div class="s">今のAIブームを支えている、AIの内部構造の設計図です。2017年にGoogleの研究者が発表しました。</div>
+    </a>
+    <a href="context-window.html">
+      <div class="n">コンテキストウィンドウ</div>
+      <div class="s">AIが一度に読み込んで覚えていられる文章の量のことです。「短期記憶の広さ」と考えると分かりやすいです。</div>
+    </a>
+    <a href="token.html">
+      <div class="n">トークン</div>
+      <div class="s">AIが文章を扱うときの最小単位です。英語ならおよそ単語1つ、日本語なら1〜2文字が1トークンにあたります。</div>
+    </a>
+    <a href="parameter.html">
+      <div class="n">パラメータ</div>
+      <div class="s">AIの中にある調整つまみのようなもので、学習によって値が決まります。数が多いほど複雑なことを覚えられます。</div>
+    </a>
+    <a href="multimodal.html">
+      <div class="n">マルチモーダル</div>
+      <div class="s">文章だけでなく、画像・音声・動画も一緒に扱えるAIのことです。写真を見せて質問できるのはこの能力によるものです。</div>
+    </a>
+    <a href="generative-ai.html">
+      <div class="n">生成AI</div>
+      <div class="s">文章・画像・音声・動画などを新しく作り出せるAIの総称です。分類や予測をするだけだった従来のAIとの違いがここにあります。</div>
+    </a>
+    </div>
+  </div>
+  <div class="term-index-group">
+    <h2>使い方</h2>
+    <div class="term-list">
+    <a href="ai-agent.html">
+      <div class="n">AIエージェント</div>
+      <div class="s">指示を受けて、自分で手順を考えながら複数の作業を実行してくれるAIのことです。「答える」から「やってくれる」への進化です。</div>
+    </a>
+    <a href="mcp.html">
+      <div class="n">MCP</div>
+      <div class="s">AIと外部サービスをつなぐための共通の規格です。AI版のUSB端子のようなものだと考えると分かりやすいです。</div>
+    </a>
+    <a href="rag.html">
+      <div class="n">RAG</div>
+      <div class="s">AIに社内資料や最新情報を検索させてから答えさせる仕組みです。AIが知らないことを補うための定番の方法です。</div>
+    </a>
+    <a href="embedding.html">
+      <div class="n">エンベディング</div>
+      <div class="s">文章の意味を数字の並びに変換したものです。意味が近い文どうしは数字も近くなるため、検索に使えます。</div>
+    </a>
+    <a href="tool-use.html">
+      <div class="n">ツール呼び出し</div>
+      <div class="s">AIが必要に応じて外部の機能（検索・計算・API）を自分で使うことです。AIエージェントの土台になる仕組みです。</div>
+    </a>
+    <a href="hallucination.html">
+      <div class="n">ハルシネーション</div>
+      <div class="s">AIが事実でないことを、もっともらしい口調で答えてしまう現象です。日本語では「幻覚」と訳されます。</div>
+    </a>
+    <a href="fine-tuning.html">
+      <div class="n">ファインチューニング</div>
+      <div class="s">既存のAIに追加学習をさせて、特定の用途や文体に合わせて調整することです。</div>
+    </a>
+    <a href="prompt.html">
+      <div class="n">プロンプト</div>
+      <div class="s">AIに与える指示や質問の文章のことです。書き方しだいで返ってくる答えの質が大きく変わります。</div>
+    </a>
+    <a href="vector-db.html">
+      <div class="n">ベクトルデータベース</div>
+      <div class="s">エンベディングを保存し、意味の近さで高速に検索できるデータベースです。RAGを支える裏方です。</div>
+    </a>
+    <a href="inference.html">
+      <div class="n">推論</div>
+      <div class="s">学習済みのAIを実際に動かして答えを出させることです。AIを「使う」場面はすべて推論にあたります。</div>
+    </a>
+    <a href="distillation.html">
+      <div class="n">蒸留</div>
+      <div class="s">大きくて賢いAIの振る舞いを、小さなAIに教え込んで再現させる技術です。</div>
+    </a>
+    <a href="quantization.html">
+      <div class="n">量子化</div>
+      <div class="s">AIの内部の数値を粗くして、動作を軽く・省メモリにする技術です。多少の精度と引き換えに実用性を取ります。</div>
+    </a>
+    </div>
+  </div>
+  <div class="term-index-group">
+    <h2>企業</h2>
+    <div class="term-list">
+    <a href="anthropic.html">
+      <div class="n">Anthropic</div>
+      <div class="s">AIアシスタント「Claude」を開発するアメリカの企業です。AIの安全性を重視する方針を掲げています。</div>
+    </a>
+    <a href="google-deepmind.html">
+      <div class="n">Google DeepMind</div>
+      <div class="s">Googleの AI 研究部門です。囲碁でプロ棋士を破ったAlphaGoや、AIモデルGeminiを開発しています。</div>
+    </a>
+    <a href="hugging-face.html">
+      <div class="n">Hugging Face</div>
+      <div class="s">AIモデルやデータセットを誰でも公開・共有できるプラットフォームです。「AI版GitHub」と呼ばれます。</div>
+    </a>
+    <a href="meta-ai.html">
+      <div class="n">Meta</div>
+      <div class="s">FacebookやInstagramを運営する企業で、AIモデル「Llama」を公開しています。</div>
+    </a>
+    <a href="microsoft.html">
+      <div class="n">Microsoft</div>
+      <div class="s">OpenAIに巨額の出資を行い、自社サービスにAIを組み込んでいる企業です。</div>
+    </a>
+    <a href="mistral.html">
+      <div class="n">Mistral AI</div>
+      <div class="s">フランスのAI企業です。ヨーロッパ発の有力な生成AI企業として注目されています。</div>
+    </a>
+    <a href="nvidia.html">
+      <div class="n">NVIDIA</div>
+      <div class="s">AI開発に不可欠なGPUを作っている半導体企業です。生成AIブームの最大の受益者と言われています。</div>
+    </a>
+    <a href="openai.html">
+      <div class="n">OpenAI</div>
+      <div class="s">ChatGPTを開発したアメリカのAI企業です。2022年のChatGPT公開が、今の生成AIブームの引き金になりました。</div>
+    </a>
+    </div>
+  </div>
+  <div class="term-index-group">
+    <h2>モデル</h2>
+    <div class="term-list">
+    <a href="claude.html">
+      <div class="n">Claude</div>
+      <div class="s">Anthropicが開発しているAIアシスタントです。長文の読解や文章作成、プログラミングに強みがあります。</div>
+    </a>
+    <a href="copilot.html">
+      <div class="n">Copilot</div>
+      <div class="s">AIが作業を隣で手伝う形のツールにつけられる名前です。プログラミング支援のGitHub Copilotが代表例です。</div>
+    </a>
+    <a href="gemini.html">
+      <div class="n">Gemini</div>
+      <div class="s">Googleが開発しているAIモデルです。文章・画像・音声・動画をまとめて扱えることを特徴としています。</div>
+    </a>
+    <a href="gpt.html">
+      <div class="n">GPT</div>
+      <div class="s">OpenAIが開発しているAIモデルのシリーズ名です。ChatGPTの中身がこれにあたります。</div>
+    </a>
+    <a href="llama.html">
+      <div class="n">Llama</div>
+      <div class="s">Metaが公開しているAIモデルです。重みが公開されているため、誰でも自分の環境で動かせます。</div>
+    </a>
+    </div>
+  </div>
+  <div class="term-index-group">
+    <h2>インフラ</h2>
+    <div class="term-list">
+    <a href="api.html">
+      <div class="n">API</div>
+      <div class="s">他のソフトウェアからAIを呼び出すための窓口です。自作のアプリにAIを組み込むときに使います。</div>
+    </a>
+    <a href="gpu.html">
+      <div class="n">GPU</div>
+      <div class="s">大量の計算を同時に行える半導体で、AIの学習と実行に欠かせない部品です。</div>
+    </a>
+    <a href="open-weight.html">
+      <div class="n">オープンウェイト</div>
+      <div class="s">モデルの中身（重み）が公開されていて、誰でもダウンロードして動かせる形態のことです。</div>
+    </a>
+    <a href="open-source.html">
+      <div class="n">オープンソース</div>
+      <div class="s">ソフトウェアの中身が公開され、誰でも自由に使ったり改良したりできる形態のことです。</div>
+    </a>
+    <a href="datacenter.html">
+      <div class="n">データセンター</div>
+      <div class="s">AIを動かすためのコンピュータを大量に設置した施設です。AI競争は電力と土地の競争でもあります。</div>
+    </a>
+    <a href="inference-cost.html">
+      <div class="n">推論コスト</div>
+      <div class="s">AIを動かすたびにかかる費用のことです。AIサービスの採算を左右する最も重要な数字です。</div>
+    </a>
+    </div>
+  </div>
+  <div class="term-index-group">
+    <h2>安全性</h2>
+    <div class="term-list">
+    <a href="alignment.html">
+      <div class="n">アライメント</div>
+      <div class="s">AIが人間の意図や価値観からずれないようにする研究分野です。日本語では「整合性」と訳されます。</div>
+    </a>
+    <a href="prompt-injection.html">
+      <div class="n">プロンプトインジェクション</div>
+      <div class="s">AIに読ませる文章の中に不正な指示を混ぜ込み、意図しない動作をさせる攻撃です。</div>
+    </a>
+    <a href="red-teaming.html">
+      <div class="n">レッドチーミング</div>
+      <div class="s">AIをわざと攻撃して弱点を探す検証作業のことです。公開前の安全確認として行われます。</div>
+    </a>
+    </div>
+  </div>
+  <div class="term-index-group">
+    <h2>規制</h2>
+    <div class="term-list">
+    <a href="copyright.html">
+      <div class="n">AIと著作権</div>
+      <div class="s">AIの学習に他人の著作物を使ってよいか、AIの生成物に著作権が生じるかという論点です。</div>
+    </a>
+    <a href="eu-ai-act.html">
+      <div class="n">EU AI Act</div>
+      <div class="s">EUが世界に先駆けて作った、AIを包括的に規制する法律です。用途のリスクに応じて義務が変わります。</div>
+    </a>
+    <a href="training-data.html">
+      <div class="n">学習データ</div>
+      <div class="s">AIを訓練するために読み込ませる大量のデータのことです。AIの性能と偏りの両方を決める土台です。</div>
+    </a>
+    </div>
+  </div>
+  <div class="term-index-group">
+    <h2>評価</h2>
+    <div class="term-list">
+    <a href="benchmark.html">
+      <div class="n">ベンチマーク</div>
+      <div class="s">AIの性能を共通のテストで測るための指標です。モデル同士の比較に使われます。</div>
+    </a>
+    </div>
+  </div>
+  <div class="term-index-group">
+    <h2>ビジネス</h2>
+    <div class="term-list">
+    <a href="ipo.html">
+      <div class="n">IPO</div>
+      <div class="s">企業が株式を証券取引所に上場し、誰でも売買できるようにすることです。新規株式公開ともいいます。</div>
+    </a>
+    <a href="valuation.html">
+      <div class="n">評価額</div>
+      <div class="s">投資を受ける際に算定される企業の価値のことです。「10億ドルの評価額で調達」のように使われます。</div>
+    </a>
+    <a href="funding-round.html">
+      <div class="n">資金調達ラウンド</div>
+      <div class="s">スタートアップが投資家からお金を集める段階のことです。シード、シリーズA、Bと進みます。</div>
+    </a>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <strong>世界一わかりやすいAIニュース</strong> — てらこ先生
+  <div class="footer-links"><a href="../">トップ</a> ／ <a href="../terms/">AI用語集</a> ／ <a href="../articles/">読み物</a> ／ <a href="../archive.html">バックナンバー</a> ／ <a href="../about.html">運営者情報・免責事項</a> ／ <a href="https://teraco-labo.com">TERACO.LABO</a></div>
+</footer>
+</body>
+</html>
