@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI最新ニュースまとめ 2026年8月25日 | てらこAIニュースダイジェスト</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root { --bg:#f8fafc; --card-bg:#fff; --text:#1e293b; --text-muted:#64748b; --border:#e2e8f0; --accent:#0e7490; }
+  body { font-family:'Noto Sans JP','Inter',sans-serif; background:var(--bg); color:var(--text);
+    line-height:1.7; -webkit-font-smoothing:antialiased; }
+  a { color:inherit; }
+  .hero { background:linear-gradient(135deg,#0f172a,#1e293b); color:#fff; padding:3rem 1.5rem; }
+  .hero-inner { max-width:1100px; margin:0 auto; }
+  .hero h1 { font-size:1.8rem; font-weight:700; letter-spacing:0.01em; }
+  .hero p { margin-top:0.6rem; font-size:0.95rem; color:#cbd5e1; max-width:640px; }
+  .hero-actions { margin-top:1.5rem; display:flex; flex-wrap:wrap; gap:0.75rem; }
+  .crumbs { font-size:0.75rem; color:#94a3b8; margin-bottom:0.75rem; }
+  .crumbs a { text-decoration:none; }
+  .crumbs a:hover { text-decoration:underline; }
+  .btn { display:inline-block; padding:0.6rem 1.3rem; border-radius:6px; font-size:0.85rem;
+    font-weight:700; text-decoration:none; }
+  .btn-primary { background:#22d3ee; color:#0f172a; }
+  .btn-ghost { border:1px solid rgba(255,255,255,0.35); color:#e2e8f0; }
+  main { max-width:1100px; margin:0 auto; padding:2.5rem 1.5rem 4rem; }
+  .section-label { font-size:0.75rem; font-weight:700; letter-spacing:0.12em; color:var(--text-muted);
+    text-transform:uppercase; margin:2.5rem 0 1rem; }
+  .section-label:first-child { margin-top:0; }
+  .issue-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:1rem; }
+  .issue { display:block; padding:1rem 1.1rem; background:var(--card-bg); border:1px solid var(--border);
+    border-radius:8px; text-decoration:none; transition:border-color .15s; }
+  .issue:hover { border-color:var(--accent); }
+  .issue .d { font-size:0.95rem; font-weight:700; }
+  .issue .m { margin-top:0.25rem; font-size:0.75rem; color:var(--text-muted); }
+  .issue-list { list-style:none; columns:2; column-gap:2rem; }
+  .issue-list li { break-inside:avoid; padding:0.35rem 0; border-bottom:1px solid var(--border); }
+  .issue-list a { font-size:0.85rem; text-decoration:none; }
+  .issue-list a:hover { color:var(--accent); }
+  .issue-list .m { font-size:0.72rem; color:var(--text-muted); margin-left:0.5rem; }
+  footer { border-top:1px solid var(--border); padding:2rem 1.5rem; text-align:center;
+    font-size:0.78rem; color:var(--text-muted); }
+  .footer-links { margin-top:0.9rem; font-size:0.75rem; }
+  .footer-links a { color:var(--text-muted); text-decoration:none; }
+  .footer-links a:hover { color:var(--accent); text-decoration:underline; }
+  @media (max-width:640px){ .issue-list{columns:1;} .hero h1{font-size:1.4rem;} }
+
+  :root {
+    --model:#1d4ed8; --research:#6d28d9; --business:#065f46;
+    --policy:#92400e; --tools:#0e7490;
+  }
+  .lead { max-width:760px; margin:0 auto 2.5rem; padding:1.5rem 1.7rem;
+    background:var(--card-bg); border:1px solid var(--border); border-radius:8px; }
+  .lead-label { font-size:0.7rem; font-weight:700; letter-spacing:0.14em;
+    color:var(--text-muted); margin-bottom:0.9rem; }
+  .lead ol { list-style:none; counter-reset:lead; display:flex; flex-direction:column; gap:0.7rem; }
+  .lead li { counter-increment:lead; position:relative; padding-left:1.9rem;
+    font-size:0.95rem; line-height:1.85; }
+  .lead li::before { content:counter(lead); position:absolute; left:0; top:0.3em;
+    width:1.25rem; height:1.25rem; border-radius:50%; background:var(--accent); color:#fff;
+    font-size:0.68rem; font-weight:700; display:flex; align-items:center; justify-content:center; }
+  .digest { max-width:760px; margin:0 auto; display:flex; flex-direction:column; gap:1rem; }
+  .card { padding:1.4rem 1.5rem; background:var(--card-bg); border:1px solid var(--border);
+    border-left:3px solid var(--text-muted); border-radius:8px; }
+  .card.model{border-left-color:var(--model)} .card.research{border-left-color:var(--research)}
+  .card.business{border-left-color:var(--business)} .card.policy{border-left-color:var(--policy)}
+  .card.tools{border-left-color:var(--tools)}
+  .card-top { display:flex; align-items:center; gap:0.6rem; margin-bottom:0.6rem; }
+  .card-label { font-size:0.66rem; font-weight:700; letter-spacing:0.06em; padding:2px 7px;
+    border-radius:3px; color:#fff; background:var(--text-muted); }
+  .card-label.model{background:var(--model)} .card-label.research{background:var(--research)}
+  .card-label.business{background:var(--business)} .card-label.policy{background:var(--policy)}
+  .card-label.tools{background:var(--tools)}
+  .stars { display:flex; gap:3px; }
+  .dot { width:6px; height:6px; border-radius:50%; background:var(--border); }
+  .dot.filled { background:var(--text-muted); }
+  .card-title-ja { font-size:1.08rem; font-weight:700; line-height:1.6; }
+  .card-title-en { margin-top:0.25rem; font-size:0.78rem; color:var(--text-muted); line-height:1.5; }
+  .card-source { margin-top:0.5rem; font-size:0.72rem; color:var(--text-muted); }
+  .card-body { margin-top:0.7rem; font-size:0.9rem; line-height:1.95; }
+  .card-link { display:inline-block; margin-top:0.9rem; font-size:0.82rem; font-weight:600;
+    color:var(--accent); text-decoration:none; }
+  .card-link:hover { text-decoration:underline; }
+  .card.top { border-left-width:4px; background:linear-gradient(180deg,rgba(14,116,144,0.04),transparent); }
+  .card.top .card-title-ja { font-size:1.25rem; }
+  .tier { max-width:760px; margin:2rem auto 0.5rem; font-size:0.7rem; font-weight:700;
+    letter-spacing:0.14em; color:var(--text-muted); }
+  .tier:first-of-type { margin-top:0; }
+  .podcast { max-width:760px; margin:2.5rem auto 0; padding:1.3rem 1.5rem;
+    background:linear-gradient(135deg,#0f172a,#1e293b); border-radius:8px; color:#e2e8f0; }
+  .podcast h2 { font-size:0.95rem; font-weight:700; color:#fff; margin-bottom:0.3rem; }
+  .podcast p { font-size:0.82rem; color:#cbd5e1; }
+  .podcast a { display:inline-block; margin-top:0.9rem; margin-right:0.6rem; padding:0.5rem 1.1rem;
+    background:#22d3ee; color:#0f172a; font-size:0.8rem; font-weight:700;
+    border-radius:6px; text-decoration:none; }
+  .podcast a.ghost { background:none; border:1px solid rgba(255,255,255,0.35); color:#e2e8f0; }
+  @media (max-width:640px){ .card{padding:1.15rem 1.2rem} .card.top .card-title-ja{font-size:1.1rem} }
+</style>
+<!-- monetize.py: SEO / analytics -->
+<meta name="description" content="2026年8月25日のAI関連ニュース23件を日本語で要約してお届けします。">
+<link rel="canonical" href="https://teraco-labo.github.io/ai-news-digest/ai-news-2026-08-25.html">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AI最新ニュースまとめ 2026年8月25日 | てらこAIニュースダイジェスト">
+<meta property="og:description" content="2026年8月25日のAI関連ニュース23件を日本語で要約してお届けします。">
+<meta property="og:url" content="https://teraco-labo.github.io/ai-news-digest/ai-news-2026-08-25.html">
+<meta property="og:site_name" content="てらこAIニュースダイジェスト">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:image" content="https://teraco-labo.github.io/ai-news-digest/podcast/cover.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="alternate" type="application/rss+xml" title="てらこAIニュースダイジェスト" href="https://teraco-labo.github.io/ai-news-digest/feed.xml">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "NewsArticle", "headline": "AI最新ニュースまとめ 2026年8月25日 | てらこAIニュースダイジェスト", "description": "2026年8月25日のAI関連ニュース23件を日本語で要約してお届けします。", "url": "https://teraco-labo.github.io/ai-news-digest/ai-news-2026-08-25.html", "inLanguage": "ja", "author": {"@type": "Person", "name": "てらこ先生"}, "publisher": {"@type": "Organization", "name": "てらこAIニュースダイジェスト"}, "datePublished": "2026-08-25T06:00:00+09:00", "dateModified": "2026-08-25T06:00:00+09:00"}</script>
+
+<style id="mz-style">
+  .mz-disclosure { max-width: 1100px; margin: 0 auto 1rem; padding: 0.5rem 0.75rem;
+    font-size: 0.7rem; line-height: 1.6; color: var(--text-muted, #64748b);
+    background: rgba(148,163,184,0.10); border-radius: 6px; }
+  .mz-block { max-width: 1100px; margin: 2rem auto; }
+  .mz-head { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem; }
+  .mz-head h2 { font-size: 0.9rem; font-weight: 700; color: var(--text, #1e293b); letter-spacing: 0.02em; }
+  .mz-pr { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.08em; padding: 2px 6px;
+    border-radius: 3px; background: #94a3b8; color: #fff; }
+  .mz-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1rem; }
+  .mz-card { display: flex; flex-direction: column; gap: 0.4rem; padding: 1rem;
+    background: var(--card-bg, #fff); border: 1px solid var(--border, #e2e8f0);
+    border-left: 3px solid #0e7490; border-radius: 8px; }
+  .mz-card .mz-name { font-size: 0.68rem; font-weight: 600; color: var(--text-muted, #64748b); letter-spacing: 0.04em; }
+  .mz-card .mz-title { font-size: 0.95rem; font-weight: 700; color: var(--text, #1e293b); line-height: 1.5; }
+  .mz-card .mz-body { font-size: 0.8rem; line-height: 1.7; color: var(--text-muted, #64748b); }
+  .mz-card .mz-cta { margin-top: auto; padding-top: 0.6rem; font-size: 0.8rem; font-weight: 600;
+    color: #0e7490; text-decoration: none; }
+  .mz-card .mz-cta:hover { text-decoration: underline; }
+  .mz-badge { align-self: flex-start; font-size: 0.6rem; font-weight: 700; padding: 2px 6px;
+    border-radius: 3px; background: #0e7490; color: #fff; }
+  .mz-cta-block { max-width: 1100px; margin: 2rem auto; padding: 1.5rem;
+    background: linear-gradient(135deg, #0f172a, #1e293b); border-radius: 10px; color: #e2e8f0; }
+  .mz-cta-block h2 { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.5rem; color: #fff; }
+  .mz-cta-block p { font-size: 0.85rem; line-height: 1.8; color: #cbd5e1; }
+  .mz-cta-block a { display: inline-block; margin-top: 0.9rem; padding: 0.6rem 1.4rem;
+    background: #22d3ee; color: #0f172a; font-size: 0.85rem; font-weight: 700;
+    border-radius: 6px; text-decoration: none; }
+  .mz-ad { max-width: 1100px; margin: 2rem auto; text-align: center; }
+</style>
+
+<!-- monetize.py: SEO / analytics -->
+<meta name="description" content="2026年08月25日のAI関連ニュース23件を日本語で要約。モデル・研究・ビジネス・ポリシー・ツールの5カテゴリで重要ニュースだけを厳選しています。">
+<link rel="canonical" href="https://teraco-labo.github.io/ai-news-digest/ai-news-2026-08-25.html">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AI最新ニュースまとめ 2026年08月25日 | てらこAIニュースダイジェスト">
+<meta property="og:description" content="2026年08月25日のAI関連ニュース23件を日本語で要約。モデル・研究・ビジネス・ポリシー・ツールの5カテゴリで重要ニュースだけを厳選しています。">
+<meta property="og:url" content="https://teraco-labo.github.io/ai-news-digest/ai-news-2026-08-25.html">
+<meta property="og:site_name" content="てらこAIニュースダイジェスト">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:image" content="https://teraco-labo.github.io/ai-news-digest/podcast/cover.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="alternate" type="application/rss+xml" title="てらこAIニュースダイジェスト" href="https://teraco-labo.github.io/ai-news-digest/feed.xml">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "NewsArticle", "headline": "AI最新ニュースまとめ 2026年08月25日 | てらこAIニュースダイジェスト", "description": "2026年08月25日のAI関連ニュース23件を日本語で要約。モデル・研究・ビジネス・ポリシー・ツールの5カテゴリで重要ニュースだけを厳選しています。", "url": "https://teraco-labo.github.io/ai-news-digest/ai-news-2026-08-25.html", "inLanguage": "ja", "author": {"@type": "Person", "name": "てらこ先生"}, "publisher": {"@type": "Organization", "name": "てらこAIニュースダイジェスト"}, "datePublished": "2026-08-25T06:00:00+09:00", "dateModified": "2026-08-25T06:00:00+09:00"}</script>
+
+<style id="mz-style">
+  .mz-disclosure { max-width: 1100px; margin: 0 auto 1rem; padding: 0.5rem 0.75rem;
+    font-size: 0.7rem; line-height: 1.6; color: var(--text-muted, #64748b);
+    background: rgba(148,163,184,0.10); border-radius: 6px; }
+  .mz-block { max-width: 1100px; margin: 2rem auto; }
+  .mz-head { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem; }
+  .mz-head h2 { font-size: 0.9rem; font-weight: 700; color: var(--text, #1e293b); letter-spacing: 0.02em; }
+  .mz-pr { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.08em; padding: 2px 6px;
+    border-radius: 3px; background: #94a3b8; color: #fff; }
+  .mz-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1rem; }
+  .mz-card { display: flex; flex-direction: column; gap: 0.4rem; padding: 1rem;
+    background: var(--card-bg, #fff); border: 1px solid var(--border, #e2e8f0);
+    border-left: 3px solid #0e7490; border-radius: 8px; }
+  .mz-card .mz-name { font-size: 0.68rem; font-weight: 600; color: var(--text-muted, #64748b); letter-spacing: 0.04em; }
+  .mz-card .mz-title { font-size: 0.95rem; font-weight: 700; color: var(--text, #1e293b); line-height: 1.5; }
+  .mz-card .mz-body { font-size: 0.8rem; line-height: 1.7; color: var(--text-muted, #64748b); }
+  .mz-card .mz-cta { margin-top: auto; padding-top: 0.6rem; font-size: 0.8rem; font-weight: 600;
+    color: #0e7490; text-decoration: none; }
+  .mz-card .mz-cta:hover { text-decoration: underline; }
+  .mz-badge { align-self: flex-start; font-size: 0.6rem; font-weight: 700; padding: 2px 6px;
+    border-radius: 3px; background: #0e7490; color: #fff; }
+  .mz-cta-block { max-width: 1100px; margin: 2rem auto; padding: 1.5rem;
+    background: linear-gradient(135deg, #0f172a, #1e293b); border-radius: 10px; color: #e2e8f0; }
+  .mz-cta-block h2 { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.5rem; color: #fff; }
+  .mz-cta-block p { font-size: 0.85rem; line-height: 1.8; color: #cbd5e1; }
+  .mz-cta-block a { display: inline-block; margin-top: 0.9rem; padding: 0.6rem 1.4rem;
+    background: #22d3ee; color: #0f172a; font-size: 0.85rem; font-weight: 700;
+    border-radius: 6px; text-decoration: none; }
+  .mz-ad { max-width: 1100px; margin: 2rem auto; text-align: center; }
+</style>
+</head>
+<body>
+<div class="hero">
+  <div class="hero-inner">
+    <div class="crumbs"><a href="./">てらこAIニュースダイジェスト</a> ／ <a href="archive.html">バックナンバー</a></div>
+    <h1>2026年8月25日（火）のAIニュース</h1>
+    <p>厳選 23 件。3分で今日のAIがわかります。</p>
+  </div>
+</div>
+
+<main>
+
+  <div class="tier">注目のニュース</div>
+  <div class="digest">
+    <article class="card model top">
+      <div class="card-top">
+        <span class="card-label model">モデル</span>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div></div>
+      </div>
+      <div class="card-title-ja">OpenAI: GPT 5.6 Sol price reduction (until at least Nov 21)</div>
+      <div class="card-title-en">OpenAI: GPT 5.6 Sol price reduction (until at least Nov 21)</div>
+      <div class="card-source">Hacker News · 2026-08-24</div>
+      <div class="card-body">Hacker News で323ポイント獲得。コミュニティで注目を集めている話題。</div>
+      <a class="card-link" href="https://developers.openai.com/api/docs/pricing" target="_blank" rel="noopener">元記事を読む →</a>
+    </article>
+    <article class="card research top">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div></div>
+      </div>
+      <div class="card-title-ja">Coding expertise is going to collapse from AI reliance</div>
+      <div class="card-title-en">Coding expertise is going to collapse from AI reliance</div>
+      <div class="card-source">Hacker News · 2026-08-24</div>
+      <div class="card-body">Hacker News で513ポイント獲得。コミュニティで注目を集めている話題。</div>
+      <a class="card-link" href="https://larsfaye.com/articles/ai-coding-will-prevent-expertise" target="_blank" rel="noopener">元記事を読む →</a>
+    </article>
+    <article class="card tools top">
+      <div class="card-top">
+        <span class="card-label tools">ツール</span>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div></div>
+      </div>
+      <div class="card-title-ja">Xiaomi: New CPU matches Apple cores single threaded, much faster multithreaded</div>
+      <div class="card-title-en">Xiaomi: New CPU matches Apple cores single threaded, much faster multithreaded</div>
+      <div class="card-source">Hacker News · 2026-08-24</div>
+      <div class="card-body">Hacker News で863ポイント獲得。コミュニティで注目を集めている話題。</div>
+      <a class="card-link" href="https://twitter.com/lemire/status/2091894299289874926" target="_blank" rel="noopener">元記事を読む →</a>
+    </article>
+  </div>
+  <div class="tier">そのほかの動き</div>
+  <div class="digest">
+    <article class="card model">
+      <div class="card-top">
+        <span class="card-label model">モデル</span>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
+      </div>
+      <div class="card-title-ja">How to encourage smarter AI use in the classroom</div>
+      <div class="card-title-en">How to encourage smarter AI use in the classroom</div>
+      <div class="card-source">MIT Tech Review · Mon, 24 Au</div>
+      <div class="card-body">This article is from Making AI Work, MIT Technology Review’s limited-run newsletter examining how to apply LLMs across industries. To receive it in your inbox, sign up here. Chatbots took many schools by surprise upon their release a few years ago. Suddenly, students carried an app in their phones that could magically answer almost any&amp;#8230;</div>
+      <a class="card-link" href="https://www.technologyreview.com/2026/08/24/1142630/ai-school-classroom-policies/" target="_blank" rel="noopener">元記事を読む →</a>
+    </article>
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
+      </div>
+      <div class="card-title-ja">Situational Awareness, star AI hedge fund that nearly imploded, now being probed by the SEC</div>
+      <div class="card-title-en">Situational Awareness, star AI hedge fund that nearly imploded, now being probed by the SEC</div>
+      <div class="card-source">TechCrunch AI · Tue, 25 Au</div>
+      <div class="card-body">The AI hedge fund went from &quot;the talk of Wall Street&quot; to &quot;subject of federal subpoenas&quot; faster than you can say &quot;diversify your portfolio.&quot;</div>
+      <a class="card-link" href="https://techcrunch.com/2026/08/24/situational-awareness-star-ai-hedge-fund-that-nearly-imploded-now-being-probed-by-the-sec/" target="_blank" rel="noopener">元記事を読む →</a>
+    </article>
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
+      </div>
+      <div class="card-title-ja">Welcome to the spiderverse, a world measured through webs</div>
+      <div class="card-title-en">Welcome to the spiderverse, a world measured through webs</div>
+      <div class="card-source">MIT Tech Review · Tue, 25 Au</div>
+      <div class="card-body">Counting the creatures in the world around us is critical for a raft of conservation efforts. It helps scientists gauge biodiversity, track migration, and spot invasive species. That census-taking, though, often requires humans to tabulate what they see, trap, or otherwise sense—a potentially laborious, costly process that can still leave gaps. But developments over the&amp;#8230;</div>
+      <a class="card-link" href="https://www.technologyreview.com/2026/08/25/1141750/welcome-to-spiderverse-arachnid-webs/" target="_blank" rel="noopener">元記事を読む →</a>
+    </article>
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
+      </div>
+      <div class="card-title-ja">I spent a day at a robot “carnival” in Shanghai. Here’s what I saw.</div>
+      <div class="card-title-en">I spent a day at a robot “carnival” in Shanghai. Here’s what I saw.</div>
+      <div class="card-source">MIT Tech Review · Tue, 25 Au</div>
+      <div class="card-body">Humanoid robots are having a moment in China. The popular machines are part of the country’s strategy to bring artificial intelligence into daily life. Embedding the technology into physical systems—an idea called embodied AI—was a key facet of China’s latest five-year plan, and companies here are already world leaders in humanoids. Nearly 90% of the&amp;#8230;</div>
+      <a class="card-link" href="https://www.technologyreview.com/2026/08/25/1141907/dispatch-shanghai-humanoid-robot-carnival/" target="_blank" rel="noopener">元記事を読む →</a>
+    </article>
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
+      </div>
+      <div class="card-title-ja">The Download: kids outlearning AI, and space travel agents</div>
+      <div class="card-title-en">The Download: kids outlearning AI, and space travel agents</div>
+      <div class="card-source">MIT Tech Review · Mon, 24 Au</div>
+      <div class="card-body">This is today&amp;#8217;s edition of The Download, our weekday newsletter that provides a daily dose of what&amp;#8217;s going on in the world of technology. Kids outlearn AI—and we still don’t know why Teaching a computer to use human language requires an inhuman amount of data. An LLM can easily churn through a hundred thousand times&amp;#8230;</div>
+      <a class="card-link" href="https://www.technologyreview.com/2026/08/24/1142863/the-download-kids-outlearning-ai-space-travel-agents/" target="_blank" rel="noopener">元記事を読む →</a>
+    </article>
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
+      </div>
+      <div class="card-title-ja">Spirit Airlines Wants to Sell Its Data to Google. Former Flight Attendants Are Freaked Out</div>
+      <div class="card-title-en">Spirit Airlines Wants to Sell Its Data to Google. Former Flight Attendants Are Freaked Out</div>
+      <div class="card-source">Wired AI · Tue, 25 Au</div>
+      <div class="card-body">“It never crossed my mind that they would be so bold as to sell our private data for AI,” says one former Spirit Airlines flight attendant.</div>
+      <a class="card-link" href="https://www.wired.com/story/spirit-airlines-wants-to-sell-its-data-to-google-former-flight-attendants-are-freaked-out/" target="_blank" rel="noopener">元記事を読む →</a>
+    </article>
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
+      </div>
+      <div class="card-title-ja">AI is hitting entry-level jobs hardest, Stanford study finds</div>
+      <div class="card-title-en">AI is hitting entry-level jobs hardest, Stanford study finds</div>
+      <div class="card-source">Ars Technica · Mon, 24 Au</div>
+      <div class="card-body">Young employment in AI-impacted fields down 19% compared to more AI-resistant occupations.</div>
+      <a class="card-link" href="https://arstechnica.com/ai/2026/08/ai-is-hitting-entry-level-jobs-hardest-stanford-study-finds/" target="_blank" rel="noopener">元記事を読む →</a>
+    </article>
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
+      </div>
+      <div class="card-title-ja">Nvidia senior manager linked to Supermicro scheme smuggling AI servers to China</div>
+      <div class="card-title-en">Nvidia senior manager linked to Supermicro scheme smuggling AI servers to China</div>
+      <div class="card-source">Ars Technica · Mon, 24 Au</div>
+      <div class="card-body">Nvidia worker indicted after Jensen Huang scolded Supermicro for AI server smuggling.</div>
+      <a class="card-link" href="https://arstechnica.com/tech-policy/2026/08/nvidia-senior-manager-linked-to-supermicro-scheme-smuggling-ai-servers-to-china/" target="_blank" rel="noopener">元記事を読む →</a>
+    </article>
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
+      </div>
+      <div class="card-title-ja">Ask HN: Why do corporate failures always seem to punish the wrong people?</div>
+      <div class="card-title-en">Ask HN: Why do corporate failures always seem to punish the wrong people?</div>
+      <div class="card-source">Hacker News · 2026-08-24</div>
+      <div class="card-body">Hacker News で120ポイント獲得。コミュニティで注目を集めている話題。</div>
+      <a class="card-link" href="https://news.ycombinator.com/item?id=49418675" target="_blank" rel="noopener">元記事を読む →</a>
+    </article>
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
+      </div>
+      <div class="card-title-ja">LLMs could control their host machines by exploiting inference engines</div>
+      <div class="card-title-en">LLMs could control their host machines by exploiting inference engines</div>
+      <div class="card-source">Hacker News · 2026-08-24</div>
+      <div class="card-body">Hacker News で141ポイント獲得。コミュニティで注目を集めている話題。</div>
+      <a class="card-link" href="https://boydkane.com/essays/llms-could-control-their-host-machines-by-exploiting-inference-engines" target="_blank" rel="noopener">元記事を読む →</a>
+    </article>
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
+      </div>
+      <div class="card-title-ja">Anger, Anxiety and Agency</div>
+      <div class="card-title-en">Anger, Anxiety and Agency</div>
+      <div class="card-source">Hacker News · 2026-08-24</div>
+      <div class="card-body">Hacker News で114ポイント獲得。コミュニティで注目を集めている話題。</div>
+      <a class="card-link" href="https://lucumr.pocoo.org/2026/8/24/anger-anxiety-agency/" target="_blank" rel="noopener">元記事を読む →</a>
+    </article>
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
+      </div>
+      <div class="card-title-ja">Hot Chips 2026: CUDA Targets RISC-V – By Chester Lam</div>
+      <div class="card-title-en">Hot Chips 2026: CUDA Targets RISC-V – By Chester Lam</div>
+      <div class="card-source">Hacker News · 2026-08-24</div>
+      <div class="card-body">Hacker News で86ポイント獲得。コミュニティで注目を集めている話題。</div>
+      <a class="card-link" href="https://chipsandcheese.com/p/hot-chips-2026-cuda-targets-risc" target="_blank" rel="noopener">元記事を読む →</a>
+    </article>
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
+      </div>
+      <div class="card-title-ja">Trump bought SpaceX shares two weeks after blockbuster IPO</div>
+      <div class="card-title-en">Trump bought SpaceX shares two weeks after blockbuster IPO</div>
+      <div class="card-source">TechCrunch AI · Mon, 24 Au</div>
+      <div class="card-body">The president bought when the stock was in the mid-$150 range. SpaceX finished trading on Monday back at its IPO price of $135.</div>
+      <a class="card-link" href="https://techcrunch.com/2026/08/24/trump-bought-spacex-shares-two-weeks-after-blockbuster-ipo/" target="_blank" rel="noopener">元記事を読む →</a>
+    </article>
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
+      </div>
+      <div class="card-title-ja">Amjad Masad, CEO and co-founder of Replit, joins the Disrupt Stage at TechCrunch Disrupt 2026</div>
+      <div class="card-title-en">Amjad Masad, CEO and co-founder of Replit, joins the Disrupt Stage at TechCrunch Disrupt 2026</div>
+      <div class="card-source">TechCrunch AI · Mon, 24 Au</div>
+      <div class="card-body">At TechCrunch Disrupt 2026, Replit CEO Amjad Masad will share his perspective on the future of programming and Replit&#x27;s role in developing it.</div>
+      <a class="card-link" href="https://techcrunch.com/2026/08/24/amjad-masad-ceo-and-co-founder-of-replit-joins-the-disrupt-stage-at-techcrunch-disrupt-2026/" target="_blank" rel="noopener">元記事を読む →</a>
+    </article>
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
+      </div>
+      <div class="card-title-ja">Valor, Point72 back General Intuition at $6B valuation as AI startup pushes into robotics</div>
+      <div class="card-title-en">Valor, Point72 back General Intuition at $6B valuation as AI startup pushes into robotics</div>
+      <div class="card-source">TechCrunch AI · Mon, 24 Au</div>
+      <div class="card-body">General Intuition, the startup building a foundation model that trains generalized AI agents how to move through space and time, is in talks to raise at a $6 billion pre-money valuation from new investors including Valor Ventures, Point72 Ventures, and Seven Seven Six.</div>
+      <a class="card-link" href="https://techcrunch.com/2026/08/24/valor-point72-back-general-intuition-at-6b-valuation-as-ai-startup-pushes-into-robotics/" target="_blank" rel="noopener">元記事を読む →</a>
+    </article>
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
+      </div>
+      <div class="card-title-ja">Hugging Face reportedly in talks to be acquired for $13B</div>
+      <div class="card-title-en">Hugging Face reportedly in talks to be acquired for $13B</div>
+      <div class="card-source">TechCrunch AI · Mon, 24 Au</div>
+      <div class="card-body">Hugging Face has reportedly been fielding acquisition offers that would value the company at around $13B. But with the founders&#x27; feeling of responsibility to community, doubts arise as to whether a sale will happen.</div>
+      <a class="card-link" href="https://techcrunch.com/2026/08/24/hugging-face-reportedly-in-talks-to-be-acquired-for-13b/" target="_blank" rel="noopener">元記事を読む →</a>
+    </article>
+    <article class="card policy">
+      <div class="card-top">
+        <span class="card-label policy">ポリシー</span>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
+      </div>
+      <div class="card-title-ja">Instinct’s powerful AI assistant is raising privacy and security concerns</div>
+      <div class="card-title-en">Instinct’s powerful AI assistant is raising privacy and security concerns</div>
+      <div class="card-source">TechCrunch AI · Mon, 24 Au</div>
+      <div class="card-body">Early testers are raving about what Instinct can do, but some say the AI assistant’s sweeping access, broad terms and ability to act on users’ behalf come with uncomfortable trade-offs.</div>
+      <a class="card-link" href="https://techcrunch.com/2026/08/24/instincts-powerful-ai-assistant-is-raising-privacy-and-security-concerns/" target="_blank" rel="noopener">元記事を読む →</a>
+    </article>
+    <article class="card policy">
+      <div class="card-top">
+        <span class="card-label policy">ポリシー</span>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
+      </div>
+      <div class="card-title-ja">Buyer beware: Those mummified remains might carry toxic spores</div>
+      <div class="card-title-en">Buyer beware: Those mummified remains might carry toxic spores</div>
+      <div class="card-source">Ars Technica · Mon, 24 Au</div>
+      <div class="card-body">&quot;Mummified remains sold online exhibit signs of biodeterioration, yet sellers provide no safety guidance.&quot;</div>
+      <a class="card-link" href="https://arstechnica.com/science/2026/08/modern-trade-of-mummified-remains-may-carry-its-own-mummys-curse/" target="_blank" rel="noopener">元記事を読む →</a>
+    </article>
+    <article class="card tools">
+      <div class="card-top">
+        <span class="card-label tools">ツール</span>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
+      </div>
+      <div class="card-title-ja">OpenAI is building AI agents for everything. Will everyone use them?</div>
+      <div class="card-title-en">OpenAI is building AI agents for everything. Will everyone use them?</div>
+      <div class="card-source">TechCrunch AI · Mon, 24 Au</div>
+      <div class="card-body">Inside the frontier lab’s push to bring AI agents from software engineers to the masses.</div>
+      <a class="card-link" href="https://techcrunch.com/2026/08/24/openai-is-building-an-ai-agent-for-everything-will-everyone-use-them/" target="_blank" rel="noopener">元記事を読む →</a>
+    </article>
+    <article class="card tools">
+      <div class="card-top">
+        <span class="card-label tools">ツール</span>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
+      </div>
+      <div class="card-title-ja">It Should Be Harder to Apply for a Job. No, Really</div>
+      <div class="card-title-en">It Should Be Harder to Apply for a Job. No, Really</div>
+      <div class="card-source">Wired AI · Tue, 25 Au</div>
+      <div class="card-body">Thanks to a dwindling supply of open roles, “one-click” applications, and the rise of artificial intelligence, it’s easier than ever to apply for a job. We’re all paying the price.</div>
+      <a class="card-link" href="https://www.wired.com/story/applying-for-a-job-is-too-damn-easy/" target="_blank" rel="noopener">元記事を読む →</a>
+    </article>
+  </div>
+
+  <div class="podcast">
+    <h2>🎧 音声で聴く</h2>
+    <p>今日のニュースを対話形式でまとめた音声版があります。通勤中や作業中にどうぞ。</p>
+    <a href="https://teraco-labo.github.io/ai-news-digest/podcast/player.html?date=2026-08-25">再生する</a>
+    <a class="ghost" href="https://teraco-labo.github.io/ai-news-digest/podcast/feed.xml">RSSで購読</a>
+  </div>
+
+</main>
+
+<footer>
+  <strong>てらこAIニュースダイジェスト</strong> — 2026年8月25日（火）／ 23 件収録<br>
+  毎朝6時に自動生成しています。
+  <div class="footer-links"><a href="">トップ</a> ／ <a href="articles/">読み物</a> ／ <a href="archive.html">バックナンバー</a> ／ <a href="about.html">運営者情報・免責事項</a> ／ <a href="https://teraco-labo.com">TERACO.LABO</a></div>
+</footer>
+</body>
+</html>
