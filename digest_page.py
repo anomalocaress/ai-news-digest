@@ -108,8 +108,10 @@ def _card(article: Dict, emphasize: bool) -> str:
     link_html = (f'      <a class="card-link" href="{_html.escape(url)}" target="_blank" '
                  f'rel="noopener">元記事を読む →</a>\n' if url else "")
     source = article.get("source", "")
-    date = article.get("date", "")
-    source_line = " · ".join(x for x in (source, date) if x)
+    if isinstance(source, dict):  # RSS 由来の {"name": ...} 形式に耐える
+        source = source.get("name", "")
+    date = str(article.get("date") or article.get("publishedAt") or "")[:10]
+    source_line = " · ".join(str(x) for x in (source, date) if x)
 
     return (
         f'    <article class="card {category}{" top" if emphasize else ""}">\n'

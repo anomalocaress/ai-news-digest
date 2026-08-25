@@ -121,6 +121,37 @@ def is_enabled() -> bool:
     )
 
 
+def _source_name(article: Dict) -> str:
+    """取得元の名前。RSS 側は {"name": "..."} の辞書で持っているため吸収する。"""
+    source = article.get("source", "")
+    if isinstance(source, dict):
+        return str(source.get("name", ""))
+    return str(source or "")
+
+
+def _article_date(article: Dict) -> str:
+    """記事の日付（YYYY-MM-DD）。フィールド名の揺れ（publishedAt / date）を吸収する。"""
+    raw = article.get("date") or article.get("publishedAt") or ""
+    return str(raw)[:10]
+
+
+_CATEGORY_ALIASES = {
+    "モデル": "model", "研究": "research", "ビジネス": "business",
+    "ポリシー": "policy", "ツール": "tools",
+    "models": "model", "tool": "tools", "biz": "business",
+}
+
+
+def _normalize_category(value) -> Optional[str]:
+    """モデルが返すカテゴリ表記の揺れ（大文字・日本語など）を吸収する。"""
+    if not isinstance(value, str):
+        return None
+    v = value.strip().lower()
+    if v in CATEGORIES:
+        return v
+    return _CATEGORY_ALIASES.get(value.strip()) or _CATEGORY_ALIASES.get(v)
+
+
 def _build_user_message(articles: List[Dict], min_n: int, max_n: int) -> str:
     lines = [
         f"本日集まった記事は {len(articles)} 件です。"
@@ -136,7 +167,7 @@ def _build_user_message(articles: List[Dict], min_n: int, max_n: int) -> str:
         if len(desc) > 400:
             desc = desc[:400] + "…"
         lines.append(f"[{i}] {a.get('title', '')}")
-        lines.append(f"    出典: {a.get('source', '不明')}")
+        lines.append(f"    出典: {_source_name(a) or '不明'}")
         if desc:
             lines.append(f"    概要: {desc}")
         lines.append("")
@@ -394,16 +425,20 @@ def _assemble(data: Dict, articles: List[Dict], verbose: bool) -> Optional[Dict]
         seen.add(idx)
 
         src = articles[idx]
-        category = item.get("category") if item.get("category") in CATEGORIES else "research"
+        category = _normalize_category(item.get("category"))
+        if category is None:
+            if verbose:
+                print(f"   ⚠️  未知のカテゴリ {item.get('category')!r} → research に振り分け")
+            category = "research"
         categorized[category].append({
             "title_en": src.get("title", ""),
-            "title_ja": item.get("title_ja", "").strip(),
-            "summary": item.get("summary", "").strip(),
+            "title_ja": str(item.get("title_ja", "")).strip(),
+            "summary": str(item.get("summary", "")).strip(),
             "category": category,
             "importance": max(1, min(3, int(item.get("importance", 2)))),
-            "source": src.get("source", ""),
+            "source": _source_name(src),
             "url": src.get("url", ""),
-            "date": src.get("date", ""),
+            "date": _article_date(src),
         })
 
     total = sum(len(v) for v in categorized.values())
