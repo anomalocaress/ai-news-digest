@@ -347,7 +347,22 @@ def apply_to_digest(html_output: str, categorized: Optional[Dict[str, List[Dict]
         else:
             html_output = _insert_before(html_output, "</main>", in_content)
 
-    # 4. 本文末尾（</main> 直前）: AdSense → 案件 → 自社 CTA
+    # 4. ダイジェストのフッターにも運営者情報への導線を置く。
+    #    広告を出すページから免責事項に辿れないのは、実務上まずい。
+    try:
+        import site_theme
+        links = site_theme.footer_links(config)
+        if "footer-links" not in html_output:
+            html_output = _insert_before(
+                html_output, "</footer>",
+                '  <style>.footer-links{margin-top:0.9rem;font-size:0.72rem}'
+                '.footer-links a{color:inherit;text-decoration:none;opacity:0.8}'
+                '.footer-links a:hover{text-decoration:underline}</style>\n  ' + links + "\n",
+            )
+    except Exception as e:
+        print(f"⚠️  フッターリンクの挿入をスキップしました: {e}")
+
+    # 5. 本文末尾（</main> 直前）: AdSense → 案件 → 自社 CTA
     tail = render_adsense_unit(config)
     tail += render_offer_block(foot_offers, heading="AIを仕事にしたい人向け")
     tail += render_cta(config)

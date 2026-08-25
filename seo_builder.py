@@ -156,6 +156,7 @@ def build_home(issues: List[Dict], articles: List[Dict], config: Dict) -> str:
 <footer>
   <strong>{_html.escape(name)}</strong> — {_html.escape(site.get("author", ""))}<br>
   毎朝6時に自動生成・自動配信しています。
+  {site_theme.footer_links(config)}
 </footer>"""
 
     return site_theme.page_shell(f"{name} | AI最新ニュースを毎朝6時に日本語で", head, body)
@@ -209,9 +210,117 @@ def build_archive(issues: List[Dict], config: Dict) -> str:
 
 <footer>
   <strong>{_html.escape(name)}</strong> — {_html.escape(site.get("author", ""))}
+  {site_theme.footer_links(config)}
 </footer>"""
 
     return site_theme.page_shell(f"バックナンバー一覧 | {name}", head, body)
+
+
+def build_about(config: Dict) -> str:
+    """運営者情報・免責事項・プライバシーポリシー。
+
+    広告を掲載する以上これは飾りではなく、
+    「購入後の問い合わせ先はどこか」を読者に対して明示する実務上の線引きになる。
+    ASP の審査でも提示を求められることが多い。
+    """
+    legal = config.get("legal", {})
+    if not legal.get("enabled"):
+        return ""
+
+    site = config.get("site", {})
+    base = site.get("base_url", "").rstrip("/")
+    name = site.get("name", "")
+    ga = site.get("_ga_placeholder", "")
+
+    head = monetize.build_head_tags(
+        config,
+        page_url=f"{base}/about.html" if base else "",
+        title=f"運営者情報・免責事項 | {name}",
+        description=f"{name} の運営者情報、広告掲載についての表示、免責事項、プライバシーポリシーです。",
+    ).replace('<meta property="og:type" content="article">',
+              '<meta property="og:type" content="website">')
+    head = head.replace('<meta name="robots" content="index, follow, max-image-preview:large">',
+                        '<meta name="robots" content="noindex, follow">')
+
+    contact = site.get("contact_email", "")
+    contact_html = (f'<a href="mailto:{_html.escape(contact)}">{_html.escape(contact)}</a>'
+                    if contact else "（準備中）")
+    parent_html = ""
+    if site.get("parent_site_url"):
+        parent_html = (f'<dt>運営元</dt><dd><a href="{_html.escape(site["parent_site_url"])}">'
+                       f'{_html.escape(site.get("parent_site_name", ""))}</a></dd>')
+
+    analytics_note = ""
+    if monetize._filled(config.get("analytics", {}).get("ga4_measurement_id")):
+        analytics_note = (
+            "<p>本サイトでは、アクセス状況の把握のために Google Analytics を利用しています。"
+            "この際、トラフィックデータの収集のために Cookie を使用しますが、個人を特定する情報は含まれません。"
+            "Cookie の受け取りはブラウザの設定で拒否できます。</p>"
+        )
+
+    ad_note = (
+        "<p>本サイトは、A8.net をはじめとするアフィリエイトプログラムに参加しています。"
+        "記事内で紹介している商品・サービスのリンクを経由してお申し込みがあった場合、"
+        "運営者が提供元から紹介料を受け取ることがあります。</p>"
+        "<p>この紹介料はサービス提供元が負担するもので、"
+        "読者の皆さまのお支払い金額が通常より高くなることは一切ありません。</p>"
+        "<p>紹介する商品・サービスは運営者の判断で選んでおり、"
+        "ニュース記事の収集・要約・掲載順は広告主の影響を受けません。</p>"
+    )
+
+    body = f"""<div class="hero">
+  <div class="hero-inner">
+    <div class="crumbs"><a href="./">{_html.escape(name)}</a></div>
+    <h1>運営者情報・免責事項</h1>
+    <p>広告の掲載方針と、お問い合わせ先の切り分けについて記載しています。</p>
+  </div>
+</div>
+
+<main>
+  <div class="legal">
+    <h2>運営者情報</h2>
+    <dl>
+      <dt>サイト名</dt><dd>{_html.escape(name)}</dd>
+      <dt>運営者</dt><dd>{_html.escape(site.get("operator", site.get("author", "")))}</dd>
+      {parent_html}
+      <dt>連絡先</dt><dd>{contact_html}</dd>
+    </dl>
+
+    <h2>広告掲載について</h2>
+    {ad_note}
+
+    <h2>免責事項</h2>
+    <div class="strong-note">
+      <p>{_html.escape(legal.get("disclaimer", ""))}</p>
+    </div>
+    <p>本サイトに掲載する情報は、掲載時点で正確を期すよう努めていますが、
+    その完全性・正確性・最新性を保証するものではありません。
+    掲載内容を利用したことにより生じた損害について、運営者は責任を負いかねます。
+    サービスの料金・条件は変更されることがありますので、
+    お申し込みの前に必ず提供元の公式サイトで最新の情報をご確認ください。</p>
+
+    <h2>ニュース記事の引用について</h2>
+    <p>本サイトのダイジェストは、各報道機関が公開している記事の見出しと要約、
+    および出典元へのリンクを掲載しています。本文の全文転載は行っていません。
+    掲載内容について権利者の方からご連絡をいただいた場合は、速やかに対応いたします。</p>
+
+    <h2>プライバシーポリシー</h2>
+    {analytics_note}
+    <p>本サイトでは、お問い合わせをいただいた場合を除き、
+    個人情報を収集することはありません。取得した個人情報は、
+    お問い合わせへの返信以外の目的では利用せず、第三者に提供することもありません。</p>
+    <p>アフィリエイトプログラムの提供元が、成果の計測のために Cookie を使用する場合があります。
+    この場合も、運営者が個人を特定できる情報を取得することはありません。</p>
+  </div>
+</main>
+
+<footer>
+  <strong>{_html.escape(name)}</strong> — {_html.escape(site.get("author", ""))}
+  {site_theme.footer_links(config)}
+</footer>"""
+
+    return site_theme.page_shell(f"運営者情報・免責事項 | {name}", head, body,
+                                 extra_css=site_theme.LEGAL_CSS)
 
 
 # ---------------------------------------------------------------- 機械向け出力
@@ -225,6 +334,11 @@ def build_sitemap(issues: List[Dict], articles: List[Dict], config: Dict) -> str
         f"  <url><loc>{base}/</loc><lastmod>{today}</lastmod><changefreq>daily</changefreq><priority>1.0</priority></url>",
         f"  <url><loc>{base}/archive.html</loc><lastmod>{today}</lastmod><changefreq>daily</changefreq><priority>0.8</priority></url>",
     ]
+    if config.get("legal", {}).get("enabled"):
+        urls.append(
+            f"  <url><loc>{base}/about.html</loc><lastmod>{today}</lastmod>"
+            f"<changefreq>yearly</changefreq><priority>0.2</priority></url>"
+        )
     if articles:
         urls.append(
             f"  <url><loc>{base}/articles/</loc><lastmod>{today}</lastmod>"
@@ -311,6 +425,7 @@ def build_all(verbose: bool = True) -> Dict[str, int]:
     outputs = {
         "index.html": build_home(issues, articles, config),
         "archive.html": build_archive(issues, config),
+        "about.html": build_about(config),
         "sitemap.xml": build_sitemap(issues, articles, config),
         "feed.xml": build_feed(issues, articles, config),
         "robots.txt": build_robots(config),

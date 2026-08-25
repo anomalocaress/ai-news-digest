@@ -1,38 +1,36 @@
 {
   "_readme": "収益化の全設定はこのファイルだけで完結します。url が空の案件は一切表示されません（空の広告枠は出ません）。MONETIZATION.md の手順に従って埋めてください。",
-
   "site": {
-    "base_url": "https://teraco-labo.github.io/ai-news-digest",
+    "base_url": "https://news.teraco-labo.com",
     "name": "てらこAIニュースダイジェスト",
     "tagline": "毎朝6時、AIの最新ニュースを日本語で3分キャッチアップ",
     "author": "てらこ先生",
     "description": "AIの最新ニュースを毎朝6時に自動収集・日本語要約してお届けするダイジェストサイト。モデル・研究・ビジネス・ポリシー・ツールの5カテゴリで、その日の重要ニュースだけを厳選。音声（ポッドキャスト）版も配信中。",
     "locale": "ja_JP",
-    "twitter": ""
+    "twitter": "",
+    "operator": "TERACO.LABO（てらこ先生）",
+    "contact_email": "fujisaki@teraco-labo.com",
+    "parent_site_name": "TERACO.LABO",
+    "parent_site_url": "https://teraco-labo.com"
   },
-
   "podcast": {
-    "_note": "Spotify等に登録済みのRSSはURLを変えると配信が壊れるため、site.base_url とは別管理にしています。移行が済むまで触らないでください。",
+    "_note": "Spotify等に登録済みのRSSはURLを変えると配信が壊れるため、site.base_url とは別管理にしています。GitHub Pages に独自ドメインを設定すると *.github.io は独自ドメインへリダイレクトされるため、当面はこのままで配信は継続します。移行の準備が整うまで触らないでください。",
     "base_url": "https://anomalocaress.github.io/ai-news-digest"
   },
-
   "disclosure": {
     "enabled": true,
     "text": "本サイトは広告・アフィリエイトプログラムを利用しています。リンク経由でのお申し込みにより運営者が報酬を受け取る場合があります（記事の選定・要約は広告主の影響を受けません）。"
   },
-
   "analytics": {
     "_note": "GA4 は必須級です。どのページ・どのリンクが稼いでいるか分からないと改善できません。",
     "ga4_measurement_id": "",
     "clarity_id": ""
   },
-
   "adsense": {
     "enabled": false,
     "client_id": "",
     "in_article_slot": ""
   },
-
   "slots": {
     "header_disclosure": true,
     "in_content_offers": 2,
@@ -40,7 +38,6 @@
     "home_offers": 4,
     "cta_block": true
   },
-
   "cta": {
     "_note": "自社商品・メルマガ等。url が空なら非表示。",
     "enabled": true,
@@ -49,7 +46,6 @@
     "button_label": "",
     "url": ""
   },
-
   "offers": [
     {
       "id": "conoha-wing",
@@ -61,8 +57,19 @@
       "signup_url": "https://px.a8.net/",
       "asp": "A8.net",
       "payout_jpy_est": 8000,
-      "categories": ["tools", "business"],
-      "keywords": ["blog", "wordpress", "website", "hosting", "server", "saas", "launch"],
+      "categories": [
+        "tools",
+        "business"
+      ],
+      "keywords": [
+        "blog",
+        "wordpress",
+        "website",
+        "hosting",
+        "server",
+        "saas",
+        "launch"
+      ],
       "priority": 10
     },
     {
@@ -75,8 +82,16 @@
       "signup_url": "https://px.a8.net/",
       "asp": "A8.net",
       "payout_jpy_est": 7000,
-      "categories": ["tools", "business"],
-      "keywords": ["hosting", "server", "wordpress", "website"],
+      "categories": [
+        "tools",
+        "business"
+      ],
+      "keywords": [
+        "hosting",
+        "server",
+        "wordpress",
+        "website"
+      ],
       "priority": 9
     },
     {
@@ -89,8 +104,20 @@
       "signup_url": "https://px.a8.net/",
       "asp": "A8.net",
       "payout_jpy_est": 20000,
-      "categories": ["research", "model", "business"],
-      "keywords": ["machine learning", "deep learning", "training", "education", "learn", "model", "研究"],
+      "categories": [
+        "research",
+        "model",
+        "business"
+      ],
+      "keywords": [
+        "machine learning",
+        "deep learning",
+        "training",
+        "education",
+        "learn",
+        "model",
+        "研究"
+      ],
       "priority": 10
     },
     {
@@ -103,8 +130,18 @@
       "signup_url": "https://px.a8.net/",
       "asp": "A8.net",
       "payout_jpy_est": 15000,
-      "categories": ["tools", "research"],
-      "keywords": ["python", "coding", "developer", "engineer", "education", "learn"],
+      "categories": [
+        "tools",
+        "research"
+      ],
+      "keywords": [
+        "python",
+        "coding",
+        "developer",
+        "engineer",
+        "education",
+        "learn"
+      ],
       "priority": 8
     },
     {
@@ -117,8 +154,20 @@
       "signup_url": "https://px.a8.net/",
       "asp": "A8.net",
       "payout_jpy_est": 15000,
-      "categories": ["business", "policy"],
-      "keywords": ["hiring", "job", "career", "layoff", "salary", "engineer", "recruit", "採用"],
+      "categories": [
+        "business",
+        "policy"
+      ],
+      "keywords": [
+        "hiring",
+        "job",
+        "career",
+        "layoff",
+        "salary",
+        "engineer",
+        "recruit",
+        "採用"
+      ],
       "priority": 9
     },
     {
@@ -131,8 +180,19 @@
       "signup_url": "https://af.moshimo.com/",
       "asp": "もしもアフィリエイト",
       "payout_jpy_est": 1500,
-      "categories": ["tools", "model", "research"],
-      "keywords": ["llm", "agent", "tutorial", "learn", "course", "api"],
+      "categories": [
+        "tools",
+        "model",
+        "research"
+      ],
+      "keywords": [
+        "llm",
+        "agent",
+        "tutorial",
+        "learn",
+        "course",
+        "api"
+      ],
       "priority": 5
     },
     {
@@ -145,9 +205,23 @@
       "signup_url": "https://af.moshimo.com/",
       "asp": "もしもアフィリエイト（Amazon）",
       "payout_jpy_est": 100,
-      "categories": ["model", "research", "policy"],
-      "keywords": ["book", "paper", "research", "基礎"],
+      "categories": [
+        "model",
+        "research",
+        "policy"
+      ],
+      "keywords": [
+        "book",
+        "paper",
+        "research",
+        "基礎"
+      ],
       "priority": 3
     }
-  ]
+  ],
+  "legal": {
+    "_note": "運営者情報・免責事項・プライバシーポリシー。about.html として自動生成されます。",
+    "enabled": true,
+    "disclaimer": "本サイトで紹介している商品・サービスの提供元は各事業者です。購入・お申し込み後のサポート、返金、解約などのお問い合わせは、各サービスの提供元へ直接ご連絡ください。本サイトの運営者は契約の当事者ではないため、これらに対応することができません。"
+  }
 }

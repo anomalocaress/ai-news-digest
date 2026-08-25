@@ -41,10 +41,27 @@ PAGE_CSS = """
   .issue-list .m { font-size:0.72rem; color:var(--text-muted); margin-left:0.5rem; }
   footer { border-top:1px solid var(--border); padding:2rem 1.5rem; text-align:center;
     font-size:0.78rem; color:var(--text-muted); }
+  .footer-links { margin-top:0.9rem; font-size:0.75rem; }
+  .footer-links a { color:var(--text-muted); text-decoration:none; }
+  .footer-links a:hover { color:var(--accent); text-decoration:underline; }
   @media (max-width:640px){ .issue-list{columns:1;} .hero h1{font-size:1.4rem;} }
 """
 
 # 解説記事の本文用。読み物として成立する行間・見出し設計にする。
+LEGAL_CSS = """
+  .legal { max-width:720px; margin:0 auto; }
+  .legal h2 { margin:2.2rem 0 0.7rem; font-size:1.05rem; font-weight:700; }
+  .legal h2:first-child { margin-top:0; }
+  .legal p { font-size:0.88rem; line-height:1.95; color:var(--text-muted); }
+  .legal p + p { margin-top:0.8rem; }
+  .legal dl { display:grid; grid-template-columns:auto 1fr; gap:0.5rem 1.5rem; font-size:0.88rem; }
+  .legal dt { font-weight:700; white-space:nowrap; }
+  .legal dd { margin:0; color:var(--text-muted); }
+  .legal .strong-note { padding:1rem 1.2rem; background:rgba(14,116,144,0.07);
+    border-left:3px solid var(--accent); border-radius:0 6px 6px 0; }
+  .legal .strong-note p { color:var(--text); font-weight:500; }
+"""
+
 PROSE_CSS = """
   .prose { max-width:720px; margin:0 auto; }
   .prose > * + * { margin-top:1.1rem; }
@@ -80,6 +97,22 @@ PROSE_CSS = """
   .toc a:hover { color:var(--accent); text-decoration:underline; }
   .article-meta { max-width:720px; margin:0 auto 2rem; font-size:0.78rem; color:var(--text-muted); }
 """
+
+
+def footer_links(config: dict, prefix: str = "") -> str:
+    """全ページ共通のフッターリンク。運営者情報は広告を出す以上、どのページからも辿れる必要がある。"""
+    items = [
+        (f"{prefix}", "トップ"),
+        (f"{prefix}articles/", "読み物"),
+        (f"{prefix}archive.html", "バックナンバー"),
+    ]
+    if config.get("legal", {}).get("enabled"):
+        items.append((f"{prefix}about.html", "運営者情報・免責事項"))
+    parent = config.get("site", {}).get("parent_site_url", "")
+    if parent:
+        items.append((parent, config.get("site", {}).get("parent_site_name", "運営元")))
+    links = " ／ ".join(f'<a href="{href}">{label}</a>' for href, label in items)
+    return f'<div class="footer-links">{links}</div>'
 
 
 def page_shell(title: str, head_extra: str, body: str, extra_css: str = "") -> str:

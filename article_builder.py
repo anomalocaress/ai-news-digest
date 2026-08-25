@@ -292,6 +292,7 @@ def build_article_page(article: Dict, config: Dict, related: List[Dict]) -> str:
 
 <footer>
   <strong>{_html.escape(name)}</strong> — {_html.escape(site.get("author", ""))}
+  {site_theme.footer_links(config, prefix="../")}
 </footer>"""
 
     return site_theme.page_shell(
@@ -342,6 +343,7 @@ def build_index_page(articles: List[Dict], config: Dict) -> str:
 
 <footer>
   <strong>{_html.escape(name)}</strong> — {_html.escape(site.get("author", ""))}
+  {site_theme.footer_links(config, prefix="../")}
 </footer>"""
 
     return site_theme.page_shell(f"読み物 | {name}", head, body)
