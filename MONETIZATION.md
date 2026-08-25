@@ -41,48 +41,18 @@
 
 ## 2. セットアップ手順
 
-### ステップ0：独自ドメインを繋ぐ（所要20分＋DNS反映待ち）
+### ステップ0：独自ドメインを繋ぐ（手順は DOMAIN_SETUP.md）
 
-公開先を **`news.teraco-labo.com`** にします。TERACO.LABO のサブドメインにすることで、
-本業サイトのブランドと地続きの信頼が得られ、かつ本業サイトとは分離されます。
+公開先を **`news.teraco-labo.com`** にします。追加費用はかかりません。
 
-`CNAME` ファイルはリポジトリに配置済みです。残りはDNSとGitHubの設定です。
+**順序が重要です。** DNSを先に設定し、反映を確認してからGitHub側を設定してください。
+逆にすると、GitHub Pages がまだ存在しないドメインへリダイレクトを始めてサイトが到達不能になります。
+そのため `CNAME` ファイルはリポジトリに置いていません。
 
-**1. DNSにCNAMEレコードを追加**
+→ 詳細は **[DOMAIN_SETUP.md](DOMAIN_SETUP.md)**
 
-ドメインを管理している事業者（お名前.com、ムームードメイン、Xserver等）の管理画面で追加します。
-
-| 種別 | ホスト名 | 値 |
-|---|---|---|
-| CNAME | `news` | `teraco-labo.github.io.` |
-
-※ 末尾のドットは、事業者によって必要な場合と不要な場合があります。
-
-**2. GitHub側で独自ドメインを設定**
-
-リポジトリの Settings → Pages → Custom domain に `news.teraco-labo.com` を入力し、
-DNSチェックが通ったら **Enforce HTTPS** にチェックを入れます。
-
-> **確認してください**：コード内には `anomalocaress.github.io` というURLが残っており、
-> 現在サイトを配信しているのがどのアカウント／リポジトリなのか、こちらからは判別できません。
-> **実際にPagesを配信しているリポジトリ**のSettings→Pagesで設定してください。
-> 別リポジトリだった場合は、そちらに `CNAME` ファイルを置く必要があります。
-
-**3. ポッドキャストのURLについて**
-
-独自ドメインを設定すると、旧 `*.github.io` のURLは新ドメインへ自動的にリダイレクトされます。
-ポッドキャストのRSS（`podcast/feed.xml`）はリダイレクトを経由して引き続き配信されるため、
-**当面は設定を変えないでください**。`monetize_config.json` の `podcast.base_url` は
-site とは別管理にしてあります。Spotify等の登録を移行する準備ができてから変更します。
-
-**4. 反映の確認**
-
-```bash
-dig news.teraco-labo.com CNAME +short    # teraco-labo.github.io. が返れば成功
-curl -sI https://news.teraco-labo.com/ | head -1
-```
-
-DNSの反映には数分〜48時間かかります。
+**現在の配信URL**: `https://teraco-labo.github.io/ai-news-digest`
+（`monetize_config.json` の `site.base_url` 1箇所で決まります）
 
 ---
 
@@ -236,5 +206,5 @@ python social_kit.py --backfill 30   # 過去30日ぶんを social/ に生成
 | `revenue_tracker.py` | 収支の記録とレポート |
 | `site_theme.py` | サイト共通のCSS・ページ骨格 |
 | `articles/_keyword-plan.md` | 狙うキーワードの設計メモ |
-| `CNAME` | GitHub Pages の独自ドメイン設定（`news.teraco-labo.com`） |
+| `DOMAIN_SETUP.md` | 独自ドメイン（news.teraco-labo.com）への切り替え手順 |
 | `about.html` | 運営者情報・免責事項・プライバシーポリシー（自動生成） |

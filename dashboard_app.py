@@ -12,7 +12,11 @@ import urllib.parse
 REPO_DIR = Path(__file__).parent
 PODCAST_DIR = REPO_DIR / "podcast"
 PREFS_FILE = REPO_DIR / "user_preferences.json"
-BASE_URL = "https://anomalocaress.github.io/ai-news-digest"
+try:
+    from monetize import site_url as _site_url
+    BASE_URL = _site_url()
+except Exception:
+    BASE_URL = "https://teraco-labo.github.io/ai-news-digest"
 GH_TOKEN = os.getenv("GH_TOKEN", "")
 PORT = 8920
 
@@ -46,7 +50,7 @@ def trigger_github_actions():
     """GitHub Actions を手動トリガー"""
     result = subprocess.run(
         ["gh", "workflow", "run", "Generate AI News Digest",
-         "--repo", "anomalocaress/ai-news-digest"],
+         "--repo", "teraco-labo/ai-news-digest"],
         env={**os.environ, "GH_TOKEN": GH_TOKEN},
         capture_output=True, text=True
     )
@@ -391,14 +395,14 @@ def build_dashboard_html():
           <div class="link-desc">てらこAIニュースダイジェスト 管理画面</div>
         </div>
       </a>
-      <a href="https://github.com/anomalocaress/ai-news-digest/actions" target="_blank" class="link-item">
+      <a href="https://github.com/teraco-labo/ai-news-digest/actions" target="_blank" class="link-item">
         <div class="link-icon">⚙️</div>
         <div>
           <div class="link-name">GitHub Actions</div>
           <div class="link-desc">自動生成ワークフローのログ</div>
         </div>
       </a>
-      <a href="https://anomalocaress.github.io/ai-news-digest" target="_blank" class="link-item">
+      <a href=BASE_URL target="_blank" class="link-item">
         <div class="link-icon">🌐</div>
         <div>
           <div class="link-name">公開サイト</div>

@@ -20,6 +20,7 @@ Claude Code Max プラン（月約30,000円）の費用を、自動化された�
 | メール配信 | Gmail経由で自動送信 |
 | 運用コスト | **累計103円**（Claude API 68円 + Google TTS 35円）。以降の音声は`edge-tts`で0円 |
 | SNSフォロワー | 全アカウント合計で約500人 |
+| 関連リポジトリ | `teraco-labo-website-v2`（teraco-labo.com本体・予約アプリ）、`line-outou`、他 |
 | 独自ドメイン | `news.teraco-labo.com`（TERACO.LABO のサブドメイン。DNS設定待ち） |
 | メールリスト | なし |
 
@@ -82,7 +83,7 @@ Claude Code Max プラン（月約30,000円）の費用を、自動化された�
 |---|---|
 | SEO基盤（sitemap / RSS / OGP / JSON-LD / トップページ） | ✅ 完了 |
 | 運営者情報・免責事項ページ（about.html） | ✅ 完了 |
-| 独自ドメイン（CNAME 配置済み） | ⏳ DNS設定待ち |
+| 独自ドメイン（news.teraco-labo.com） | ⏳ DNS設定待ち（手順は DOMAIN_SETUP.md） |
 | 収益枠の注入（PR表記・rel=sponsored つき） | ✅ 完了（URL未設定なので現在は非表示） |
 | GA4計測＋アフィリエイトクリックのイベント送信 | ⏳ 測定ID待ち |
 | 解説記事のビルド基盤 | ✅ 完了 |
@@ -115,10 +116,13 @@ Claude Code Max プラン（月約30,000円）の費用を、自動化された�
    - AIが下書きを書けるが、実体験・実データの部分は本人しか書けない
    - 週1本を6ヶ月continuing できるか
 
-3. **ポッドキャストのURL移行**
-   - 現在 `anomalocaress.github.io`、リポジトリは `teraco-labo`
-   - Spotify等に登録済みならRSSのURL変更は配信断のリスクがある
-   - → 現状は `monetize_config.json` で site と podcast のURLを分離して安全側に倒している
+3. ~~ポッドキャストのURL移行~~ → **判明：すでに配信が切れている**
+   - 2026-08-22 のアカウント移管(anomalocaress→teraco-labo)により、旧URLは404
+   - GitHub Pages はアカウント間の移管ではリダイレクトを行わない
+     （`teraco-labo-website-v2` の pwa-reserve で同じ事象が起きて対処済み）
+   - このリポジトリだけ旧URLが残っており、feed.xml・episodes.json・メール本文の
+     リンクがすべて死んでいた → 全URLを新アカウントに差し替え済み
+   - **配信先（Spotify等）の再登録が必要**
 
 4. **クレーム対応の線引き**
    - 紹介したサービスについて読者から苦情が来る可能性を運営者が懸念している

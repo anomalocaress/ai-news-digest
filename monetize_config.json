@@ -1,7 +1,7 @@
 {
   "_readme": "収益化の全設定はこのファイルだけで完結します。url が空の案件は一切表示されません（空の広告枠は出ません）。MONETIZATION.md の手順に従って埋めてください。",
   "site": {
-    "base_url": "https://news.teraco-labo.com",
+    "base_url": "https://teraco-labo.github.io/ai-news-digest",
     "name": "てらこAIニュースダイジェスト",
     "tagline": "毎朝6時、AIの最新ニュースを日本語で3分キャッチアップ",
     "author": "てらこ先生",
@@ -11,11 +11,12 @@
     "operator": "TERACO.LABO（てらこ先生）",
     "contact_email": "fujisaki@teraco-labo.com",
     "parent_site_name": "TERACO.LABO",
-    "parent_site_url": "https://teraco-labo.com"
+    "parent_site_url": "https://teraco-labo.com",
+    "_base_url_note": "サイトのURLはここ1箇所で決まります。DNS設定が済んだら https://news.teraco-labo.com に書き換えてください（手順は DOMAIN_SETUP.md）。"
   },
   "podcast": {
-    "_note": "Spotify等に登録済みのRSSはURLを変えると配信が壊れるため、site.base_url とは別管理にしています。GitHub Pages に独自ドメインを設定すると *.github.io は独自ドメインへリダイレクトされるため、当面はこのままで配信は継続します。移行の準備が整うまで触らないでください。",
-    "base_url": "https://anomalocaress.github.io/ai-news-digest"
+    "_note": "2026-08-22 のアカウント移管(anomalocaress→teraco-labo)で旧URLは404になりました。GitHub Pages はアカウント間の移管ではリダイレクトされません。現在は site.base_url と同じURLを使います。",
+    "base_url": "https://teraco-labo.github.io/ai-news-digest"
   },
   "disclosure": {
     "enabled": true,

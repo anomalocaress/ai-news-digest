@@ -38,6 +38,28 @@ def load_config() -> Dict:
         return {}
 
 
+def site_url(fallback: str = "https://teraco-labo.github.io/ai-news-digest") -> str:
+    """公開サイトのベースURL。
+
+    アカウント移管や独自ドメインへの切り替えのたびに各スクリプトを直す羽目に
+    ならないよう、URL は monetize_config.json の1箇所だけで決める。
+    """
+    try:
+        url = load_config().get("site", {}).get("base_url", "")
+        return url.rstrip("/") if url else fallback
+    except Exception:
+        return fallback
+
+
+def podcast_url(fallback: str = "") -> str:
+    """ポッドキャストの配信ベースURL。未設定ならサイトと同じURLを使う。"""
+    try:
+        url = load_config().get("podcast", {}).get("base_url", "")
+        return url.rstrip("/") if url else site_url()
+    except Exception:
+        return fallback or site_url()
+
+
 def _filled(value: Optional[str]) -> bool:
     """未設定・プレースホルダのままなら False。"""
     if not value or not str(value).strip():

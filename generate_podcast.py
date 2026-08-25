@@ -26,7 +26,12 @@ CATEGORIES_JA = {
 WEEKDAYS_JA = ["月", "火", "水", "木", "金", "土", "日"]
 
 VOICE    = "ja-JP-NanamiNeural"
-BASE_URL = "https://anomalocaress.github.io/ai-news-digest"
+# 公開URLは monetize_config.json で一元管理する（アカウント移管・独自ドメイン対応）
+try:
+    from monetize import podcast_url as _podcast_url
+    BASE_URL = _podcast_url()
+except Exception:
+    BASE_URL = "https://teraco-labo.github.io/ai-news-digest"
 COVER_URL = f"{BASE_URL}/podcast/cover.jpg"
 PODCAST_EMAIL = "fujisaki@teraco-labo.com"
 

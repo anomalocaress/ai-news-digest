@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://news.teraco-labo.com/sitemap.xml
+Sitemap: https://teraco-labo.github.io/ai-news-digest/sitemap.xml

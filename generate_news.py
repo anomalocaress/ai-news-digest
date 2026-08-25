@@ -32,9 +32,13 @@ try:
     import seo_builder
     import social_kit
     MONETIZE_AVAILABLE = True
+    SITE_URL = monetize.site_url()
+    PODCAST_URL = monetize.podcast_url()
 except Exception as _e:
     print(f"⚠️  収益化モジュールの読み込みに失敗しました（ダイジェスト生成は続行）: {_e}")
     MONETIZE_AVAILABLE = False
+    SITE_URL = "https://teraco-labo.github.io/ai-news-digest"
+    PODCAST_URL = SITE_URL
 
 CATEGORIES = ["model", "research", "business", "policy", "tools"]
 CATEGORIES_JA = {
@@ -710,8 +714,8 @@ def build_email_html(categorized: Dict[str, List[Dict]], date: datetime, include
 
     if podcast_available:
         # プレイヤーページ（速度調整・スキップ・台本表示付き）
-        player_url = f"https://anomalocaress.github.io/ai-news-digest/podcast/player.html?date={date_iso}"
-        audio_url  = f"https://anomalocaress.github.io/ai-news-digest/podcast/ai-news-{date_iso}.mp3"
+        player_url = f"{PODCAST_URL}/podcast/player.html?date={date_iso}"
+        audio_url  = f"{PODCAST_URL}/podcast/ai-news-{date_iso}.mp3"
         podcast_box = (
             '\n  <div class="podcast-box">\n'
             '    <h3>🎙️ 本日の音声ダイジェスト（重要ニュースを詳しく解説）</h3>\n'
@@ -724,7 +728,7 @@ def build_email_html(categorized: Dict[str, List[Dict]], date: datetime, include
             f' &nbsp;·&nbsp; 💾 <a href="{audio_url}" download style="color:#60a5fa;">ダウンロード</a>'
             f'    </p>\n'
             '    <p style="font-size:11px;color:#64748b;">\n'
-            '      <a href="https://anomalocaress.github.io/ai-news-digest/podcast/feed.xml" style="color:#94a3b8;">📡 RSSフィード（Spotify登録用）</a>\n'
+            f'      <a href="{PODCAST_URL}/podcast/feed.xml" style="color:#94a3b8;">📡 RSSフィード（Spotify登録用）</a>\n'
             '    </p>\n'
             '  </div>\n\n'
         )
@@ -735,7 +739,7 @@ def build_email_html(categorized: Dict[str, List[Dict]], date: datetime, include
             '    <h3>🎙️ 本日の音声ダイジェスト</h3>\n'
             '    <p style="color:#78350f;">本日はニュース件数が少なく、音声版の生成をスキップしました。下記のテキスト版をご覧ください。</p>\n'
             '    <p style="font-size:11px;color:#92400e;">\n'
-            '      <a href="https://anomalocaress.github.io/ai-news-digest/podcast/feed.xml" style="color:#92400e;">📡 過去エピソード（RSS / Spotify）</a>\n'
+            f'      <a href="{PODCAST_URL}/podcast/feed.xml" style="color:#92400e;">📡 過去エピソード（RSS / Spotify）</a>\n'
             '    </p>\n'
             '  </div>\n\n'
         )
@@ -784,7 +788,7 @@ def build_email_html(categorized: Dict[str, List[Dict]], date: datetime, include
         "&body=このメールをそのまま送信すると、てらこAIニュースダイジェストの配信を停止します。"
     )
     email_html += '  <div class="footer">\n'
-    email_html += '    <p>てらこAIニュースダイジェスト | <a href="https://anomalocaress.github.io/ai-news-digest" style="color: #60a5fa; text-decoration: none;">サイトを見る</a></p>\n'
+    email_html += f'    <p>てらこAIニュースダイジェスト | <a href="{SITE_URL}" style="color: #60a5fa; text-decoration: none;">サイトを見る</a></p>\n'
     email_html += (
         '    <p style="margin-top:10px;font-size:11px;color:#94a3b8;">\n'
         '      このメールは「てらこAIニュースダイジェスト」の購読者にお届けしています。<br>\n'
