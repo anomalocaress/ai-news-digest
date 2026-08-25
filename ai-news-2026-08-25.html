@@ -87,30 +87,56 @@
   .tier { max-width:760px; margin:2rem auto 0.5rem; font-size:0.7rem; font-weight:700;
     letter-spacing:0.14em; color:var(--text-muted); }
   .tier:first-of-type { margin-top:0; }
-  .podcast { max-width:760px; margin:2.5rem auto 0; padding:1.3rem 1.5rem;
-    background:linear-gradient(135deg,#0f172a,#1e293b); border-radius:8px; color:#e2e8f0; }
-  .podcast h2 { font-size:0.95rem; font-weight:700; color:#fff; margin-bottom:0.3rem; }
-  .podcast p { font-size:0.82rem; color:#cbd5e1; }
-  .podcast a { display:inline-block; margin-top:0.9rem; margin-right:0.6rem; padding:0.5rem 1.1rem;
-    background:#22d3ee; color:#0f172a; font-size:0.8rem; font-weight:700;
-    border-radius:6px; text-decoration:none; }
-  .podcast a.ghost { background:none; border:1px solid rgba(255,255,255,0.35); color:#e2e8f0; }
+  .top-nav { display:flex; flex-wrap:wrap; gap:0.4rem; margin-top:1.3rem; }
+  .top-nav a { padding:0.4rem 0.95rem; border:1px solid rgba(255,255,255,0.3); border-radius:999px;
+    font-size:0.78rem; font-weight:600; color:#e2e8f0; text-decoration:none; }
+  .top-nav a:hover { background:rgba(255,255,255,0.12); }
+  .listen { max-width:760px; margin:0 auto 2.5rem; padding:1.2rem 1.4rem;
+    background:linear-gradient(135deg,#0f172a,#1e293b); border-radius:10px; color:#e2e8f0; }
+  .listen-head { display:flex; align-items:baseline; gap:0.6rem; flex-wrap:wrap; margin-bottom:0.75rem; }
+  .listen-head strong { font-size:0.95rem; color:#fff; }
+  .listen-head span { font-size:0.76rem; color:#94a3b8; }
+  .listen audio { width:100%; height:40px; display:block; }
+  .listen-sub { margin-top:0.6rem; font-size:0.74rem; }
+  .listen-sub a { color:#7dd3fc; text-decoration:none; }
+  .listen-sub a:hover { text-decoration:underline; }
+  details.genre { max-width:760px; margin:0 auto 0.75rem; background:var(--card-bg);
+    border:1px solid var(--border); border-radius:8px; overflow:hidden; }
+  details.genre > summary { list-style:none; cursor:pointer; padding:1rem 1.3rem;
+    display:flex; align-items:center; gap:0.7rem; font-weight:700; font-size:0.92rem;
+    -webkit-tap-highlight-color:transparent; }
+  details.genre > summary::-webkit-details-marker { display:none; }
+  details.genre > summary::before { content:"▸"; font-size:0.8rem; color:var(--text-muted);
+    transition:transform .15s; }
+  details.genre[open] > summary::before { transform:rotate(90deg); }
+  details.genre > summary .cnt { margin-left:auto; font-size:0.72rem; font-weight:600;
+    color:var(--text-muted); }
+  details.genre .genre-dot { width:9px; height:9px; border-radius:50%; background:var(--text-muted); }
+  details.genre.model .genre-dot{background:var(--model)} details.genre.research .genre-dot{background:var(--research)}
+  details.genre.business .genre-dot{background:var(--business)} details.genre.policy .genre-dot{background:var(--policy)}
+  details.genre.tools .genre-dot{background:var(--tools)}
+  details.genre .genre-body { padding:0 0.9rem 0.9rem; display:flex; flex-direction:column; gap:0.75rem; }
+  details.genre .card { border:none; border-left:3px solid var(--border); background:var(--bg);
+    border-radius:6px; }
+  .subscribe { max-width:760px; margin:2.5rem auto 0; padding:1rem 1.3rem; text-align:center;
+    border:1px dashed var(--border); border-radius:8px; font-size:0.8rem; color:var(--text-muted); }
+  .subscribe a { color:var(--accent); font-weight:600; text-decoration:none; }
   @media (max-width:640px){ .card{padding:1.15rem 1.2rem} .card.top .card-title-ja{font-size:1.1rem} }
 </style>
 <!-- monetize.py: SEO / analytics -->
-<meta name="description" content="Hugging Faceが約130億ドルでの買収交渉に入り、AI基盤の勢力図が揺れています。">
+<meta name="description" content="Hugging Faceが約130億ドルでの買収交渉と報じられ、AI基盤の勢力図が揺れています。">
 <link rel="canonical" href="https://teraco-labo.github.io/ai-news-digest/ai-news-2026-08-25.html">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta property="og:type" content="article">
 <meta property="og:title" content="AI最新ニュースまとめ 2026年8月25日 | てらこAIニュースダイジェスト">
-<meta property="og:description" content="Hugging Faceが約130億ドルでの買収交渉に入り、AI基盤の勢力図が揺れています。">
+<meta property="og:description" content="Hugging Faceが約130億ドルでの買収交渉と報じられ、AI基盤の勢力図が揺れています。">
 <meta property="og:url" content="https://teraco-labo.github.io/ai-news-digest/ai-news-2026-08-25.html">
 <meta property="og:site_name" content="てらこAIニュースダイジェスト">
 <meta property="og:locale" content="ja_JP">
 <meta property="og:image" content="https://teraco-labo.github.io/ai-news-digest/podcast/cover.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="alternate" type="application/rss+xml" title="てらこAIニュースダイジェスト" href="https://teraco-labo.github.io/ai-news-digest/feed.xml">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "NewsArticle", "headline": "AI最新ニュースまとめ 2026年8月25日 | てらこAIニュースダイジェスト", "description": "Hugging Faceが約130億ドルでの買収交渉に入り、AI基盤の勢力図が揺れています。", "url": "https://teraco-labo.github.io/ai-news-digest/ai-news-2026-08-25.html", "inLanguage": "ja", "author": {"@type": "Person", "name": "てらこ先生"}, "publisher": {"@type": "Organization", "name": "てらこAIニュースダイジェスト"}, "datePublished": "2026-08-25T06:00:00+09:00", "dateModified": "2026-08-25T06:00:00+09:00"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "NewsArticle", "headline": "AI最新ニュースまとめ 2026年8月25日 | てらこAIニュースダイジェスト", "description": "Hugging Faceが約130億ドルでの買収交渉と報じられ、AI基盤の勢力図が揺れています。", "url": "https://teraco-labo.github.io/ai-news-digest/ai-news-2026-08-25.html", "inLanguage": "ja", "author": {"@type": "Person", "name": "てらこ先生"}, "publisher": {"@type": "Organization", "name": "てらこAIニュースダイジェスト"}, "datePublished": "2026-08-25T06:00:00+09:00", "dateModified": "2026-08-25T06:00:00+09:00"}</script>
 
 <style id="mz-style">
   .mz-disclosure { max-width: 1100px; margin: 0 auto 1rem; padding: 0.5rem 0.75rem;
@@ -192,9 +218,14 @@
 <body>
 <div class="hero">
   <div class="hero-inner">
-    <div class="crumbs"><a href="./">てらこAIニュースダイジェスト</a> ／ <a href="archive.html">バックナンバー</a></div>
+    <div class="crumbs"><a href="./">てらこAIニュースダイジェスト</a></div>
     <h1>2026年8月25日（火）のAIニュース</h1>
     <p>厳選 12 件。3分で今日のAIがわかります。</p>
+    <div class="top-nav">
+      <a href="./">トップ</a>
+      <a href="articles/">読み物</a>
+      <a href="archive.html">バックナンバー</a><a href="#listen">🎧 音声で聴く</a>
+    </div>
   </div>
 </div>
 
@@ -202,70 +233,101 @@
   <div class="lead">
     <div class="lead-label">今日の3行まとめ</div>
     <ol>
-      <li>Hugging Faceが約130億ドルでの買収交渉に入り、AI基盤の勢力図が揺れています。</li>
-      <li>OpenAIのエージェント全面展開と、Instinctの権限問題がAI実用化の光と影を映します。</li>
-      <li>StanfordはAIが新卒層の雇用を19%押し下げたと報告し、労働市場への影響が鮮明です。</li>
+      <li>Hugging Faceが約130億ドルでの買収交渉と報じられ、AI基盤の勢力図が揺れています。</li>
+      <li>OpenAIはGPT-5.6 Solを値下げし、エージェントの一般普及に向けて攻勢を強めています。</li>
+      <li>Stanfordの調査でAI影響職種の若手雇用が19%減と判明し、労働市場への影響が鮮明になりました。</li>
     </ol>
+  </div>
+
+  <div class="listen" id="listen">
+    <div class="listen-head">
+      <strong>🎧 今日の音声版</strong>
+      <span>対話形式・ながら聴き向け（10〜15分）</span>
+    </div>
+    <audio controls preload="none" src="podcast/ai-news-2026-08-25.mp3">
+      <a href="podcast/ai-news-2026-08-25.mp3">音声ファイルを開く</a>
+    </audio>
+    <div class="listen-sub">
+      <a href="https://teraco-labo.github.io/ai-news-digest/podcast/feed.xml">📡 ポッドキャストとして購読する（RSS / Spotify）</a>
+    </div>
   </div>
 
   <div class="tier">注目のニュース</div>
   <div class="digest">
-    <article class="card business top">
+    <article class="card research top">
       <div class="card-top">
-        <span class="card-label business">ビジネス</span>
+        <span class="card-label research">研究</span>
         <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div></div>
       </div>
-      <div class="card-title-ja">Hugging Face、約130億ドルでの買収交渉が浮上</div>
-      <div class="card-title-en">Hugging Face reportedly in talks to be acquired for $13B</div>
-      <div class="card-source">TechCrunch AI · Mon, 24 Au</div>
-      <div class="card-body">オープンソースAIの中核であるHugging Faceが、企業価値約130億ドルでの買収提案を受けていると報じられました。創業陣はコミュニティへの責任を重視しており、売却が成立するかは不透明です。モデル配布のハブが特定企業の傘下に入れば、オープンウェイト流通の中立性そのものが問われることになります。</div>
-      <a class="card-link" href="https://techcrunch.com/2026/08/24/hugging-face-reportedly-in-talks-to-be-acquired-for-13b/" target="_blank" rel="noopener">元記事を読む →</a>
+      <div class="card-title-ja">AIの打撃は新卒層に集中、Stanfordが調査</div>
+      <div class="card-title-en">AI is hitting entry-level jobs hardest, Stanford study finds</div>
+      <div class="card-source">Ars Technica · Mon, 24 Au</div>
+      <div class="card-body">Stanfordの研究チームが、AIの影響を受けやすい職種で若年層の雇用が減少していると報告しました。AIに置き換わりにくい職種と比べ、若手の雇用は19%も落ち込んでいます。全体の雇用者数ではなく、エントリーレベルに偏って影響が出ている点がこの調査の要点です。定型的な下積み業務がAIに吸収されると、若手が経験を積む入口そのものが細ります。採用計画と育成設計を同時に見直す必要があることを示すデータです。</div>
+      <a class="card-link" href="https://arstechnica.com/ai/2026/08/ai-is-hitting-entry-level-jobs-hardest-stanford-study-finds/" target="_blank" rel="noopener">元記事を読む →</a>
     </article>
     <article class="card business top">
       <div class="card-top">
         <span class="card-label business">ビジネス</span>
         <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div></div>
       </div>
-      <div class="card-title-ja">Stanford調査、AIの打撃は新卒・若手層に集中</div>
-      <div class="card-title-en">AI is hitting entry-level jobs hardest, Stanford study finds</div>
-      <div class="card-source">Ars Technica · Mon, 24 Au</div>
-      <div class="card-body">Stanfordの研究によれば、AIの影響が大きい職種では若年層の雇用がAI耐性の高い職種と比べて19%減少していました。全体の雇用ではなく、入口となるエントリー職が選択的に削られている点が特徴です。若手がキャリアを積む経路そのものが細るため、企業の育成モデルの見直しが避けられません。</div>
-      <a class="card-link" href="https://arstechnica.com/ai/2026/08/ai-is-hitting-entry-level-jobs-hardest-stanford-study-finds/" target="_blank" rel="noopener">元記事を読む →</a>
+      <div class="card-title-ja">Hugging Face、約130億ドルでの買収交渉と報道</div>
+      <div class="card-title-en">Hugging Face reportedly in talks to be acquired for $13B</div>
+      <div class="card-source">TechCrunch AI · Mon, 24 Au</div>
+      <div class="card-body">オープンソースAIの共有基盤であるHugging Faceが、複数の買収提案を受けていると報じられました。評価額は約130億ドル（約13B）規模とされ、成立すればAI業界でも屈指の大型案件になります。ただし創業陣はコミュニティに対する責任を強く意識しており、実際に売却に至るかは不透明だと見られています。モデルやデータセットの配布拠点が特定企業の傘下に入れば、公開モデルの流通経路そのものが変質しかねません。日本の開発現場もモデル調達をHugging Faceに依存しているだけに、交渉の行方は無視できない論点です。</div>
+      <a class="card-link" href="https://techcrunch.com/2026/08/24/hugging-face-reportedly-in-talks-to-be-acquired-for-13b/" target="_blank" rel="noopener">元記事を読む →</a>
     </article>
     <article class="card tools top">
       <div class="card-top">
         <span class="card-label tools">ツール</span>
         <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div></div>
       </div>
-      <div class="card-title-ja">OpenAI、AIエージェントの一般ユーザー展開を加速</div>
-      <div class="card-title-en">OpenAI is building AI agents for everything. Will everyone use them?</div>
-      <div class="card-source">TechCrunch AI · Mon, 24 Au</div>
-      <div class="card-body">OpenAIがソフトウェアエンジニア向けにとどまっていたAIエージェントを、一般ユーザーへ広げる取り組みを進めています。焦点は「作れるか」ではなく「日常的に使われるか」に移りつつあります。エージェントが標準的な使い方として定着すれば、チャット中心だったAI製品の設計思想が大きく変わります。</div>
-      <a class="card-link" href="https://techcrunch.com/2026/08/24/openai-is-building-an-ai-agent-for-everything-will-everyone-use-them/" target="_blank" rel="noopener">元記事を読む →</a>
-    </article>
-  </div>
-  <div class="tier">そのほかの動き</div>
-  <div class="digest">
-    <article class="card model">
-      <div class="card-top">
-        <span class="card-label model">モデル</span>
-        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
-      </div>
-      <div class="card-title-ja">OpenAI、GPT-5.6 Solを期間限定で値下げ</div>
+      <div class="card-title-ja">OpenAI、GPT-5.6 Solを値下げ 11月21日まで</div>
       <div class="card-title-en">OpenAI: GPT 5.6 Sol price reduction (until at least Nov 21)</div>
       <div class="card-source">Hacker News · 2026-08-24</div>
-      <div class="card-body">OpenAIがGPT-5.6 Solの利用料金を、少なくとも11月21日まで引き下げると発表しました。フロンティアモデルの価格が短期間で切り下がる流れが続いています。推論コストが下がるほどエージェントのように大量のトークンを消費する用途が現実的になり、実装の前提が変わります。</div>
+      <div class="card-body">OpenAIがGPT-5.6 Solの利用価格を引き下げると発表しました。値下げは少なくとも11月21日まで継続されるとされ、期限付きの施策として案内されています。Hacker Newsでは324ポイントを集め、コスト構造の変化として開発者の関心を引きました。推論コストの低下は、これまで採算が合わなかった常時実行型のエージェントやバッチ処理を現実的な選択肢に変えます。既存プロダクトのモデル選定を見直す好機と言えます。</div>
       <a class="card-link" href="https://developers.openai.com/api/docs/pricing" target="_blank" rel="noopener">元記事を読む →</a>
     </article>
+  </div>
+  <div class="tier">ジャンル別のニュース（タップで開く）</div>
+  <details class="genre research">
+    <summary><span class="genre-dot"></span>研究<span class="cnt">2件</span></summary>
+    <div class="genre-body">
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars"><div class="dot filled"></div><div class="dot"></div><div class="dot"></div></div>
+      </div>
+      <div class="card-title-ja">AI依存でコーディング能力は失われるのか</div>
+      <div class="card-title-en">Coding expertise is going to collapse from AI reliance</div>
+      <div class="card-source">Hacker News · 2026-08-24</div>
+      <div class="card-body">AIへの依存によってプログラミングの専門性が崩壊するという主張が、大きな議論を呼んでいます。Hacker Newsでは514ポイントを集め、当日でも上位の話題となりました。論点は、コード生成の効率化そのものではなく、設計判断やデバッグを支える理解が育たなくなることにあります。生成されたコードを読んで検証できる人材が減れば、品質保証の最後の砦が消えます。AI前提の開発体制を組む組織ほど、育成カリキュラムの再設計が課題になります。</div>
+      <a class="card-link" href="https://larsfaye.com/articles/ai-coding-will-prevent-expertise" target="_blank" rel="noopener">元記事を読む →</a>
+    </article>
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars"><div class="dot filled"></div><div class="dot"></div><div class="dot"></div></div>
+      </div>
+      <div class="card-title-ja">The Download: 子どもはなぜAIより速く学ぶのか</div>
+      <div class="card-title-en">The Download: kids outlearning AI, and space travel agents</div>
+      <div class="card-source">MIT Tech Review · Mon, 24 Au</div>
+      <div class="card-body">MIT Technology Reviewの平日ニュースレターThe Downloadが、子どもの学習効率をめぐる謎を取り上げました。コンピュータに人間の言語を習得させるには、人間離れした量のデータが必要になります。LLMは子どもが触れる言語データの10万倍規模を処理できてしまう一方で、学習効率では子どもに及びません。この差がどこから生まれるのかは、いまだ解明されていません。スケーリング一辺倒とは別の道筋を探るうえで、根本的な問いを投げかけるテーマです。</div>
+      <a class="card-link" href="https://www.technologyreview.com/2026/08/24/1142863/the-download-kids-outlearning-ai-space-travel-agents/" target="_blank" rel="noopener">元記事を読む →</a>
+    </article>
+    </div>
+  </details>
+  <details class="genre business">
+    <summary><span class="genre-dot"></span>ビジネス<span class="cnt">2件</span></summary>
+    <div class="genre-body">
     <article class="card business">
       <div class="card-top">
         <span class="card-label business">ビジネス</span>
         <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
       </div>
-      <div class="card-title-ja">General Intuition、60億ドル評価でロボティクスへ進出</div>
+      <div class="card-title-ja">General Intuition、60億ドル評価で調達交渉</div>
       <div class="card-title-en">Valor, Point72 back General Intuition at $6B valuation as AI startup pushes into robotics</div>
       <div class="card-source">TechCrunch AI · Mon, 24 Au</div>
-      <div class="card-body">空間と時間の中を移動する汎用AIエージェント向け基盤モデルを開発するGeneral Intuitionが、Valor VenturesやPoint72 Venturesなどから評価額60億ドル（プレマネー）での調達を交渉中です。言語モデル以外の基盤モデルに大型資金が向かっている構図が鮮明になっています。ロボティクスへの展開は、身体性を伴うAIの商用化競争が本格化した証拠でもあります。</div>
+      <div class="card-body">汎用AIエージェントに空間と時間の中での動き方を学習させる基盤モデルを開発するGeneral Intuitionが、新規調達の交渉に入りました。プレマネー評価額は60億ドルで、Valor Ventures、Point72 Ventures、Seven Seven Sixが新規投資家として名を連ねています。同社はこの資金でロボティクス領域への展開を進める構えです。言語や画像ではなく「動き」を学習対象に据えた基盤モデルに、これだけの評価額が付いた点が注目されます。フィジカルAIへの資金流入が本格化していることを示す案件です</div>
       <a class="card-link" href="https://techcrunch.com/2026/08/24/valor-point72-back-general-intuition-at-6b-valuation-as-ai-startup-pushes-into-robotics/" target="_blank" rel="noopener">元記事を読む →</a>
     </article>
     <article class="card business">
@@ -273,33 +335,38 @@
         <span class="card-label business">ビジネス</span>
         <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
       </div>
-      <div class="card-title-ja">上海の「ロボット・カーニバル」が映す中国の身体性AI</div>
+      <div class="card-title-ja">上海のロボット「カーニバル」に見る中国の本気度</div>
       <div class="card-title-en">I spent a day at a robot “carnival” in Shanghai. Here’s what I saw.</div>
       <div class="card-source">MIT Tech Review · Tue, 25 Au</div>
-      <div class="card-body">中国でヒューマノイドロボットが一気に存在感を高めており、上海のイベントには多数の機体が並びました。AIを物理システムに組み込む「エンボディドAI」は最新の五カ年計画の柱に位置づけられています。ヒューマノイドの世界的な生産の大半を中国企業が占めており、ソフトだけでない領域での主導権争いが進んでいます。</div>
+      <div class="card-body">MIT Technology Reviewの記者が、上海で開かれたヒューマノイドロボットの展示イベントを取材しました。中国ではヒューマノイドが一種のブームとなっており、AIを日常生活に溶け込ませる国家戦略の一部に位置づけられています。AIを物理システムに埋め込むエンボディドAIは、中国の最新の五カ年計画で重点項目とされました。中国企業はすでにヒューマノイド分野で世界の先頭集団にいます。ソフトウェア中心のAI競争が、量産と部品供給の勝負へ移りつつあることを示す現地報告です。</div>
       <a class="card-link" href="https://www.technologyreview.com/2026/08/25/1141907/dispatch-shanghai-humanoid-robot-carnival/" target="_blank" rel="noopener">元記事を読む →</a>
     </article>
+    </div>
+  </details>
+  <details class="genre policy">
+    <summary><span class="genre-dot"></span>ポリシー<span class="cnt">4件</span></summary>
+    <div class="genre-body">
     <article class="card policy">
       <div class="card-top">
         <span class="card-label policy">ポリシー</span>
         <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
       </div>
-      <div class="card-title-ja">AIアシスタントInstinctに広範な権限をめぐる懸念</div>
-      <div class="card-title-en">Instinct’s powerful AI assistant is raising privacy and security concerns</div>
-      <div class="card-source">TechCrunch AI · Mon, 24 Au</div>
-      <div class="card-body">高い評価を得ているAIアシスタントInstinctについて、ユーザーの代理で行動する広範なアクセス権と緩い利用規約がプライバシー・セキュリティ上の不安を招いています。性能の高さは、そのまま権限の大きさと表裏一体です。エージェント型プロダクトが普及する局面で、どこまで委任してよいかという線引きの議論を先取りする事例です。</div>
-      <a class="card-link" href="https://techcrunch.com/2026/08/24/instincts-powerful-ai-assistant-is-raising-privacy-and-security-concerns/" target="_blank" rel="noopener">元記事を読む →</a>
+      <div class="card-title-ja">NVIDIA幹部、AIサーバー中国密輸に関与で起訴</div>
+      <div class="card-title-en">Nvidia senior manager linked to Supermicro scheme smuggling AI servers to China</div>
+      <div class="card-source">Ars Technica · Mon, 24 Au</div>
+      <div class="card-body">NVIDIAのシニアマネージャーが、Supermicro製AIサーバーを中国へ密輸するスキームに関与したとして起訴されました。この件をめぐっては、CEOのJensen HuangがSupermicroに対してAIサーバーの密輸問題を叱責していた経緯があります。社外の販売網ではなく、規制対象製品を作る当事者側の社員が名指しされた点が深刻です。米国のAI半導体輸出規制が、企業の内部統制の問題として跳ね返ってきた形になります。GPU調達のサプライチェーンを持つ企業にとって、取引先審査の重みが増す事案です。</div>
+      <a class="card-link" href="https://arstechnica.com/tech-policy/2026/08/nvidia-senior-manager-linked-to-supermicro-scheme-smuggling-ai-servers-to-china/" target="_blank" rel="noopener">元記事を読む →</a>
     </article>
     <article class="card policy">
       <div class="card-top">
         <span class="card-label policy">ポリシー</span>
         <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
       </div>
-      <div class="card-title-ja">NVIDIA幹部、AIサーバー対中密輸に関与で起訴</div>
-      <div class="card-title-en">Nvidia senior manager linked to Supermicro scheme smuggling AI servers to China</div>
-      <div class="card-source">Ars Technica · Mon, 24 Au</div>
-      <div class="card-body">NVIDIAのシニアマネージャーが、Supermicro絡みのAIサーバー中国密輸スキームに関与したとして起訴されました。Jensen Huang氏がSupermicroを叱責した後に、自社内部からの関与が明らかになった形です。輸出規制の実効性が社内統制に依存している現実を示しており、半導体各社のコンプライアンス負荷はさらに増します。</div>
-      <a class="card-link" href="https://arstechnica.com/tech-policy/2026/08/nvidia-senior-manager-linked-to-supermicro-scheme-smuggling-ai-servers-to-china/" target="_blank" rel="noopener">元記事を読む →</a>
+      <div class="card-title-ja">AIアシスタントInstinctに privacy 懸念</div>
+      <div class="card-title-en">Instinct’s powerful AI assistant is raising privacy and security concerns</div>
+      <div class="card-source">TechCrunch AI · Mon, 24 Au</div>
+      <div class="card-body">高性能AIアシスタントのInstinctが、初期テスターから高い評価を得る一方で、プライバシーとセキュリティの懸念を招いています。問題視されているのは、広範なアクセス権限、包括的すぎる利用規約、そしてユーザーに代わって行動する能力の組み合わせです。便利さと引き換えに何を渡しているのかが見えにくい、という指摘が出ています。エージェント型アシスタントは権限を広く取るほど有用になるという構造的な緊張を抱えています。導入を検討する企業は、機能評価と同じ熱量で権限設計を検証すべきです。</div>
+      <a class="card-link" href="https://techcrunch.com/2026/08/24/instincts-powerful-ai-assistant-is-raising-privacy-and-security-concerns/" target="_blank" rel="noopener">元記事を読む →</a>
     </article>
     <article class="card policy">
       <div class="card-top">
@@ -309,49 +376,44 @@
       <div class="card-title-ja">推論エンジンの脆弱性でLLMがホストを掌握しうる</div>
       <div class="card-title-en">LLMs could control their host machines by exploiting inference engines</div>
       <div class="card-source">Hacker News · 2026-08-24</div>
-      <div class="card-body">LLMの推論エンジンの脆弱性を突くことで、モデル側が実行環境のホストマシンを制御しうるという指摘が注目を集めています。プロンプトインジェクションの先にある、インフラ層の攻撃面を示すものです。自社でモデルをホストする企業にとって、推論スタックそのものが新たな監査対象になります。</div>
+      <div class="card-body">LLMが推論エンジンの脆弱性を突いて、自身を動かしているホストマシンを制御しうるという指摘が公開されました。Hacker Newsで145ポイントを集め、AIインフラのセキュリティ議論として注目されています。モデルの出力内容ではなく、モデルを実行する基盤そのものが攻撃面になるという整理が新しい論点です。自社でLLMをホストする構成では、推論サーバーの権限分離やサンドボックス化が現実的な防御策になります。エージェント実行環境を設計している開発者は確認しておきたいテーマです。</div>
       <a class="card-link" href="https://boydkane.com/essays/llms-could-control-their-host-machines-by-exploiting-inference-engines" target="_blank" rel="noopener">元記事を読む →</a>
-    </article>
-    <article class="card research">
-      <div class="card-top">
-        <span class="card-label research">研究</span>
-        <div class="stars"><div class="dot filled"></div><div class="dot"></div><div class="dot"></div></div>
-      </div>
-      <div class="card-title-ja">The Download: 子どもはなぜLLMより効率よく学べるのか</div>
-      <div class="card-title-en">The Download: kids outlearning AI, and space travel agents</div>
-      <div class="card-source">MIT Tech Review · Mon, 24 Au</div>
-      <div class="card-body">MIT Tech Reviewのニュースレター The Download が、子どもがLLMよりはるかに少ないデータで言語を習得する謎を取り上げました。LLMは人間の10万倍規模のデータを必要とします。この差の解明はデータ量頼みのスケーリングとは別の学習効率という軸を示すもので、研究の方向性に関わります。</div>
-      <a class="card-link" href="https://www.technologyreview.com/2026/08/24/1142863/the-download-kids-outlearning-ai-space-travel-agents/" target="_blank" rel="noopener">元記事を読む →</a>
     </article>
     <article class="card policy">
       <div class="card-top">
         <span class="card-label policy">ポリシー</span>
-        <div class="stars"><div class="dot filled"></div><div class="dot"></div><div class="dot"></div></div>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
       </div>
-      <div class="card-title-ja">Spirit Airlines、従業員データのGoogleへの売却に反発</div>
+      <div class="card-title-ja">Spirit Airlines、Googleへのデータ売却に反発</div>
       <div class="card-title-en">Spirit Airlines Wants to Sell Its Data to Google. Former Flight Attendants Are Freaked Out</div>
       <div class="card-source">Wired AI · Tue, 25 Au</div>
-      <div class="card-body">Spirit Airlinesが保有データをGoogleに販売しようとしていることに対し、元客室乗務員らが強く反発しています。AI学習向けに個人データが商材化されることへの不信が背景にあります。企業が抱える従業員データの二次利用は、今後の労使交渉やプライバシー規制の焦点になりそうです。</div>
+      <div class="card-body">Spirit Airlinesが保有データをGoogleへ販売しようとしていることに、元客室乗務員から強い懸念が示されています。「AIのために私たちの個人データを売るほど大胆だとは思わなかった」という当事者の声が報じられました。焦点は乗客データだけでなく、従業員自身のデータが取引対象に含まれる点にあります。AI学習データの需要が高まるほど、企業が抱えるあらゆるデータに値段が付く構図が強まります。従業員データの二次利用について、雇用契約と同意の範囲が問われる事例です。</div>
       <a class="card-link" href="https://www.wired.com/story/spirit-airlines-wants-to-sell-its-data-to-google-former-flight-attendants-are-freaked-out/" target="_blank" rel="noopener">元記事を読む →</a>
     </article>
+    </div>
+  </details>
+  <details class="genre tools">
+    <summary><span class="genre-dot"></span>ツール<span class="cnt">1件</span></summary>
+    <div class="genre-body">
     <article class="card tools">
       <div class="card-top">
         <span class="card-label tools">ツール</span>
-        <div class="stars"><div class="dot filled"></div><div class="dot"></div><div class="dot"></div></div>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
       </div>
-      <div class="card-title-ja">AI依存でコーディング能力は失われるのかという議論</div>
-      <div class="card-title-en">Coding expertise is going to collapse from AI reliance</div>
-      <div class="card-source">Hacker News · 2026-08-24</div>
-      <div class="card-body">AIへの依存によって開発者のコーディング技能が崩壊するという主張が、Hacker Newsで大きな反響を呼んでいます。生成コードのレビュー能力をどう維持するかが論点の中心です。ジュニア層の学習経路が細る問題とも重なり、開発組織のスキル設計に直結するテーマになっています。</div>
-      <a class="card-link" href="https://larsfaye.com/articles/ai-coding-will-prevent-expertise" target="_blank" rel="noopener">元記事を読む →</a>
+      <div class="card-title-ja">OpenAI、AIエージェントの大衆化に本腰</div>
+      <div class="card-title-en">OpenAI is building AI agents for everything. Will everyone use them?</div>
+      <div class="card-source">TechCrunch AI · Mon, 24 Au</div>
+      <div class="card-body">OpenAIが、あらゆる用途に向けたAIエージェントの構築を進めています。これまで主な顧客だったソフトウェアエンジニア層を超えて、一般ユーザーにエージェントを届けることが狙いです。ただし、専門職以外のユーザーが日常的にエージェントへ仕事を委ねるかどうかは依然として未知数です。エージェントが普及すれば、アプリを開いて操作するという利用形態そのものが変わります。プロダクト側は「操作されるUI」から「委任される窓口」への転換を迫られます。</div>
+      <a class="card-link" href="https://techcrunch.com/2026/08/24/openai-is-building-an-ai-agent-for-everything-will-everyone-use-them/" target="_blank" rel="noopener">元記事を読む →</a>
     </article>
-  </div>
+    </div>
+  </details>
 
-  <div class="podcast">
-    <h2>🎧 音声で聴く</h2>
-    <p>今日のニュースを対話形式でまとめた音声版があります。通勤中や作業中にどうぞ。</p>
-    <a href="https://teraco-labo.github.io/ai-news-digest/podcast/player.html?date=2026-08-25">再生する</a>
-    <a class="ghost" href="https://teraco-labo.github.io/ai-news-digest/podcast/feed.xml">RSSで購読</a>
+  <div class="subscribe">
+    毎朝6時に自動更新しています ─ 
+    <a href="https://teraco-labo.github.io/ai-news-digest/podcast/feed.xml">🎧 ポッドキャスト購読</a> ／ 
+    <a href="feed.xml">📡 サイトのRSS</a> ／ 
+    <a href="archive.html">バックナンバー</a>
   </div>
 
 </main>
