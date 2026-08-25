@@ -109,9 +109,15 @@ def _config() -> Dict:
     return monetize.load_config().get("curation", {}) or {}
 
 
+def _cli_available() -> bool:
+    import shutil
+    return shutil.which("claude") is not None
+
+
 def is_enabled() -> bool:
-    return bool(_config().get("enabled", True)) and bool(
-        os.getenv("ANTHROPIC_API_KEY") or os.getenv("CLAUDE_API_KEY")
+    return bool(_config().get("enabled", True)) and (
+        _cli_available()
+        or bool(os.getenv("ANTHROPIC_API_KEY") or os.getenv("CLAUDE_API_KEY"))
     )
 
 
@@ -137,6 +143,115 @@ def _build_user_message(articles: List[Dict], min_n: int, max_n: int) -> str:
     return "\n".join(lines)
 
 
+def _extract_json(text: str) -> Optional[Dict]:
+    """CLI の応答テキストから JSON オブジェクトを取り出す。
+
+    コードフェンスや前置きが混ざることがあるため、最初の '{' から
+    対応する '}' までをバランスを取りながら切り出す。
+    """
+    start = text.find("{")
+    if start < 0:
+        return None
+    depth = 0
+    in_str = False
+    escape = False
+    for i in range(start, len(text)):
+        ch = text[i]
+        if escape:
+            escape = False
+            continue
+        if ch == "\\":
+            escape = True
+            continue
+        if ch == '"':
+            in_str = not in_str
+            continue
+        if in_str:
+            continue
+        if ch == "{":
+            depth += 1
+        elif ch == "}":
+            depth -= 1
+            if depth == 0:
+                try:
+                    return json.loads(text[start:i + 1])
+                except json.JSONDecodeError:
+                    return None
+    return None
+
+
+def _curate_via_cli(articles: List[Dict], cfg: Dict, min_n: int, max_n: int,
+                    verbose: bool) -> Optional[Dict]:
+    """Claude Code CLI（サブスクリプション枠）でキュレーションする。
+
+    Max プラン契約者は `claude setup-token` で発行した OAuth トークンを
+    CLAUDE_CODE_OAUTH_TOKEN として渡せば、API の従量課金なしで動く。
+    ローカルではログイン済みの CLI がそのまま使われる。
+    """
+    import shutil
+    import subprocess
+
+    exe = shutil.which("claude")
+    if not exe:
+        return None
+
+    schema_str = json.dumps(CURATION_SCHEMA, ensure_ascii=False)
+    prompt = (
+        SYSTEM_PROMPT
+        + "\n\n## 出力形式\n\n"
+        + "次の JSON Schema に**厳密に**従う JSON オブジェクトだけを出力してください。"
+        + "前置き・説明・コードフェンスは一切付けないこと。\n\n"
+        + schema_str
+        + "\n\n---\n\n"
+        + _build_user_message(articles, min_n, max_n)
+    )
+
+    cmd = [exe, "-p", "--output-format", "json",
+           "--model", cfg.get("cli_model", "opus")]
+    try:
+        proc = subprocess.run(
+            cmd, input=prompt, capture_output=True, text=True, timeout=900,
+        )
+    except subprocess.TimeoutExpired:
+        if verbose:
+            print("   ⚠️  Claude Code CLI がタイムアウトしました")
+        return None
+    except Exception as e:
+        if verbose:
+            print(f"   ⚠️  Claude Code CLI の実行に失敗しました: {e}")
+        return None
+
+    if proc.returncode != 0:
+        if verbose:
+            err = (proc.stderr or proc.stdout or "").strip()[:200]
+            print(f"   ⚠️  Claude Code CLI がエラーを返しました: {err}")
+        return None
+
+    try:
+        wrapper = json.loads(proc.stdout)
+    except json.JSONDecodeError:
+        wrapper = {"result": proc.stdout}
+
+    if wrapper.get("is_error"):
+        if verbose:
+            print(f"   ⚠️  Claude Code CLI が失敗を報告しました: {str(wrapper.get('result'))[:200]}")
+        return None
+
+    data = _extract_json(wrapper.get("result", ""))
+    if data is None:
+        if verbose:
+            print("   ⚠️  CLI の応答から JSON を取り出せませんでした")
+        return None
+
+    if verbose:
+        usage = wrapper.get("usage") or {}
+        if usage:
+            print(f"   使用トークン: 入力 {usage.get('input_tokens', 0):,} / "
+                  f"出力 {usage.get('output_tokens', 0):,}（サブスクリプション枠）")
+
+    return data
+
+
 def curate(articles: List[Dict], verbose: bool = True) -> Optional[Dict]:
     """記事を選別して日本語化する。
 
@@ -153,15 +268,32 @@ def curate(articles: List[Dict], verbose: bool = True) -> Optional[Dict]:
             print("   キュレーションは設定で無効化されています")
         return None
 
+    min_n = int(cfg.get("min_articles", DEFAULT_MIN))
+    max_n = int(cfg.get("max_articles", DEFAULT_MAX))
+    backend = cfg.get("backend", "auto")
+
+    # サブスクリプション枠（Claude Code CLI）を優先し、API を予備にする。
+    # backend: "claude-code" = CLI のみ / "api" = API のみ / "auto" = CLI → API の順
+    if backend in ("auto", "claude-code"):
+        data = _curate_via_cli(articles, cfg, min_n, max_n, verbose)
+        if data is not None:
+            result = _assemble(data, articles, verbose)
+            if result is not None:
+                return result
+        if backend == "claude-code":
+            if verbose:
+                print("   ⚠️  CLI バックエンドが使えませんでした（従来処理で続行）")
+            return None
+        if verbose:
+            print("   CLI が使えないため API にフォールバックします")
+
     api_key = os.getenv("ANTHROPIC_API_KEY") or os.getenv("CLAUDE_API_KEY")
     if not api_key:
         if verbose:
-            print("   ⚠️  ANTHROPIC_API_KEY が未設定のためキュレーションをスキップします")
+            print("   ⚠️  ANTHROPIC_API_KEY も未設定のためキュレーションをスキップします")
         return None
 
     model = cfg.get("model", DEFAULT_MODEL)
-    min_n = int(cfg.get("min_articles", DEFAULT_MIN))
-    max_n = int(cfg.get("max_articles", DEFAULT_MAX))
 
     try:
         import anthropic

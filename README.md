@@ -20,7 +20,9 @@ pip install -r requirements.txt
 cp .env.example .env    # APIキーを設定
 ```
 
-必要な GitHub Secrets: `CLAUDE_API_KEY`, `NEWS_API_KEY`, `GMAIL_ADDRESS`, `EMAIL_PASSWORD`
+必要な GitHub Secrets: `NEWS_API_KEY`, `GMAIL_ADDRESS`, `EMAIL_PASSWORD`
+推奨: `CLAUDE_CODE_OAUTH_TOKEN`（`claude setup-token` で発行 — 記事の選別・日本語化を Max プランの月額内で実行）
+予備: `CLAUDE_API_KEY`（トークン未設定時に従量課金 API へフォールバック）
 
 ## よく使うコマンド
 
