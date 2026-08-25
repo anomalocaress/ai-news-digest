@@ -208,9 +208,20 @@ def _curate_via_cli(articles: List[Dict], cfg: Dict, min_n: int, max_n: int,
 
     cmd = [exe, "-p", "--output-format", "json",
            "--model", cfg.get("cli_model", "opus")]
+
+    # Claude Code の認証は ANTHROPIC_API_KEY が OAuth トークンより優先される。
+    # 失効した API キーが環境に残っていると、有効なトークンを持っていても
+    # 401 で落ちるため、トークンがあるときは API キーを環境から外して渡す。
+    env = os.environ.copy()
+    if env.get("CLAUDE_CODE_OAUTH_TOKEN"):
+        env.pop("ANTHROPIC_API_KEY", None)
+        env.pop("CLAUDE_API_KEY", None)
+        env.pop("ANTHROPIC_AUTH_TOKEN", None)
+
     try:
         proc = subprocess.run(
             cmd, input=prompt, capture_output=True, text=True, timeout=900,
+            env=env,
         )
     except subprocess.TimeoutExpired:
         if verbose:
