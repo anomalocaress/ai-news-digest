@@ -858,14 +858,21 @@ def main():
 
     # Step 8: メール送信（push 後、GitHub Pages デプロイ待機してから送信）
     print("\n8️⃣  Sending email...")
-    if pushed:
-        # GitHub Pages のデプロイ完了を待つ（通常 1〜2 分）
-        import time
-        wait_sec = 90
-        print(f"   GitHub Pages デプロイ待機中…（{wait_sec}秒）")
-        time.sleep(wait_sec)
-
-    email_sent = send_email_draft(email_html, target_date)
+    # 開発ブランチでのテスト実行時はメールを送らない。
+    # Pages は main からしか配信されないため、リンク切れのメールが届いてしまう。
+    branch = os.getenv("GITHUB_REF_NAME", "")
+    if branch and branch not in ("main", "master"):
+        print(f"   テスト実行（ブランチ: {branch}）のためメール送信をスキップします")
+        print(f"   ドラフトは {email_file.name} に保存済みです")
+        email_sent = True
+    else:
+        if pushed:
+            # GitHub Pages のデプロイ完了を待つ（通常 1〜2 分）
+            import time
+            wait_sec = 90
+            print(f"   GitHub Pages デプロイ待機中…（{wait_sec}秒）")
+            time.sleep(wait_sec)
+        email_sent = send_email_draft(email_html, target_date)
     if not email_sent:
         print(f"⚠️  Email draft ready at: {email_file.name}")
         print(f"   GMAIL_ADDRESS と GMAIL_APP_PASSWORD を設定すると自動送信されます。")
