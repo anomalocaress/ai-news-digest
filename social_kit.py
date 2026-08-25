@@ -60,7 +60,7 @@ def x_length(text: str) -> int:
 # ---------------------------------------------------------------- 記事の取得
 
 _CARD_RE = re.compile(
-    r'<article class="card (\w+)".*?'
+    r'<article class="card (\w+)(?: top)?".*?'
     r'<div class="card-title-ja">(.*?)</div>.*?'
     r'<div class="card-source">(.*?)</div>.*?'
     r'<div class="card-body">(.*?)</div>',

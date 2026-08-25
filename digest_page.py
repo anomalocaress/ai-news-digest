@@ -73,14 +73,40 @@ DIGEST_CSS = """
   .tier { max-width:760px; margin:2rem auto 0.5rem; font-size:0.7rem; font-weight:700;
     letter-spacing:0.14em; color:var(--text-muted); }
   .tier:first-of-type { margin-top:0; }
-  .podcast { max-width:760px; margin:2.5rem auto 0; padding:1.3rem 1.5rem;
-    background:linear-gradient(135deg,#0f172a,#1e293b); border-radius:8px; color:#e2e8f0; }
-  .podcast h2 { font-size:0.95rem; font-weight:700; color:#fff; margin-bottom:0.3rem; }
-  .podcast p { font-size:0.82rem; color:#cbd5e1; }
-  .podcast a { display:inline-block; margin-top:0.9rem; margin-right:0.6rem; padding:0.5rem 1.1rem;
-    background:#22d3ee; color:#0f172a; font-size:0.8rem; font-weight:700;
-    border-radius:6px; text-decoration:none; }
-  .podcast a.ghost { background:none; border:1px solid rgba(255,255,255,0.35); color:#e2e8f0; }
+  .top-nav { display:flex; flex-wrap:wrap; gap:0.4rem; margin-top:1.3rem; }
+  .top-nav a { padding:0.4rem 0.95rem; border:1px solid rgba(255,255,255,0.3); border-radius:999px;
+    font-size:0.78rem; font-weight:600; color:#e2e8f0; text-decoration:none; }
+  .top-nav a:hover { background:rgba(255,255,255,0.12); }
+  .listen { max-width:760px; margin:0 auto 2.5rem; padding:1.2rem 1.4rem;
+    background:linear-gradient(135deg,#0f172a,#1e293b); border-radius:10px; color:#e2e8f0; }
+  .listen-head { display:flex; align-items:baseline; gap:0.6rem; flex-wrap:wrap; margin-bottom:0.75rem; }
+  .listen-head strong { font-size:0.95rem; color:#fff; }
+  .listen-head span { font-size:0.76rem; color:#94a3b8; }
+  .listen audio { width:100%; height:40px; display:block; }
+  .listen-sub { margin-top:0.6rem; font-size:0.74rem; }
+  .listen-sub a { color:#7dd3fc; text-decoration:none; }
+  .listen-sub a:hover { text-decoration:underline; }
+  details.genre { max-width:760px; margin:0 auto 0.75rem; background:var(--card-bg);
+    border:1px solid var(--border); border-radius:8px; overflow:hidden; }
+  details.genre > summary { list-style:none; cursor:pointer; padding:1rem 1.3rem;
+    display:flex; align-items:center; gap:0.7rem; font-weight:700; font-size:0.92rem;
+    -webkit-tap-highlight-color:transparent; }
+  details.genre > summary::-webkit-details-marker { display:none; }
+  details.genre > summary::before { content:"▸"; font-size:0.8rem; color:var(--text-muted);
+    transition:transform .15s; }
+  details.genre[open] > summary::before { transform:rotate(90deg); }
+  details.genre > summary .cnt { margin-left:auto; font-size:0.72rem; font-weight:600;
+    color:var(--text-muted); }
+  details.genre .genre-dot { width:9px; height:9px; border-radius:50%; background:var(--text-muted); }
+  details.genre.model .genre-dot{background:var(--model)} details.genre.research .genre-dot{background:var(--research)}
+  details.genre.business .genre-dot{background:var(--business)} details.genre.policy .genre-dot{background:var(--policy)}
+  details.genre.tools .genre-dot{background:var(--tools)}
+  details.genre .genre-body { padding:0 0.9rem 0.9rem; display:flex; flex-direction:column; gap:0.75rem; }
+  details.genre .card { border:none; border-left:3px solid var(--border); background:var(--bg);
+    border-radius:6px; }
+  .subscribe { max-width:760px; margin:2.5rem auto 0; padding:1rem 1.3rem; text-align:center;
+    border:1px dashed var(--border); border-radius:8px; font-size:0.8rem; color:var(--text-muted); }
+  .subscribe a { color:var(--accent); font-weight:600; text-decoration:none; }
   @media (max-width:640px){ .card{padding:1.15rem 1.2rem} .card.top .card-title-ja{font-size:1.1rem} }
 """
 
@@ -140,17 +166,42 @@ def _lead(overview: List[str]) -> str:
     )
 
 
-def _podcast(date: datetime, available: bool) -> str:
+def _listen(date: datetime, available: bool) -> str:
+    """埋め込み音声プレイヤー。
+
+    別ページのプレイヤーに飛ばすのではなく、その場で再生できるようにする。
+    src は相対パスにする — 絶対URL（本番サイト）だと、まだデプロイされて
+    いない環境（プレビューやブランチ）で鳴らない。相対ならどこで開いても
+    同じリポジトリ内の mp3 を指す。
+    """
     if not available:
         return ""
-    base = monetize.podcast_url()
     date_iso = date.strftime("%Y-%m-%d")
+    base = monetize.podcast_url()
     return (
-        '  <div class="podcast">\n'
-        "    <h2>🎧 音声で聴く</h2>\n"
-        "    <p>今日のニュースを対話形式でまとめた音声版があります。通勤中や作業中にどうぞ。</p>\n"
-        f'    <a href="{base}/podcast/player.html?date={date_iso}">再生する</a>\n'
-        f'    <a class="ghost" href="{base}/podcast/feed.xml">RSSで購読</a>\n'
+        '  <div class="listen" id="listen">\n'
+        '    <div class="listen-head">\n'
+        "      <strong>🎧 今日の音声版</strong>\n"
+        "      <span>対話形式・ながら聴き向け（10〜15分）</span>\n"
+        "    </div>\n"
+        f'    <audio controls preload="none" src="podcast/ai-news-{date_iso}.mp3">\n'
+        f'      <a href="podcast/ai-news-{date_iso}.mp3">音声ファイルを開く</a>\n'
+        "    </audio>\n"
+        '    <div class="listen-sub">\n'
+        f'      <a href="{base}/podcast/feed.xml">📡 ポッドキャストとして購読する（RSS / Spotify）</a>\n'
+        "    </div>\n"
+        "  </div>\n"
+    )
+
+
+def _subscribe(config: Dict) -> str:
+    base = monetize.podcast_url()
+    return (
+        '  <div class="subscribe">\n'
+        "    毎朝6時に自動更新しています ─ \n"
+        f'    <a href="{base}/podcast/feed.xml">🎧 ポッドキャスト購読</a> ／ \n'
+        '    <a href="feed.xml">📡 サイトのRSS</a> ／ \n'
+        '    <a href="archive.html">バックナンバー</a>\n'
         "  </div>\n"
     )
 
@@ -170,6 +221,8 @@ def render(categorized: Dict[str, List[Dict]], date: datetime,
     date_iso = date.strftime("%Y-%m-%d")
     weekday = WEEKDAYS_JA[date.weekday()]
 
+    listen_nav = '<a href="#listen">🎧 音声で聴く</a>' if podcast_available else ""
+
     head = monetize.build_head_tags(
         config,
         page_url=f"{base}/ai-news-{date_iso}.html" if base else "",
@@ -179,9 +232,14 @@ def render(categorized: Dict[str, List[Dict]], date: datetime,
         published=f"{date_iso}T06:00:00+09:00",
     )
 
-    # 重要度3を「注目」として先に出し、残りをその他としてまとめる
+    # 重要度3を「注目」として展開表示し、残りはジャンル別のアコーディオンに畳む。
+    # 全件を平で並べるとページが長くなりすぎるため、注目以外は
+    # 見出しだけ一覧できて、興味のあるジャンルを開く形にする。
     top = [a for a in items if int(a.get("importance", 2)) >= 3]
     rest = [a for a in items if int(a.get("importance", 2)) < 3]
+    if not top and rest:
+        # 注目が空の日は先頭の1件を昇格させ、ページの顔を作る
+        top, rest = rest[:1], rest[1:]
 
     body_parts = []
     if top:
@@ -189,24 +247,41 @@ def render(categorized: Dict[str, List[Dict]], date: datetime,
         body_parts += [_card(a, emphasize=True) for a in top]
         body_parts.append("  </div>\n")
     if rest:
-        # 注目が1件も無い日に「そのほか」だけが出ると据わりが悪いので見出しを変える
-        label = "そのほかの動き" if top else "本日のニュース"
-        body_parts.append(f'  <div class="tier">{label}</div>\n  <div class="digest">\n')
-        body_parts += [_card(a, emphasize=False) for a in rest]
-        body_parts.append("  </div>\n")
+        body_parts.append('  <div class="tier">ジャンル別のニュース（タップで開く）</div>\n')
+        for category in CATEGORIES:
+            cat_items = [a for a in rest if a["category"] == category]
+            if not cat_items:
+                continue
+            # 少数日はすべて開いておく（畳む価値がないため）
+            open_attr = " open" if len(rest) <= 4 else ""
+            cards = "".join(_card(a, emphasize=False) for a in cat_items)
+            body_parts.append(
+                f'  <details class="genre {category}"{open_attr}>\n'
+                f'    <summary><span class="genre-dot"></span>'
+                f'{CATEGORIES_JA.get(category, category)}'
+                f'<span class="cnt">{len(cat_items)}件</span></summary>\n'
+                f'    <div class="genre-body">\n{cards}    </div>\n'
+                "  </details>\n"
+            )
 
     body = f"""<div class="hero">
   <div class="hero-inner">
-    <div class="crumbs"><a href="./">{_html.escape(name)}</a> ／ <a href="archive.html">バックナンバー</a></div>
+    <div class="crumbs"><a href="./">{_html.escape(name)}</a></div>
     <h1>{date_str}（{weekday}）のAIニュース</h1>
     <p>厳選 {total} 件。3分で今日のAIがわかります。</p>
+    <div class="top-nav">
+      <a href="./">トップ</a>
+      <a href="articles/">読み物</a>
+      <a href="archive.html">バックナンバー</a>{listen_nav}
+    </div>
   </div>
 </div>
 
 <main>
 {_lead(overview or [])}
+{_listen(date, podcast_available)}
 {"".join(body_parts)}
-{_podcast(date, podcast_available)}
+{_subscribe(config)}
 </main>
 
 <footer>
