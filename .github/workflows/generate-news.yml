@@ -65,6 +65,24 @@ jobs:
         # ANTHROPIC_API_KEY の従量課金 API に自動フォールバックするので失敗させない。
         run: npm install -g @anthropic-ai/claude-code || echo "::warning::Claude Code CLI のインストールに失敗（API にフォールバックします）"
 
+      - name: Check curation credentials
+        # Secret が空だとキュレーションが黙って劣化するため、実行前にログへ明示する。
+        # 値そのものは出さない（文字数のみ）。
+        env:
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          ANTHROPIC_API_KEY: ${{ secrets.CLAUDE_API_KEY }}
+        run: |
+          if [ -n "$CLAUDE_CODE_OAUTH_TOKEN" ]; then
+            echo "✓ CLAUDE_CODE_OAUTH_TOKEN あり (${#CLAUDE_CODE_OAUTH_TOKEN} 文字)"
+          else
+            echo "::warning::CLAUDE_CODE_OAUTH_TOKEN が未設定です（サブスク枠は使われません）"
+          fi
+          if [ -n "$ANTHROPIC_API_KEY" ]; then
+            echo "✓ CLAUDE_API_KEY あり (${#ANTHROPIC_API_KEY} 文字)"
+          else
+            echo "::warning::CLAUDE_API_KEY が未設定です（API フォールバックも使えません）"
+          fi
+
       - name: Configure Git
         run: |
           git config --global user.email "actions@github.com"

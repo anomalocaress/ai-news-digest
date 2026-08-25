@@ -732,15 +732,25 @@ def commit_and_push(date: datetime):
         os.chdir(REPO_DIR)
 
         # Git operations
+        # 実行中のブランチに対して pull/push する。main 固定だと、開発ブランチでの
+        # テスト実行時に main へ rebase しようとして衝突し、成果物が push されない。
+        branch = os.getenv("GITHUB_REF_NAME", "")
+        if not branch:
+            branch = subprocess.run(
+                ["git", "rev-parse", "--abbrev-ref", "HEAD"],
+                capture_output=True, text=True,
+            ).stdout.strip() or "main"
+
         subprocess.run(["git", "add", "-A"], check=True, capture_output=True)
         subprocess.run(
             ["git", "commit", "-m", f"feat: AI News Digest {date_str}"],
             check=True,
             capture_output=True,
         )
-        subprocess.run(["git", "pull", "--rebase", "origin", "main"],
+        subprocess.run(["git", "pull", "--rebase", "origin", branch],
                        check=True, capture_output=True)
-        subprocess.run(["git", "push"], check=True, capture_output=True)
+        subprocess.run(["git", "push", "origin", f"HEAD:{branch}"],
+                       check=True, capture_output=True)
 
         print(f"✓ Git push completed")
 

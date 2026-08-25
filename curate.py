@@ -223,8 +223,20 @@ def _curate_via_cli(articles: List[Dict], cfg: Dict, min_n: int, max_n: int,
 
     if proc.returncode != 0:
         if verbose:
-            err = (proc.stderr or proc.stdout or "").strip()[:200]
-            print(f"   ⚠️  Claude Code CLI がエラーを返しました: {err}")
+            # stdout が JSON なら result（人間向けのエラー文）を取り出して全文出す。
+            # 生 JSON の先頭だけでは原因が分からない。
+            detail = ""
+            try:
+                w = json.loads(proc.stdout)
+                detail = str(w.get("result", ""))
+            except Exception:
+                detail = (proc.stdout or "").strip()
+            stderr = (proc.stderr or "").strip()
+            print(f"   ⚠️  Claude Code CLI がエラーを返しました（exit {proc.returncode}）")
+            if detail:
+                print(f"      result: {detail[:600]}")
+            if stderr:
+                print(f"      stderr: {stderr[:600]}")
         return None
 
     try:
