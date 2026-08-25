@@ -330,12 +330,14 @@ def apply_to_digest(html_output: str, categorized: Optional[Dict[str, List[Dict]
             html_output = html_output[:cut] + "\n" + disclosure + html_output[cut:]
 
     slots = config.get("slots", {})
+    n_mid = int(slots.get("in_content_offers", 0))
+    n_foot = int(slots.get("footer_offers", 0))
+    # 記事中と末尾で同じ案件が並ばないよう、まとめて選んでから振り分ける
+    picked = select_offers(config, categorized, date, n_mid + n_foot)
+    mid_offers, foot_offers = picked[:n_mid], picked[n_mid:n_mid + n_foot]
 
     # 3. 記事の途中（2つ目のカテゴリ見出しの直前）に差し込む
-    in_content = render_offer_block(
-        select_offers(config, categorized, date, int(slots.get("in_content_offers", 0))),
-        heading="今日のニュースに関連するサービス",
-    )
+    in_content = render_offer_block(mid_offers, heading="今日のニュースに関連するサービス")
     if in_content:
         marker = '<div class="section-label"'
         first = html_output.find(marker)
@@ -347,11 +349,7 @@ def apply_to_digest(html_output: str, categorized: Optional[Dict[str, List[Dict]
 
     # 4. 本文末尾（</main> 直前）: AdSense → 案件 → 自社 CTA
     tail = render_adsense_unit(config)
-    footer_offers = select_offers(config, categorized, date, int(slots.get("footer_offers", 0)))
-    # 記事中に出した案件と重複させない
-    shown = {o["id"] for o in select_offers(config, categorized, date, int(slots.get("in_content_offers", 0)))}
-    footer_offers = [o for o in footer_offers if o.get("id") not in shown]
-    tail += render_offer_block(footer_offers, heading="AIを仕事にしたい人向け")
+    tail += render_offer_block(foot_offers, heading="AIを仕事にしたい人向け")
     tail += render_cta(config)
     if tail:
         html_output = _insert_before(html_output, "</main>", tail)

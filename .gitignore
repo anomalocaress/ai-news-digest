@@ -19,3 +19,10 @@ venv/
 
 # macOS
 .DS_Store
+
+# 収益データ（金額は公開したくないのでローカルのみ）
+revenue.json
+.revenue-report.html
+
+# 記事の下書きプレビュー
+.preview/

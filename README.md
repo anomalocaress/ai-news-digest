@@ -1,1 +1,49 @@
-# ai-news-digest
+# てらこAIニュースダイジェスト
+
+AIの最新ニュースを毎朝6時に自動収集し、日本語で要約して配信するシステム。
+サイト・ポッドキャスト・メールの3経路で届きます。
+
+## 動いているもの
+
+- **日次ダイジェスト** — RSS/Hacker Newsから収集 → 5カテゴリに分類 → Claude Haikuで日本語要約 → HTML生成
+- **ポッドキャスト** — 対話形式の台本を生成 → `edge-tts` で音声化 → RSS配信
+- **メール配信** — 毎朝Gmailで送信
+- **解説記事** — `articles/*.md` から静的HTMLを生成（検索流入用）
+- **SNS投稿キット** — その日のダイジェストからコピペ用の投稿文を生成
+
+すべて GitHub Actions で毎朝6時（JST）に全自動実行されます。
+
+## セットアップ
+
+```bash
+pip install -r requirements.txt
+cp .env.example .env    # APIキーを設定
+```
+
+必要な GitHub Secrets: `CLAUDE_API_KEY`, `NEWS_API_KEY`, `GMAIL_ADDRESS`, `EMAIL_PASSWORD`
+
+## よく使うコマンド
+
+```bash
+python generate_news.py                  # ダイジェストを生成（全工程）
+python generate_news.py --date 2026-07-16
+
+python seo_builder.py                    # サイト再構築（トップ/アーカイブ/sitemap/RSS/記事）
+python article_builder.py --preview      # 解説記事の下書きプレビュー
+python social_kit.py                     # SNS投稿文を生成
+python social_kit.py --backfill 30       # 過去30日ぶんをまとめて生成
+
+python monetize.py                       # 収益化設定の状態を確認
+python revenue_tracker.py report         # 収支レポート
+python revenue_tracker.py plan           # 目標達成までの逆算
+
+python api_dashboard.py                  # APIコストの確認
+```
+
+## 収益化について
+
+設定と手順は **[MONETIZATION.md](MONETIZATION.md)** を参照。
+戦略の背景と判断材料は **[STRATEGY_BRIEF.md](STRATEGY_BRIEF.md)** にまとめています。
+
+収益化の設定はすべて `monetize_config.json` に集約されており、
+**アフィリエイトURLが未設定の案件は一切表示されません**（空の広告枠は出ません）。

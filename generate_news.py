@@ -26,6 +26,16 @@ except:
 
 REPO_DIR = Path(__file__).parent
 
+# 収益化レイヤー（未設定でも no-op なので、失敗しても本体は止めない）
+try:
+    import monetize
+    import seo_builder
+    import social_kit
+    MONETIZE_AVAILABLE = True
+except Exception as _e:
+    print(f"⚠️  収益化モジュールの読み込みに失敗しました（ダイジェスト生成は続行）: {_e}")
+    MONETIZE_AVAILABLE = False
+
 CATEGORIES = ["model", "research", "business", "policy", "tools"]
 CATEGORIES_JA = {
     "model": "モデル",
@@ -868,6 +878,14 @@ def main():
     print("\n3️⃣  Generating HTML...")
     html_content = generate_html(categorized, target_date)
 
+    # SEOメタ（OGP/canonical/JSON-LD）とアフィリエイト枠を後付けで注入する。
+    # 案件URLが未設定なら何も差し込まれないため、設定前でも安全に動く。
+    if MONETIZE_AVAILABLE:
+        try:
+            html_content = monetize.apply_to_digest(html_content, categorized, target_date)
+        except Exception as e:
+            print(f"⚠️  収益化レイヤーの注入をスキップしました: {e}")
+
     # Step 4: Save HTML
     output_file = save_html(html_content, target_date)
 
@@ -895,9 +913,23 @@ def main():
     email_file = save_email_html(email_html, target_date)
     print(f"✓ Email draft saved: {email_file.name}")
 
-    # Step 7: Update index.html
-    print("\n6️⃣  Updating index.html...")
-    update_index_html(target_date)
+    # Step 7: サイト全体を再構築（トップ / アーカイブ / 解説記事 / sitemap / RSS）
+    print("\n6️⃣  Building site (index / archive / articles / sitemap / feed)...")
+    if MONETIZE_AVAILABLE:
+        try:
+            seo_builder.build_all()
+        except Exception as e:
+            print(f"⚠️  サイトビルドに失敗しました: {e}")
+            update_index_html(target_date)  # 最低限リダイレクトだけは維持する
+    else:
+        update_index_html(target_date)
+
+    # SNS投稿キット（コピペ用。自動投稿はしない）
+    if MONETIZE_AVAILABLE:
+        try:
+            social_kit.write_kit(categorized, target_date)
+        except Exception as e:
+            print(f"⚠️  SNS投稿キットの生成をスキップしました: {e}")
 
     # Step 8: Commit and push（メール送信より先に実行）
     pushed = False

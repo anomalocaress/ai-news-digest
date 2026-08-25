@@ -23,7 +23,9 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Dict, List
 
+import article_builder
 import monetize
+import site_theme
 
 JST = timezone(timedelta(hours=9))
 REPO_DIR = Path(__file__).parent
@@ -69,60 +71,7 @@ def collect_issues() -> List[Dict]:
 
 # ---------------------------------------------------------------- ページ生成
 
-_PAGE_CSS = """
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  :root { --bg:#f8fafc; --card-bg:#fff; --text:#1e293b; --text-muted:#64748b; --border:#e2e8f0; --accent:#0e7490; }
-  body { font-family:'Noto Sans JP','Inter',sans-serif; background:var(--bg); color:var(--text);
-    line-height:1.7; -webkit-font-smoothing:antialiased; }
-  a { color:inherit; }
-  .hero { background:linear-gradient(135deg,#0f172a,#1e293b); color:#fff; padding:3rem 1.5rem; }
-  .hero-inner { max-width:1100px; margin:0 auto; }
-  .hero h1 { font-size:1.8rem; font-weight:700; letter-spacing:0.01em; }
-  .hero p { margin-top:0.6rem; font-size:0.95rem; color:#cbd5e1; max-width:640px; }
-  .hero-actions { margin-top:1.5rem; display:flex; flex-wrap:wrap; gap:0.75rem; }
-  .btn { display:inline-block; padding:0.6rem 1.3rem; border-radius:6px; font-size:0.85rem;
-    font-weight:700; text-decoration:none; }
-  .btn-primary { background:#22d3ee; color:#0f172a; }
-  .btn-ghost { border:1px solid rgba(255,255,255,0.35); color:#e2e8f0; }
-  main { max-width:1100px; margin:0 auto; padding:2.5rem 1.5rem 4rem; }
-  .section-label { font-size:0.75rem; font-weight:700; letter-spacing:0.12em; color:var(--text-muted);
-    text-transform:uppercase; margin:2.5rem 0 1rem; }
-  .section-label:first-child { margin-top:0; }
-  .issue-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:1rem; }
-  .issue { display:block; padding:1rem 1.1rem; background:var(--card-bg); border:1px solid var(--border);
-    border-radius:8px; text-decoration:none; transition:border-color .15s; }
-  .issue:hover { border-color:var(--accent); }
-  .issue .d { font-size:0.95rem; font-weight:700; }
-  .issue .m { margin-top:0.25rem; font-size:0.75rem; color:var(--text-muted); }
-  .issue-list { list-style:none; columns:2; column-gap:2rem; }
-  .issue-list li { break-inside:avoid; padding:0.35rem 0; border-bottom:1px solid var(--border); }
-  .issue-list a { font-size:0.85rem; text-decoration:none; }
-  .issue-list a:hover { color:var(--accent); }
-  .issue-list .m { font-size:0.72rem; color:var(--text-muted); margin-left:0.5rem; }
-  footer { border-top:1px solid var(--border); padding:2rem 1.5rem; text-align:center;
-    font-size:0.78rem; color:var(--text-muted); }
-  @media (max-width:640px){ .issue-list{columns:1;} .hero h1{font-size:1.4rem;} }
-"""
-
-
-def _shell(title: str, head_extra: str, body: str) -> str:
-    return f"""<!DOCTYPE html>
-<html lang="ja">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{_html.escape(title)}</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<style>{_PAGE_CSS}</style>{head_extra}</head>
-<body>
-{body}
-</body>
-</html>
-"""
-
-
-def build_home(issues: List[Dict], config: Dict) -> str:
+def build_home(issues: List[Dict], articles: List[Dict], config: Dict) -> str:
     site = config.get("site", {})
     base = site.get("base_url", "").rstrip("/")
     pod_base = config.get("podcast", {}).get("base_url", base).rstrip("/")
@@ -158,6 +107,22 @@ def build_home(issues: List[Dict], config: Dict) -> str:
             "    </a>\n"
         )
 
+    reads = ""
+    if articles:
+        cards = "".join(
+            f'    <a class="issue" href="articles/{a["file"]}">\n'
+            f'      <div class="d">{_html.escape(a["title"])}</div>\n'
+            f'      <div class="m">{_html.escape(a.get("description", "")[:70])}</div>\n'
+            "    </a>\n"
+            for a in articles[:6]
+        )
+        reads = (
+            '  <div class="section-label">読み物</div>\n'
+            f'  <div class="issue-grid">\n{cards}  </div>\n'
+            '  <p style="margin-top:1rem;font-size:0.85rem;">'
+            '<a href="articles/" style="color:var(--accent);font-weight:600;">解説記事の一覧を見る →</a></p>\n'
+        )
+
     offers = monetize.render_offer_block(
         monetize.select_offers(config, None, datetime.now(JST).replace(tzinfo=None),
                                int(config.get("slots", {}).get("home_offers", 0))),
@@ -176,6 +141,7 @@ def build_home(issues: List[Dict], config: Dict) -> str:
 
 <main>
 {monetize.render_disclosure(config)}
+{reads}
   <div class="section-label">最近のダイジェスト</div>
   <div class="issue-grid">
 {cards}  </div>
@@ -192,7 +158,7 @@ def build_home(issues: List[Dict], config: Dict) -> str:
   毎朝6時に自動生成・自動配信しています。
 </footer>"""
 
-    return _shell(f"{name} | AI最新ニュースを毎朝6時に日本語で", head, body)
+    return site_theme.page_shell(f"{name} | AI最新ニュースを毎朝6時に日本語で", head, body)
 
 
 def build_archive(issues: List[Dict], config: Dict) -> str:
@@ -245,12 +211,12 @@ def build_archive(issues: List[Dict], config: Dict) -> str:
   <strong>{_html.escape(name)}</strong> — {_html.escape(site.get("author", ""))}
 </footer>"""
 
-    return _shell(f"バックナンバー一覧 | {name}", head, body)
+    return site_theme.page_shell(f"バックナンバー一覧 | {name}", head, body)
 
 
 # ---------------------------------------------------------------- 機械向け出力
 
-def build_sitemap(issues: List[Dict], config: Dict) -> str:
+def build_sitemap(issues: List[Dict], articles: List[Dict], config: Dict) -> str:
     base = config.get("site", {}).get("base_url", "").rstrip("/")
     if not base:
         return ""
@@ -259,6 +225,18 @@ def build_sitemap(issues: List[Dict], config: Dict) -> str:
         f"  <url><loc>{base}/</loc><lastmod>{today}</lastmod><changefreq>daily</changefreq><priority>1.0</priority></url>",
         f"  <url><loc>{base}/archive.html</loc><lastmod>{today}</lastmod><changefreq>daily</changefreq><priority>0.8</priority></url>",
     ]
+    if articles:
+        urls.append(
+            f"  <url><loc>{base}/articles/</loc><lastmod>{today}</lastmod>"
+            f"<changefreq>weekly</changefreq><priority>0.8</priority></url>"
+        )
+    for a in articles:
+        # 解説記事は検索流入の本命なので優先度を高く設定する
+        urls.append(
+            f"  <url><loc>{base}/articles/{a['file']}</loc>"
+            f"<lastmod>{a.get('updated') or today}</lastmod>"
+            f"<changefreq>monthly</changefreq><priority>0.9</priority></url>"
+        )
     for it in issues:
         urls.append(
             f"  <url><loc>{base}/{it['file']}</loc><lastmod>{it['date_iso']}</lastmod>"
@@ -269,13 +247,26 @@ def build_sitemap(issues: List[Dict], config: Dict) -> str:
             + "\n".join(urls) + "\n</urlset>\n")
 
 
-def build_feed(issues: List[Dict], config: Dict, limit: int = 30) -> str:
+def build_feed(issues: List[Dict], articles: List[Dict], config: Dict, limit: int = 30) -> str:
     site = config.get("site", {})
     base = site.get("base_url", "").rstrip("/")
     if not base:
         return ""
     name = site.get("name", "AI News Digest")
     items = ""
+    for a in articles:
+        try:
+            adt = datetime.strptime(a.get("published", ""), "%Y-%m-%d").replace(hour=9, tzinfo=JST)
+        except ValueError:
+            continue
+        items += f"""  <item>
+    <title>{_html.escape(a['title'])}</title>
+    <link>{base}/articles/{a['file']}</link>
+    <guid isPermaLink="true">{base}/articles/{a['file']}</guid>
+    <description>{_html.escape(a.get('description', ''))}</description>
+    <pubDate>{adt.strftime('%a, %d %b %Y %H:%M:%S +0900')}</pubDate>
+  </item>
+"""
     for it in issues[:limit]:
         pub = it["dt"].replace(hour=6, tzinfo=JST).strftime("%a, %d %b %Y %H:%M:%S +0900")
         desc = f'{it["label"]}のAIニュースまとめ' + (f'（{it["count"]}記事）' if it["count"] else "")
@@ -313,13 +304,15 @@ def build_robots(config: Dict) -> str:
 def build_all(verbose: bool = True) -> Dict[str, int]:
     config = monetize.load_config()
     issues = collect_issues()
+    # 解説記事を先にビルドしてから、トップ・サイトマップ・RSS に反映する
+    articles = article_builder.build_all(verbose=verbose)
     written = {}
 
     outputs = {
-        "index.html": build_home(issues, config),
+        "index.html": build_home(issues, articles, config),
         "archive.html": build_archive(issues, config),
-        "sitemap.xml": build_sitemap(issues, config),
-        "feed.xml": build_feed(issues, config),
+        "sitemap.xml": build_sitemap(issues, articles, config),
+        "feed.xml": build_feed(issues, articles, config),
         "robots.txt": build_robots(config),
     }
     for filename, content in outputs.items():
@@ -333,7 +326,7 @@ def build_all(verbose: bool = True) -> Dict[str, int]:
             print(f"✓ {filename} ({len(content):,} bytes)")
 
     if verbose:
-        print(f"✓ 収録号数: {len(issues)}")
+        print(f"✓ 収録号数: {len(issues)} / 解説記事: {len(articles)}")
     return written
 
 
