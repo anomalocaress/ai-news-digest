@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI最新ニュースまとめ 2026年8月26日 | てらこAIニュースダイジェスト</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root { --bg:#f8fafc; --card-bg:#fff; --text:#1e293b; --text-muted:#64748b; --border:#e2e8f0; --accent:#0e7490; }
+  body { font-family:'Noto Sans JP','Inter',sans-serif; background:var(--bg); color:var(--text);
+    line-height:1.7; -webkit-font-smoothing:antialiased; }
+  a { color:inherit; }
+  .hero { background:linear-gradient(135deg,#0f172a,#1e293b); color:#fff; padding:3rem 1.5rem; }
+  .hero-inner { max-width:1100px; margin:0 auto; }
+  .hero h1 { font-size:1.8rem; font-weight:700; letter-spacing:0.01em; }
+  .hero p { margin-top:0.6rem; font-size:0.95rem; color:#cbd5e1; max-width:640px; }
+  .hero-actions { margin-top:1.5rem; display:flex; flex-wrap:wrap; gap:0.75rem; }
+  .crumbs { font-size:0.75rem; color:#94a3b8; margin-bottom:0.75rem; }
+  .crumbs a { text-decoration:none; }
+  .crumbs a:hover { text-decoration:underline; }
+  .btn { display:inline-block; padding:0.6rem 1.3rem; border-radius:6px; font-size:0.85rem;
+    font-weight:700; text-decoration:none; }
+  .btn-primary { background:#22d3ee; color:#0f172a; }
+  .btn-ghost { border:1px solid rgba(255,255,255,0.35); color:#e2e8f0; }
+  main { max-width:1100px; margin:0 auto; padding:2.5rem 1.5rem 4rem; }
+  .section-label { font-size:0.75rem; font-weight:700; letter-spacing:0.12em; color:var(--text-muted);
+    text-transform:uppercase; margin:2.5rem 0 1rem; }
+  .section-label:first-child { margin-top:0; }
+  .issue-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:1rem; }
+  .issue { display:block; padding:1rem 1.1rem; background:var(--card-bg); border:1px solid var(--border);
+    border-radius:8px; text-decoration:none; transition:border-color .15s; }
+  .issue:hover { border-color:var(--accent); }
+  .issue .d { font-size:0.95rem; font-weight:700; }
+  .issue .m { margin-top:0.25rem; font-size:0.75rem; color:var(--text-muted); }
+  .issue-list { list-style:none; columns:2; column-gap:2rem; }
+  .issue-list li { break-inside:avoid; padding:0.35rem 0; border-bottom:1px solid var(--border); }
+  .issue-list a { font-size:0.85rem; text-decoration:none; }
+  .issue-list a:hover { color:var(--accent); }
+  .issue-list .m { font-size:0.72rem; color:var(--text-muted); margin-left:0.5rem; }
+  footer { border-top:1px solid var(--border); padding:2rem 1.5rem; text-align:center;
+    font-size:0.78rem; color:var(--text-muted); }
+  .footer-links { margin-top:0.9rem; font-size:0.75rem; }
+  .footer-links a { color:var(--text-muted); text-decoration:none; }
+  .footer-links a:hover { color:var(--accent); text-decoration:underline; }
+  @media (max-width:640px){ .issue-list{columns:1;} .hero h1{font-size:1.4rem;} }
+
+  :root {
+    --model:#1d4ed8; --research:#6d28d9; --business:#065f46;
+    --policy:#92400e; --tools:#0e7490;
+  }
+  .lead { max-width:760px; margin:0 auto 2.5rem; padding:1.5rem 1.7rem;
+    background:var(--card-bg); border:1px solid var(--border); border-radius:8px; }
+  .lead-label { font-size:0.7rem; font-weight:700; letter-spacing:0.14em;
+    color:var(--text-muted); margin-bottom:0.9rem; }
+  .lead ol { list-style:none; counter-reset:lead; display:flex; flex-direction:column; gap:0.7rem; }
+  .lead li { counter-increment:lead; position:relative; padding-left:1.9rem;
+    font-size:0.95rem; line-height:1.85; }
+  .lead li::before { content:counter(lead); position:absolute; left:0; top:0.3em;
+    width:1.25rem; height:1.25rem; border-radius:50%; background:var(--accent); color:#fff;
+    font-size:0.68rem; font-weight:700; display:flex; align-items:center; justify-content:center; }
+  .digest { max-width:760px; margin:0 auto; display:flex; flex-direction:column; gap:1rem; }
+  .card { padding:1.4rem 1.5rem; background:var(--card-bg); border:1px solid var(--border);
+    border-left:3px solid var(--text-muted); border-radius:8px; }
+  .card.model{border-left-color:var(--model)} .card.research{border-left-color:var(--research)}
+  .card.business{border-left-color:var(--business)} .card.policy{border-left-color:var(--policy)}
+  .card.tools{border-left-color:var(--tools)}
+  .card-top { display:flex; align-items:center; gap:0.6rem; margin-bottom:0.6rem; }
+  .card-label { font-size:0.66rem; font-weight:700; letter-spacing:0.06em; padding:2px 7px;
+    border-radius:3px; color:#fff; background:var(--text-muted); }
+  .card-label.model{background:var(--model)} .card-label.research{background:var(--research)}
+  .card-label.business{background:var(--business)} .card-label.policy{background:var(--policy)}
+  .card-label.tools{background:var(--tools)}
+  .stars { display:flex; gap:3px; }
+  .dot { width:6px; height:6px; border-radius:50%; background:var(--border); }
+  .dot.filled { background:var(--text-muted); }
+  .card-title-ja { font-size:1.08rem; font-weight:700; line-height:1.6; }
+  .card-title-en { margin-top:0.25rem; font-size:0.78rem; color:var(--text-muted); line-height:1.5; }
+  .card-source { margin-top:0.5rem; font-size:0.72rem; color:var(--text-muted); }
+  .card-body { margin-top:0.7rem; font-size:0.9rem; line-height:1.95; }
+  .card-link { display:inline-block; margin-top:0.9rem; font-size:0.82rem; font-weight:600;
+    color:var(--accent); text-decoration:none; }
+  .card-link:hover { text-decoration:underline; }
+  .card.top { border-left-width:4px; background:linear-gradient(180deg,rgba(14,116,144,0.04),transparent); }
+  .card.top .card-title-ja { font-size:1.25rem; }
+  .tier { max-width:760px; margin:2rem auto 0.5rem; font-size:0.7rem; font-weight:700;
+    letter-spacing:0.14em; color:var(--text-muted); }
+  .tier:first-of-type { margin-top:0; }
+  .top-nav { display:flex; flex-wrap:wrap; gap:0.4rem; margin-top:1.3rem; }
+  .top-nav a { padding:0.4rem 0.95rem; border:1px solid rgba(255,255,255,0.3); border-radius:999px;
+    font-size:0.78rem; font-weight:600; color:#e2e8f0; text-decoration:none; }
+  .top-nav a:hover { background:rgba(255,255,255,0.12); }
+  .listen { max-width:760px; margin:0 auto 2.5rem; padding:1.2rem 1.4rem;
+    background:linear-gradient(135deg,#0f172a,#1e293b); border-radius:10px; color:#e2e8f0; }
+  .listen-head { display:flex; align-items:baseline; gap:0.6rem; flex-wrap:wrap; margin-bottom:0.75rem; }
+  .listen-head strong { font-size:0.95rem; color:#fff; }
+  .listen-head span { font-size:0.76rem; color:#94a3b8; }
+  .listen audio { width:100%; height:40px; display:block; }
+  .listen-sub { margin-top:0.6rem; font-size:0.74rem; }
+  .listen-sub a { color:#7dd3fc; text-decoration:none; }
+  .listen-sub a:hover { text-decoration:underline; }
+  details.genre { max-width:760px; margin:0 auto 0.75rem; background:var(--card-bg);
+    border:1px solid var(--border); border-radius:8px; overflow:hidden; }
+  details.genre > summary { list-style:none; cursor:pointer; padding:1rem 1.3rem;
+    display:flex; align-items:center; gap:0.7rem; font-weight:700; font-size:0.92rem;
+    -webkit-tap-highlight-color:transparent; }
+  details.genre > summary::-webkit-details-marker { display:none; }
+  details.genre > summary::before { content:"▸"; font-size:0.8rem; color:var(--text-muted);
+    transition:transform .15s; }
+  details.genre[open] > summary::before { transform:rotate(90deg); }
+  details.genre > summary .cnt { margin-left:auto; font-size:0.72rem; font-weight:600;
+    color:var(--text-muted); }
+  details.genre .genre-dot { width:9px; height:9px; border-radius:50%; background:var(--text-muted); }
+  details.genre.model .genre-dot{background:var(--model)} details.genre.research .genre-dot{background:var(--research)}
+  details.genre.business .genre-dot{background:var(--business)} details.genre.policy .genre-dot{background:var(--policy)}
+  details.genre.tools .genre-dot{background:var(--tools)}
+  details.genre .genre-body { padding:0 0.9rem 0.9rem; display:flex; flex-direction:column; gap:0.75rem; }
+  details.genre .card { border:none; border-left:3px solid var(--border); background:var(--bg);
+    border-radius:6px; }
+  .subscribe { max-width:760px; margin:2.5rem auto 0; padding:1rem 1.3rem; text-align:center;
+    border:1px dashed var(--border); border-radius:8px; font-size:0.8rem; color:var(--text-muted); }
+  .subscribe a { color:var(--accent); font-weight:600; text-decoration:none; }
+  @media (max-width:640px){ .card{padding:1.15rem 1.2rem} .card.top .card-title-ja{font-size:1.1rem} }
+</style>
+<!-- monetize.py: SEO / analytics -->
+<meta name="description" content="OpenAIの自社推論チップJalapeñoがベンチマークで現行最先端を上回り、AI半導体の勢力図が動き始めました。">
+<link rel="canonical" href="https://teraco-labo.github.io/ai-news-digest/ai-news-2026-08-26.html">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AI最新ニュースまとめ 2026年8月26日 | てらこAIニュースダイジェスト">
+<meta property="og:description" content="OpenAIの自社推論チップJalapeñoがベンチマークで現行最先端を上回り、AI半導体の勢力図が動き始めました。">
+<meta property="og:url" content="https://teraco-labo.github.io/ai-news-digest/ai-news-2026-08-26.html">
+<meta property="og:site_name" content="てらこAIニュースダイジェスト">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:image" content="https://teraco-labo.github.io/ai-news-digest/podcast/cover.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="alternate" type="application/rss+xml" title="てらこAIニュースダイジェスト" href="https://teraco-labo.github.io/ai-news-digest/feed.xml">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "NewsArticle", "headline": "AI最新ニュースまとめ 2026年8月26日 | てらこAIニュースダイジェスト", "description": "OpenAIの自社推論チップJalapeñoがベンチマークで現行最先端を上回り、AI半導体の勢力図が動き始めました。", "url": "https://teraco-labo.github.io/ai-news-digest/ai-news-2026-08-26.html", "inLanguage": "ja", "author": {"@type": "Person", "name": "てらこ先生"}, "publisher": {"@type": "Organization", "name": "てらこAIニュースダイジェスト"}, "datePublished": "2026-08-26T06:00:00+09:00", "dateModified": "2026-08-26T06:00:00+09:00"}</script>
+
+<style id="mz-style">
+  .mz-disclosure { max-width: 1100px; margin: 0 auto 1rem; padding: 0.5rem 0.75rem;
+    font-size: 0.7rem; line-height: 1.6; color: var(--text-muted, #64748b);
+    background: rgba(148,163,184,0.10); border-radius: 6px; }
+  .mz-block { max-width: 1100px; margin: 2rem auto; }
+  .mz-head { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem; }
+  .mz-head h2 { font-size: 0.9rem; font-weight: 700; color: var(--text, #1e293b); letter-spacing: 0.02em; }
+  .mz-pr { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.08em; padding: 2px 6px;
+    border-radius: 3px; background: #94a3b8; color: #fff; }
+  .mz-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1rem; }
+  .mz-card { display: flex; flex-direction: column; gap: 0.4rem; padding: 1rem;
+    background: var(--card-bg, #fff); border: 1px solid var(--border, #e2e8f0);
+    border-left: 3px solid #0e7490; border-radius: 8px; }
+  .mz-card .mz-name { font-size: 0.68rem; font-weight: 600; color: var(--text-muted, #64748b); letter-spacing: 0.04em; }
+  .mz-card .mz-title { font-size: 0.95rem; font-weight: 700; color: var(--text, #1e293b); line-height: 1.5; }
+  .mz-card .mz-body { font-size: 0.8rem; line-height: 1.7; color: var(--text-muted, #64748b); }
+  .mz-card .mz-cta { margin-top: auto; padding-top: 0.6rem; font-size: 0.8rem; font-weight: 600;
+    color: #0e7490; text-decoration: none; }
+  .mz-card .mz-cta:hover { text-decoration: underline; }
+  .mz-badge { align-self: flex-start; font-size: 0.6rem; font-weight: 700; padding: 2px 6px;
+    border-radius: 3px; background: #0e7490; color: #fff; }
+  .mz-cta-block { max-width: 1100px; margin: 2rem auto; padding: 1.5rem;
+    background: linear-gradient(135deg, #0f172a, #1e293b); border-radius: 10px; color: #e2e8f0; }
+  .mz-cta-block h2 { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.5rem; color: #fff; }
+  .mz-cta-block p { font-size: 0.85rem; line-height: 1.8; color: #cbd5e1; }
+  .mz-cta-block a { display: inline-block; margin-top: 0.9rem; padding: 0.6rem 1.4rem;
+    background: #22d3ee; color: #0f172a; font-size: 0.85rem; font-weight: 700;
+    border-radius: 6px; text-decoration: none; }
+  .mz-ad { max-width: 1100px; margin: 2rem auto; text-align: center; }
+</style>
+
+<!-- monetize.py: SEO / analytics -->
+<meta name="description" content="2026年08月26日のAI関連ニュース11件を日本語で要約。モデル・研究・ビジネス・ポリシー・ツールの5カテゴリで重要ニュースだけを厳選しています。">
+<link rel="canonical" href="https://teraco-labo.github.io/ai-news-digest/ai-news-2026-08-26.html">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AI最新ニュースまとめ 2026年08月26日 | てらこAIニュースダイジェスト">
+<meta property="og:description" content="2026年08月26日のAI関連ニュース11件を日本語で要約。モデル・研究・ビジネス・ポリシー・ツールの5カテゴリで重要ニュースだけを厳選しています。">
+<meta property="og:url" content="https://teraco-labo.github.io/ai-news-digest/ai-news-2026-08-26.html">
+<meta property="og:site_name" content="てらこAIニュースダイジェスト">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:image" content="https://teraco-labo.github.io/ai-news-digest/podcast/cover.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="alternate" type="application/rss+xml" title="てらこAIニュースダイジェスト" href="https://teraco-labo.github.io/ai-news-digest/feed.xml">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "NewsArticle", "headline": "AI最新ニュースまとめ 2026年08月26日 | てらこAIニュースダイジェスト", "description": "2026年08月26日のAI関連ニュース11件を日本語で要約。モデル・研究・ビジネス・ポリシー・ツールの5カテゴリで重要ニュースだけを厳選しています。", "url": "https://teraco-labo.github.io/ai-news-digest/ai-news-2026-08-26.html", "inLanguage": "ja", "author": {"@type": "Person", "name": "てらこ先生"}, "publisher": {"@type": "Organization", "name": "てらこAIニュースダイジェスト"}, "datePublished": "2026-08-26T06:00:00+09:00", "dateModified": "2026-08-26T06:00:00+09:00"}</script>
+
+<style id="mz-style">
+  .mz-disclosure { max-width: 1100px; margin: 0 auto 1rem; padding: 0.5rem 0.75rem;
+    font-size: 0.7rem; line-height: 1.6; color: var(--text-muted, #64748b);
+    background: rgba(148,163,184,0.10); border-radius: 6px; }
+  .mz-block { max-width: 1100px; margin: 2rem auto; }
+  .mz-head { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem; }
+  .mz-head h2 { font-size: 0.9rem; font-weight: 700; color: var(--text, #1e293b); letter-spacing: 0.02em; }
+  .mz-pr { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.08em; padding: 2px 6px;
+    border-radius: 3px; background: #94a3b8; color: #fff; }
+  .mz-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1rem; }
+  .mz-card { display: flex; flex-direction: column; gap: 0.4rem; padding: 1rem;
+    background: var(--card-bg, #fff); border: 1px solid var(--border, #e2e8f0);
+    border-left: 3px solid #0e7490; border-radius: 8px; }
+  .mz-card .mz-name { font-size: 0.68rem; font-weight: 600; color: var(--text-muted, #64748b); letter-spacing: 0.04em; }
+  .mz-card .mz-title { font-size: 0.95rem; font-weight: 700; color: var(--text, #1e293b); line-height: 1.5; }
+  .mz-card .mz-body { font-size: 0.8rem; line-height: 1.7; color: var(--text-muted, #64748b); }
+  .mz-card .mz-cta { margin-top: auto; padding-top: 0.6rem; font-size: 0.8rem; font-weight: 600;
+    color: #0e7490; text-decoration: none; }
+  .mz-card .mz-cta:hover { text-decoration: underline; }
+  .mz-badge { align-self: flex-start; font-size: 0.6rem; font-weight: 700; padding: 2px 6px;
+    border-radius: 3px; background: #0e7490; color: #fff; }
+  .mz-cta-block { max-width: 1100px; margin: 2rem auto; padding: 1.5rem;
+    background: linear-gradient(135deg, #0f172a, #1e293b); border-radius: 10px; color: #e2e8f0; }
+  .mz-cta-block h2 { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.5rem; color: #fff; }
+  .mz-cta-block p { font-size: 0.85rem; line-height: 1.8; color: #cbd5e1; }
+  .mz-cta-block a { display: inline-block; margin-top: 0.9rem; padding: 0.6rem 1.4rem;
+    background: #22d3ee; color: #0f172a; font-size: 0.85rem; font-weight: 700;
+    border-radius: 6px; text-decoration: none; }
+  .mz-ad { max-width: 1100px; margin: 2rem auto; text-align: center; }
+</style>
+</head>
+<body>
+<div class="hero">
+  <div class="hero-inner">
+    <div class="crumbs"><a href="./">てらこAIニュースダイジェスト</a></div>
+    <h1>2026年8月26日（水）のAIニュース</h1>
+    <p>厳選 11 件。3分で今日のAIがわかります。</p>
+    <div class="top-nav">
+      <a href="./">トップ</a>
+      <a href="articles/">読み物</a>
+      <a href="archive.html">バックナンバー</a><a href="#listen">🎧 音声で聴く</a>
+    </div>
+  </div>
+</div>
+
+<main>
+  <div class="lead">
+    <div class="lead-label">今日の3行まとめ</div>
+    <ol>
+      <li>OpenAIの自社推論チップJalapeñoがベンチマークで現行最先端を上回り、AI半導体の勢力図が動き始めました。</li>
+      <li>スタンフォードの調査では、AIの影響を受ける職種で若手雇用が19%減少し、雇用への打撃が数字で示されました。</li>
+      <li>Stability AIの7600万ドル調達やKeenableの2600万ドルなど、資金はモデルからエージェント基盤へ広がっています。</li>
+    </ol>
+  </div>
+
+  <div class="listen" id="listen">
+    <div class="listen-head">
+      <strong>🎧 今日の音声版</strong>
+      <span>対話形式・ながら聴き向け（10〜15分）</span>
+    </div>
+    <audio controls preload="none" src="podcast/ai-news-2026-08-26.mp3">
+      <a href="podcast/ai-news-2026-08-26.mp3">音声ファイルを開く</a>
+    </audio>
+    <div class="listen-sub">
+      <a href="https://teraco-labo.github.io/ai-news-digest/podcast/feed.xml">📡 ポッドキャストとして購読する（RSS / Spotify）</a>
+    </div>
+  </div>
+
+  <div class="tier">注目のニュース</div>
+  <div class="digest">
+    <article class="card model top">
+      <div class="card-top">
+        <span class="card-label model">モデル</span>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div></div>
+      </div>
+      <div class="card-title-ja">OpenAIの自社チップJalapeño、推論効率で首位に</div>
+      <div class="card-title-en">OpenAI’s Jalapeño chip is built for fast inference at scale, benchmarks show</div>
+      <div class="card-source">TechCrunch AI · Tue, 25 Au</div>
+      <div class="card-body">OpenAIが開発した推論向けチップJalapeñoのベンチマーク結果が公開されました。SemiAnalysisの推論ベンチマーク「InferenceX」でテストされ、ユーザーあたりの生成トークン数と、消費電力1キロワットあたりのスループットの両方で、現在入手可能な最先端製品を上回ったと報告されています。Hacker Newsでも「Nvidia Blackwellより優れる」として192ポイントを集め、大きな注目を浴びました。推論コストは生成AIサービスの採算を直接左右するため、OpenAIが自社チップで電力効率の優位を確保できれば、Nvidia依存の構図と価格設定の前提が変わります。</div>
+      <a class="card-link" href="https://techcrunch.com/2026/08/25/openais-jalapeno-chip-is-built-for-fast-inference-at-scale-benchmarks-show/" target="_blank" rel="noopener">元記事を読む →</a>
+    </article>
+    <article class="card research top">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div></div>
+      </div>
+      <div class="card-title-ja">AIの打撃は若手に集中、スタンフォード調査</div>
+      <div class="card-title-en">AI is hitting entry-level jobs hardest, Stanford study finds</div>
+      <div class="card-source">Ars Technica · Mon, 24 Au</div>
+      <div class="card-body">スタンフォード大学の研究チームが、AIの導入が雇用に与える影響を職種別に分析した結果を公表しました。AIの影響を受けやすい職種では、AI耐性の高い職種と比べて若手の雇用が19%減少していたことが分かっています。全体の雇用者数ではなく、エントリーレベルの入り口が細っている点が特徴です。「AIが仕事を奪うか」という抽象的な議論ではなく、新卒採用という具体的な層で数字が出た点で、採用計画やキャリア教育に直結する調査結果と言えます。</div>
+      <a class="card-link" href="https://arstechnica.com/ai/2026/08/ai-is-hitting-entry-level-jobs-hardest-stanford-study-finds/" target="_blank" rel="noopener">元記事を読む →</a>
+    </article>
+  </div>
+  <div class="tier">ジャンル別のニュース（タップで開く）</div>
+  <details class="genre research">
+    <summary><span class="genre-dot"></span>研究<span class="cnt">2件</span></summary>
+    <div class="genre-body">
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
+      </div>
+      <div class="card-title-ja">放射線科医はAIに置き換わらない、しかし仕事は激変</div>
+      <div class="card-title-en">AI won’t replace radiologists, but it will dramatically change their jobs</div>
+      <div class="card-source">Ars Technica · Tue, 25 Au</div>
+      <div class="card-body">AI研究の第一人者がかつて「コンピューターが放射線科医を置き換える」と予測しましたが、現実にはそうなっていないという検証記事です。画像診断はAIの成果が最も早く出た領域にもかかわらず、専門医の需要はむしろ維持されています。一方で、読影の一次スクリーニングや優先順位付けをAIが担うことで、医師の仕事の中身は大きく変わりつつあります。「職業が消える」ではなく「職務が組み替わる」という、AI雇用論の現実的な着地点を示す事例です。</div>
+      <a class="card-link" href="https://arstechnica.com/health/2026/08/ai-wont-replace-radiologists-but-it-will-dramatically-change-their-jobs/" target="_blank" rel="noopener">元記事を読む →</a>
+    </article>
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars"><div class="dot filled"></div><div class="dot"></div><div class="dot"></div></div>
+      </div>
+      <div class="card-title-ja">AIでニュースを追うと何が起きるか、MITの研究</div>
+      <div class="card-title-en">Your brain on AI</div>
+      <div class="card-source">MIT Tech Review · Tue, 25 Au</div>
+      <div class="card-body">MIT Media LabのPattie Maesらが、AIチャットボットでニュースに触れることの影響を調べた研究を発表しました。参加者は4週間にわたり見出しと画像の組み合わせを評価し、当初は真偽の判別精度が21%高いという結果が出ています。しかし研究チームは、この使い方には大きな問題があると指摘しています。AIを情報収集の入り口にする習慣が、判断力にどう作用するかを実証的に扱った数少ない研究です。</div>
+      <a class="card-link" href="https://www.technologyreview.com/2026/08/25/1140958/your-brain-on-ai/" target="_blank" rel="noopener">元記事を読む →</a>
+    </article>
+    </div>
+  </details>
+  <details class="genre business">
+    <summary><span class="genre-dot"></span>ビジネス<span class="cnt">3件</span></summary>
+    <div class="genre-body">
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
+      </div>
+      <div class="card-title-ja">Stability AI、7600万ドルを追加調達</div>
+      <div class="card-title-en">Stability AI, maker of image generator Stable Diffusion, raises $76 million in fresh funding</div>
+      <div class="card-source">TechCrunch AI · Tue, 25 Au</div>
+      <div class="card-body">画像生成モデルStable Diffusionを手がけるStability AIが、7600万ドルの新規資金を調達しました。これにより同社の累計調達額は2億3200万ドルに達します。経営体制の混乱と資金繰りの懸念が続いた同社にとって、事業継続の裏付けとなる調達です。画像生成分野はOpenAIやGoogleとの競争が激しく、オープンモデル陣営の代表格が資金を確保できたかどうかは、今後の選択肢の広さに影響します。</div>
+      <a class="card-link" href="https://techcrunch.com/2026/08/25/stability-ai-maker-of-image-generator-stable-diffusion-raises-76-million-in-fresh-funding/" target="_blank" rel="noopener">元記事を読む →</a>
+    </article>
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
+      </div>
+      <div class="card-title-ja">Keenable、AIエージェント用の検索インデックスで26億円級調達</div>
+      <div class="card-title-en">Accel-backed Keenable is indexing the web for AI agents</div>
+      <div class="card-source">TechCrunch AI · Tue, 25 Au</div>
+      <div class="card-body">Accelが出資するKeenableが2600万ドルのシード資金を調達し、ステルス状態を脱しました。同社が構築してきたのは、人間ではなくAIエージェントが使うことを前提にした大規模なウェブ検索インデックスです。エージェントが自律的に情報を集めるには、既存の検索APIでは粒度も速度も足りないという課題があります。エージェント時代の「土台」を押さえる企業に資金が向かい始めた動きを象徴する案件です。</div>
+      <a class="card-link" href="https://techcrunch.com/2026/08/25/accel-backed-keenable-is-indexing-the-web-for-ai-agents/" target="_blank" rel="noopener">元記事を読む →</a>
+    </article>
+    <article class="card business">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars"><div class="dot filled"></div><div class="dot"></div><div class="dot"></div></div>
+      </div>
+      <div class="card-title-ja">Gamma、デザインスタートアップLicaを買収</div>
+      <div class="card-title-en">Gamma acquires Accel-backed design startup Lica</div>
+      <div class="card-source">TechCrunch AI · Tue, 25 Au</div>
+      <div class="card-body">プレゼン資料生成のGammaが、Accelの出資を受けたデザインスタートアップLicaを買収しました。Licaの共同創業者らはGammaが新設する研究チームに合流します。製品機能の獲得というより、デザインとAIの接点を担う人材の取り込みが主眼と見られます。AI企業が小規模チームごと買い取って研究部門を立ち上げる動きは、この分野の人材獲得競争の激しさを映しています。</div>
+      <a class="card-link" href="https://techcrunch.com/2026/08/25/gamma-acquires-accel-backed-design-startup-lica/" target="_blank" rel="noopener">元記事を読む →</a>
+    </article>
+    </div>
+  </details>
+  <details class="genre policy">
+    <summary><span class="genre-dot"></span>ポリシー<span class="cnt">1件</span></summary>
+    <div class="genre-body">
+    <article class="card policy">
+      <div class="card-top">
+        <span class="card-label policy">ポリシー</span>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
+      </div>
+      <div class="card-title-ja">Spirit Airlinesの乗務員データ、Googleへの販売に反発</div>
+      <div class="card-title-en">Spirit Airlines Wants to Sell Its Data to Google. Former Flight Attendants Are Freaked Out</div>
+      <div class="card-source">Wired AI · Tue, 25 Au</div>
+      <div class="card-body">Spirit Airlinesが保有するデータをGoogleに販売しようとしている件で、元客室乗務員から強い懸念の声が上がっています。「自分たちの個人データをAIのために売り渡すとは思ってもみなかった」と元乗務員は語っています。企業が保有する従業員データがAI学習用の資産として扱われ始めている点が問題の核心です。取引先や雇用主に預けたデータがどこまでAI用途に転用されうるのか、契約と同意のあり方が問われます。</div>
+      <a class="card-link" href="https://www.wired.com/story/spirit-airlines-wants-to-sell-its-data-to-google-former-flight-attendants-are-freaked-out/" target="_blank" rel="noopener">元記事を読む →</a>
+    </article>
+    </div>
+  </details>
+  <details class="genre tools">
+    <summary><span class="genre-dot"></span>ツール<span class="cnt">3件</span></summary>
+    <div class="genre-body">
+    <article class="card tools">
+      <div class="card-top">
+        <span class="card-label tools">ツール</span>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
+      </div>
+      <div class="card-title-ja">Claude、チャットとCoworkで記憶を共有</div>
+      <div class="card-title-en">Claude Cowork finally remembers what you told the app in chat</div>
+      <div class="card-source">TechCrunch AI · Tue, 25 Au</div>
+      <div class="card-body">AnthropicがClaudeのメモリ機能を拡張し、通常のチャットとCoworkの間で記憶を共有できるようにしました。これまでは新しい作業を始めるたびにプロジェクトの前提や好みを説明し直す必要がありましたが、今後は片方で伝えた文脈をもう片方が引き継ぎます。エージェント型の作業環境では、指示のたびに背景説明をやり直すコストが利用継続の最大の壁になっていました。長期プロジェクトでの実用性を左右する地味ながら重要な改善です。</div>
+      <a class="card-link" href="https://techcrunch.com/2026/08/25/claude-cowork-finally-remembers-what-you-told-the-app-in-chat/" target="_blank" rel="noopener">元記事を読む →</a>
+    </article>
+    <article class="card tools">
+      <div class="card-top">
+        <span class="card-label tools">ツール</span>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
+      </div>
+      <div class="card-title-ja">Apple、M6とM5 Ultra発表 ローカルAI開発向け</div>
+      <div class="card-title-en">Apple&#x27;s new desktop computers are designed specifically for local AI development</div>
+      <div class="card-source">Ars Technica · Tue, 25 Au</div>
+      <div class="card-body">AppleがM6およびM5 Ultraを搭載した新しいデスクトップを発表しました。今回の刷新は、ローカル環境でのAI開発を明確に想定した設計になっており、複数台のMacを数珠つなぎにして大規模モデルを動かしてきたユーザーの使い方が織り込まれています。Hacker Newsでは837ポイントを集め、この日最も反響の大きい話題となりました。クラウドのGPU確保が難しい開発者にとって、手元でモデルを動かす選択肢の現実味が一段と増しています。</div>
+      <a class="card-link" href="https://arstechnica.com/apple/2026/08/with-new-mac-studio-and-mac-mini-apple-leans-hard-into-local-ai-inference/" target="_blank" rel="noopener">元記事を読む →</a>
+    </article>
+    <article class="card tools">
+      <div class="card-top">
+        <span class="card-label tools">ツール</span>
+        <div class="stars"><div class="dot filled"></div><div class="dot"></div><div class="dot"></div></div>
+      </div>
+      <div class="card-title-ja">OpenAI、ChatGPT PlusのCodex利用上限を5時間枠に戻す</div>
+      <div class="card-title-en">OpenAI restores 5-hour Codex and Work limits for ChatGPT Plus users</div>
+      <div class="card-source">Hacker News · 2026-08-25</div>
+      <div class="card-body">OpenAIがChatGPT Plusユーザー向けに、Codexおよびワーク関連機能の5時間単位の利用上限を復活させました。Hacker Newsでは104ポイントを集め、実務で使う開発者を中心に反応が広がっています。エージェント型のコーディング支援は消費計算が読みにくく、上限の設計変更がそのまま日々の作業計画に響きます。有料プランで何がどれだけ使えるのかという条件は、開発ワークフローを組む前提そのものです。</div>
+      <a class="card-link" href="https://9to5mac.com/2026/08/24/openai-restores-5-hour-codex-and-work-limits-for-chatgpt-plus-users/" target="_blank" rel="noopener">元記事を読む →</a>
+    </article>
+    </div>
+  </details>
+
+  <div class="subscribe">
+    毎朝6時に自動更新しています ─ 
+    <a href="https://teraco-labo.github.io/ai-news-digest/podcast/feed.xml">🎧 ポッドキャスト購読</a> ／ 
+    <a href="feed.xml">📡 サイトのRSS</a> ／ 
+    <a href="archive.html">バックナンバー</a>
+  </div>
+
+</main>
+
+<footer>
+  <strong>てらこAIニュースダイジェスト</strong> — 2026年8月26日（水）／ 11 件収録<br>
+  毎朝6時に自動生成しています。
+  <div class="footer-links"><a href="">トップ</a> ／ <a href="articles/">読み物</a> ／ <a href="archive.html">バックナンバー</a> ／ <a href="about.html">運営者情報・免責事項</a> ／ <a href="https://teraco-labo.com">TERACO.LABO</a></div>
+</footer>
+</body>
+</html>
