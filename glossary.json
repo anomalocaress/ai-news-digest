@@ -781,6 +781,483 @@
         "funding-round"
       ],
       "status": "published"
+    },
+    {
+      "slug": "blackwell",
+      "term": "Blackwell",
+      "aliases": [
+        "ブラックウェル",
+        "GB200",
+        "B200"
+      ],
+      "category": "インフラ",
+      "short": "NVIDIAのAI用GPUの世代名です。世代ごとに研究者の名前が付けられており、その最新版にあたります。",
+      "detail": "前世代のHopperと比べて学習と推論の性能が大きく向上し、消費電力あたりの効率も改善されています。データセンター向けに大量供給される主力製品であり、この供給量がAI業界全体の開発ペースを左右します。次世代の設計も予告されており、およそ1年ごとに世代交代する計画が示されています。",
+      "related": [
+        "nvidia",
+        "gpu",
+        "hopper",
+        "datacenter"
+      ],
+      "status": "published"
+    },
+    {
+      "slug": "hopper",
+      "term": "Hopper",
+      "aliases": [
+        "H100",
+        "H200",
+        "ホッパー"
+      ],
+      "category": "インフラ",
+      "short": "NVIDIAのAI用GPUの一世代前の名称です。H100はこの世代の代表的な製品です。",
+      "detail": "生成AIブームの初期を支えた世代で、世界中のデータセンターに大量導入されました。名前はコンピュータ科学者グレース・ホッパーに由来します。現在は後継のBlackwellへ移行が進んでいますが、依然として稼働数は非常に多く、中古市場や輸出規制の話題でも頻繁に登場します。",
+      "related": [
+        "nvidia",
+        "gpu",
+        "blackwell"
+      ],
+      "status": "published"
+    },
+    {
+      "slug": "tpu",
+      "term": "TPU",
+      "aliases": [
+        "Tensor Processing Unit"
+      ],
+      "category": "インフラ",
+      "short": "Googleが自社開発したAI専用の半導体です。GPUの代わりに使い、自社サービスのAIを動かしています。",
+      "detail": "Tensor Processing Unitの略です。AIの計算に必要な処理だけに絞って設計されているため、電力あたりの効率で有利になる場面があります。GoogleはこれによりNVIDIAへの依存を下げており、外部企業への提供も進めています。自社チップを持つかどうかは、AI企業のコスト構造を大きく左右します。",
+      "related": [
+        "gpu",
+        "google-deepmind",
+        "nvidia"
+      ],
+      "status": "published"
+    },
+    {
+      "slug": "cuda",
+      "term": "CUDA",
+      "aliases": [
+        "クーダ"
+      ],
+      "category": "インフラ",
+      "short": "NVIDIAのGPUを動かすためのソフトウェア基盤です。AI開発の事実上の標準になっています。",
+      "detail": "AIの開発ツールの多くがCUDAを前提に作られているため、他社が同等性能のチップを出しても、ソフトウェアの対応が追いつかず乗り換えが進みにくい構造があります。NVIDIAの強さは半導体そのものより、この蓄積にあるとよく言われます。",
+      "related": [
+        "nvidia",
+        "gpu"
+      ],
+      "status": "published"
+    },
+    {
+      "slug": "chatgpt",
+      "term": "ChatGPT",
+      "aliases": [
+        "チャットGPT"
+      ],
+      "category": "モデル",
+      "short": "OpenAIが提供している対話型のAIサービスです。2022年末の公開が生成AIブームの起点になりました。",
+      "detail": "公開からわずか2か月で利用者1億人に達し、消費者向けサービスとして史上最速の普及と言われました。無料版と有料版があり、内部で動くモデルはGPTシリーズです。「AIを使う」という体験を一般に広めた存在で、競合各社の製品設計にも強い影響を与えました。",
+      "related": [
+        "openai",
+        "gpt",
+        "llm"
+      ],
+      "status": "published"
+    },
+    {
+      "slug": "sora",
+      "term": "Sora",
+      "aliases": [
+        "ソラ"
+      ],
+      "category": "モデル",
+      "short": "OpenAIの動画生成AIです。文章で指示すると、それに沿った映像を作り出します。",
+      "detail": "物理的な動きや空間の一貫性をある程度保った映像を生成できる点が注目されました。広告や映像制作の現場に影響を与える一方、実在しない出来事の映像を作れることから、偽情報や肖像権をめぐる議論も引き起こしています。",
+      "related": [
+        "openai",
+        "deepfake",
+        "generative-ai"
+      ],
+      "status": "published"
+    },
+    {
+      "slug": "midjourney",
+      "term": "Midjourney",
+      "aliases": [
+        "ミッドジャーニー"
+      ],
+      "category": "モデル",
+      "short": "文章から画像を生成するAIサービスです。作品性の高い絵作りで知られています。",
+      "detail": "少ない指示でも完成度の高い画像が出る調整がされており、デザインやコンセプトアートの分野で広く使われています。学習データに著作物が含まれることをめぐって訴訟の対象にもなっており、生成AIと著作権の議論の中心にいるサービスのひとつです。",
+      "related": [
+        "generative-ai",
+        "copyright"
+      ],
+      "status": "published"
+    },
+    {
+      "slug": "stable-diffusion",
+      "term": "Stable Diffusion",
+      "aliases": [
+        "ステーブルディフュージョン"
+      ],
+      "category": "モデル",
+      "short": "誰でもダウンロードして自分の環境で動かせる画像生成AIです。",
+      "detail": "モデルが公開されているため、無数の派生版や追加学習モデルが世界中で作られました。画像生成AIが一気に普及した最大の要因であり、同時に、誰でも改変できることによる悪用への懸念も生みました。",
+      "related": [
+        "open-weight",
+        "generative-ai",
+        "lora"
+      ],
+      "status": "published"
+    },
+    {
+      "slug": "perplexity",
+      "term": "Perplexity",
+      "aliases": [
+        "パープレキシティ"
+      ],
+      "category": "企業",
+      "short": "AIが検索して出典つきで答えを返す検索サービスです。検索エンジンの対抗馬として注目されています。",
+      "detail": "従来の検索がリンクの一覧を返すのに対し、こちらは答えそのものを出典リンク付きで示します。報道機関からは記事の内容を要約して表示することへの反発もあり、収益配分の仕組み作りが進められています。",
+      "related": [
+        "rag",
+        "google-deepmind"
+      ],
+      "status": "published"
+    },
+    {
+      "slug": "cursor",
+      "term": "Cursor",
+      "aliases": [
+        "カーソル"
+      ],
+      "category": "モデル",
+      "short": "AIがコードを書くのを手伝うプログラミング用のエディタです。",
+      "detail": "コードの補完だけでなく、プロジェクト全体を理解したうえでの修正や、指示に基づくファイル横断の書き換えができます。開発者向けAIの中でも急成長した製品で、AIがソフトウェア開発の進め方そのものを変えつつある例としてよく挙げられます。",
+      "related": [
+        "copilot",
+        "agentic-coding"
+      ],
+      "status": "published"
+    },
+    {
+      "slug": "agentic-coding",
+      "term": "エージェント型コーディング",
+      "aliases": [
+        "AIコーディング",
+        "バイブコーディング"
+      ],
+      "category": "使い方",
+      "short": "AIが自分でファイルを読み書きし、テストを実行しながらプログラムを完成させる開発の進め方です。",
+      "detail": "人間が1行ずつ書くのではなく、目的を伝えてAIに作業を任せ、結果をレビューする形に近づきます。Claude CodeやCursor、GitHub Copilotのエージェント機能などが該当します。開発速度が上がる一方、生成されたコードを理解せずに使う危険や、レビュー能力の維持が課題として議論されています。",
+      "related": [
+        "ai-agent",
+        "copilot",
+        "cursor"
+      ],
+      "status": "published"
+    },
+    {
+      "slug": "rlhf",
+      "term": "RLHF",
+      "aliases": [
+        "人間のフィードバックによる強化学習"
+      ],
+      "category": "使い方",
+      "short": "人間の評価を使ってAIの返答を好ましい方向に調整する訓練方法です。",
+      "detail": "Reinforcement Learning from Human Feedback（人間のフィードバックによる強化学習）の略です。同じ質問への複数の回答を人間が比較評価し、その好みを学習させます。ChatGPTが自然な受け答えをするようになった要因のひとつで、安全性の確保にも使われています。",
+      "related": [
+        "alignment",
+        "llm"
+      ],
+      "status": "published"
+    },
+    {
+      "slug": "lora",
+      "term": "LoRA",
+      "aliases": [
+        "Low-Rank Adaptation"
+      ],
+      "category": "使い方",
+      "short": "AIの一部だけを軽く追加学習させる手法です。少ない計算資源で個性を足せます。",
+      "detail": "Low-Rank Adaptationの略です。モデル全体を訓練し直す代わりに、小さな追加部品だけを学習させるため、費用と時間が大幅に減ります。画像生成で特定の絵柄を再現したり、文章モデルを特定の業務に合わせたりする用途で広く使われています。",
+      "related": [
+        "fine-tuning",
+        "stable-diffusion",
+        "parameter"
+      ],
+      "status": "published"
+    },
+    {
+      "slug": "moe",
+      "term": "MoE",
+      "aliases": [
+        "Mixture of Experts",
+        "専門家混合"
+      ],
+      "category": "基礎",
+      "short": "AIの内部を複数の専門家に分け、質問ごとに必要な担当だけを動かす設計です。",
+      "detail": "Mixture of Experts（専門家の混合）の略です。全体としては巨大なモデルでも、実際に計算するのは一部だけで済むため、性能を保ちながら動作コストを抑えられます。近年の高性能モデルの多くがこの構造を採用しています。",
+      "related": [
+        "parameter",
+        "inference-cost"
+      ],
+      "status": "published"
+    },
+    {
+      "slug": "chain-of-thought",
+      "term": "思考の連鎖",
+      "aliases": [
+        "Chain of Thought",
+        "CoT"
+      ],
+      "category": "使い方",
+      "short": "AIに答えを出す前に考える過程を書かせることで、正答率を上げる手法です。",
+      "detail": "英語ではChain of Thoughtと呼びます。数学や論理の問題で特に効果があり、途中の手順を明示させると誤りが減ります。近年はこの「考える時間」をモデル側が自動で調整する推論モデルが主流になり、計算量をかけるほど賢くなる関係が確認されています。",
+      "related": [
+        "inference",
+        "prompt"
+      ],
+      "status": "published"
+    },
+    {
+      "slug": "temperature",
+      "term": "温度パラメータ",
+      "aliases": [
+        "temperature"
+      ],
+      "category": "使い方",
+      "short": "AIの答えのばらつき具合を決める設定です。低いほど堅実、高いほど自由な発想になります。",
+      "detail": "英語ではtemperatureと呼ばれます。0に近づけると毎回ほぼ同じ答えを返し、事実確認や分類のような正確さが要る作業に向きます。逆に高くすると表現が多様になり、アイデア出しや創作に向きます。用途に応じた調整が品質を左右します。",
+      "related": [
+        "prompt",
+        "llm"
+      ],
+      "status": "published"
+    },
+    {
+      "slug": "slm",
+      "term": "小規模言語モデル",
+      "aliases": [
+        "SLM",
+        "Small Language Model"
+      ],
+      "category": "基礎",
+      "short": "スマートフォンやパソコン内で動かせるほど小さいAIのことです。大きなモデルの手軽な代替になります。",
+      "detail": "英語ではSmall Language Modelと呼びます。通信せずに手元で完結するため、応答が速く、データが外部に出ない利点があります。蒸留や量子化の進歩により、数年前の大型モデルに匹敵する性能が手のひらの端末で動くようになりました。",
+      "related": [
+        "distillation",
+        "quantization",
+        "on-device"
+      ],
+      "status": "published"
+    },
+    {
+      "slug": "on-device",
+      "term": "オンデバイスAI",
+      "aliases": [
+        "エッジAI",
+        "端末内AI"
+      ],
+      "category": "インフラ",
+      "short": "クラウドに送らず、端末の中だけでAIを動かす方式です。プライバシーと速度が利点です。",
+      "detail": "写真の加工や音声認識、文章の要約などが機内モードでも動くようになります。個人データを外に出さずに済むため、規制の厳しい分野や企業利用で重視されます。一方、端末の性能とバッテリーの制約があり、大きなモデルはクラウドに任せる使い分けが一般的です。",
+      "related": [
+        "slm",
+        "quantization"
+      ],
+      "status": "published"
+    },
+    {
+      "slug": "guardrail",
+      "term": "ガードレール",
+      "aliases": [
+        "ガードレイル"
+      ],
+      "category": "安全性",
+      "short": "AIが不適切な出力をしないように設ける制限や検査の仕組みです。",
+      "detail": "モデル自体の訓練に加え、入出力を別の仕組みで検査して危険な内容を遮断する方法が併用されます。業務利用では、機密情報の漏洩防止や、自社の方針に反する回答の抑制のために独自のガードレールを設けることが一般的です。",
+      "related": [
+        "alignment",
+        "jailbreak"
+      ],
+      "status": "published"
+    },
+    {
+      "slug": "jailbreak",
+      "term": "ジェイルブレイク",
+      "aliases": [
+        "脱獄"
+      ],
+      "category": "安全性",
+      "short": "AIにかけられた制限を、言葉の工夫ですり抜けさせる行為です。",
+      "detail": "架空の設定を与える、役割を演じさせる、別の言語や符号に置き換えるといった手口が知られています。開発側は見つかった手口を訓練に反映して塞ぎますが、完全に防ぐことは難しく、いたちごっこが続いています。",
+      "related": [
+        "guardrail",
+        "red-teaming",
+        "prompt-injection"
+      ],
+      "status": "published"
+    },
+    {
+      "slug": "deepfake",
+      "term": "ディープフェイク",
+      "aliases": [
+        "ディープフェイク動画"
+      ],
+      "category": "安全性",
+      "short": "AIで作られた、本物と見分けがつかない偽の映像や音声のことです。",
+      "detail": "有名人になりすました詐欺広告や、音声を模倣した振り込め詐欺など、実害のある悪用が報告されています。生成物に見えない印を埋め込む電子透かしや、撮影機器の段階で来歴を記録する規格づくりが対策として進められています。",
+      "related": [
+        "sora",
+        "generative-ai",
+        "watermark"
+      ],
+      "status": "published"
+    },
+    {
+      "slug": "watermark",
+      "term": "電子透かし",
+      "aliases": [
+        "ウォーターマーク"
+      ],
+      "category": "安全性",
+      "short": "AIが作ったものだと後から判別できるように、生成物に埋め込む見えない印です。",
+      "detail": "画像や文章に人間には分からない特徴を仕込み、専用の検出器で判定します。偽情報対策として期待される一方、加工や再生成で消えてしまう弱さがあり、決定打にはなっていません。規制側が表示義務を検討する動きもあります。",
+      "related": [
+        "deepfake",
+        "eu-ai-act"
+      ],
+      "status": "published"
+    },
+    {
+      "slug": "synthetic-data",
+      "term": "合成データ",
+      "aliases": [
+        "synthetic data"
+      ],
+      "category": "規制",
+      "short": "AI自身が作り出した学習用のデータのことです。本物のデータが足りないときに使われます。",
+      "detail": "良質な人間由来のデータが枯渇しつつあるという見方から重要性が増しています。個人情報を含まない訓練データを用意できる利点もあります。ただし質の管理を誤ると、AIが自分の癖を増幅して性能が劣化する現象が起きるため、使い方に注意が必要です。",
+      "related": [
+        "training-data",
+        "llm"
+      ],
+      "status": "published"
+    },
+    {
+      "slug": "world-model",
+      "term": "世界モデル",
+      "aliases": [
+        "ワールドモデル"
+      ],
+      "category": "基礎",
+      "short": "物理法則や物事の因果関係をAIが内部に持つ仕組みのことです。",
+      "detail": "文章の統計的な予測だけでは、物が落ちる、押せば動くといった常識的な理解に限界があります。動画や実世界の操作から学習して、次に何が起こるかを予測できるモデルを作る研究が進んでおり、ロボットや自動運転の基盤として期待されています。",
+      "related": [
+        "embodied-ai",
+        "multimodal"
+      ],
+      "status": "published"
+    },
+    {
+      "slug": "embodied-ai",
+      "term": "身体性AI",
+      "aliases": [
+        "エンボディドAI",
+        "フィジカルAI"
+      ],
+      "category": "基礎",
+      "short": "ロボットなど物理的な身体を持ち、実世界で動作するAIのことです。",
+      "detail": "英語ではEmbodied AIと呼びます。画面の中で完結する作業と違い、失敗が物理的な損害につながるため、安全性の要求が格段に高くなります。ヒューマノイドロボットへの投資が急増しており、生成AIの次の主戦場と見る向きもあります。",
+      "related": [
+        "world-model",
+        "ai-agent"
+      ],
+      "status": "published"
+    },
+    {
+      "slug": "xai",
+      "term": "xAI",
+      "aliases": [
+        "Grok",
+        "グロック"
+      ],
+      "category": "企業",
+      "short": "イーロン・マスク氏が設立したAI企業です。AIモデル「Grok」を開発しています。",
+      "detail": "X（旧Twitter）との連携や、大規模な自社データセンターの建設で知られます。他社より制限の少ない回答方針を掲げており、その姿勢が安全性の議論の対象になることもあります。",
+      "related": [
+        "openai",
+        "datacenter"
+      ],
+      "status": "published"
+    },
+    {
+      "slug": "scale-ai",
+      "term": "データラベリング企業",
+      "aliases": [
+        "Scale AI",
+        "データアノテーション"
+      ],
+      "category": "企業",
+      "short": "AIの学習に使うデータへ人手で正解を付ける作業を請け負う会社のことです。",
+      "detail": "Scale AIやSurge AIなどが代表例です。AIの性能は学習データの質に大きく左右されるため、専門知識を持つ人材による高品質な注釈作業の価値が上がっています。一方で、低賃金労働や有害コンテンツの選別作業をめぐる労働環境の問題も指摘されています。",
+      "related": [
+        "training-data",
+        "rlhf"
+      ],
+      "status": "published"
+    },
+    {
+      "slug": "ai-safety-institute",
+      "term": "AI安全研究所",
+      "aliases": [
+        "AISI",
+        "AI Safety Institute"
+      ],
+      "category": "規制",
+      "short": "AIの危険性を政府として評価するために各国が設けた機関です。",
+      "detail": "イギリスとアメリカが先行して設立し、日本を含む各国が続きました。公開前のモデルを預かって危険な能力を検証する取り組みが行われています。強制力のある規制とは異なり、企業の自主的な協力に依存している点が現状の限界として指摘されています。",
+      "related": [
+        "red-teaming",
+        "eu-ai-act"
+      ],
+      "status": "published"
+    },
+    {
+      "slug": "compute",
+      "term": "計算資源",
+      "aliases": [
+        "コンピュート"
+      ],
+      "category": "インフラ",
+      "short": "AIの学習や実行に使う計算能力の総量のことです。お金・電力・半導体の量とほぼ同じ意味で語られます。",
+      "detail": "英語ではcomputeと呼びます。AIの性能はデータ量・パラメータ数・計算資源の3つでおおむね決まるという経験則があり、各社が調達競争を繰り広げています。国家がAI用の計算資源を戦略物資とみなし、輸出規制や国内整備を進める動きも広がっています。",
+      "related": [
+        "gpu",
+        "datacenter",
+        "inference-cost"
+      ],
+      "status": "published"
+    },
+    {
+      "slug": "export-control",
+      "term": "半導体輸出規制",
+      "aliases": [
+        "輸出規制"
+      ],
+      "category": "規制",
+      "short": "高性能なAI半導体を特定の国へ売ることを制限する政策です。",
+      "detail": "アメリカが安全保障を理由に中国向けの先端GPUの輸出を制限しており、性能を落とした専用製品や、第三国を経由した密輸が話題になります。規制対象の線引きが技術の進歩に追いついていないという指摘もあり、たびたび基準が改定されています。",
+      "related": [
+        "nvidia",
+        "gpu",
+        "compute"
+      ],
+      "status": "published"
     }
   ]
 }

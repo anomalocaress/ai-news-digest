@@ -52,6 +52,36 @@
   <url><loc>https://teraco-labo.github.io/ai-news-digest/terms/valuation.html</loc><lastmod>2026-08-26</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://teraco-labo.github.io/ai-news-digest/terms/funding-round.html</loc><lastmod>2026-08-26</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://teraco-labo.github.io/ai-news-digest/terms/ipo.html</loc><lastmod>2026-08-26</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://teraco-labo.github.io/ai-news-digest/terms/blackwell.html</loc><lastmod>2026-08-26</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://teraco-labo.github.io/ai-news-digest/terms/hopper.html</loc><lastmod>2026-08-26</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://teraco-labo.github.io/ai-news-digest/terms/tpu.html</loc><lastmod>2026-08-26</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://teraco-labo.github.io/ai-news-digest/terms/cuda.html</loc><lastmod>2026-08-26</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://teraco-labo.github.io/ai-news-digest/terms/chatgpt.html</loc><lastmod>2026-08-26</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://teraco-labo.github.io/ai-news-digest/terms/sora.html</loc><lastmod>2026-08-26</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://teraco-labo.github.io/ai-news-digest/terms/midjourney.html</loc><lastmod>2026-08-26</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://teraco-labo.github.io/ai-news-digest/terms/stable-diffusion.html</loc><lastmod>2026-08-26</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://teraco-labo.github.io/ai-news-digest/terms/perplexity.html</loc><lastmod>2026-08-26</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://teraco-labo.github.io/ai-news-digest/terms/cursor.html</loc><lastmod>2026-08-26</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://teraco-labo.github.io/ai-news-digest/terms/agentic-coding.html</loc><lastmod>2026-08-26</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://teraco-labo.github.io/ai-news-digest/terms/rlhf.html</loc><lastmod>2026-08-26</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://teraco-labo.github.io/ai-news-digest/terms/lora.html</loc><lastmod>2026-08-26</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://teraco-labo.github.io/ai-news-digest/terms/moe.html</loc><lastmod>2026-08-26</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://teraco-labo.github.io/ai-news-digest/terms/chain-of-thought.html</loc><lastmod>2026-08-26</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://teraco-labo.github.io/ai-news-digest/terms/temperature.html</loc><lastmod>2026-08-26</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://teraco-labo.github.io/ai-news-digest/terms/slm.html</loc><lastmod>2026-08-26</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://teraco-labo.github.io/ai-news-digest/terms/on-device.html</loc><lastmod>2026-08-26</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://teraco-labo.github.io/ai-news-digest/terms/guardrail.html</loc><lastmod>2026-08-26</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://teraco-labo.github.io/ai-news-digest/terms/jailbreak.html</loc><lastmod>2026-08-26</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://teraco-labo.github.io/ai-news-digest/terms/deepfake.html</loc><lastmod>2026-08-26</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://teraco-labo.github.io/ai-news-digest/terms/watermark.html</loc><lastmod>2026-08-26</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://teraco-labo.github.io/ai-news-digest/terms/synthetic-data.html</loc><lastmod>2026-08-26</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://teraco-labo.github.io/ai-news-digest/terms/world-model.html</loc><lastmod>2026-08-26</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://teraco-labo.github.io/ai-news-digest/terms/embodied-ai.html</loc><lastmod>2026-08-26</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://teraco-labo.github.io/ai-news-digest/terms/xai.html</loc><lastmod>2026-08-26</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://teraco-labo.github.io/ai-news-digest/terms/scale-ai.html</loc><lastmod>2026-08-26</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://teraco-labo.github.io/ai-news-digest/terms/ai-safety-institute.html</loc><lastmod>2026-08-26</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://teraco-labo.github.io/ai-news-digest/terms/compute.html</loc><lastmod>2026-08-26</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://teraco-labo.github.io/ai-news-digest/terms/export-control.html</loc><lastmod>2026-08-26</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://teraco-labo.github.io/ai-news-digest/terms/</loc><lastmod>2026-08-26</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://teraco-labo.github.io/ai-news-digest/ai-news-2026-08-26.html</loc><lastmod>2026-08-26</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://teraco-labo.github.io/ai-news-digest/ai-news-2026-08-25.html</loc><lastmod>2026-08-25</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>

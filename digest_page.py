@@ -228,7 +228,7 @@ def render(categorized: Dict[str, List[Dict]], date: datetime,
 
     # 用語マークは3行まとめ→注目→ジャンル別の順に付く。上限に達したら以降は素通し。
     gcfg = config.get("glossary", {})
-    ann = (glossary.Annotator(limit=int(gcfg.get("max_marks_per_page", 14)))
+    ann = (glossary.Annotator(limit=int(gcfg.get("max_marks_per_page", 26)))
            if gcfg.get("enabled", True) else None)
 
     head = monetize.build_head_tags(
@@ -239,6 +239,10 @@ def render(categorized: Dict[str, List[Dict]], date: datetime,
                      f"{date_str}のAI関連ニュース{total}件を日本語で要約してお届けします。"),
         published=f"{date_iso}T06:00:00+09:00",
     )
+
+    # 「3行まとめ」だけを読んで離脱する読者が最も多いため、用語マークは
+    # ここに最優先で付ける。カードより先に組み立てて枠を確保しておく。
+    lead_html = _lead(overview or [], ann)
 
     # 重要度3を「注目」として展開表示し、残りはジャンル別のアコーディオンに畳む。
     # 全件を平で並べるとページが長くなりすぎるため、注目以外は
@@ -287,7 +291,7 @@ def render(categorized: Dict[str, List[Dict]], date: datetime,
 </div>
 
 <main>
-{_lead(overview or [], ann)}
+{lead_html}
 {_listen(date, podcast_available)}
 {"".join(body_parts)}
 {_subscribe(config)}
