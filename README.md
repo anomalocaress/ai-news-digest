@@ -46,6 +46,11 @@ python revenue_tracker.py plan           # 目標達成までの逆算
 python api_dashboard.py                  # APIコストの確認
 ```
 
+## 経緯と現状
+
+**[PROJECT_LOG.md](PROJECT_LOG.md)** に、何をなぜそうしたか・ハマった罠・
+次にやることをまとめています。作業を再開するときはここから。
+
 ## 記事を書く
 
 解説記事に自分の言葉を入れる方法は **[WRITING.md](WRITING.md)** にまとめています。

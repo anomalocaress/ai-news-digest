@@ -18,6 +18,7 @@ card / card-title-ja / card-source / card-body / dot filled といった
 """
 
 import html as _html
+import re
 from datetime import datetime
 from typing import Dict, List, Optional
 
@@ -209,6 +210,72 @@ def _subscribe(config: Dict) -> str:
     )
 
 
+_LEAD_RE = re.compile(r"<ol>(.*?)</ol>", re.DOTALL)
+
+
+def extract_overview(raw: str) -> List[str]:
+    """公開済みページから「今日の3行まとめ」を読み戻す（用語マークは除く）。"""
+    i = raw.find("lead-label")
+    if i < 0:
+        return []
+    m = _LEAD_RE.search(raw[i:])
+    if not m:
+        return []
+    return [_html.unescape(re.sub(r"<.*?>", "", li)).strip()
+            for li in re.findall(r"<li>(.*?)</li>", m.group(1), re.DOTALL)]
+
+
+def build_sections(categorized: Dict[str, List[Dict]], date: datetime,
+                   overview: Optional[List[str]] = None,
+                   podcast_available: bool = False, ann=None) -> Dict[str, str]:
+    """ダイジェスト本文の各ブロックを組み立てて返す。
+
+    日次ページとトップページで同じ中身を使うため、描画をここに集約する。
+    トップを「最新号への入口」ではなく「最新号そのもの」にするための土台。
+    """
+    items = _flatten(categorized)
+
+    # 「3行まとめ」は最も読まれる場所なので、用語マークの枠を最優先で確保する
+    lead = _lead(overview or [], ann)
+
+    top = [a for a in items if int(a.get("importance", 2)) >= 3]
+    rest = [a for a in items if int(a.get("importance", 2)) < 3]
+    if not top and rest:
+        top, rest = rest[:1], rest[1:]
+
+    top_html = ""
+    if top:
+        top_html = ('  <div class="tier">注目のニュース</div>\n  <div class="digest">\n'
+                    + "".join(_card(a, emphasize=True, ann=ann) for a in top)
+                    + "  </div>\n")
+
+    genres_html = ""
+    if rest:
+        genres_html = '  <div class="tier">ジャンル別のニュース（タップで開く）</div>\n'
+        for category in CATEGORIES:
+            cat_items = [a for a in rest if a["category"] == category]
+            if not cat_items:
+                continue
+            open_attr = " open" if len(rest) <= 4 else ""
+            cards = "".join(_card(a, emphasize=False, ann=ann) for a in cat_items)
+            genres_html += (
+                f'  <details class="genre {category}"{open_attr}>\n'
+                f'    <summary><span class="genre-dot"></span>'
+                f'{CATEGORIES_JA.get(category, category)}'
+                f'<span class="cnt">{len(cat_items)}件</span></summary>\n'
+                f'    <div class="genre-body">\n{cards}    </div>\n'
+                "  </details>\n"
+            )
+
+    return {
+        "lead": lead,
+        "listen": _listen(date, podcast_available),
+        "top": top_html,
+        "genres": genres_html,
+        "total": len(items),
+    }
+
+
 def render(categorized: Dict[str, List[Dict]], date: datetime,
            overview: Optional[List[str]] = None,
            podcast_available: bool = False,
@@ -240,41 +307,9 @@ def render(categorized: Dict[str, List[Dict]], date: datetime,
         published=f"{date_iso}T06:00:00+09:00",
     )
 
-    # 「3行まとめ」だけを読んで離脱する読者が最も多いため、用語マークは
-    # ここに最優先で付ける。カードより先に組み立てて枠を確保しておく。
-    lead_html = _lead(overview or [], ann)
-
-    # 重要度3を「注目」として展開表示し、残りはジャンル別のアコーディオンに畳む。
-    # 全件を平で並べるとページが長くなりすぎるため、注目以外は
-    # 見出しだけ一覧できて、興味のあるジャンルを開く形にする。
-    top = [a for a in items if int(a.get("importance", 2)) >= 3]
-    rest = [a for a in items if int(a.get("importance", 2)) < 3]
-    if not top and rest:
-        # 注目が空の日は先頭の1件を昇格させ、ページの顔を作る
-        top, rest = rest[:1], rest[1:]
-
-    body_parts = []
-    if top:
-        body_parts.append('  <div class="tier">注目のニュース</div>\n  <div class="digest">\n')
-        body_parts += [_card(a, emphasize=True, ann=ann) for a in top]
-        body_parts.append("  </div>\n")
-    if rest:
-        body_parts.append('  <div class="tier">ジャンル別のニュース（タップで開く）</div>\n')
-        for category in CATEGORIES:
-            cat_items = [a for a in rest if a["category"] == category]
-            if not cat_items:
-                continue
-            # 少数日はすべて開いておく（畳む価値がないため）
-            open_attr = " open" if len(rest) <= 4 else ""
-            cards = "".join(_card(a, emphasize=False, ann=ann) for a in cat_items)
-            body_parts.append(
-                f'  <details class="genre {category}"{open_attr}>\n'
-                f'    <summary><span class="genre-dot"></span>'
-                f'{CATEGORIES_JA.get(category, category)}'
-                f'<span class="cnt">{len(cat_items)}件</span></summary>\n'
-                f'    <div class="genre-body">\n{cards}    </div>\n'
-                "  </details>\n"
-            )
+    sec = build_sections(categorized, date, overview, podcast_available, ann)
+    lead_html = sec["lead"]
+    body_parts = [sec["top"], sec["genres"]]
 
     body = f"""<div class="hero">
   <div class="hero-inner">

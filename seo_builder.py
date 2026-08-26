@@ -24,6 +24,7 @@ from pathlib import Path
 from typing import Dict, List, Optional
 
 import article_builder
+import digest_page
 import glossary
 import monetize
 import site_theme
@@ -31,6 +32,14 @@ import site_theme
 JST = timezone(timedelta(hours=9))
 REPO_DIR = Path(__file__).parent
 WEEKDAYS_JA = ["月", "火", "水", "木", "金", "土", "日"]
+
+HOME_CSS = """
+  .today { max-width:760px; margin:0 auto 1.2rem; font-size:0.75rem; font-weight:700;
+    letter-spacing:0.1em; color:var(--text-muted); }
+  main > .section-label { max-width:760px; margin-left:auto; margin-right:auto; }
+  main > .issue-grid { max-width:760px; margin-left:auto; margin-right:auto; }
+  main > p { max-width:760px; margin-left:auto; margin-right:auto; }
+"""
 
 _COUNT_RE = re.compile(r'<div class="header-count">(\d+) articles</div>')
 
@@ -73,42 +82,59 @@ def collect_issues() -> List[Dict]:
 # ---------------------------------------------------------------- ページ生成
 
 def build_home(issues: List[Dict], articles: List[Dict], config: Dict) -> str:
+    """トップページ。
+
+    読者が最も読みたいのは今日のニュースなので、「最新号を読む」ボタンを
+    挟まず、トップ自体を最新号にする。3行まとめ・音声・注目ニュース・
+    ジャンル別まで、その日の中身をすべてここに置く。
+    読み物とバックナンバーはその下に続ける。
+    """
     site = config.get("site", {})
     base = site.get("base_url", "").rstrip("/")
     pod_base = config.get("podcast", {}).get("base_url", base).rstrip("/")
     name = site.get("name", "AI News Digest")
 
+    latest = issues[0] if issues else None
+
+    # 最新号の中身を読み戻す
+    sections = {"lead": "", "listen": "", "top": "", "genres": "", "total": 0}
+    ann = None
+    date_label = ""
+    if latest:
+        try:
+            import social_kit
+            raw = (REPO_DIR / latest["file"]).read_text(encoding="utf-8")
+            categorized = social_kit.load_from_html(latest["date_iso"])
+            if sum(len(v) for v in categorized.values()):
+                gcfg = config.get("glossary", {})
+                ann = (glossary.Annotator(limit=int(gcfg.get("max_marks_per_page", 26)))
+                       if gcfg.get("enabled", True) else None)
+                sections = digest_page.build_sections(
+                    categorized, latest["dt"],
+                    overview=digest_page.extract_overview(raw),
+                    podcast_available=latest["podcast"], ann=ann,
+                )
+                date_label = latest["label"]
+        except Exception as e:
+            print(f"⚠️  トップページへの最新号の取り込みに失敗: {e}")
+
     head = monetize.build_head_tags(
         config,
         page_url=f"{base}/" if base else "",
-        title=f"{name} | AI最新ニュースを毎朝6時に日本語で",
+        title=f"{name} | {site.get('tagline', '')}",
         description=site.get("description", ""),
     ).replace('<meta property="og:type" content="article">',
               '<meta property="og:type" content="website">')
 
-    latest = issues[0] if issues else None
-    hero_actions = ""
-    if latest:
-        hero_actions += f'      <a class="btn btn-primary" href="{latest["file"]}">最新号を読む（{latest["label"]}）</a>\n'
-    hero_actions += '      <a class="btn btn-ghost" href="terms/">📘 AI用語集</a>\n'
-    hero_actions += '      <a class="btn btn-ghost" href="archive.html">バックナンバー</a>\n'
+    nav = ['      <a href="terms/">📘 AI用語集</a>\n',
+           '      <a href="articles/">読み物</a>\n',
+           '      <a href="archive.html">バックナンバー</a>\n']
+    if latest and latest["podcast"]:
+        nav.insert(0, '      <a href="#listen">🎧 音声で聴く</a>\n')
     if pod_base:
-        hero_actions += f'      <a class="btn btn-ghost" href="{pod_base}/podcast/feed.xml">🎧 ポッドキャスト</a>\n'
-    hero_actions += '      <a class="btn btn-ghost" href="feed.xml">📡 RSS</a>\n'
+        nav.append(f'      <a href="{pod_base}/podcast/feed.xml">📡 購読</a>\n')
 
-    recent = issues[:12]
-    cards = ""
-    for it in recent:
-        meta = f'{it["count"]} 記事' if it["count"] else "ダイジェスト"
-        if it["podcast"]:
-            meta += " · 🎧 音声あり"
-        cards += (
-            f'    <a class="issue" href="{it["file"]}">\n'
-            f'      <div class="d">{_html.escape(it["label"])}</div>\n'
-            f'      <div class="m">{meta}</div>\n'
-            "    </a>\n"
-        )
-
+    # 読み物
     reads = ""
     if articles:
         cards = "".join(
@@ -116,14 +142,26 @@ def build_home(issues: List[Dict], articles: List[Dict], config: Dict) -> str:
             f'      <div class="d">{_html.escape(a["title"])}</div>\n'
             f'      <div class="m">{_html.escape(a.get("description", "")[:70])}</div>\n'
             "    </a>\n"
-            for a in articles[:6]
+            for a in articles[:4]
         )
-        reads = (
-            '  <div class="section-label">読み物</div>\n'
-            f'  <div class="issue-grid">\n{cards}  </div>\n'
-            '  <p style="margin-top:1rem;font-size:0.85rem;">'
-            '<a href="articles/" style="color:var(--accent);font-weight:600;">解説記事の一覧を見る →</a></p>\n'
+        reads = ('  <div class="section-label">読み物</div>\n'
+                 f'  <div class="issue-grid">\n{cards}  </div>\n')
+
+    # バックナンバー（直近8号）
+    recent = ""
+    if len(issues) > 1:
+        cards = "".join(
+            f'    <a class="issue" href="{it["file"]}">\n'
+            f'      <div class="d">{_html.escape(it["label"])}</div>\n'
+            f'      <div class="m">{it["count"]} 記事'
+            + (" · 🎧" if it["podcast"] else "") + "</div>\n    </a>\n"
+            for it in issues[1:9]
         )
+        recent = ('  <div class="section-label">これまでの号</div>\n'
+                  f'  <div class="issue-grid">\n{cards}  </div>\n'
+                  '  <p style="margin-top:1rem;font-size:0.85rem;">'
+                  f'<a href="archive.html" style="color:var(--accent);font-weight:600;">'
+                  f'全 {len(issues)} 号の一覧を見る →</a></p>\n')
 
     offers = monetize.render_offer_block(
         monetize.select_offers(config, None, datetime.now(JST).replace(tzinfo=None),
@@ -131,38 +169,46 @@ def build_home(issues: List[Dict], articles: List[Dict], config: Dict) -> str:
         heading="AIを学ぶ・仕事にする",
     )
 
+    permalink = ""
+    if latest:
+        permalink = ('  <p style="max-width:760px;margin:1.5rem auto 0;font-size:0.82rem;'
+                     'text-align:right;">'
+                     f'<a href="{latest["file"]}" style="color:var(--text-muted);">'
+                     'この号だけを開く（共有用リンク） →</a></p>\n')
+
     body = f"""<div class="hero">
   <div class="hero-inner">
     <h1>{_html.escape(name)}</h1>
     <p>{_html.escape(site.get("tagline", ""))}</p>
-    <p style="font-size:0.85rem;margin-top:0.75rem;">{_html.escape(site.get("description", ""))}</p>
-    <div class="hero-actions">
-{hero_actions}    </div>
+    <div class="top-nav">
+{"".join(nav)}    </div>
     {site_theme.lang_switch(config)}
   </div>
 </div>
 
 <main>
+{f'  <div class="today">{_html.escape(date_label)}のニュース　厳選 {sections["total"]} 件</div>' if date_label else ""}
 {monetize.render_disclosure(config)}
-{reads}
-  <div class="section-label">最近のダイジェスト</div>
-  <div class="issue-grid">
-{cards}  </div>
-{offers}{monetize.render_cta(config)}
-  <div class="section-label">アーカイブ</div>
-  <p style="font-size:0.85rem;color:var(--text-muted);">
-    これまでに <strong>{len(issues)}</strong> 号を配信しました。
-    <a href="archive.html" style="color:var(--accent);font-weight:600;">全バックナンバーを見る →</a>
-  </p>
+{sections["lead"]}
+{sections["listen"]}
+{sections["top"]}
+{sections["genres"]}
+{permalink}
+{reads}{offers}{monetize.render_cta(config)}
+{recent}
 </main>
 
 <footer>
   <strong>{_html.escape(name)}</strong> — {_html.escape(site.get("author", ""))}<br>
   毎朝6時に自動生成・自動配信しています。
   {site_theme.footer_links(config)}
-</footer>"""
+</footer>
+{glossary.assets(ann) if ann else ""}"""
 
-    return site_theme.page_shell(f"{name} | AI最新ニュースを毎朝6時に日本語で", head, body)
+    extra = digest_page.DIGEST_CSS + HOME_CSS + (glossary.TOOLTIP_CSS if ann else "")
+    return site_theme.page_shell(
+        f"{name} | {site.get('tagline', '')}", head, body, extra_css=extra
+    )
 
 
 def build_archive(issues: List[Dict], config: Dict) -> str:
