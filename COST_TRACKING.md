@@ -82,6 +82,25 @@ Artifact で編集して「保存して同期」を押すと全端末に反映�
 **捕捉の仕組み**: Apple・Google・Adobe・カード会社は、どの端末で契約しても領収書メールを送ってきます。
 つまり受信箱が実質的に全デバイスの課金センサーです。iPhone で入れたサブスクも、そこで捕まえられます。
 
+## 自動で見張る（billing_watch.py）
+
+毎朝6時の GitHub Actions が、ダイジェスト生成のあとに受信箱を見ます。
+
+```bash
+python billing_watch.py               # 直近2日（毎朝の実行と同じ）
+python billing_watch.py --days 30     # 過去30日をまとめて棚卸し
+python billing_watch.py --days 7 --notify   # 見つかったらメールで知らせる
+```
+
+- 認証は **日次配信で既に使っている Gmail の App パスワード**（`EMAIL_PASSWORD`）をそのまま流用します。
+  App パスワードは SMTP 送信と IMAP 読み取りの両方に効くので、新しい認証情報は要りません
+- 読むのは **From / Subject / Date のヘッダだけ**。本文は取得せず、既読フラグも立てません
+- 台帳の `mail_match` に載っていない送信元から課金メールが来たら「未知の課金」として通知します。
+  Apple 経由のアプリ内課金が捕まるのはこの経路です
+- カード利用通知のような1件ごとの雑音は `mail.ignore_senders` で落としています。
+  取りこぼしが怖ければ `vpass.ne.jp` を外してください
+- このステップは `continue-on-error: true` です。受信箱が読めなくても毎朝の配信は止まりません
+
 ## 月1回やること
 
 1. `python service_costs.py check` を実行

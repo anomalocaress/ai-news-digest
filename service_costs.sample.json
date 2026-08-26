@@ -16,7 +16,11 @@
       "dashboard": "https://claude.ai/settings/billing",
       "note": "2026-08-21 に Pro($20) から乗り換え。毎朝のキュレーションはこの枠で動くので API 課金は発生しない",
       "evidence": "",
-      "cancel_url": "https://claude.ai/settings/billing"
+      "cancel_url": "https://claude.ai/settings/billing",
+      "mail_match": [
+        "anthropic.com",
+        "anthropic, pbc"
+      ]
     },
     {
       "id": "anthropic-api",
@@ -31,7 +35,10 @@
       "dashboard": "https://console.anthropic.com/settings/usage",
       "note": "サブスク枠（CLAUDE_CODE_OAUTH_TOKEN）で動かしているので通常はゼロ。ANTHROPIC_API_KEY を有効にすると従量課金に切り替わるので注意",
       "evidence": "",
-      "cancel_url": "https://console.anthropic.com/settings/limits"
+      "cancel_url": "https://console.anthropic.com/settings/limits",
+      "mail_match": [
+        "console.anthropic"
+      ]
     },
     {
       "id": "fal",
@@ -46,7 +53,12 @@
       "dashboard": "https://fal.ai/dashboard/billing",
       "note": "2026-08-22 にアカウント作成し 少額のクレジットを購入。前払いクレジット制なので、使い切って自動リチャージが ON だと黙って再課金される。このリポジトリのコードは fal を一切呼んでいない",
       "evidence": "",
-      "cancel_url": "https://fal.ai/dashboard/billing"
+      "cancel_url": "https://fal.ai/dashboard/billing",
+      "mail_match": [
+        "withorb.com",
+        "fal.ai",
+        "features & labels"
+      ]
     },
     {
       "id": "gcp-apis",
@@ -61,7 +73,13 @@
       "dashboard": "https://console.cloud.google.com/billing",
       "note": "ポッドキャスト台本（Gemini）の従量課金。2026-10-12 までに前払い方式へ切り替えないと Gemini API が止まる",
       "evidence": "",
-      "cancel_url": "https://console.cloud.google.com/billing"
+      "cancel_url": "https://console.cloud.google.com/billing",
+      "mail_match": [
+        "cloud platform",
+        "googleaistudio",
+        "gemini api",
+        "cloudplatform-noreply"
+      ]
     },
     {
       "id": "supergrok",
@@ -76,7 +94,12 @@
       "dashboard": "https://apps.apple.com/account/subscriptions",
       "note": "無料トライアル中に解約済み（本人確認済み・2026-08-26）。課金は発生していない。再契約したら status を active に戻す",
       "evidence": "",
-      "cancel_url": "https://apps.apple.com/account/subscriptions"
+      "cancel_url": "https://apps.apple.com/account/subscriptions",
+      "mail_match": [
+        "x.ai",
+        "supergrok",
+        "grok"
+      ]
     },
     {
       "id": "adobe-premiere",
@@ -92,7 +115,11 @@
       "dashboard": "https://account.adobe.com/plans",
       "note": "無料体験は 2026-08-28 終了。解約フローを途中まで進めて引き止めオファーを引き出す方針（本人判断）。オファーが出なければそのまま解約すれば課金ゼロ。体験期間中の解約に違約金は無い",
       "evidence": "",
-      "cancel_url": "https://account.adobe.com/plans"
+      "cancel_url": "https://account.adobe.com/plans",
+      "mail_match": [
+        "adobe.com",
+        "adobe"
+      ]
     },
     {
       "id": "google-workspace",
@@ -107,7 +134,11 @@
       "dashboard": "https://admin.google.com/ac/billing",
       "note": "毎月1日に請求書メールが届く。金額が未確認なので、請求書PDFを見て amount を埋めること",
       "evidence": "",
-      "cancel_url": "https://admin.google.com/ac/billing/subscriptions"
+      "cancel_url": "https://admin.google.com/ac/billing/subscriptions",
+      "mail_match": [
+        "google workspace",
+        "workspace-noreply"
+      ]
     },
     {
       "id": "squarespace-domain",
@@ -122,7 +153,12 @@
       "dashboard": "https://account.squarespace.com/domains",
       "note": "2026-08-24 に1年自動更新済み。次は2027-08-24",
       "evidence": "",
-      "cancel_url": "https://account.squarespace.com/domains"
+      "cancel_url": "https://account.squarespace.com/domains",
+      "mail_match": [
+        "squarespace",
+        "ドメイン登録",
+        "ドメイン名"
+      ]
     },
     {
       "id": "zoom",
@@ -137,7 +173,10 @@
       "dashboard": "https://zoom.us/billing",
       "note": "2026-08-22 にダウングレード申請済み。次の請求日に反映される予定なので、反映されたか確認する",
       "evidence": "",
-      "cancel_url": "https://zoom.us/billing/subscription"
+      "cancel_url": "https://zoom.us/billing/subscription",
+      "mail_match": [
+        "zoom.us"
+      ]
     },
     {
       "id": "supabase",
@@ -152,7 +191,10 @@
       "dashboard": "https://supabase.com/dashboard/org/_/billing",
       "note": "2026-08-22 に GitHub 連携でアカウント作成。無料枠のうちは0円だが、Pro へ上げると有料",
       "evidence": "",
-      "cancel_url": "https://supabase.com/dashboard/org/_/billing"
+      "cancel_url": "https://supabase.com/dashboard/org/_/billing",
+      "mail_match": [
+        "supabase"
+      ]
     },
     {
       "id": "edge-tts",
@@ -167,7 +209,49 @@
       "dashboard": "",
       "note": "無料。ここを Google Cloud TTS や ElevenLabs に替えると一気に従量課金になるので、替えるときは必ずこの台帳に足す",
       "evidence": "",
-      "cancel_url": ""
+      "cancel_url": "",
+      "mail_match": []
     }
-  ]
+  ],
+  "mail": {
+    "_comment": "billing_watch.py が受信箱を走査するときの設定。ignore_senders は「課金メールではないが課金っぽい語を含む」送信元。",
+    "billing_signals": [
+      "receipt",
+      "invoice",
+      "subscription",
+      "trial",
+      "renewal",
+      "payment",
+      "billing",
+      "charged",
+      "auto-renew",
+      "領収書",
+      "請求",
+      "お支払い",
+      "サブスクリプション",
+      "無料体験",
+      "更新",
+      "課金",
+      "決済",
+      "ご利用料金",
+      "プラン変更",
+      "値上げ"
+    ],
+    "ignore_senders": [
+      "vpass.ne.jp",
+      "smbc.co.jp",
+      "sonybank.jp",
+      "paidy.com",
+      "nsp.mdj.jp",
+      "shopifyemail.com",
+      "audiobook.jp",
+      "mag.ikehaya.com",
+      "substack.com",
+      "brain-market.com",
+      "chatwork.com",
+      "rakuten.co.jp",
+      "povo.jp"
+    ],
+    "_ignore_note": "カード利用通知は1件ごとに飛んでくる上、契約元も必ず領収書を送るので既定では無視する。取りこぼしが怖ければ vpass.ne.jp を外す。"
+  }
 }
