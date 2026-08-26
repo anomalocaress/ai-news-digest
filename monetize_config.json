@@ -264,6 +264,33 @@
     "min_articles": 8,
     "max_articles": 12
   },
+  "knowledge": {
+    "_note": "Claude に覚えておいてほしい知見の取り込み設定。ここに書いた差出人のメールだけを読みます。",
+    "enabled": true,
+    "watch": [
+      {
+        "name": "イケハヤ",
+        "senders": [
+          "info@mag.ikehaya.com",
+          "info@ikemag.jp"
+        ],
+        "note": "個人の発信・教材・働き方。収益設計とコンテンツ運用の判断材料"
+      },
+      {
+        "name": "テツメモ",
+        "senders": [
+          "tetumemo@m-newsletter.com"
+        ],
+        "note": "Claude Code / Skill / 自動化の実践ログ。手を動かす系の知見が多い"
+      }
+    ],
+    "lookback_days": 7,
+    "_lookback_note": "何日前までのメールを見るか。毎朝動かすので7日あれば取りこぼさない",
+    "max_per_run": 4,
+    "_max_note": "1回に蒸留するメール数の上限。残りは翌日に回る",
+    "cli_model": "opus",
+    "model": "claude-opus-5"
+  },
   "glossary": {
     "_note": "用語解説の設定。auto_discover を有効にすると、毎朝のキュレーション時に新出用語を検出して glossary.json へ自動追加します。max_marks_per_page は1ページに付ける解説の上限。「今日の3行まとめ」から順に割り当てられます。",
     "enabled": true,

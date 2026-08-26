@@ -13,6 +13,8 @@ AIの最新ニュースを毎朝6時に自動収集し、日本語で要約し�
   解説ページの中の用語にもさらに解説がつく入れ子構造。毎朝のキュレーションで用語が自動追加される
 - **解説記事** — `articles/*.md` から静的HTMLを生成（検索流入用）
 - **SNS投稿キット** — その日のダイジェストからコピペ用の投稿文を生成
+- **ナレッジ蓄積** — イケハヤさん・テツメモさんのニュースレターを毎朝読み、
+  今後の判断に効く知見だけを記録。Claude が毎セッション読み込んで助言に使う
 
 すべて GitHub Actions で毎朝6時（JST）に全自動実行されます。
 
@@ -44,6 +46,11 @@ python revenue_tracker.py report         # 収支レポート
 python revenue_tracker.py plan           # 目標達成までの逆算
 
 python api_dashboard.py                  # APIコストの確認
+
+python knowledge_ingest.py run           # ニュースレターを読んで知見を蓄積
+python knowledge.py search Skill         # 蓄積から探す
+python knowledge.py report --since 7     # 新しく蓄えた知見の報告
+python knowledge.py stats                # 何がどれだけ溜まっているか
 ```
 
 ## 経緯と現状
@@ -55,6 +62,12 @@ python api_dashboard.py                  # APIコストの確認
 
 解説記事に自分の言葉を入れる方法は **[WRITING.md](WRITING.md)** にまとめています。
 一番ラクなのは Claude に話すだけの方法です。
+
+## Claudeに覚えておいてもらう
+
+Claudeはセッションが終わると会話を忘れます。残るのはリポジトリのファイルだけです。
+覚えておいてほしいことの渡し方は **[KNOWLEDGE.md](KNOWLEDGE.md)** にまとめています。
+一番ラクなのは「これ覚えといて」とClaudeに話す方法です。
 
 ## 収益化について
 
