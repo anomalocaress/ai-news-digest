@@ -7,6 +7,13 @@
   <description>AIの最新ニュースを毎朝6時に日本語でお届けします。企業名・ツール名・専門用語にはすべて解説がつくので、予備知識がなくても読むだけで理解が深まります。音声版もあります。</description>
   <language>ja</language>
   <item>
+    <title>Claude CodeとGitHub Actionsで「毎朝6時に届くAIニュース」を自動生成する仕組みを作った</title>
+    <link>https://teraco-labo.github.io/ai-news-digest/articles/claude-code-ai-news-automation.html</link>
+    <guid isPermaLink="true">https://teraco-labo.github.io/ai-news-digest/articles/claude-code-ai-news-automation.html</guid>
+    <description>AIニュースの収集・選別・日本語化・ポッドキャスト化・メール配信までを全自動化した記録。91号の運用実績と、実際にかかった費用の内訳、40日間止まっていた原因まで公開します。</description>
+    <pubDate>Tue, 25 Aug 2026 09:00:00 +0900</pubDate>
+  </item>
+  <item>
     <title>AI最新ニュースまとめ 2026年8月26日（水）</title>
     <link>https://teraco-labo.github.io/ai-news-digest/ai-news-2026-08-26.html</link>
     <guid isPermaLink="true">https://teraco-labo.github.io/ai-news-digest/ai-news-2026-08-26.html</guid>

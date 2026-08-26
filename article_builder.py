@@ -29,6 +29,7 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Dict, List, Optional
 
+import glossary
 import monetize
 import site_theme
 
@@ -139,6 +140,26 @@ def _render_markdown(body: str) -> str:
 
 _H2_RE = re.compile(r"<h2>(.*?)</h2>", re.DOTALL)
 
+# 用語マークを入れてよい要素。見出し・pre/code・既存のリンクは除外する。
+_PROSE_BLOCK_RE = re.compile(r"(<(?:p|li|td)>)(.*?)(</(?:p|li|td)>)", re.DOTALL)
+_SKIP_INLINE_RE = re.compile(r"(<code>.*?</code>|<a\b.*?</a>|<[^>]+>)", re.DOTALL)
+
+
+def _annotate_prose(html_body: str, ann) -> str:
+    """段落・箇条書き・表セルの地の文にだけ用語マークを入れる。
+
+    タグの中身やコード、既存リンクのテキストに触れると壊れるため、
+    それらを避けて素のテキスト部分だけを処理する。
+    """
+    def per_block(m):
+        inner = "".join(
+            part if _SKIP_INLINE_RE.fullmatch(part) else ann(part)
+            for part in _SKIP_INLINE_RE.split(m.group(2)) if part
+        )
+        return m.group(1) + inner + m.group(3)
+
+    return _PROSE_BLOCK_RE.sub(per_block, html_body)
+
 
 def _add_heading_ids(html_body: str) -> (str, List[Dict]):
     """h2 に id を振り、目次のもとになる一覧を返す。"""
@@ -209,6 +230,14 @@ def build_article_page(article: Dict, config: Dict, related: List[Dict]) -> str:
 
     html_body = strip_editor_notes(_render_markdown(article["body"]))
     html_body, headings = _add_heading_ids(html_body)
+
+    # 解説記事の本文にも用語マークを付ける。読者層が「これから学ぶ人」なので、
+    # ダイジェスト以上に効く。見出し・コード・既存リンクの中は避ける。
+    gcfg = config.get("glossary", {})
+    ann = (glossary.Annotator(limit=int(gcfg.get("max_marks_per_article", 18)), prefix="../")
+           if gcfg.get("enabled", True) else None)
+    if ann:
+        html_body = _annotate_prose(html_body, ann)
     head_part, tail_part = _split_for_midroll(html_body, headings)
 
     published = article.get("published", "")
@@ -293,10 +322,12 @@ def build_article_page(article: Dict, config: Dict, related: List[Dict]) -> str:
 <footer>
   <strong>{_html.escape(name)}</strong> — {_html.escape(site.get("author", ""))}
   {site_theme.footer_links(config, prefix="../")}
-</footer>"""
+</footer>
+{glossary.assets(ann) if ann else ""}"""
 
     return site_theme.page_shell(
-        f"{article['title']} | {name}", head, body, extra_css=site_theme.PROSE_CSS
+        f"{article['title']} | {name}", head, body,
+        extra_css=site_theme.PROSE_CSS + (glossary.TOOLTIP_CSS if ann else ""),
     )
 
 

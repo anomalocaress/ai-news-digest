@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claude CodeとGitHub Actionsで「毎朝6時に届くAIニュース」を自動生成する仕組みを作った | 世界一わかりやすいAIニュース</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root { --bg:#f8fafc; --card-bg:#fff; --text:#1e293b; --text-muted:#64748b; --border:#e2e8f0; --accent:#0e7490; }
+  body { font-family:'Noto Sans JP','Inter',sans-serif; background:var(--bg); color:var(--text);
+    line-height:1.7; -webkit-font-smoothing:antialiased; }
+  a { color:inherit; }
+  .hero { background:linear-gradient(135deg,#0f172a,#1e293b); color:#fff; padding:3rem 1.5rem; }
+  .hero-inner { max-width:1100px; margin:0 auto; }
+  .hero h1 { font-size:1.8rem; font-weight:700; letter-spacing:0.01em; }
+  .hero p { margin-top:0.6rem; font-size:0.95rem; color:#cbd5e1; max-width:640px; }
+  .hero-actions { margin-top:1.5rem; display:flex; flex-wrap:wrap; gap:0.75rem; }
+  .crumbs { font-size:0.75rem; color:#94a3b8; margin-bottom:0.75rem; }
+  .crumbs a { text-decoration:none; }
+  .crumbs a:hover { text-decoration:underline; }
+  .btn { display:inline-block; padding:0.6rem 1.3rem; border-radius:6px; font-size:0.85rem;
+    font-weight:700; text-decoration:none; }
+  .btn-primary { background:#22d3ee; color:#0f172a; }
+  .btn-ghost { border:1px solid rgba(255,255,255,0.35); color:#e2e8f0; }
+  main { max-width:1100px; margin:0 auto; padding:2.5rem 1.5rem 4rem; }
+  .section-label { font-size:0.75rem; font-weight:700; letter-spacing:0.12em; color:var(--text-muted);
+    text-transform:uppercase; margin:2.5rem 0 1rem; }
+  .section-label:first-child { margin-top:0; }
+  .issue-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:1rem; }
+  .issue { display:block; padding:1rem 1.1rem; background:var(--card-bg); border:1px solid var(--border);
+    border-radius:8px; text-decoration:none; transition:border-color .15s; }
+  .issue:hover { border-color:var(--accent); }
+  .issue .d { font-size:0.95rem; font-weight:700; }
+  .issue .m { margin-top:0.25rem; font-size:0.75rem; color:var(--text-muted); }
+  .issue-list { list-style:none; columns:2; column-gap:2rem; }
+  .issue-list li { break-inside:avoid; padding:0.35rem 0; border-bottom:1px solid var(--border); }
+  .issue-list a { font-size:0.85rem; text-decoration:none; }
+  .issue-list a:hover { color:var(--accent); }
+  .issue-list .m { font-size:0.72rem; color:var(--text-muted); margin-left:0.5rem; }
+  footer { border-top:1px solid var(--border); padding:2rem 1.5rem; text-align:center;
+    font-size:0.78rem; color:var(--text-muted); }
+  .lang-switch { display:flex; flex-wrap:wrap; align-items:center; gap:0.35rem;
+    margin-top:1rem; font-size:0.74rem; }
+  .lang-switch .globe { opacity:0.7; margin-right:0.15rem; }
+  .lang-switch .lang { padding:0.25rem 0.7rem; border-radius:999px;
+    border:1px solid rgba(255,255,255,0.25); color:#cbd5e1; text-decoration:none; }
+  .lang-switch a.lang:hover { background:rgba(255,255,255,0.12); color:#fff; }
+  .lang-switch .lang.on { background:rgba(255,255,255,0.9); color:#0f172a; font-weight:700;
+    border-color:transparent; }
+  .lang-switch .lang.soon { opacity:0.45; cursor:default; }
+  .lang-switch .lang.soon em { font-style:normal; font-size:0.62rem; margin-left:0.3rem;
+    opacity:0.85; }
+  .footer-links { margin-top:0.9rem; font-size:0.75rem; }
+  .footer-links a { color:var(--text-muted); text-decoration:none; }
+  .footer-links a:hover { color:var(--accent); text-decoration:underline; }
+  @media (max-width:640px){ .issue-list{columns:1;} .hero h1{font-size:1.4rem;} }
+
+  .prose { max-width:720px; margin:0 auto; }
+  .prose > * + * { margin-top:1.1rem; }
+  .prose h2 { margin-top:2.8rem; padding-bottom:0.5rem; border-bottom:2px solid var(--border);
+    font-size:1.3rem; font-weight:700; line-height:1.5; }
+  .prose h3 { margin-top:2rem; font-size:1.05rem; font-weight:700; }
+  .prose p { font-size:0.95rem; line-height:2.0; }
+  .prose ul, .prose ol { padding-left:1.4rem; }
+  .prose li { font-size:0.95rem; line-height:1.9; margin-top:0.4rem; }
+  .prose a { color:var(--accent); font-weight:500; }
+  .prose strong { font-weight:700; }
+  .prose blockquote { padding:0.8rem 1.1rem; border-left:3px solid var(--accent);
+    background:rgba(14,116,144,0.06); border-radius:0 6px 6px 0; font-size:0.9rem; }
+  .prose blockquote p { font-size:0.9rem; line-height:1.85; }
+  .prose code { padding:0.15em 0.4em; background:#e2e8f0; border-radius:3px;
+    font-family:'SFMono-Regular',Consolas,monospace; font-size:0.85em; }
+  .prose pre { padding:1rem; background:#0f172a; color:#e2e8f0; border-radius:8px;
+    overflow-x:auto; font-size:0.82rem; line-height:1.7; }
+  .prose pre code { background:none; color:inherit; padding:0; }
+  .prose table { width:100%; border-collapse:collapse; font-size:0.85rem; display:block; overflow-x:auto; }
+  .prose th, .prose td { padding:0.6rem 0.8rem; border:1px solid var(--border); text-align:left; }
+  .prose th { background:#f1f5f9; font-weight:700; white-space:nowrap; }
+  .prose hr { border:none; border-top:1px solid var(--border); margin:2.5rem 0; }
+  .prose img { max-width:100%; height:auto; border-radius:8px; }
+  .toc { max-width:720px; margin:2rem auto; padding:1.1rem 1.3rem; background:var(--card-bg);
+    border:1px solid var(--border); border-radius:8px; }
+  .toc-title { font-size:0.75rem; font-weight:700; letter-spacing:0.1em; color:var(--text-muted);
+    margin-bottom:0.6rem; }
+  .toc ol { list-style:none; counter-reset:toc; }
+  .toc li { counter-increment:toc; padding:0.25rem 0; font-size:0.85rem; }
+  .toc li::before { content:counter(toc) ". "; color:var(--text-muted); }
+  .toc a { text-decoration:none; }
+  .toc a:hover { color:var(--accent); text-decoration:underline; }
+  .article-meta { max-width:720px; margin:0 auto 2rem; font-size:0.78rem; color:var(--text-muted); }
+
+  .t { color:var(--accent); border-bottom:1px dashed currentColor; cursor:help;
+    font-weight:500; }
+  .t:hover, .t:focus-visible { background:rgba(14,116,144,0.10); outline:none; border-radius:2px; }
+  #tip { position:absolute; z-index:60; max-width:min(22rem,88vw); padding:0.85rem 1rem;
+    background:var(--card-bg); border:1px solid var(--border); border-radius:8px;
+    box-shadow:0 8px 28px rgba(15,23,42,0.16); font-size:0.84rem; line-height:1.8;
+    opacity:0; visibility:hidden; transition:opacity .12s; pointer-events:none; }
+  #tip.on { opacity:1; visibility:visible; pointer-events:auto; }
+  #tip .tip-n { font-weight:700; display:block; margin-bottom:0.3rem; }
+  #tip .tip-m { display:inline-block; margin-top:0.5rem; font-size:0.78rem;
+    font-weight:600; color:var(--accent); text-decoration:none; }
+  #sheet { position:fixed; left:0; right:0; bottom:0; z-index:70; padding:1.4rem 1.4rem 2rem;
+    background:var(--card-bg); border-top:1px solid var(--border);
+    border-radius:16px 16px 0 0; box-shadow:0 -8px 32px rgba(15,23,42,0.22);
+    transform:translateY(102%); transition:transform .22s ease; }
+  #sheet.on { transform:translateY(0); }
+  #sheet .sheet-grip { width:36px; height:4px; border-radius:2px; background:var(--border);
+    margin:0 auto 1rem; }
+  #sheet .tip-n { font-size:1.05rem; font-weight:700; display:block; margin-bottom:0.5rem; }
+  #sheet .tip-s { font-size:0.92rem; line-height:1.95; color:var(--text-muted); }
+  #sheet .tip-m { display:block; margin-top:1.1rem; padding:0.75rem; text-align:center;
+    background:var(--accent); color:#fff; border-radius:8px; font-size:0.88rem;
+    font-weight:700; text-decoration:none; }
+  #veil { position:fixed; inset:0; z-index:69; background:rgba(15,23,42,0.35);
+    opacity:0; visibility:hidden; transition:opacity .22s; }
+  #veil.on { opacity:1; visibility:visible; }
+  @media (prefers-reduced-motion:reduce){ #sheet,#veil,#tip{transition:none} }
+</style>
+<!-- monetize.py: SEO / analytics -->
+<meta name="description" content="AIニュースの収集・選別・日本語化・ポッドキャスト化・メール配信までを全自動化した記録。91号の運用実績と、実際にかかった費用の内訳、40日間止まっていた原因まで公開します。">
+<link rel="canonical" href="https://teraco-labo.github.io/ai-news-digest/articles/claude-code-ai-news-automation.html">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Claude CodeとGitHub Actionsで「毎朝6時に届くAIニュース」を自動生成する仕組みを作った | 世界一わかりやすいAIニュース">
+<meta property="og:description" content="AIニュースの収集・選別・日本語化・ポッドキャスト化・メール配信までを全自動化した記録。91号の運用実績と、実際にかかった費用の内訳、40日間止まっていた原因まで公開します。">
+<meta property="og:url" content="https://teraco-labo.github.io/ai-news-digest/articles/claude-code-ai-news-automation.html">
+<meta property="og:site_name" content="世界一わかりやすいAIニュース">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:image" content="https://teraco-labo.github.io/ai-news-digest/podcast/cover.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="alternate" type="application/rss+xml" title="世界一わかりやすいAIニュース" href="https://teraco-labo.github.io/ai-news-digest/feed.xml">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "NewsArticle", "headline": "Claude CodeとGitHub Actionsで「毎朝6時に届くAIニュース」を自動生成する仕組みを作った | 世界一わかりやすいAIニュース", "description": "AIニュースの収集・選別・日本語化・ポッドキャスト化・メール配信までを全自動化した記録。91号の運用実績と、実際にかかった費用の内訳、40日間止まっていた原因まで公開します。", "url": "https://teraco-labo.github.io/ai-news-digest/articles/claude-code-ai-news-automation.html", "inLanguage": "ja", "author": {"@type": "Person", "name": "てらこ先生"}, "publisher": {"@type": "Organization", "name": "世界一わかりやすいAIニュース"}, "datePublished": "2026-08-25T09:00:00+09:00", "dateModified": "2026-08-25T09:00:00+09:00"}</script>
+
+<style id="mz-style">
+  .mz-disclosure { max-width: 1100px; margin: 0 auto 1rem; padding: 0.5rem 0.75rem;
+    font-size: 0.7rem; line-height: 1.6; color: var(--text-muted, #64748b);
+    background: rgba(148,163,184,0.10); border-radius: 6px; }
+  .mz-block { max-width: 1100px; margin: 2rem auto; }
+  .mz-head { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem; }
+  .mz-head h2 { font-size: 0.9rem; font-weight: 700; color: var(--text, #1e293b); letter-spacing: 0.02em; }
+  .mz-pr { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.08em; padding: 2px 6px;
+    border-radius: 3px; background: #94a3b8; color: #fff; }
+  .mz-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1rem; }
+  .mz-card { display: flex; flex-direction: column; gap: 0.4rem; padding: 1rem;
+    background: var(--card-bg, #fff); border: 1px solid var(--border, #e2e8f0);
+    border-left: 3px solid #0e7490; border-radius: 8px; }
+  .mz-card .mz-name { font-size: 0.68rem; font-weight: 600; color: var(--text-muted, #64748b); letter-spacing: 0.04em; }
+  .mz-card .mz-title { font-size: 0.95rem; font-weight: 700; color: var(--text, #1e293b); line-height: 1.5; }
+  .mz-card .mz-body { font-size: 0.8rem; line-height: 1.7; color: var(--text-muted, #64748b); }
+  .mz-card .mz-cta { margin-top: auto; padding-top: 0.6rem; font-size: 0.8rem; font-weight: 600;
+    color: #0e7490; text-decoration: none; }
+  .mz-card .mz-cta:hover { text-decoration: underline; }
+  .mz-badge { align-self: flex-start; font-size: 0.6rem; font-weight: 700; padding: 2px 6px;
+    border-radius: 3px; background: #0e7490; color: #fff; }
+  .mz-cta-block { max-width: 1100px; margin: 2rem auto; padding: 1.5rem;
+    background: linear-gradient(135deg, #0f172a, #1e293b); border-radius: 10px; color: #e2e8f0; }
+  .mz-cta-block h2 { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.5rem; color: #fff; }
+  .mz-cta-block p { font-size: 0.85rem; line-height: 1.8; color: #cbd5e1; }
+  .mz-cta-block a { display: inline-block; margin-top: 0.9rem; padding: 0.6rem 1.4rem;
+    background: #22d3ee; color: #0f172a; font-size: 0.85rem; font-weight: 700;
+    border-radius: 6px; text-decoration: none; }
+  .mz-ad { max-width: 1100px; margin: 2rem auto; text-align: center; }
+</style>
+<meta name="keywords" content="AIニュース 自動収集, Claude Code 自動化, GitHub Actions 定期実行, Python 自動化, RSS 自動収集, ポッドキャスト 自動生成">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://teraco-labo.github.io/ai-news-digest/"}, {"@type": "ListItem", "position": 2, "name": "読み物", "item": "https://teraco-labo.github.io/ai-news-digest/articles/"}, {"@type": "ListItem", "position": 3, "name": "Claude CodeとGitHub Actionsで「毎朝6時に届くAIニュース」を自動生成する仕組みを作った", "item": "https://teraco-labo.github.io/ai-news-digest/articles/claude-code-ai-news-automation.html"}]}</script>
+</head>
+<body>
+<div class="hero">
+  <div class="hero-inner">
+    <div class="crumbs"><a href="../">世界一わかりやすいAIニュース</a> ／ <a href="./">読み物</a></div>
+    <h1>Claude CodeとGitHub Actionsで「毎朝6時に届くAIニュース」を自動生成する仕組みを作った</h1>
+    <p>AIニュースの収集・選別・日本語化・ポッドキャスト化・メール配信までを全自動化した記録。91号の運用実績と、実際にかかった費用の内訳、40日間止まっていた原因まで公開します。</p>
+  </div>
+</div>
+
+<main>
+
+  <div class="article-meta">公開 2026-08-25 ・ 最終更新 2026-08-26</div>
+  <nav class="toc">
+    <div class="toc-title">目次</div>
+    <ol>
+      <li><a href="#h-1">結論：91号を配信して、追加でかかった費用は103円</a></li>
+      <li><a href="#h-2">全体の流れ</a></li>
+      <li><a href="#h-3">① ニュースをどこから集めるか</a></li>
+      <li><a href="#h-4">② 選別と日本語化 ─ ここが品質を決める</a></li>
+      <li><a href="#h-5">③ 専門用語に自動で解説をつける</a></li>
+      <li><a href="#h-6">④ ポッドキャスト化 ─ 音声合成は無料でいい</a></li>
+      <li><a href="#h-7">⑤ 配信 ─ サイト・RSS・メールの3経路</a></li>
+      <li><a href="#h-8">作ってみて分かったこと</a></li>
+      <li><a href="#h-9">これから作る人へ</a></li>
+    </ol>
+  </nav>
+
+  <article class="prose">
+<p>毎朝6時、スマホに「今日のAIニュース」が届きます。記事を選んだのも、日本語に要約したのも、音声で読み上げたのも、メールを送ったのも、すべてプログラムです。人間は一切関与していません。</p>
+<p>この記事では、その仕組みをどう作ったか、そして<strong>89日間動かし続けて実際にいくらかかったか</strong>を、包み隠さず公開します。</p>
+<p>作ろうと思ったきっかけは、自分の勉強と、生徒さんへの発信のためでした。
+毎日AIの最新ニュースを追いかけるのが、だんだん大変になってきたのです。</p>
+<p>しばらくは、他の発信者の方が出しているAIニュースに頼っていました。
+精度がとても高くて、正直それで十分だったからです。</p>
+<p>風向きが変わったのは、<span class="t" data-t="claude" tabindex="0" role="button" aria-label="Claudeの説明を見る">Claude</span> Fable が使えるようになってからでした。
+自分の用途に合わせてカスタマイズしたニュースサイトのほうが、
+明らかに使いやすくなったのです。<strong>「既製品より自作のほうが便利」という線を、
+AIの性能が越えてきた</strong>という実感がありました。</p>
+<h2 id="h-1">結論：91号を配信して、追加でかかった費用は103円</h2>
+<p>先に結果からお見せします。</p>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>実績</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>配信したダイジェスト</td>
+<td>91号</td>
+</tr>
+<tr>
+<td>生成したポッドキャスト</td>
+<td>75エピソード</td>
+</tr>
+<tr>
+<td>自動で育った用語辞書</td>
+<td>79語</td>
+</tr>
+<tr>
+<td>Claude <span class="t" data-t="api" tabindex="0" role="button" aria-label="APIの説明を見る">API</span> 料金</td>
+<td>68円</td>
+</tr>
+<tr>
+<td>音声合成（Google TTS）料金</td>
+<td>35円</td>
+</tr>
+<tr>
+<td>サーバー代</td>
+<td>0円（GitHub Pages）</td>
+</tr>
+<tr>
+<td>実行環境の費用</td>
+<td>0円（GitHub Actions 無料枠）</td>
+</tr>
+<tr>
+<td><strong>追加費用の合計</strong></td>
+<td><strong>103円</strong></td>
+</tr>
+</tbody>
+</table>
+<p>「AIで自動化」と聞くと月数千円かかりそうに思えますが、<strong>やり方を選べばほぼ無料で回ります</strong>。ポイントは4つです。</p>
+<ol>
+<li>記事の選別と日本語化を <strong>Claude Code のサブスクリプション枠</strong>で動かす（従量課金APIを使わない）</li>
+<li>音声合成を無料のものに切り替える（<code>edge-tts</code> を使用。Google TTSは最初の8本のみ）</li>
+<li>実行環境とホスティングを無料枠で完結させる（GitHub Actions + GitHub Pages）</li>
+<li>記事の選別を機械任せにせず、AIに「捨てさせる」</li>
+</ol>
+<p>4つ目が効きます。当初は取得した50件をそのまま全部載せていましたが、
+AIに「AIに実質的に関係する記事だけを残す」と指示して8〜12件に絞ったところ、
+読みやすさが劇的に変わりました。<strong>自動化の質は、何を出すかより何を捨てるかで決まります。</strong></p>
+<h3>サブスクリプション枠で動かす方法</h3>
+<p>Claude Code には <code>claude setup-token</code> というコマンドがあり、
+長期<span class="t" data-t="token" tabindex="0" role="button" aria-label="トークンの説明を見る">トークン</span>を発行して GitHub Actions のシークレットに
+<code>CLAUDE_CODE_OAUTH_TOKEN</code> として登録すれば、月額プランの枠内で実行できます。</p>
+<p>ここで一度ハマりました。<strong>環境に古い <code>ANTHROPIC_API_KEY</code> が残っていると、そちらが優先されて認証に失敗します。</strong>
+有効なトークンを持っていても 401 が返るので、トークンを使うときは
+API キーを子プロセスの環境から外す必要がありました。</p>
+<h2 id="h-2">全体の流れ</h2>
+<p>処理は毎朝1本のスクリプトが順番に実行しています。</p>
+<pre><code>① RSS/APIからニュースを収集
+      ↓
+② キーワードで5カテゴリに分類
+      ↓
+③ Claude Haiku で日本語タイトル＋要約を生成
+      ↓
+④ HTMLダイジェストを組み立てて保存
+      ↓
+⑤ 台本を書いて音声合成 → ポッドキャストMP3
+      ↓
+⑥ GitHubにpush（＝サイトが自動更新）
+      ↓
+⑦ メールで配信
+</code></pre>
+<p>これを GitHub Actions の <code>schedule</code> で毎日叩いているだけです。パソコンの電源は関係ありません。GitHubのサーバーが勝手に動いてくれます。</p>
+<h3>40日間、気づかずに止まっていた話</h3>
+<p>正直に書いておきます。この仕組み、途中で<strong>40日間まったく動いていませんでした</strong>。</p>
+<p>原因は障害でも不具合でもなく、GitHub の画面で
+ワークフローを「Disable」したまま忘れていただけです。
+毎朝メールが届かないことに気づくまで、それなりの日数がかかりました。</p>
+<p>ここから得た教訓は、<strong>動かなくなったことに気づく仕組みまで含めて自動化</strong>しないと、
+自動化は静かに死ぬということです。実行ログを見に行かないと分からない状態は、
+実質的に監視していないのと同じでした。</p>
+<h3>なぜ「自分のパソコン」で動かさないのか</h3>
+<p>自動化でつまずきやすいのが、ここです。自分のPCで <code>cron</code> を組むと、<strong>PCを閉じている間は動きません</strong>。旅行に行けば止まります。</p>
+<p>GitHub Actions ならクラウド側で実行されるので、こちらは何もしなくていい。しかもパブリックリポジトリなら実行時間は無料です。</p>
+<pre><code class="language-yaml">on:
+  schedule:
+    # UTC 21:00 = 日本時間の翌朝6:00
+    - cron: '0 21 * * *'
+  workflow_dispatch:   # 手動実行もできるようにしておく
+</code></pre>
+<p>ひとつ落とし穴があります。GitHub Actions は <strong>UTC（協定世界時）で動く</strong>ため、Pythonの中で普通に「今日の日付」を取ると日本時間とズレて前日扱いになります。日本時間基準で日付を確定させる処理を必ず入れてください。</p>
+<pre><code class="language-python">JST = timezone(timedelta(hours=9))
+target_date = datetime.now(JST).replace(tzinfo=None)
+</code></pre>
+<h2 id="h-3">① ニュースをどこから集めるか</h2>
+<p>有料のニュースAPIは使っていません。<strong>無料のRSSフィードだけ</strong>で十分な量が集まります。実際に使っているソースは次のとおりです。</p>
+<ul>
+<li><span class="t" data-t="techcrunch" tabindex="0" role="button" aria-label="TechCrunchの説明を見る">TechCrunch</span> AI</li>
+<li>VentureBeat AI</li>
+<li>The Verge AI</li>
+<li><span class="t" data-t="mit-tech-review" tabindex="0" role="button" aria-label="MIT Technology Reviewの説明を見る">MIT Technology Review</span></li>
+<li>WIRED AI</li>
+<li>Ars Technica</li>
+<li><span class="t" data-t="hacker-news" tabindex="0" role="button" aria-label="Hacker Newsの説明を見る">Hacker News</span>（Algolia の検索APIで新着を取得）</li>
+</ul>
+<p>RSSは <code>requests</code> で取ってきて <code>xml.etree.ElementTree</code> で解析するだけ。専用ライブラリも不要です。日付の書式がソースごとにバラバラなので、そこだけ複数フォーマットを試す処理を書いておくと安定します。</p>
+<h2 id="h-4">② 選別と日本語化 ─ ここが品質を決める</h2>
+<p>最初の実装では、分類をキーワードマッチ、日本語化を Google 翻訳の無料エンドポイントで
+処理していました。API 呼び出しがほぼゼロで済むので安上がりだったのですが、
+出てくるものがひどかった。</p>
+<ul>
+<li>MIT Tech Review のニュースレター名 <em>The Download</em> が「ダウンロード」と誤訳される</li>
+<li>「カスタマー サービス エクスペリエンス」のような不自然な分かち書き</li>
+<li>AI と無関係な記事（コンビニチェーンのシステム移行など）が「研究」カテゴリに混入</li>
+<li>敬体と常体が同じページに混在</li>
+</ul>
+<p>安く済ませた分がそのまま品質に出ていたわけです。ここを Claude に置き換えました。
+やらせているのは4つです。</p>
+<ol>
+<li>AI に実質的に関係する記事だけを残す（無関係なものを捨てる）</li>
+<li>同じ出来事を報じた記事を1本にまとめる</li>
+<li><strong>翻訳ではなく、日本語の見出しとして書き直す</strong></li>
+<li>「何が起きたか」に加えて「なぜ重要か」まで要約に含める</li>
+</ol>
+<p>3番目が肝でした。「翻訳して」と指示すると直訳が返ってきます。
+「日本語の見出しとして書き直して。固有名詞は訳さないで」と指示を変えるだけで、
+出力の質がまるで変わりました。</p>
+<h3>要約の精度は高い。でも「レベル感」は合わない</h3>
+<p>実際に動かしてみて感じたのは、<strong>最近のAIの要約そのものは、もう十分に精度が高い</strong>ということです。
+事実関係を取り違えることはほとんどありません。</p>
+<p>ただ、ずっと変わらない不満がひとつあります。
+<strong>誰に向けて書いているのかがはっきりしていないと、レベル感が合わない</strong>のです。</p>
+<p>同じニュースでも、業界の人に向けた要約と、これから学ぶ人に向けた要約は
+まったく別物になるはずです。ところが指示を出さないと、AIは
+「なんとなく全方位に向けた、誰にも刺さらない中間の文章」を書いてきます。
+用語の説明を省くべきか足すべきかの判断ができないからです。</p>
+<p>この不満が、次に作る機能の出発点になりました。</p>
+
+  </article>
+
+  <article class="prose">
+<h2 id="h-5">③ 専門用語に自動で解説をつける</h2>
+<p>前の章で書いた「レベル感が合わない」問題への答えが、この機能です。</p>
+<p>要約の文章そのもので初心者と中級者の両方を満足させるのは無理があります。
+やさしく書けば物足りず、正確に書けば専門用語だらけになる。
+だったら、<strong>本文は普通に書いて、つまずく語にだけ解説を添えればいい</strong>。
+読む人が自分の必要な分だけ深く潜れる構造にする、という発想です。</p>
+<p>具体的には、<strong>記事中の企業名・ツール名・専門用語に自動で解説をつける仕組み</strong>を作りました。</p>
+<p>用語には色がつき、パソコンなら<span class="t" data-t="cursor" tabindex="0" role="button" aria-label="カーソルの説明を見る">カーソル</span>を乗せると説明が出て、
+クリックすると解説ページに飛びます。スマホはカーソルが無いので、
+タップすると画面下から解説シートがせり上がる方式にしました。</p>
+<p>仕組みとしては、用語辞書のすべての表記ゆれから正規表現を1本組み立て、
+本文と照合しているだけです。ただし細かい調整が必要でした。</p>
+<ul>
+<li>長い表記を優先する（「<span class="t" data-t="llm" tabindex="0" role="button" aria-label="大規模言語モデルの説明を見る">大規模言語モデル</span>」が「モデル」に負けないように）</li>
+<li>英字だけの語は前後の英数字を禁止する（<code>RAPID</code> の中の <code>API</code> を拾わないように）</li>
+<li>同じ用語は1ページに1回だけ（本文が色だらけになるのを防ぐ）</li>
+</ul>
+<p>拾う基準は「<strong>日本の中学生が、英語の授業で習う範囲の単語だけで読めるか</strong>」に置きました。
+中学校でAIの学習が始まる時代なので、そこを下限に据えるのが自然だと考えたからです。
+<code>Jalapeño</code> のように読み方から分からない綴りには、カタカナの読みも付けています。</p>
+<p>そして辞書は<strong>毎朝ひとりでに増えます</strong>。記事を選別するついでに、
+「今日出てきたが辞書に無い語」を最大5件抽出させて追記しているためです。
+88語まで育ちました。</p>
+<h2 id="h-6">④ ポッドキャスト化 ─ 音声合成は無料でいい</h2>
+<p>最初の8エピソードは Google Cloud Text-to-Speech（Neural2）を使い、35円かかりました。その後 <strong><code>edge-tts</code> に切り替えて以降の課金はゼロ</strong>です。</p>
+<pre><code class="language-bash">pip install edge-tts
+</code></pre>
+<p>日本語音声の品質は、ニュースの読み上げ用途なら十分実用レベルです。2人の話者を交互に喋らせる「対話形式」にすると、単調な読み上げよりぐっと聴きやすくなります。</p>
+<p>音声ファイルを結合するのに <code>ffmpeg</code> が必要ですが、GitHub Actions のランナーでは <code>apt</code> が不安定なことがあります。<strong>取得方法を複数用意してフォールバックさせておく</strong>と、朝のジョブが謎に落ちる事故を防げます。</p>
+<h2 id="h-7">⑤ 配信 ─ サイト・RSS・メールの3経路</h2>
+<p>生成物は3つの経路で届けています。</p>
+<ul>
+<li><strong>サイト</strong>：GitHub Pagesで公開。pushした瞬間に更新される</li>
+<li><strong>ポッドキャスト</strong>：RSSフィードを自分で生成すれば、Spotifyなどに登録できる</li>
+<li><strong>メール</strong>：Gmail経由で毎朝送信</li>
+</ul>
+<p>ここでハマったのが<strong>順番</strong>です。メールにサイトのリンクを載せるので、pushより先にメールを送ると「まだページが無い」状態でリンクを踏まれます。push → GitHub Pagesのデプロイ完了を待つ → メール送信、の順に固定しました。</p>
+<h2 id="h-8">作ってみて分かったこと</h2>
+<p>もともと、朝起きてコーヒーを飲みながらスマホで情報収集をするのが日課でした。
+その時間が、自分でカスタマイズした内容になったことで、さらに充実したものになりました。</p>
+<p>いちばん大きかったのは、<strong>他の発信者の方のブログや音声を巡回しなくて済むようになったこと</strong>です。
+必要な情報が一箇所にまとまっているので、あちこち開いて回る必要がありません。</p>
+<p>そしてこれは、思いがけない副産物を生みました。<strong>SNSのデトックスになる</strong>のです。</p>
+<p>情報収集のつもりでXやYouTubeを開くと、目的の情報にたどり着く前に
+おすすめのタイムラインに時間を持っていかれます。
+巡回する必要がなくなると、その入口そのものを踏まなくて済む。
+朝の時間が静かになりました。健康的だな、と思います。</p>
+<h2 id="h-9">これから作る人へ</h2>
+<p>同じものを作るのに必要なのは、次の3つだけです。</p>
+<ol>
+<li><strong>Python の基礎</strong>（<code>requests</code> でAPIを叩けて、ファイルを読み書きできればOK）</li>
+<li><strong>GitHub Actions の書き方</strong>（YAMLを20行ほど。テンプレを写経すれば動きます）</li>
+<li><strong>AI の呼び出し方</strong>（月額プランがあるなら追加費用なしで組めます）</li>
+</ol>
+<p>正直なところ、いちばん難しいのはコードではなく「<strong>毎日確実に動き続ける状態を保つこと</strong>」でした。RSSが落ちる、APIの仕様が変わる、ランナーの環境が変わる。エラーが出ても止まらない作りにしておくのが、結局いちばん重要です。</p>
+<p>ゼロから独学でここまで持っていくのがしんどい場合は、体系立てて学べる講座を一度通しでやってしまうほうが早いこともあります。特に「Pythonは書けるがクラウド実行やAPI連携で毎回詰まる」という段階の人は、独学の遠回りが一番コスト高になりがちです。</p>
+<hr>
+<p>この仕組みが毎朝生成しているダイジェストは、実際に公開しています。どんなアウトプットになるのかは、現物を見ていただくのが早いと思います。</p>
+  </article>
+
+
+  <p style="max-width:720px;margin:2.5rem auto 0;font-size:0.85rem;">
+    <a href="../" style="color:var(--accent);font-weight:600;">← 毎朝のAIニュースダイジェストを見る</a>
+  </p>
+</main>
+
+<footer>
+  <strong>世界一わかりやすいAIニュース</strong> — てらこ先生
+  <div class="footer-links"><a href="../">トップ</a> ／ <a href="../terms/">AI用語集</a> ／ <a href="../articles/">読み物</a> ／ <a href="../archive.html">バックナンバー</a> ／ <a href="../about.html">運営者情報・免責事項</a> ／ <a href="https://teraco-labo.com">TERACO.LABO</a></div>
+</footer>
+<script type="application/json" id="glossary-data">{"api": {"n": "API", "r": "エーピーアイ", "s": "他のソフトウェアからAIを呼び出すための窓口です。自作のアプリにAIを組み込むときに使います。", "u": "../terms/api.html"}, "claude": {"n": "Claude", "r": "クロード", "s": "Anthropicが開発しているAIアシスタントです。長文の読解や文章作成、プログラミングに強みがあります。", "u": "../terms/claude.html"}, "cursor": {"n": "Cursor", "r": "カーソル", "s": "AIがコードを書くのを手伝うプログラミング用のエディタです。", "u": "../terms/cursor.html"}, "hacker-news": {"n": "Hacker News", "r": "ハッカーニュース", "s": "技術者が集まる掲示板型のニュースサイトです。投票で話題の順位が決まります。", "u": "../terms/hacker-news.html"}, "llm": {"n": "LLM", "r": "エルエルエム", "s": "大量の文章を学習して、人間のように読み書きできるAIのことです。ChatGPTやClaudeの「頭脳」にあたる部分がこれです。", "u": "../terms/llm.html"}, "mit-tech-review": {"n": "MIT Technology Review", "r": "エムアイティー・テクノロジーレビュー", "s": "マサチューセッツ工科大学が発行する技術の専門誌です。", "u": "../terms/mit-tech-review.html"}, "techcrunch": {"n": "TechCrunch", "r": "テッククランチ", "s": "スタートアップと技術業界を専門に扱うアメリカのニュースメディアです。", "u": "../terms/techcrunch.html"}, "token": {"n": "トークン", "r": "トークン", "s": "AIが文章を扱うときの最小単位です。英語ならおよそ単語1つ、日本語なら1〜2文字が1トークンにあたります。", "u": "../terms/token.html"}}</script>
+
+<script>
+(function(){
+  var el = document.getElementById('glossary-data');
+  if (!el) return;
+  var G; try { G = JSON.parse(el.textContent); } catch(e) { return; }
+
+  // 指でも操作する端末ではシート、マウスがある端末ではポップアップにする
+  var hoverable = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+  var tip = document.createElement('div'); tip.id = 'tip';
+  var veil = document.createElement('div'); veil.id = 'veil';
+  var sheet = document.createElement('div'); sheet.id = 'sheet';
+  sheet.innerHTML = '<div class="sheet-grip"></div><span class="tip-n"></span>'
+    + '<div class="tip-s"></div><a class="tip-m" href="#">くわしい解説を読む →</a>';
+  document.body.appendChild(tip);
+  document.body.appendChild(veil);
+  document.body.appendChild(sheet);
+
+  function showTip(node, d){
+    tip.innerHTML = '<span class="tip-n"></span><span class="tip-s"></span>'
+      + '<a class="tip-m" href="#">くわしい解説 →</a>';
+    tip.querySelector('.tip-n').textContent = d.r ? (d.n + '（' + d.r + '）') : d.n;
+    tip.querySelector('.tip-s').textContent = d.s;
+    tip.querySelector('.tip-m').href = d.u;
+    tip.classList.add('on');
+    var r = node.getBoundingClientRect();
+    var w = tip.offsetWidth, h = tip.offsetHeight;
+    var left = Math.min(Math.max(8, r.left + r.width/2 - w/2), window.innerWidth - w - 8);
+    var top = r.top - h - 10;
+    if (top < 8) top = r.bottom + 10;           // 上に入らなければ下に出す
+    tip.style.left = (left + window.scrollX) + 'px';
+    tip.style.top  = (top + window.scrollY) + 'px';
+  }
+  function hideTip(){ tip.classList.remove('on'); }
+
+  function openSheet(d){
+    sheet.querySelector('.tip-n').textContent = d.r ? (d.n + '（' + d.r + '）') : d.n;
+    sheet.querySelector('.tip-s').textContent = d.s;
+    sheet.querySelector('.tip-m').href = d.u;
+    sheet.classList.add('on'); veil.classList.add('on');
+  }
+  function closeSheet(){ sheet.classList.remove('on'); veil.classList.remove('on'); }
+  veil.addEventListener('click', closeSheet);
+
+  var hideTimer;
+  document.addEventListener('mouseover', function(e){
+    if (!hoverable) return;
+    var n = e.target.closest('.t'); if (!n) return;
+    clearTimeout(hideTimer);
+    var d = G[n.getAttribute('data-t')]; if (d) showTip(n, d);
+  });
+  document.addEventListener('mouseout', function(e){
+    if (!hoverable) return;
+    if (e.target.closest('.t') && !tip.contains(e.relatedTarget)) {
+      hideTimer = setTimeout(hideTip, 180);
+    }
+  });
+  tip.addEventListener('mouseenter', function(){ clearTimeout(hideTimer); });
+  tip.addEventListener('mouseleave', hideTip);
+
+  document.addEventListener('click', function(e){
+    var n = e.target.closest('.t'); if (!n) return;
+    var d = G[n.getAttribute('data-t')]; if (!d) return;
+    e.preventDefault();
+    if (hoverable) { location.href = d.u; } else { openSheet(d); }
+  });
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape') { hideTip(); closeSheet(); return; }
+    if (e.key !== 'Enter' && e.key !== ' ') return;
+    var n = document.activeElement; if (!n || !n.classList.contains('t')) return;
+    var d = G[n.getAttribute('data-t')]; if (!d) return;
+    e.preventDefault();
+    hoverable ? (location.href = d.u) : openSheet(d);
+  });
+})();
+</script>
+
+</body>
+</html>
