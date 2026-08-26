@@ -15,7 +15,8 @@
       "next_charge": "2026-09-21",
       "dashboard": "https://claude.ai/settings/billing",
       "note": "2026-08-21 に Pro($20) から乗り換え。毎朝のキュレーションはこの枠で動くので API 課金は発生しない",
-      "evidence": ""
+      "evidence": "",
+      "cancel_url": "https://claude.ai/settings/billing"
     },
     {
       "id": "anthropic-api",
@@ -29,7 +30,8 @@
       "next_charge": null,
       "dashboard": "https://console.anthropic.com/settings/usage",
       "note": "サブスク枠（CLAUDE_CODE_OAUTH_TOKEN）で動かしているので通常はゼロ。ANTHROPIC_API_KEY を有効にすると従量課金に切り替わるので注意",
-      "evidence": ""
+      "evidence": "",
+      "cancel_url": "https://console.anthropic.com/settings/limits"
     },
     {
       "id": "fal",
@@ -43,7 +45,8 @@
       "next_charge": null,
       "dashboard": "https://fal.ai/dashboard/billing",
       "note": "2026-08-22 にアカウント作成し 少額のクレジットを購入。前払いクレジット制なので、使い切って自動リチャージが ON だと黙って再課金される。このリポジトリのコードは fal を一切呼んでいない",
-      "evidence": ""
+      "evidence": "",
+      "cancel_url": "https://fal.ai/dashboard/billing"
     },
     {
       "id": "gcp-apis",
@@ -57,21 +60,23 @@
       "next_charge": null,
       "dashboard": "https://console.cloud.google.com/billing",
       "note": "ポッドキャスト台本（Gemini）の従量課金。2026-10-12 までに前払い方式へ切り替えないと Gemini API が止まる",
-      "evidence": ""
+      "evidence": "",
+      "cancel_url": "https://console.cloud.google.com/billing"
     },
     {
       "id": "supergrok",
       "name": "SuperGrok（X Corp.）",
       "category": "AI サブスク",
       "billing": "subscription",
-      "status": "active",
+      "status": "cancelled",
       "amount": null,
       "currency": "JPY",
       "cycle": "monthly",
-      "next_charge": "2026-09-19",
+      "next_charge": null,
       "dashboard": "https://apps.apple.com/account/subscriptions",
-      "note": "2026-08-12 に無料トライアル開始、トライアル終了後は有料。Apple 経由なので解約は App Store のサブスクリプション画面から",
-      "evidence": ""
+      "note": "無料トライアル中に解約済み（本人確認済み・2026-08-26）。課金は発生していない。再契約したら status を active に戻す",
+      "evidence": "",
+      "cancel_url": "https://apps.apple.com/account/subscriptions"
     },
     {
       "id": "adobe-premiere",
@@ -85,8 +90,9 @@
       "trial_ends": "2026-08-28",
       "next_charge": "2026-08-28",
       "dashboard": "https://account.adobe.com/plans",
-      "note": "無料体験は 2026-08-28 終了。前日までに解約しないと本課金が自動で始まり、以後は年間契約として毎年更新される",
-      "evidence": ""
+      "note": "無料体験は 2026-08-28 終了。解約フローを途中まで進めて引き止めオファーを引き出す方針（本人判断）。オファーが出なければそのまま解約すれば課金ゼロ。体験期間中の解約に違約金は無い",
+      "evidence": "",
+      "cancel_url": "https://account.adobe.com/plans"
     },
     {
       "id": "google-workspace",
@@ -100,7 +106,8 @@
       "next_charge": null,
       "dashboard": "https://admin.google.com/ac/billing",
       "note": "毎月1日に請求書メールが届く。金額が未確認なので、請求書PDFを見て amount を埋めること",
-      "evidence": ""
+      "evidence": "",
+      "cancel_url": "https://admin.google.com/ac/billing/subscriptions"
     },
     {
       "id": "squarespace-domain",
@@ -114,7 +121,8 @@
       "next_charge": "2027-08-24",
       "dashboard": "https://account.squarespace.com/domains",
       "note": "2026-08-24 に1年自動更新済み。次は2027-08-24",
-      "evidence": ""
+      "evidence": "",
+      "cancel_url": "https://account.squarespace.com/domains"
     },
     {
       "id": "zoom",
@@ -128,7 +136,8 @@
       "next_charge": null,
       "dashboard": "https://zoom.us/billing",
       "note": "2026-08-22 にダウングレード申請済み。次の請求日に反映される予定なので、反映されたか確認する",
-      "evidence": ""
+      "evidence": "",
+      "cancel_url": "https://zoom.us/billing/subscription"
     },
     {
       "id": "supabase",
@@ -142,7 +151,8 @@
       "next_charge": null,
       "dashboard": "https://supabase.com/dashboard/org/_/billing",
       "note": "2026-08-22 に GitHub 連携でアカウント作成。無料枠のうちは0円だが、Pro へ上げると有料",
-      "evidence": ""
+      "evidence": "",
+      "cancel_url": "https://supabase.com/dashboard/org/_/billing"
     },
     {
       "id": "edge-tts",
@@ -156,7 +166,8 @@
       "next_charge": null,
       "dashboard": "",
       "note": "無料。ここを Google Cloud TTS や ElevenLabs に替えると一気に従量課金になるので、替えるときは必ずこの台帳に足す",
-      "evidence": ""
+      "evidence": "",
+      "cancel_url": ""
     }
   ]
 }
