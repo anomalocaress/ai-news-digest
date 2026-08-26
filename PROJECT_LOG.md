@@ -39,6 +39,7 @@ RSS/Hacker News から収集
 | 毎日3分 | `social/YYYY-MM-DD.md` の投稿文をコピーしてXへ（一言足すと伸びる） |
 | 週1本 | 解説記事を書く（→ WRITING.md） |
 | 月1回 | ASPの成果を記録（`python revenue_tracker.py add`） |
+| 月1回 | 課金の棚卸し（`python service_costs.py check`）→ COST_TRACKING.md |
 
 ---
 
@@ -104,16 +105,19 @@ Googleは開示を求めていない。ペナルティ対象は「AI生成かど
 | サブスク枠が使えず401 | 失効した `ANTHROPIC_API_KEY` が OAuth トークンより**優先される** | トークンがあるときはAPIキーを子プロセス環境から外す |
 | CNAMEを置いたらサイトが全滅しかける | DNS設定前にCNAMEを置くと、未到達のドメインへリダイレクトが始まる | CNAMEはリポジトリに置かず、DNS→確認→GitHub設定の順に（→ DOMAIN_SETUP.md） |
 | 3行まとめに用語解説が付かない | カードを先に組み立てて上限を使い切っていた | まとめ行を最優先に |
+| 身に覚えのない fal の請求に見えた | 実際は自分で入れたクレジットの購入代（コードは fal を呼んでいない）。**コードが動かなくても課金されるもの**を誰も台帳に持っていなかった | `service_costs.json` に全課金サービスを集約（→ COST_TRACKING.md） |
 
 ---
 
 ## 次にやること
 
-1. **GA4の測定ID**を取得 → `monetize_config.json` に1行
-2. **Search Console** に `sitemap.xml` を送信（91号＋88用語ページが検索対象に）
-3. **A8.net に登録** → 承認された案件のURLを設定ファイルに貼る
-4. 解説記事を週1本（→ WRITING.md）
-5. 独自ドメイン `news.teraco-labo.com`（→ DOMAIN_SETUP.md）
+1. **Adobe Premiere の無料体験**が 8/28 終了。続けないなら前日までに解約（月3,280円）
+2. **Gemini API のお支払い方法**を 10/12 までに前払いへ切り替え（放置すると API が止まる）
+3. **GA4の測定ID**を取得 → `monetize_config.json` に1行
+4. **Search Console** に `sitemap.xml` を送信（91号＋88用語ページが検索対象に）
+5. **A8.net に登録** → 承認された案件のURLを設定ファイルに貼る
+6. 解説記事を週1本（→ WRITING.md）
+7. 独自ドメイン `news.teraco-labo.com`（→ DOMAIN_SETUP.md）
 
 ---
 
@@ -141,8 +145,10 @@ GitHub上に安全に残っています。続きをやるときはここから�
 | `article_builder.py` | 解説記事（`articles/*.md` → HTML） |
 | `social_kit.py` | SNS投稿文の生成 |
 | `revenue_tracker.py` | 収支の記録 |
+| `service_costs.py` / `service_costs.json` | **課金サービスの台帳**。サブスク・前払い・無料体験の期限まで（→ COST_TRACKING.md） |
 | `rerender.py` | 過去号の再描画（費用ゼロ） |
 | `WRITING.md` | 記事に自分の言葉を入れる方法 |
 | `MONETIZATION.md` | 収益化の手順 |
 | `STRATEGY_BRIEF.md` | 戦略の判断材料 |
 | `DOMAIN_SETUP.md` | 独自ドメインの設定手順 |
+| `COST_TRACKING.md` | 課金トラッキングの考え方と月1回の手順 |

@@ -24,5 +24,8 @@ venv/
 revenue.json
 .revenue-report.html
 
+# 課金サービスの台帳（同上。ひな形は service_costs.sample.json）
+service_costs.json
+
 # 記事の下書きプレビュー
 .preview/
