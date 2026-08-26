@@ -41,6 +41,17 @@
   .issue-list .m { font-size:0.72rem; color:var(--text-muted); margin-left:0.5rem; }
   footer { border-top:1px solid var(--border); padding:2rem 1.5rem; text-align:center;
     font-size:0.78rem; color:var(--text-muted); }
+  .sub-grid { max-width:760px; margin:0 auto; display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:0.8rem; }
+  .sub-card { display:flex; flex-direction:column; gap:0.3rem; padding:1.1rem 1.2rem;
+    background:var(--card-bg); border:1px solid var(--border); border-radius:8px;
+    text-decoration:none; transition:border-color .15s; }
+  .sub-card:hover { border-color:var(--accent); }
+  .sub-card.mail { border-color:var(--accent); border-width:2px;
+    background:linear-gradient(180deg,rgba(14,116,144,0.05),transparent); }
+  .sub-ico { font-size:1.2rem; }
+  .sub-t { font-size:0.92rem; font-weight:700; }
+  .sub-d { font-size:0.76rem; line-height:1.7; color:var(--text-muted); }
   .lang-switch { display:flex; flex-wrap:wrap; align-items:center; gap:0.35rem;
     margin-top:1rem; font-size:0.74rem; }
   .lang-switch .globe { opacity:0.7; margin-right:0.15rem; }
@@ -224,7 +235,7 @@
       <a href="terms/">📘 AI用語集</a>
       <a href="articles/">読み物</a>
       <a href="archive.html">バックナンバー</a>
-      <a href="https://teraco-labo.github.io/ai-news-digest/podcast/feed.xml">📡 購読</a>
+      <a href="#subscribe">✉️ 毎朝うけとる</a>
     </div>
     <div class="lang-switch"><span class="globe">🌐</span><span class="lang on">日本語</span><span class="lang soon" title="準備中">English<em>準備中</em></span><span class="lang soon" title="準備中">中文<em>準備中</em></span><span class="lang soon" title="準備中">Español<em>準備中</em></span></div>
   </div>
@@ -426,6 +437,21 @@
     </a>
   </div>
   <p style="margin-top:1rem;font-size:0.85rem;"><a href="archive.html" style="color:var(--accent);font-weight:600;">全 91 号の一覧を見る →</a></p>
+
+  <div id="subscribe"></div>
+  <div class="section-label">毎朝うけとる</div>
+  <div class="sub-grid">
+    <a class="sub-card" href="https://teraco-labo.github.io/ai-news-digest/podcast/feed.xml">
+      <span class="sub-ico">🎧</span>
+      <span class="sub-t">ポッドキャストで聴く</span>
+      <span class="sub-d">Spotify・Apple Podcast などのアプリにこのリンクを登録してください</span>
+    </a>
+    <a class="sub-card" href="feed.xml">
+      <span class="sub-ico">📡</span>
+      <span class="sub-t">RSSで読む</span>
+      <span class="sub-d">Feedly などのRSSリーダー用。本文がまるごと届きます</span>
+    </a>
+  </div>
 
 </main>
 

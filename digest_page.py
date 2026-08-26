@@ -199,15 +199,7 @@ def _listen(date: datetime, available: bool) -> str:
 
 
 def _subscribe(config: Dict) -> str:
-    base = monetize.podcast_url()
-    return (
-        '  <div class="subscribe">\n'
-        "    毎朝6時に自動更新しています ─ \n"
-        f'    <a href="{base}/podcast/feed.xml">🎧 ポッドキャスト購読</a> ／ \n'
-        '    <a href="feed.xml">📡 サイトのRSS</a> ／ \n'
-        '    <a href="archive.html">バックナンバー</a>\n'
-        "  </div>\n"
-    )
+    return site_theme.subscribe_block(config)
 
 
 _LEAD_RE = re.compile(r"<ol>(.*?)</ol>", re.DOTALL)

@@ -131,8 +131,7 @@ def build_home(issues: List[Dict], articles: List[Dict], config: Dict) -> str:
            '      <a href="archive.html">バックナンバー</a>\n']
     if latest and latest["podcast"]:
         nav.insert(0, '      <a href="#listen">🎧 音声で聴く</a>\n')
-    if pod_base:
-        nav.append(f'      <a href="{pod_base}/podcast/feed.xml">📡 購読</a>\n')
+    nav.append('      <a href="#subscribe">✉️ 毎朝うけとる</a>\n')
 
     # 読み物
     reads = ""
@@ -196,6 +195,8 @@ def build_home(issues: List[Dict], articles: List[Dict], config: Dict) -> str:
 {permalink}
 {reads}{offers}{monetize.render_cta(config)}
 {recent}
+  <div id="subscribe"></div>
+{site_theme.subscribe_block(config)}
 </main>
 
 <footer>
@@ -445,19 +446,38 @@ def build_feed(issues: List[Dict], articles: List[Dict], config: Dict, limit: in
     <pubDate>{adt.strftime('%a, %d %b %Y %H:%M:%S +0900')}</pubDate>
   </item>
 """
-    for it in issues[:limit]:
+    # 本文を丸ごと載せる件数。ニュースレターの自動配信サービスは
+    # 新着ぶんしか読まないため、直近だけで足りる（ファイル肥大を避ける）
+    full_body_count = int(config.get("newsletter", {}).get("rss_full_body_items", 12))
+
+    for idx, it in enumerate(issues[:limit]):
         pub = it["dt"].replace(hour=6, tzinfo=JST).strftime("%a, %d %b %Y %H:%M:%S +0900")
         desc = f'{it["label"]}のAIニュースまとめ' + (f'（{it["count"]}記事）' if it["count"] else "")
+
+        # <content:encoded> に本文を入れておくと、Substack / beehiiv / Kit などの
+        # 「RSSから自動でニュースレターを配信」機能がそのまま使える。
+        # 連携先を乗り換えても、こちら側の実装は不要になる。
+        content = ""
+        if idx < full_body_count:
+            try:
+                import newsletter
+                full = newsletter.build_html(it["date_iso"], config)
+                if full:
+                    content = f"    <content:encoded><![CDATA[{full}]]></content:encoded>\n"
+            except Exception as e:
+                print(f"⚠️  {it['date_iso']} の本文をRSSに載せられませんでした: {e}")
+
         items += f"""  <item>
     <title>{_html.escape(f'AI最新ニュースまとめ {it["label"]}')}</title>
     <link>{base}/{it['file']}</link>
     <guid isPermaLink="true">{base}/{it['file']}</guid>
     <description>{_html.escape(desc)}</description>
     <pubDate>{pub}</pubDate>
-  </item>
+{content}  </item>
 """
     return f"""<?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"
+     xmlns:content="http://purl.org/rss/1.0/modules/content/">
 <channel>
   <title>{_html.escape(name)}</title>
   <link>{base}/</link>

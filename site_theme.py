@@ -41,6 +41,17 @@ PAGE_CSS = """
   .issue-list .m { font-size:0.72rem; color:var(--text-muted); margin-left:0.5rem; }
   footer { border-top:1px solid var(--border); padding:2rem 1.5rem; text-align:center;
     font-size:0.78rem; color:var(--text-muted); }
+  .sub-grid { max-width:760px; margin:0 auto; display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:0.8rem; }
+  .sub-card { display:flex; flex-direction:column; gap:0.3rem; padding:1.1rem 1.2rem;
+    background:var(--card-bg); border:1px solid var(--border); border-radius:8px;
+    text-decoration:none; transition:border-color .15s; }
+  .sub-card:hover { border-color:var(--accent); }
+  .sub-card.mail { border-color:var(--accent); border-width:2px;
+    background:linear-gradient(180deg,rgba(14,116,144,0.05),transparent); }
+  .sub-ico { font-size:1.2rem; }
+  .sub-t { font-size:0.92rem; font-weight:700; }
+  .sub-d { font-size:0.76rem; line-height:1.7; color:var(--text-muted); }
   .lang-switch { display:flex; flex-wrap:wrap; align-items:center; gap:0.35rem;
     margin-top:1rem; font-size:0.74rem; }
   .lang-switch .globe { opacity:0.7; margin-right:0.15rem; }
@@ -108,6 +119,48 @@ PROSE_CSS = """
   .toc a:hover { color:var(--accent); text-decoration:underline; }
   .article-meta { max-width:720px; margin:0 auto 2rem; font-size:0.78rem; color:var(--text-muted); }
 """
+
+
+def subscribe_block(config: dict, prefix: str = "") -> str:
+    """購読の導線。
+
+    以前は「📡 購読」がポッドキャストのRSSを直接指しており、
+    ブラウザで押すと生のXMLが出るという状態だった。
+    メール・音声・RSSは目的が違うので、それぞれ何が届くのかを明示して並べる。
+    """
+    site = config.get("site", {})
+    nl = config.get("newsletter", {})
+    pod = config.get("podcast", {}).get("base_url", site.get("base_url", "")).rstrip("/")
+
+    cards = []
+    if nl.get("enabled", True) and nl.get("signup_url"):
+        cards.append(
+            f'    <a class="sub-card mail" href="{_html.escape(nl["signup_url"])}">\n'
+            f'      <span class="sub-ico">✉️</span>\n'
+            f'      <span class="sub-t">メールで受け取る</span>\n'
+            f'      <span class="sub-d">{_html.escape(nl.get("blurb", ""))}</span>\n'
+            "    </a>\n"
+        )
+    if pod:
+        cards.append(
+            f'    <a class="sub-card" href="{_html.escape(pod)}/podcast/feed.xml">\n'
+            "      <span class=\"sub-ico\">🎧</span>\n"
+            "      <span class=\"sub-t\">ポッドキャストで聴く</span>\n"
+            "      <span class=\"sub-d\">Spotify・Apple Podcast などのアプリに"
+            "このリンクを登録してください</span>\n"
+            "    </a>\n"
+        )
+    cards.append(
+        f'    <a class="sub-card" href="{prefix}feed.xml">\n'
+        "      <span class=\"sub-ico\">📡</span>\n"
+        "      <span class=\"sub-t\">RSSで読む</span>\n"
+        "      <span class=\"sub-d\">Feedly などのRSSリーダー用。"
+        "本文がまるごと届きます</span>\n"
+        "    </a>\n"
+    )
+
+    return ('  <div class="section-label">毎朝うけとる</div>\n'
+            f'  <div class="sub-grid">\n{"".join(cards)}  </div>\n')
 
 
 def lang_switch(config: dict, prefix: str = "") -> str:

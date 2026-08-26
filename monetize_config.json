@@ -269,5 +269,13 @@
     "enabled": true,
     "auto_discover": true,
     "max_marks_per_page": 26
+  },
+  "newsletter": {
+    "_note": "メールニュースレターの設定。signup_url に登録フォームのURLを入れるとサイトに購読ボタンが出ます。配信そのものは、各サービスの「RSSから自動配信」機能に feed.xml を登録すれば動きます（本文は content:encoded に入れてあります）。",
+    "enabled": true,
+    "provider": "",
+    "signup_url": "",
+    "blurb": "毎朝6時、AIの重要ニュースだけを日本語で。専門用語には解説つき。",
+    "rss_full_body_items": 12
   }
 }
