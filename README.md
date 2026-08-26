@@ -46,6 +46,11 @@ python revenue_tracker.py plan           # 目標達成までの逆算
 python api_dashboard.py                  # APIコストの確認
 ```
 
+## 記事を書く
+
+解説記事に自分の言葉を入れる方法は **[WRITING.md](WRITING.md)** にまとめています。
+一番ラクなのは Claude に話すだけの方法です。
+
 ## 収益化について
 
 設定と手順は **[MONETIZATION.md](MONETIZATION.md)** を参照。

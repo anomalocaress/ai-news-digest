@@ -79,12 +79,32 @@ SYSTEM_PROMPT = """あなたは日本のAI専門メディアの編集者です�
 選んだ記事に出てくる企業名・ツール名・専門用語のうち、**まだ用語集に無いもの**を
 最大5件まで new_terms に入れてください。登録済みの語は入れないこと。
 
-- 読者がつまずきそうな語だけを選ぶ。一般名詞や、その日限りの固有名詞は入れない
-- **製品名・チップ名・コードネームも対象**。「NVIDIA Blackwell」のように登録済みの語と
-  未登録の語が並ぶ場合、未登録側（この例では Blackwell）を必ず拾うこと。
-  モデル名（Gemini 3、Claude Opus 5 など）、開発ツール名、規格名も同様
+### 拾う基準
+
+**「日本の中学生が、英語の授業で習う範囲の単語だけで読めるか」**を基準にしてください。
+それを超えるものは、読者にとって引っかかりになるので拾います。具体的には:
+
+- **企業名・組織名**（Stability AI、Accel、SemiAnalysis など）。
+  投資会社・調査会社・メディアも対象。「どういう立場の組織か」が分かるだけで
+  ニュースの意味が変わります
+- **製品名・チップ名・コードネーム**（Blackwell、Jalapeño、Sora など）。
+  「NVIDIA Blackwell」のように登録済みの語と未登録の語が並ぶ場合、
+  未登録側（この例では Blackwell）を必ず拾うこと
+- **読み方が難しい英単語**（Jalapeño、Anthropic、Nvidia など）。
+  中学生が音読できない綴りは、それだけで読者が止まります
+- モデル名、開発ツール名、規格名、専門用語
+
+逆に、拾わないもの: 中学英語の範囲の一般名詞（news、model、data など）、
+その日限りで二度と出てこない人名。
+
+### 書き方
+
+- reading には**カタカナの読み方**を必ず入れる（例: Jalapeño → ハラペーニョ）。
+  日本語の用語で読みが自明なら空文字でよい
 - short は専門用語を使わずに2文で書く。「〜とは」で始めない
-- detail は3〜4文。なぜ重要か、実務でどう関わるかまで書く"""
+- detail は3〜4文。なぜ重要か、実務でどう関わるかまで書く
+- **記事から読み取れないことは書かない。** 推測で説明を作らないこと。
+  確かなことが書けない語は new_terms に入れないでください"""
 
 
 CURATION_SCHEMA = {
@@ -125,17 +145,19 @@ CURATION_SCHEMA = {
                     "slug": {"type": "string",
                              "description": "URLに使う英小文字とハイフンのみの識別子（例: vector-db）"},
                     "term": {"type": "string", "description": "表示名"},
+                    "reading": {"type": "string",
+                                "description": "カタカナの読み方（例: Jalapeño → ハラペーニョ）。不要なら空文字"},
                     "aliases": {"type": "array", "items": {"type": "string"},
                                 "description": "日本語訳や別表記。無ければ空配列"},
                     "category": {"type": "string",
                                  "enum": ["基礎", "使い方", "企業", "モデル", "インフラ",
-                                          "安全性", "規制", "評価", "ビジネス"]},
+                                          "安全性", "規制", "評価", "ビジネス", "メディア"]},
                     "short": {"type": "string",
                               "description": "初心者向けの説明。2文。専門用語を使わずに書く"},
                     "detail": {"type": "string",
                                "description": "中級者向けの補足。3〜4文。背景や実務上の意味"},
                 },
-                "required": ["slug", "term", "aliases", "category", "short", "detail"],
+                "required": ["slug", "term", "reading", "aliases", "category", "short", "detail"],
                 "additionalProperties": False,
             },
         },
@@ -546,6 +568,7 @@ def _merge_new_terms(new_terms: List[Dict], verbose: bool = True) -> int:
         data.setdefault("terms", []).append({
             "slug": slug,
             "term": name,
+            "reading": str(item.get("reading", "")).strip(),
             "aliases": [a for a in item.get("aliases", []) if isinstance(a, str) and a.strip()],
             "category": item.get("category", "基礎"),
             "short": item["short"].strip(),

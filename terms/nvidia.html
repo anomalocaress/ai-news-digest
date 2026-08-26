@@ -57,6 +57,7 @@
   .footer-links a:hover { color:var(--accent); text-decoration:underline; }
   @media (max-width:640px){ .issue-list{columns:1;} .hero h1{font-size:1.4rem;} }
 
+  .term-reading { margin-top:0.5rem; font-size:0.85rem; opacity:0.8; }
   .term-hero-cat { display:inline-block; margin-bottom:0.6rem; padding:3px 10px;
     border-radius:999px; background:rgba(255,255,255,0.14); font-size:0.72rem; font-weight:600; }
   .term-body { max-width:720px; margin:0 auto; }
@@ -166,6 +167,7 @@
     <div class="crumbs"><a href="../">世界一わかりやすいAIニュース</a> ／ <a href="./">用語集</a></div>
     <span class="term-hero-cat">企業</span>
     <h1>NVIDIAとは？</h1>
+    <p class="term-reading">読み方：エヌビディア</p>
   </div>
 </div>
 
@@ -203,7 +205,7 @@
   <strong>世界一わかりやすいAIニュース</strong> — てらこ先生
   <div class="footer-links"><a href="../">トップ</a> ／ <a href="../terms/">AI用語集</a> ／ <a href="../articles/">読み物</a> ／ <a href="../archive.html">バックナンバー</a> ／ <a href="../about.html">運営者情報・免責事項</a> ／ <a href="https://teraco-labo.com">TERACO.LABO</a></div>
 </footer>
-<script type="application/json" id="glossary-data">{"cuda": {"n": "CUDA", "s": "NVIDIAのGPUを動かすためのソフトウェア基盤です。AI開発の事実上の標準になっています。", "u": "../terms/cuda.html"}, "datacenter": {"n": "データセンター", "s": "AIを動かすためのコンピュータを大量に設置した施設です。AI競争は電力と土地の競争でもあります。", "u": "../terms/datacenter.html"}, "generative-ai": {"n": "生成AI", "s": "文章・画像・音声・動画などを新しく作り出せるAIの総称です。分類や予測をするだけだった従来のAIとの違いがここにあります。", "u": "../terms/generative-ai.html"}, "gpu": {"n": "GPU", "s": "大量の計算を同時に行える半導体で、AIの学習と実行に欠かせない部品です。", "u": "../terms/gpu.html"}}</script>
+<script type="application/json" id="glossary-data">{"cuda": {"n": "CUDA", "r": "クーダ", "s": "NVIDIAのGPUを動かすためのソフトウェア基盤です。AI開発の事実上の標準になっています。", "u": "../terms/cuda.html"}, "datacenter": {"n": "データセンター", "r": "データセンター", "s": "AIを動かすためのコンピュータを大量に設置した施設です。AI競争は電力と土地の競争でもあります。", "u": "../terms/datacenter.html"}, "generative-ai": {"n": "生成AI", "r": "", "s": "文章・画像・音声・動画などを新しく作り出せるAIの総称です。分類や予測をするだけだった従来のAIとの違いがここにあります。", "u": "../terms/generative-ai.html"}, "gpu": {"n": "GPU", "r": "ジーピーユー", "s": "大量の計算を同時に行える半導体で、AIの学習と実行に欠かせない部品です。", "u": "../terms/gpu.html"}}</script>
 
 <script>
 (function(){
@@ -226,7 +228,7 @@
   function showTip(node, d){
     tip.innerHTML = '<span class="tip-n"></span><span class="tip-s"></span>'
       + '<a class="tip-m" href="#">くわしい解説 →</a>';
-    tip.querySelector('.tip-n').textContent = d.n;
+    tip.querySelector('.tip-n').textContent = d.r ? (d.n + '（' + d.r + '）') : d.n;
     tip.querySelector('.tip-s').textContent = d.s;
     tip.querySelector('.tip-m').href = d.u;
     tip.classList.add('on');
@@ -241,7 +243,7 @@
   function hideTip(){ tip.classList.remove('on'); }
 
   function openSheet(d){
-    sheet.querySelector('.tip-n').textContent = d.n;
+    sheet.querySelector('.tip-n').textContent = d.r ? (d.n + '（' + d.r + '）') : d.n;
     sheet.querySelector('.tip-s').textContent = d.s;
     sheet.querySelector('.tip-m').href = d.u;
     sheet.classList.add('on'); veil.classList.add('on');

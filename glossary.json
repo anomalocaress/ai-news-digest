@@ -16,7 +16,8 @@
         "token",
         "parameter"
       ],
-      "status": "published"
+      "status": "published",
+      "reading": "エルエルエム"
     },
     {
       "slug": "generative-ai",
@@ -47,7 +48,8 @@
         "llm",
         "gpu"
       ],
-      "status": "published"
+      "status": "published",
+      "reading": "トランスフォーマー"
     },
     {
       "slug": "token",
@@ -62,7 +64,8 @@
         "context-window",
         "inference-cost"
       ],
-      "status": "published"
+      "status": "published",
+      "reading": "トークン"
     },
     {
       "slug": "parameter",
@@ -79,7 +82,8 @@
         "distillation",
         "quantization"
       ],
-      "status": "published"
+      "status": "published",
+      "reading": "パラメータ"
     },
     {
       "slug": "context-window",
@@ -95,7 +99,8 @@
         "token",
         "rag"
       ],
-      "status": "published"
+      "status": "published",
+      "reading": "コンテキストウィンドウ"
     },
     {
       "slug": "multimodal",
@@ -110,7 +115,8 @@
         "llm",
         "ai-agent"
       ],
-      "status": "published"
+      "status": "published",
+      "reading": "マルチモーダル"
     },
     {
       "slug": "agi",
@@ -125,7 +131,8 @@
       "related": [
         "alignment"
       ],
-      "status": "published"
+      "status": "published",
+      "reading": "エージーアイ"
     },
     {
       "slug": "prompt",
@@ -141,7 +148,8 @@
         "llm",
         "prompt-injection"
       ],
-      "status": "published"
+      "status": "published",
+      "reading": "プロンプト"
     },
     {
       "slug": "hallucination",
@@ -157,7 +165,8 @@
         "rag",
         "llm"
       ],
-      "status": "published"
+      "status": "published",
+      "reading": "ハルシネーション"
     },
     {
       "slug": "rag",
@@ -174,7 +183,8 @@
         "embedding",
         "vector-db"
       ],
-      "status": "published"
+      "status": "published",
+      "reading": "ラグ"
     },
     {
       "slug": "fine-tuning",
@@ -191,7 +201,8 @@
         "parameter",
         "open-weight"
       ],
-      "status": "published"
+      "status": "published",
+      "reading": "ファインチューニング"
     },
     {
       "slug": "ai-agent",
@@ -209,7 +220,8 @@
         "mcp",
         "multimodal"
       ],
-      "status": "published"
+      "status": "published",
+      "reading": "エーアイエージェント"
     },
     {
       "slug": "tool-use",
@@ -226,7 +238,8 @@
         "mcp",
         "api"
       ],
-      "status": "published"
+      "status": "published",
+      "reading": "ツールコール"
     },
     {
       "slug": "mcp",
@@ -242,7 +255,8 @@
         "tool-use",
         "anthropic"
       ],
-      "status": "published"
+      "status": "published",
+      "reading": "エムシーピー"
     },
     {
       "slug": "embedding",
@@ -259,7 +273,8 @@
         "rag",
         "vector-db"
       ],
-      "status": "published"
+      "status": "published",
+      "reading": "エンベディング"
     },
     {
       "slug": "vector-db",
@@ -275,7 +290,8 @@
         "embedding",
         "rag"
       ],
-      "status": "published"
+      "status": "published",
+      "reading": "ベクターディービー"
     },
     {
       "slug": "inference",
@@ -292,7 +308,8 @@
         "gpu",
         "token"
       ],
-      "status": "published"
+      "status": "published",
+      "reading": "すいろん"
     },
     {
       "slug": "distillation",
@@ -309,7 +326,8 @@
         "quantization",
         "inference-cost"
       ],
-      "status": "published"
+      "status": "published",
+      "reading": "じょうりゅう"
     },
     {
       "slug": "quantization",
@@ -325,7 +343,8 @@
         "gpu",
         "open-weight"
       ],
-      "status": "published"
+      "status": "published",
+      "reading": "りょうしか"
     },
     {
       "slug": "openai",
@@ -341,7 +360,8 @@
         "anthropic",
         "microsoft"
       ],
-      "status": "published"
+      "status": "published",
+      "reading": "オープンエーアイ"
     },
     {
       "slug": "anthropic",
@@ -357,7 +377,8 @@
         "alignment",
         "mcp"
       ],
-      "status": "published"
+      "status": "published",
+      "reading": "アンソロピック"
     },
     {
       "slug": "google-deepmind",
@@ -373,7 +394,8 @@
         "gemini",
         "gemini"
       ],
-      "status": "published"
+      "status": "published",
+      "reading": "グーグル・ディープマインド"
     },
     {
       "slug": "nvidia",
@@ -388,7 +410,8 @@
         "gpu",
         "datacenter"
       ],
-      "status": "published"
+      "status": "published",
+      "reading": "エヌビディア"
     },
     {
       "slug": "hugging-face",
@@ -403,7 +426,8 @@
         "open-weight",
         "open-source"
       ],
-      "status": "published"
+      "status": "published",
+      "reading": "ハギングフェイス"
     },
     {
       "slug": "meta-ai",
@@ -419,7 +443,8 @@
         "llama",
         "open-weight"
       ],
-      "status": "published"
+      "status": "published",
+      "reading": "メタ"
     },
     {
       "slug": "mistral",
@@ -434,7 +459,8 @@
         "open-weight",
         "eu-ai-act"
       ],
-      "status": "published"
+      "status": "published",
+      "reading": "ミストラル"
     },
     {
       "slug": "microsoft",
@@ -449,7 +475,8 @@
         "openai",
         "datacenter"
       ],
-      "status": "published"
+      "status": "published",
+      "reading": "マイクロソフト"
     },
     {
       "slug": "gpt",
@@ -467,7 +494,8 @@
         "transformer",
         "llm"
       ],
-      "status": "published"
+      "status": "published",
+      "reading": "ジーピーティー"
     },
     {
       "slug": "claude",
@@ -482,7 +510,8 @@
         "anthropic",
         "llm"
       ],
-      "status": "published"
+      "status": "published",
+      "reading": "クロード"
     },
     {
       "slug": "gemini",
@@ -497,7 +526,8 @@
         "google-deepmind",
         "multimodal"
       ],
-      "status": "published"
+      "status": "published",
+      "reading": "ジェミニ"
     },
     {
       "slug": "llama",
@@ -512,7 +542,8 @@
         "meta-ai",
         "open-weight"
       ],
-      "status": "published"
+      "status": "published",
+      "reading": "ラマ"
     },
     {
       "slug": "copilot",
@@ -528,7 +559,8 @@
         "ai-agent",
         "microsoft"
       ],
-      "status": "published"
+      "status": "published",
+      "reading": "コパイロット"
     },
     {
       "slug": "gpu",
@@ -545,7 +577,8 @@
         "datacenter",
         "inference-cost"
       ],
-      "status": "published"
+      "status": "published",
+      "reading": "ジーピーユー"
     },
     {
       "slug": "datacenter",
@@ -560,7 +593,8 @@
         "gpu",
         "inference-cost"
       ],
-      "status": "published"
+      "status": "published",
+      "reading": "データセンター"
     },
     {
       "slug": "inference-cost",
@@ -592,7 +626,8 @@
         "inference-cost",
         "tool-use"
       ],
-      "status": "published"
+      "status": "published",
+      "reading": "エーピーアイ"
     },
     {
       "slug": "open-weight",
@@ -609,7 +644,8 @@
         "llama",
         "hugging-face"
       ],
-      "status": "published"
+      "status": "published",
+      "reading": "オープンウェイト"
     },
     {
       "slug": "open-source",
@@ -623,7 +659,8 @@
       "related": [
         "open-weight"
       ],
-      "status": "published"
+      "status": "published",
+      "reading": "オープンソース"
     },
     {
       "slug": "alignment",
@@ -640,7 +677,8 @@
         "red-teaming",
         "anthropic"
       ],
-      "status": "published"
+      "status": "published",
+      "reading": "アライメント"
     },
     {
       "slug": "red-teaming",
@@ -655,7 +693,8 @@
         "alignment",
         "prompt-injection"
       ],
-      "status": "published"
+      "status": "published",
+      "reading": "レッドチーミング"
     },
     {
       "slug": "prompt-injection",
@@ -671,7 +710,8 @@
         "prompt",
         "red-teaming"
       ],
-      "status": "published"
+      "status": "published",
+      "reading": "プロンプトインジェクション"
     },
     {
       "slug": "eu-ai-act",
@@ -687,7 +727,8 @@
         "copyright",
         "mistral"
       ],
-      "status": "published"
+      "status": "published",
+      "reading": "イーユー・エーアイ・アクト"
     },
     {
       "slug": "copyright",
@@ -733,7 +774,8 @@
         "llm",
         "inference"
       ],
-      "status": "published"
+      "status": "published",
+      "reading": "ベンチマーク"
     },
     {
       "slug": "valuation",
@@ -749,7 +791,8 @@
         "funding-round",
         "ipo"
       ],
-      "status": "published"
+      "status": "published",
+      "reading": "ひょうかがく"
     },
     {
       "slug": "funding-round",
@@ -780,7 +823,8 @@
         "valuation",
         "funding-round"
       ],
-      "status": "published"
+      "status": "published",
+      "reading": "アイピーオー"
     },
     {
       "slug": "blackwell",
@@ -799,7 +843,8 @@
         "hopper",
         "datacenter"
       ],
-      "status": "published"
+      "status": "published",
+      "reading": "ブラックウェル"
     },
     {
       "slug": "hopper",
@@ -817,7 +862,8 @@
         "gpu",
         "blackwell"
       ],
-      "status": "published"
+      "status": "published",
+      "reading": "ホッパー"
     },
     {
       "slug": "tpu",
@@ -833,7 +879,8 @@
         "google-deepmind",
         "nvidia"
       ],
-      "status": "published"
+      "status": "published",
+      "reading": "ティーピーユー"
     },
     {
       "slug": "cuda",
@@ -848,7 +895,8 @@
         "nvidia",
         "gpu"
       ],
-      "status": "published"
+      "status": "published",
+      "reading": "クーダ"
     },
     {
       "slug": "chatgpt",
@@ -864,7 +912,8 @@
         "gpt",
         "llm"
       ],
-      "status": "published"
+      "status": "published",
+      "reading": "チャットジーピーティー"
     },
     {
       "slug": "sora",
@@ -880,7 +929,8 @@
         "deepfake",
         "generative-ai"
       ],
-      "status": "published"
+      "status": "published",
+      "reading": "ソラ"
     },
     {
       "slug": "midjourney",
@@ -895,7 +945,8 @@
         "generative-ai",
         "copyright"
       ],
-      "status": "published"
+      "status": "published",
+      "reading": "ミッドジャーニー"
     },
     {
       "slug": "stable-diffusion",
@@ -911,7 +962,8 @@
         "generative-ai",
         "lora"
       ],
-      "status": "published"
+      "status": "published",
+      "reading": "ステーブル・ディフュージョン"
     },
     {
       "slug": "perplexity",
@@ -926,7 +978,8 @@
         "rag",
         "google-deepmind"
       ],
-      "status": "published"
+      "status": "published",
+      "reading": "パープレキシティ"
     },
     {
       "slug": "cursor",
@@ -941,7 +994,8 @@
         "copilot",
         "agentic-coding"
       ],
-      "status": "published"
+      "status": "published",
+      "reading": "カーソル"
     },
     {
       "slug": "agentic-coding",
@@ -973,7 +1027,8 @@
         "alignment",
         "llm"
       ],
-      "status": "published"
+      "status": "published",
+      "reading": "アールエルエイチエフ"
     },
     {
       "slug": "lora",
@@ -989,7 +1044,8 @@
         "stable-diffusion",
         "parameter"
       ],
-      "status": "published"
+      "status": "published",
+      "reading": "ローラ"
     },
     {
       "slug": "moe",
@@ -1005,7 +1061,8 @@
         "parameter",
         "inference-cost"
       ],
-      "status": "published"
+      "status": "published",
+      "reading": "エムオーイー"
     },
     {
       "slug": "chain-of-thought",
@@ -1036,7 +1093,8 @@
         "prompt",
         "llm"
       ],
-      "status": "published"
+      "status": "published",
+      "reading": "テンパラチャー"
     },
     {
       "slug": "slm",
@@ -1053,7 +1111,8 @@
         "quantization",
         "on-device"
       ],
-      "status": "published"
+      "status": "published",
+      "reading": "エスエルエム"
     },
     {
       "slug": "on-device",
@@ -1069,7 +1128,8 @@
         "slm",
         "quantization"
       ],
-      "status": "published"
+      "status": "published",
+      "reading": "オンデバイス"
     },
     {
       "slug": "guardrail",
@@ -1084,7 +1144,8 @@
         "alignment",
         "jailbreak"
       ],
-      "status": "published"
+      "status": "published",
+      "reading": "ガードレール"
     },
     {
       "slug": "jailbreak",
@@ -1100,7 +1161,8 @@
         "red-teaming",
         "prompt-injection"
       ],
-      "status": "published"
+      "status": "published",
+      "reading": "ジェイルブレイク"
     },
     {
       "slug": "deepfake",
@@ -1116,7 +1178,8 @@
         "generative-ai",
         "watermark"
       ],
-      "status": "published"
+      "status": "published",
+      "reading": "ディープフェイク"
     },
     {
       "slug": "watermark",
@@ -1193,7 +1256,8 @@
         "openai",
         "datacenter"
       ],
-      "status": "published"
+      "status": "published",
+      "reading": "エックスエーアイ"
     },
     {
       "slug": "scale-ai",
@@ -1241,7 +1305,8 @@
         "datacenter",
         "inference-cost"
       ],
-      "status": "published"
+      "status": "published",
+      "reading": "コンピュート"
     },
     {
       "slug": "export-control",
@@ -1256,6 +1321,150 @@
         "nvidia",
         "gpu",
         "compute"
+      ],
+      "status": "published"
+    },
+    {
+      "slug": "stability-ai",
+      "term": "Stability AI",
+      "reading": "ステビリティ・エーアイ",
+      "aliases": [
+        "Stability"
+      ],
+      "category": "企業",
+      "short": "画像生成AI「Stable Diffusion」を公開したイギリスの企業です。",
+      "detail": "モデルを誰でも使える形で公開したことで、画像生成AIを一気に普及させました。一方で、学習データに著作物が含まれることをめぐって複数の訴訟を抱えており、経営面でも資金繰りの問題が報じられるなど、オープン路線の難しさを象徴する存在になっています。",
+      "related": [
+        "stable-diffusion",
+        "open-weight",
+        "copyright"
+      ],
+      "status": "published"
+    },
+    {
+      "slug": "semianalysis",
+      "term": "SemiAnalysis",
+      "reading": "セミアナリシス",
+      "aliases": [
+        "セミアナリシス"
+      ],
+      "category": "メディア",
+      "short": "半導体とAIインフラを専門に分析する調査メディアです。業界内で影響力があります。",
+      "detail": "GPUの供給状況やデータセンターの実態、各社のコスト構造など、公開情報からは見えにくい部分を掘り下げた記事で知られます。ここが出した推計が各社の株価や業界の議論を動かすことがあり、AIニュースでは出典としてよく登場します。",
+      "related": [
+        "gpu",
+        "datacenter",
+        "nvidia"
+      ],
+      "status": "published"
+    },
+    {
+      "slug": "accel",
+      "term": "Accel",
+      "reading": "アクセル",
+      "aliases": [
+        "アクセル"
+      ],
+      "category": "ビジネス",
+      "short": "アメリカのベンチャーキャピタル（投資会社）です。創業間もない企業に出資します。",
+      "detail": "ベンチャーキャピタルは、将来成長しそうな未上場企業に出資し、株式の値上がりで利益を得る投資会社です。AccelはFacebookやSlackの初期に出資したことで知られ、どこが出資したかは、その企業への期待度を測る手がかりとして報じられます。",
+      "related": [
+        "funding-round",
+        "valuation",
+        "venture-capital"
+      ],
+      "status": "published"
+    },
+    {
+      "slug": "venture-capital",
+      "term": "ベンチャーキャピタル",
+      "reading": "ベンチャーキャピタル",
+      "aliases": [
+        "VC",
+        "投資会社"
+      ],
+      "category": "ビジネス",
+      "short": "将来性のある未上場企業に出資して、成長後の株式売却で利益を得る投資会社です。",
+      "detail": "略してVCと呼ばれます。銀行の融資と違って返済義務がない代わりに、株式の一部を渡すことになります。AI分野は開発に巨額の資金が要るため、VCからの調達額と評価額がニュースの主要な話題になります。有名なVCが出資したという事実自体が、他の投資家や人材を呼び込む看板にもなります。",
+      "related": [
+        "funding-round",
+        "valuation",
+        "accel"
+      ],
+      "status": "published"
+    },
+    {
+      "slug": "a16z",
+      "term": "Andreessen Horowitz",
+      "reading": "アンドリーセン・ホロウィッツ",
+      "aliases": [
+        "a16z"
+      ],
+      "category": "ビジネス",
+      "short": "アメリカの大手ベンチャーキャピタルです。a16z（エーイチロクゼット）とも呼ばれます。",
+      "detail": "AI分野に積極的に出資しており、業界の動向を発信するメディアとしての影響力も持っています。社名の略称は、Andreessen の A と Horowitz の Z のあいだに16文字あることに由来します。",
+      "related": [
+        "venture-capital",
+        "funding-round"
+      ],
+      "status": "published"
+    },
+    {
+      "slug": "y-combinator",
+      "term": "Y Combinator",
+      "reading": "ワイコンビネーター",
+      "aliases": [
+        "YC"
+      ],
+      "category": "ビジネス",
+      "short": "創業直後の企業を育てるアメリカの支援プログラムです。YCと略されます。",
+      "detail": "少額の出資と3か月の集中支援を提供し、AirbnbやStripeなどを輩出しました。運営するニュースサイトが Hacker News で、技術者コミュニティの動向を映す場として、このサイトでも情報源のひとつにしています。",
+      "related": [
+        "hacker-news",
+        "funding-round"
+      ],
+      "status": "published"
+    },
+    {
+      "slug": "hacker-news",
+      "term": "Hacker News",
+      "reading": "ハッカーニュース",
+      "aliases": [
+        "HN"
+      ],
+      "category": "メディア",
+      "short": "技術者が集まる掲示板型のニュースサイトです。投票で話題の順位が決まります。",
+      "detail": "Y Combinatorが運営しています。ポイント数がそのまま技術者コミュニティの関心の強さを表すため、何が注目されているかを測る指標として使えます。このサイトでも、一定以上のポイントを集めた話題を情報源に含めています。",
+      "related": [
+        "y-combinator"
+      ],
+      "status": "published"
+    },
+    {
+      "slug": "techcrunch",
+      "term": "TechCrunch",
+      "reading": "テッククランチ",
+      "aliases": [],
+      "category": "メディア",
+      "short": "スタートアップと技術業界を専門に扱うアメリカのニュースメディアです。",
+      "detail": "資金調達や買収の第一報が出ることが多く、業界の動きを追うための定番の情報源です。このサイトでも主要な収集元のひとつにしています。",
+      "related": [
+        "semianalysis"
+      ],
+      "status": "published"
+    },
+    {
+      "slug": "mit-tech-review",
+      "term": "MIT Technology Review",
+      "reading": "エムアイティー・テクノロジーレビュー",
+      "aliases": [
+        "The Download"
+      ],
+      "category": "メディア",
+      "short": "マサチューセッツ工科大学が発行する技術の専門誌です。",
+      "detail": "速報よりも、技術が社会に与える影響を掘り下げた記事に強みがあります。平日配信のニュースレター「The Download」も知られており、記事タイトルにこの名前が付いていることがあります。",
+      "related": [
+        "techcrunch"
       ],
       "status": "published"
     }

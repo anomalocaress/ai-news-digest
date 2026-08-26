@@ -141,6 +141,7 @@ class Annotator:
         data = {
             slug: {
                 "n": self.terms[slug]["term"],
+                "r": self.terms[slug].get("reading", ""),
                 "s": self.terms[slug]["short"],
                 "u": f"{self.prefix}terms/{slug}.html",
             }
@@ -204,7 +205,7 @@ TOOLTIP_JS = """
   function showTip(node, d){
     tip.innerHTML = '<span class="tip-n"></span><span class="tip-s"></span>'
       + '<a class="tip-m" href="#">くわしい解説 →</a>';
-    tip.querySelector('.tip-n').textContent = d.n;
+    tip.querySelector('.tip-n').textContent = d.r ? (d.n + '（' + d.r + '）') : d.n;
     tip.querySelector('.tip-s').textContent = d.s;
     tip.querySelector('.tip-m').href = d.u;
     tip.classList.add('on');
@@ -219,7 +220,7 @@ TOOLTIP_JS = """
   function hideTip(){ tip.classList.remove('on'); }
 
   function openSheet(d){
-    sheet.querySelector('.tip-n').textContent = d.n;
+    sheet.querySelector('.tip-n').textContent = d.r ? (d.n + '（' + d.r + '）') : d.n;
     sheet.querySelector('.tip-s').textContent = d.s;
     sheet.querySelector('.tip-m').href = d.u;
     sheet.classList.add('on'); veil.classList.add('on');
@@ -271,6 +272,7 @@ def assets(annotator: "Annotator") -> str:
 # ---------------------------------------------------------------- 辞書ページ
 
 GLOSSARY_PAGE_CSS = """
+  .term-reading { margin-top:0.5rem; font-size:0.85rem; opacity:0.8; }
   .term-hero-cat { display:inline-block; margin-bottom:0.6rem; padding:3px 10px;
     border-radius:999px; background:rgba(255,255,255,0.14); font-size:0.72rem; font-weight:600; }
   .term-body { max-width:720px; margin:0 auto; }
@@ -347,6 +349,10 @@ def build_term_page(term: Dict, all_terms: Dict[str, Dict], config: Dict) -> str
         "inDefinedTermSet": f"{base}/terms/" if base else "",
     }, ensure_ascii=False) + "</script>\n")
 
+    reading = term.get("reading", "")
+    reading_html = (f'<p class="term-reading">読み方：{_html.escape(reading)}</p>'
+                    if reading else "")
+
     related = "".join(
         f'    <a href="{r}.html">{_html.escape(all_terms[r]["term"])}</a>\n'
         for r in term.get("related", []) if r in all_terms
@@ -374,6 +380,7 @@ def build_term_page(term: Dict, all_terms: Dict[str, Dict], config: Dict) -> str
     <div class="crumbs"><a href="../">{_html.escape(name)}</a> ／ <a href="./">用語集</a></div>
     <span class="term-hero-cat">{_html.escape(term.get("category", ""))}</span>
     <h1>{_html.escape(term["term"])}とは？</h1>
+    {reading_html}
   </div>
 </div>
 
