@@ -35,6 +35,35 @@ def _overview(raw: str) -> list:
             for li in re.findall(r"<li>(.*?)</li>", m.group(1), re.DOTALL)]
 
 
+NAV_BAR = """<div id="legacy-nav" style="position:sticky;top:0;z-index:50;
+background:#0f172a;color:#e2e8f0;padding:0.6rem 1rem;font-size:0.8rem;
+font-family:'Noto Sans JP',sans-serif;display:flex;gap:1rem;flex-wrap:wrap;align-items:center;">
+<a href="./" style="color:#22d3ee;text-decoration:none;font-weight:700;">{name}</a>
+<a href="./" style="color:#e2e8f0;text-decoration:none;">トップ</a>
+<a href="terms/" style="color:#e2e8f0;text-decoration:none;">AI用語集</a>
+<a href="archive.html" style="color:#e2e8f0;text-decoration:none;">バックナンバー</a>
+<span style="margin-left:auto;opacity:0.6;font-size:0.72rem;">旧デザインの号です</span>
+</div>
+"""
+
+
+def _inject_nav_only(path: Path, raw: str, verbose: bool = True) -> bool:
+    """再構成できない初期の号に、ナビゲーションだけを追加する。"""
+    if 'id="legacy-nav"' in raw:
+        return False
+    i = raw.find("<body>")
+    if i < 0:
+        if verbose:
+            print(f"⏭  {path.name}: body が見つからずスキップ")
+        return False
+    name = monetize.load_config().get("site", {}).get("name", "")
+    cut = i + len("<body>")
+    path.write_text(raw[:cut] + "\n" + NAV_BAR.format(name=name) + raw[cut:], encoding="utf-8")
+    if verbose:
+        print(f"✓ {path.name}: ナビゲーションのみ追加（旧形式のため再構成は不可）")
+    return True
+
+
 def rerender(date_iso: str, verbose: bool = True) -> bool:
     path = REPO_DIR / f"ai-news-{date_iso}.html"
     if not path.exists():
@@ -46,9 +75,9 @@ def rerender(date_iso: str, verbose: bool = True) -> bool:
     categorized = social_kit.load_from_html(date_iso)
     total = sum(len(v) for v in categorized.values())
     if total == 0:
-        if verbose:
-            print(f"⏭  {date_iso}: 記事を読み取れませんでした（旧形式の可能性）")
-        return False
+        # ごく初期の号は構造が違って読み戻せない。作り直しはできないが、
+        # トップへ戻る導線が無いのは体験として最悪なので、それだけ差し込む。
+        return _inject_nav_only(path, raw, verbose)
 
     date = datetime.strptime(date_iso, "%Y-%m-%d")
     podcast_ok = (REPO_DIR / "podcast" / f"ai-news-{date_iso}.mp3").exists()

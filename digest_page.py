@@ -287,6 +287,7 @@ def render(categorized: Dict[str, List[Dict]], date: datetime,
       <a href="terms/">AI用語集</a>
       <a href="archive.html">バックナンバー</a>{listen_nav}
     </div>
+    {site_theme.lang_switch(config)}
   </div>
 </div>
 

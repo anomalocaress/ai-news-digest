@@ -3,467 +3,492 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI News Digest — 2026-06-22</title>
+<title>AI最新ニュースまとめ 2026年6月22日 | 世界一わかりやすいAIニュース</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root { --bg:#f8fafc; --card-bg:#fff; --text:#1e293b; --text-muted:#64748b; --border:#e2e8f0; --accent:#0e7490; }
+  body { font-family:'Noto Sans JP','Inter',sans-serif; background:var(--bg); color:var(--text);
+    line-height:1.7; -webkit-font-smoothing:antialiased; }
+  a { color:inherit; }
+  .hero { background:linear-gradient(135deg,#0f172a,#1e293b); color:#fff; padding:3rem 1.5rem; }
+  .hero-inner { max-width:1100px; margin:0 auto; }
+  .hero h1 { font-size:1.8rem; font-weight:700; letter-spacing:0.01em; }
+  .hero p { margin-top:0.6rem; font-size:0.95rem; color:#cbd5e1; max-width:640px; }
+  .hero-actions { margin-top:1.5rem; display:flex; flex-wrap:wrap; gap:0.75rem; }
+  .crumbs { font-size:0.75rem; color:#94a3b8; margin-bottom:0.75rem; }
+  .crumbs a { text-decoration:none; }
+  .crumbs a:hover { text-decoration:underline; }
+  .btn { display:inline-block; padding:0.6rem 1.3rem; border-radius:6px; font-size:0.85rem;
+    font-weight:700; text-decoration:none; }
+  .btn-primary { background:#22d3ee; color:#0f172a; }
+  .btn-ghost { border:1px solid rgba(255,255,255,0.35); color:#e2e8f0; }
+  main { max-width:1100px; margin:0 auto; padding:2.5rem 1.5rem 4rem; }
+  .section-label { font-size:0.75rem; font-weight:700; letter-spacing:0.12em; color:var(--text-muted);
+    text-transform:uppercase; margin:2.5rem 0 1rem; }
+  .section-label:first-child { margin-top:0; }
+  .issue-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:1rem; }
+  .issue { display:block; padding:1rem 1.1rem; background:var(--card-bg); border:1px solid var(--border);
+    border-radius:8px; text-decoration:none; transition:border-color .15s; }
+  .issue:hover { border-color:var(--accent); }
+  .issue .d { font-size:0.95rem; font-weight:700; }
+  .issue .m { margin-top:0.25rem; font-size:0.75rem; color:var(--text-muted); }
+  .issue-list { list-style:none; columns:2; column-gap:2rem; }
+  .issue-list li { break-inside:avoid; padding:0.35rem 0; border-bottom:1px solid var(--border); }
+  .issue-list a { font-size:0.85rem; text-decoration:none; }
+  .issue-list a:hover { color:var(--accent); }
+  .issue-list .m { font-size:0.72rem; color:var(--text-muted); margin-left:0.5rem; }
+  footer { border-top:1px solid var(--border); padding:2rem 1.5rem; text-align:center;
+    font-size:0.78rem; color:var(--text-muted); }
+  .lang-switch { display:flex; flex-wrap:wrap; align-items:center; gap:0.35rem;
+    margin-top:1rem; font-size:0.74rem; }
+  .lang-switch .globe { opacity:0.7; margin-right:0.15rem; }
+  .lang-switch .lang { padding:0.25rem 0.7rem; border-radius:999px;
+    border:1px solid rgba(255,255,255,0.25); color:#cbd5e1; text-decoration:none; }
+  .lang-switch a.lang:hover { background:rgba(255,255,255,0.12); color:#fff; }
+  .lang-switch .lang.on { background:rgba(255,255,255,0.9); color:#0f172a; font-weight:700;
+    border-color:transparent; }
+  .lang-switch .lang.soon { opacity:0.45; cursor:default; }
+  .lang-switch .lang.soon em { font-style:normal; font-size:0.62rem; margin-left:0.3rem;
+    opacity:0.85; }
+  .footer-links { margin-top:0.9rem; font-size:0.75rem; }
+  .footer-links a { color:var(--text-muted); text-decoration:none; }
+  .footer-links a:hover { color:var(--accent); text-decoration:underline; }
+  @media (max-width:640px){ .issue-list{columns:1;} .hero h1{font-size:1.4rem;} }
+
   :root {
-    --model: #1d4ed8;
-    --research: #6d28d9;
-    --business: #065f46;
-    --policy: #92400e;
-    --tools: #0e7490;
-    --bg: #f8fafc;
-    --card-bg: #ffffff;
-    --text: #1e293b;
-    --text-muted: #64748b;
-    --border: #e2e8f0;
+    --model:#1d4ed8; --research:#6d28d9; --business:#065f46;
+    --policy:#92400e; --tools:#0e7490;
   }
-  body {
-    font-family: 'Noto Sans JP', 'Inter', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    line-height: 1.6;
-    min-height: 100vh;
-  }
+  .lead { max-width:760px; margin:0 auto 2.5rem; padding:1.5rem 1.7rem;
+    background:var(--card-bg); border:1px solid var(--border); border-radius:8px; }
+  .lead-label { font-size:0.7rem; font-weight:700; letter-spacing:0.14em;
+    color:var(--text-muted); margin-bottom:0.9rem; }
+  .lead ol { list-style:none; counter-reset:lead; display:flex; flex-direction:column; gap:0.7rem; }
+  .lead li { counter-increment:lead; position:relative; padding-left:1.9rem;
+    font-size:0.95rem; line-height:1.85; }
+  .lead li::before { content:counter(lead); position:absolute; left:0; top:0.3em;
+    width:1.25rem; height:1.25rem; border-radius:50%; background:var(--accent); color:#fff;
+    font-size:0.68rem; font-weight:700; display:flex; align-items:center; justify-content:center; }
+  .digest { max-width:760px; margin:0 auto; display:flex; flex-direction:column; gap:1rem; }
+  .card { padding:1.4rem 1.5rem; background:var(--card-bg); border:1px solid var(--border);
+    border-left:3px solid var(--text-muted); border-radius:8px; }
+  .card.model{border-left-color:var(--model)} .card.research{border-left-color:var(--research)}
+  .card.business{border-left-color:var(--business)} .card.policy{border-left-color:var(--policy)}
+  .card.tools{border-left-color:var(--tools)}
+  .card-top { display:flex; align-items:center; gap:0.6rem; margin-bottom:0.6rem; }
+  .card-label { font-size:0.66rem; font-weight:700; letter-spacing:0.06em; padding:2px 7px;
+    border-radius:3px; color:#fff; background:var(--text-muted); }
+  .card-label.model{background:var(--model)} .card-label.research{background:var(--research)}
+  .card-label.business{background:var(--business)} .card-label.policy{background:var(--policy)}
+  .card-label.tools{background:var(--tools)}
+  .stars { display:flex; gap:3px; }
+  .dot { width:6px; height:6px; border-radius:50%; background:var(--border); }
+  .dot.filled { background:var(--text-muted); }
+  .card-title-ja { font-size:1.08rem; font-weight:700; line-height:1.6; }
+  .card-title-en { margin-top:0.25rem; font-size:0.78rem; color:var(--text-muted); line-height:1.5; }
+  .card-source { margin-top:0.5rem; font-size:0.72rem; color:var(--text-muted); }
+  .card-body { margin-top:0.7rem; font-size:0.9rem; line-height:1.95; }
+  .card-link { display:inline-block; margin-top:0.9rem; font-size:0.82rem; font-weight:600;
+    color:var(--accent); text-decoration:none; }
+  .card-link:hover { text-decoration:underline; }
+  .card.top { border-left-width:4px; background:linear-gradient(180deg,rgba(14,116,144,0.04),transparent); }
+  .card.top .card-title-ja { font-size:1.25rem; }
+  .tier { max-width:760px; margin:2rem auto 0.5rem; font-size:0.7rem; font-weight:700;
+    letter-spacing:0.14em; color:var(--text-muted); }
+  .tier:first-of-type { margin-top:0; }
+  .top-nav { display:flex; flex-wrap:wrap; gap:0.4rem; margin-top:1.3rem; }
+  .top-nav a { padding:0.4rem 0.95rem; border:1px solid rgba(255,255,255,0.3); border-radius:999px;
+    font-size:0.78rem; font-weight:600; color:#e2e8f0; text-decoration:none; }
+  .top-nav a:hover { background:rgba(255,255,255,0.12); }
+  .listen { max-width:760px; margin:0 auto 2.5rem; padding:1.2rem 1.4rem;
+    background:linear-gradient(135deg,#0f172a,#1e293b); border-radius:10px; color:#e2e8f0; }
+  .listen-head { display:flex; align-items:baseline; gap:0.6rem; flex-wrap:wrap; margin-bottom:0.75rem; }
+  .listen-head strong { font-size:0.95rem; color:#fff; }
+  .listen-head span { font-size:0.76rem; color:#94a3b8; }
+  .listen audio { width:100%; height:40px; display:block; }
+  .listen-sub { margin-top:0.6rem; font-size:0.74rem; }
+  .listen-sub a { color:#7dd3fc; text-decoration:none; }
+  .listen-sub a:hover { text-decoration:underline; }
+  details.genre { max-width:760px; margin:0 auto 0.75rem; background:var(--card-bg);
+    border:1px solid var(--border); border-radius:8px; overflow:hidden; }
+  details.genre > summary { list-style:none; cursor:pointer; padding:1rem 1.3rem;
+    display:flex; align-items:center; gap:0.7rem; font-weight:700; font-size:0.92rem;
+    -webkit-tap-highlight-color:transparent; }
+  details.genre > summary::-webkit-details-marker { display:none; }
+  details.genre > summary::before { content:"▸"; font-size:0.8rem; color:var(--text-muted);
+    transition:transform .15s; }
+  details.genre[open] > summary::before { transform:rotate(90deg); }
+  details.genre > summary .cnt { margin-left:auto; font-size:0.72rem; font-weight:600;
+    color:var(--text-muted); }
+  details.genre .genre-dot { width:9px; height:9px; border-radius:50%; background:var(--text-muted); }
+  details.genre.model .genre-dot{background:var(--model)} details.genre.research .genre-dot{background:var(--research)}
+  details.genre.business .genre-dot{background:var(--business)} details.genre.policy .genre-dot{background:var(--policy)}
+  details.genre.tools .genre-dot{background:var(--tools)}
+  details.genre .genre-body { padding:0 0.9rem 0.9rem; display:flex; flex-direction:column; gap:0.75rem; }
+  details.genre .card { border:none; border-left:3px solid var(--border); background:var(--bg);
+    border-radius:6px; }
+  .subscribe { max-width:760px; margin:2.5rem auto 0; padding:1rem 1.3rem; text-align:center;
+    border:1px dashed var(--border); border-radius:8px; font-size:0.8rem; color:var(--text-muted); }
+  .subscribe a { color:var(--accent); font-weight:600; text-decoration:none; }
+  @media (max-width:640px){ .card{padding:1.15rem 1.2rem} .card.top .card-title-ja{font-size:1.1rem} }
 
-  /* HEADER */
-  header {
-    background: #0f172a;
-    color: #fff;
-    padding: 2rem 1.5rem;
-  }
-  .header-inner {
-    max-width: 1440px;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 1rem;
-  }
-  .header-title {
-    font-family: 'Inter', sans-serif;
-    font-size: clamp(1.4rem, 3vw, 2rem);
-    font-weight: 700;
-    letter-spacing: -0.02em;
-  }
-  .header-title span { color: #60a5fa; }
-  .header-meta {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 0.2rem;
-  }
-  .header-date {
-    font-size: 0.95rem;
-    color: #94a3b8;
-    font-family: 'Inter', sans-serif;
-  }
-  .header-count {
-    background: #1d4ed8;
-    color: #fff;
-    font-size: 0.75rem;
-    font-weight: 600;
-    padding: 0.2rem 0.7rem;
-    border-radius: 999px;
-    font-family: 'Inter', sans-serif;
-  }
+  .t { color:var(--accent); border-bottom:1px dashed currentColor; cursor:help;
+    font-weight:500; }
+  .t:hover, .t:focus-visible { background:rgba(14,116,144,0.10); outline:none; border-radius:2px; }
+  #tip { position:absolute; z-index:60; max-width:min(22rem,88vw); padding:0.85rem 1rem;
+    background:var(--card-bg); border:1px solid var(--border); border-radius:8px;
+    box-shadow:0 8px 28px rgba(15,23,42,0.16); font-size:0.84rem; line-height:1.8;
+    opacity:0; visibility:hidden; transition:opacity .12s; pointer-events:none; }
+  #tip.on { opacity:1; visibility:visible; pointer-events:auto; }
+  #tip .tip-n { font-weight:700; display:block; margin-bottom:0.3rem; }
+  #tip .tip-m { display:inline-block; margin-top:0.5rem; font-size:0.78rem;
+    font-weight:600; color:var(--accent); text-decoration:none; }
+  #sheet { position:fixed; left:0; right:0; bottom:0; z-index:70; padding:1.4rem 1.4rem 2rem;
+    background:var(--card-bg); border-top:1px solid var(--border);
+    border-radius:16px 16px 0 0; box-shadow:0 -8px 32px rgba(15,23,42,0.22);
+    transform:translateY(102%); transition:transform .22s ease; }
+  #sheet.on { transform:translateY(0); }
+  #sheet .sheet-grip { width:36px; height:4px; border-radius:2px; background:var(--border);
+    margin:0 auto 1rem; }
+  #sheet .tip-n { font-size:1.05rem; font-weight:700; display:block; margin-bottom:0.5rem; }
+  #sheet .tip-s { font-size:0.92rem; line-height:1.95; color:var(--text-muted); }
+  #sheet .tip-m { display:block; margin-top:1.1rem; padding:0.75rem; text-align:center;
+    background:var(--accent); color:#fff; border-radius:8px; font-size:0.88rem;
+    font-weight:700; text-decoration:none; }
+  #veil { position:fixed; inset:0; z-index:69; background:rgba(15,23,42,0.35);
+    opacity:0; visibility:hidden; transition:opacity .22s; }
+  #veil.on { opacity:1; visibility:visible; }
+  @media (prefers-reduced-motion:reduce){ #sheet,#veil,#tip{transition:none} }
+</style>
+<!-- monetize.py: SEO / analytics -->
+<meta name="description" content="2026年6月22日のAI関連ニュース9件を日本語で要約してお届けします。">
+<link rel="canonical" href="https://teraco-labo.github.io/ai-news-digest/ai-news-2026-06-22.html">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AI最新ニュースまとめ 2026年6月22日 | 世界一わかりやすいAIニュース">
+<meta property="og:description" content="2026年6月22日のAI関連ニュース9件を日本語で要約してお届けします。">
+<meta property="og:url" content="https://teraco-labo.github.io/ai-news-digest/ai-news-2026-06-22.html">
+<meta property="og:site_name" content="世界一わかりやすいAIニュース">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:image" content="https://teraco-labo.github.io/ai-news-digest/podcast/cover.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="alternate" type="application/rss+xml" title="世界一わかりやすいAIニュース" href="https://teraco-labo.github.io/ai-news-digest/feed.xml">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "NewsArticle", "headline": "AI最新ニュースまとめ 2026年6月22日 | 世界一わかりやすいAIニュース", "description": "2026年6月22日のAI関連ニュース9件を日本語で要約してお届けします。", "url": "https://teraco-labo.github.io/ai-news-digest/ai-news-2026-06-22.html", "inLanguage": "ja", "author": {"@type": "Person", "name": "てらこ先生"}, "publisher": {"@type": "Organization", "name": "世界一わかりやすいAIニュース"}, "datePublished": "2026-06-22T06:00:00+09:00", "dateModified": "2026-06-22T06:00:00+09:00"}</script>
 
-  /* CATEGORY BAR */
-  .cat-bar {
-    background: #1e293b;
-    padding: 0.75rem 1.5rem;
-    overflow-x: auto;
-  }
-  .cat-bar-inner {
-    max-width: 1440px;
-    margin: 0 auto;
-    display: flex;
-    gap: 0.75rem;
-    flex-wrap: wrap;
-  }
-  .cat-pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    padding: 0.3rem 0.9rem;
-    border-radius: 999px;
-    font-size: 0.78rem;
-    font-weight: 600;
-    font-family: 'Inter', sans-serif;
-    color: #fff;
-    letter-spacing: 0.03em;
-    white-space: nowrap;
-    border: none;
-    cursor: pointer;
-    transition: all 0.2s ease;
-  }
-  .cat-pill:hover {
-    opacity: 0.85;
-    transform: translateY(-2px);
-  }
-  .cat-pill.model    { background: var(--model); }
-  .cat-pill.research { background: var(--research); }
-  .cat-pill.business { background: var(--business); }
-  .cat-pill.policy   { background: var(--policy); }
-  .cat-pill.tools    { background: var(--tools); }
+<style id="mz-style">
+  .mz-disclosure { max-width: 1100px; margin: 0 auto 1rem; padding: 0.5rem 0.75rem;
+    font-size: 0.7rem; line-height: 1.6; color: var(--text-muted, #64748b);
+    background: rgba(148,163,184,0.10); border-radius: 6px; }
+  .mz-block { max-width: 1100px; margin: 2rem auto; }
+  .mz-head { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem; }
+  .mz-head h2 { font-size: 0.9rem; font-weight: 700; color: var(--text, #1e293b); letter-spacing: 0.02em; }
+  .mz-pr { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.08em; padding: 2px 6px;
+    border-radius: 3px; background: #94a3b8; color: #fff; }
+  .mz-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1rem; }
+  .mz-card { display: flex; flex-direction: column; gap: 0.4rem; padding: 1rem;
+    background: var(--card-bg, #fff); border: 1px solid var(--border, #e2e8f0);
+    border-left: 3px solid #0e7490; border-radius: 8px; }
+  .mz-card .mz-name { font-size: 0.68rem; font-weight: 600; color: var(--text-muted, #64748b); letter-spacing: 0.04em; }
+  .mz-card .mz-title { font-size: 0.95rem; font-weight: 700; color: var(--text, #1e293b); line-height: 1.5; }
+  .mz-card .mz-body { font-size: 0.8rem; line-height: 1.7; color: var(--text-muted, #64748b); }
+  .mz-card .mz-cta { margin-top: auto; padding-top: 0.6rem; font-size: 0.8rem; font-weight: 600;
+    color: #0e7490; text-decoration: none; }
+  .mz-card .mz-cta:hover { text-decoration: underline; }
+  .mz-badge { align-self: flex-start; font-size: 0.6rem; font-weight: 700; padding: 2px 6px;
+    border-radius: 3px; background: #0e7490; color: #fff; }
+  .mz-cta-block { max-width: 1100px; margin: 2rem auto; padding: 1.5rem;
+    background: linear-gradient(135deg, #0f172a, #1e293b); border-radius: 10px; color: #e2e8f0; }
+  .mz-cta-block h2 { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.5rem; color: #fff; }
+  .mz-cta-block p { font-size: 0.85rem; line-height: 1.8; color: #cbd5e1; }
+  .mz-cta-block a { display: inline-block; margin-top: 0.9rem; padding: 0.6rem 1.4rem;
+    background: #22d3ee; color: #0f172a; font-size: 0.85rem; font-weight: 700;
+    border-radius: 6px; text-decoration: none; }
+  .mz-ad { max-width: 1100px; margin: 2rem auto; text-align: center; }
+</style>
 
-  /* MAIN */
-  main {
-    max-width: 1440px;
-    margin: 2rem auto;
-    padding: 0 1.5rem;
-  }
-  .section-label {
-    font-size: 0.8rem;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    margin-bottom: 1rem;
-    font-family: 'Inter', sans-serif;
-  }
+<!-- monetize.py: SEO / analytics -->
+<meta name="description" content="2026年06月22日のAI関連ニュース9件を日本語で要約。モデル・研究・ビジネス・ポリシー・ツールの5カテゴリで重要ニュースだけを厳選しています。">
+<link rel="canonical" href="https://teraco-labo.github.io/ai-news-digest/ai-news-2026-06-22.html">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AI最新ニュースまとめ 2026年06月22日 | 世界一わかりやすいAIニュース">
+<meta property="og:description" content="2026年06月22日のAI関連ニュース9件を日本語で要約。モデル・研究・ビジネス・ポリシー・ツールの5カテゴリで重要ニュースだけを厳選しています。">
+<meta property="og:url" content="https://teraco-labo.github.io/ai-news-digest/ai-news-2026-06-22.html">
+<meta property="og:site_name" content="世界一わかりやすいAIニュース">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:image" content="https://teraco-labo.github.io/ai-news-digest/podcast/cover.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="alternate" type="application/rss+xml" title="世界一わかりやすいAIニュース" href="https://teraco-labo.github.io/ai-news-digest/feed.xml">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "NewsArticle", "headline": "AI最新ニュースまとめ 2026年06月22日 | 世界一わかりやすいAIニュース", "description": "2026年06月22日のAI関連ニュース9件を日本語で要約。モデル・研究・ビジネス・ポリシー・ツールの5カテゴリで重要ニュースだけを厳選しています。", "url": "https://teraco-labo.github.io/ai-news-digest/ai-news-2026-06-22.html", "inLanguage": "ja", "author": {"@type": "Person", "name": "てらこ先生"}, "publisher": {"@type": "Organization", "name": "世界一わかりやすいAIニュース"}, "datePublished": "2026-06-22T06:00:00+09:00", "dateModified": "2026-06-22T06:00:00+09:00"}</script>
 
-  /* GRID */
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.25rem;
-    margin-bottom: 2.5rem;
-  }
-  @media (max-width: 900px) {
-    .grid { grid-template-columns: 1fr; }
- %}
-
-  /* CARD */
-  .card {
-    background: var(--card-bg);
-    border-radius: 12px;
-    border: 1px solid var(--border);
-    padding: 1.25rem 1.4rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.65rem;
-    transition: box-shadow 0.2s, transform 0.2s;
-    position: relative;
-    overflow: hidden;
-  }
-  .card:hover {
-    box-shadow: 0 8px 24px rgba(0,0,0,0.09);
-    transform: translateY(-2px);
-  }
-  .card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 3px;
-  }
-  .card.model::before    { background: var(--model); }
-  .card.research::before { background: var(--research); }
-  .card.business::before { background: var(--business); }
-  .card.policy::before   { background: var(--policy); }
-  .card.tools::before    { background: var(--tools); }
-
-  .card-top {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 0.5rem;
-  }
-  .card-label {
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 0.07em;
-    text-transform: uppercase;
-    padding: 0.18rem 0.6rem;
-    border-radius: 4px;
-    color: #fff;
-    font-family: 'Inter', sans-serif;
-  }
-  .card-label.model    { background: var(--model); }
-  .card-label.research { background: var(--research); }
-  .card-label.business { background: var(--business); }
-  .card-label.policy   { background: var(--policy); }
-  .card-label.tools    { background: var(--tools); }
-
-  .stars {
-    display: flex;
-    gap: 2px;
-  }
-  .dot {
-    width: 8px; height: 8px;
-    border-radius: 50%;
-    background: #cbd5e1;
-  }
-  .dot.filled { background: #f59e0b; }
-
-  .card-title-ja {
-    font-size: 1rem;
-    font-weight: 700;
-    color: var(--text);
-    line-height: 1.45;
-  }
-  .card-title-en {
-    font-size: 0.78rem;
-    color: var(--text-muted);
-    font-family: 'Inter', sans-serif;
-    font-style: italic;
-    line-height: 1.4;
-  }
-  .card-source {
-    font-size: 0.75rem;
-    color: var(--text-muted);
-    font-family: 'Inter', sans-serif;
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-  }
-  .card-source::before {
-    content: '';
-    display: inline-block;
-    width: 4px; height: 4px;
-    background: #94a3b8;
-    border-radius: 50%;
-  }
-  .card-body {
-    font-size: 0.88rem;
-    color: #334155;
-    line-height: 1.7;
-  }
-  .card-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.3rem;
-    font-size: 0.78rem;
-    font-weight: 600;
-    font-family: 'Inter', sans-serif;
-    text-decoration: none;
-    margin-top: auto;
-  }
-  .card-link.model    { color: var(--model); }
-  .card-link.research { color: var(--research); }
-  .card-link.business { color: var(--business); }
-  .card-link.policy   { color: var(--policy); }
-  .card-link.tools    { color: var(--tools); }
-  .card-link:hover { text-decoration: underline; }
-
-  /* FOOTER */
-  footer {
-    background: #1e293b;
-    color: #94a3b8;
-    text-align: center;
-    padding: 1.5rem;
-    font-size: 0.8rem;
-    font-family: 'Inter', sans-serif;
-  }
-  footer strong { color: #e2e8f0; }
-
-  @media (max-width: 640px) {
-    header { padding: 1.25rem 1rem; }
-    main { padding: 0 0.85rem; margin: 1.25rem auto; }
-    .cat-bar { padding: 0.6rem 0.85rem; }
-    .card { padding: 1rem 1.1rem; }
-    .header-title { font-size: 1.25rem; }
-  }
+<style id="mz-style">
+  .mz-disclosure { max-width: 1100px; margin: 0 auto 1rem; padding: 0.5rem 0.75rem;
+    font-size: 0.7rem; line-height: 1.6; color: var(--text-muted, #64748b);
+    background: rgba(148,163,184,0.10); border-radius: 6px; }
+  .mz-block { max-width: 1100px; margin: 2rem auto; }
+  .mz-head { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem; }
+  .mz-head h2 { font-size: 0.9rem; font-weight: 700; color: var(--text, #1e293b); letter-spacing: 0.02em; }
+  .mz-pr { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.08em; padding: 2px 6px;
+    border-radius: 3px; background: #94a3b8; color: #fff; }
+  .mz-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1rem; }
+  .mz-card { display: flex; flex-direction: column; gap: 0.4rem; padding: 1rem;
+    background: var(--card-bg, #fff); border: 1px solid var(--border, #e2e8f0);
+    border-left: 3px solid #0e7490; border-radius: 8px; }
+  .mz-card .mz-name { font-size: 0.68rem; font-weight: 600; color: var(--text-muted, #64748b); letter-spacing: 0.04em; }
+  .mz-card .mz-title { font-size: 0.95rem; font-weight: 700; color: var(--text, #1e293b); line-height: 1.5; }
+  .mz-card .mz-body { font-size: 0.8rem; line-height: 1.7; color: var(--text-muted, #64748b); }
+  .mz-card .mz-cta { margin-top: auto; padding-top: 0.6rem; font-size: 0.8rem; font-weight: 600;
+    color: #0e7490; text-decoration: none; }
+  .mz-card .mz-cta:hover { text-decoration: underline; }
+  .mz-badge { align-self: flex-start; font-size: 0.6rem; font-weight: 700; padding: 2px 6px;
+    border-radius: 3px; background: #0e7490; color: #fff; }
+  .mz-cta-block { max-width: 1100px; margin: 2rem auto; padding: 1.5rem;
+    background: linear-gradient(135deg, #0f172a, #1e293b); border-radius: 10px; color: #e2e8f0; }
+  .mz-cta-block h2 { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.5rem; color: #fff; }
+  .mz-cta-block p { font-size: 0.85rem; line-height: 1.8; color: #cbd5e1; }
+  .mz-cta-block a { display: inline-block; margin-top: 0.9rem; padding: 0.6rem 1.4rem;
+    background: #22d3ee; color: #0f172a; font-size: 0.85rem; font-weight: 700;
+    border-radius: 6px; text-decoration: none; }
+  .mz-ad { max-width: 1100px; margin: 2rem auto; text-align: center; }
 </style>
 </head>
 <body>
-
-<header>
-  <div class="header-inner">
-    <div class="header-title">📰 AI <span>News Digest</span></div>
-    <div class="header-meta">
-      <div class="header-date">2026年06月22日（月）</div>
-      <div class="header-count">9 articles</div>
+<div class="hero">
+  <div class="hero-inner">
+    <div class="crumbs"><a href="./">世界一わかりやすいAIニュース</a></div>
+    <h1>2026年6月22日（月）のAIニュース</h1>
+    <p>厳選 9 件。3分で今日のAIがわかります。</p>
+    <div class="top-nav">
+      <a href="./">トップ</a>
+      <a href="articles/">読み物</a>
+      <a href="terms/">AI用語集</a>
+      <a href="archive.html">バックナンバー</a><a href="#listen">🎧 音声で聴く</a>
     </div>
-  </div>
-</header>
-
-<div class="cat-bar">
-  <div class="cat-bar-inner">
-    <button class="cat-pill model" onclick="document.getElementById('section-model').scrollIntoView({behavior: 'smooth'});">● モデル (1)</button>
-    <button class="cat-pill research" onclick="document.getElementById('section-research').scrollIntoView({behavior: 'smooth'});">● 研究 (4)</button>
-    <button class="cat-pill policy" onclick="document.getElementById('section-policy').scrollIntoView({behavior: 'smooth'});">● ポリシー (2)</button>
-    <button class="cat-pill tools" onclick="document.getElementById('section-tools').scrollIntoView({behavior: 'smooth'});">● ツール (2)</button>
+    <div class="lang-switch"><span class="globe">🌐</span><span class="lang on">日本語</span><span class="lang soon" title="準備中">English<em>準備中</em></span><span class="lang soon" title="準備中">中文<em>準備中</em></span><span class="lang soon" title="準備中">Español<em>準備中</em></span></div>
   </div>
 </div>
 
 <main>
 
-  <!-- モデル -->
-  <div class="section-label" id="section-model">モデル</div>
-  <div class="grid">
-
-    <article class="card model">
-      <div class="card-top">
-        <span class="card-label model">モデル</span>
-        <div class="stars">
-          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
-        </div>
-      </div>
-      <div class="card-title-ja">ChatGPT プロンプトを次のレベルに引き上げるための 28 のヒント</div>
-      <div class="card-title-en">28 Tips to Take Your ChatGPT Prompts to the Next Level</div>
-      <div class="card-source">Wired AI · Sun, 21 Ju</div>
-      <div class="card-body">確かに、OpenAI のチャットボットは誰でも使用できます。しかし、スマート エンジニアリングを使用すると、さらに興味深い結果が得られます。</div>
-      <a class="card-link model" href="https://www.wired.com/story/28-tips-to-take-your-chatgpt-prompts-to-the-next-level/" target="_blank" rel="noopener">元記事 →</a>
-      <a class="card-link model" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Fwww.wired.com%2Fstory%2F28-tips-to-take-your-chatgpt-prompts-to-the-next-level%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
-    </article>
-
+  <div class="listen" id="listen">
+    <div class="listen-head">
+      <strong>🎧 今日の音声版</strong>
+      <span>対話形式・ながら聴き向け（10〜15分）</span>
+    </div>
+    <audio controls preload="none" src="podcast/ai-news-2026-06-22.mp3">
+      <a href="podcast/ai-news-2026-06-22.mp3">音声ファイルを開く</a>
+    </audio>
+    <div class="listen-sub">
+      <a href="https://teraco-labo.github.io/ai-news-digest/podcast/feed.xml">📡 ポッドキャストとして購読する（RSS / Spotify）</a>
+    </div>
   </div>
 
-  <!-- 研究 -->
-  <div class="section-label" id="section-research">研究</div>
-  <div class="grid">
-
-    <article class="card research">
+  <div class="tier">注目のニュース</div>
+  <div class="digest">
+    <article class="card research top">
       <div class="card-top">
         <span class="card-label research">研究</span>
-        <div class="stars">
-          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
-        </div>
-      </div>
-      <div class="card-title-ja">早期採用ファネルは現在、両端で壊れつつあります</div>
-      <div class="card-title-en">The early hiring funnel is now breaking on both ends</div>
-      <div class="card-source">Hacker News · 2026-06-21</div>
-      <div class="card-body">Hacker Newsで89ポイント獲得。コミュニティで注目を集めている話題。</div>
-      <a class="card-link research" href="https://hbr.org/2026/06/ai-has-broken-hiring-heres-how-to-fix-it" target="_blank" rel="noopener">元記事 →</a>
-      <a class="card-link research" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Fhbr.org%2F2026%2F06%2Fai-has-broken-hiring-heres-how-to-fix-it" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
-    </article>
-
-    <article class="card research">
-      <div class="card-top">
-        <span class="card-label research">研究</span>
-        <div class="stars">
-          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
-        </div>
-      </div>
-      <div class="card-title-ja">AI の 10 万のなぜ</div>
-      <div class="card-title-en">The 100k whys of AI</div>
-      <div class="card-source">Hacker News · 2026-06-21</div>
-      <div class="card-body">Hacker Newsで162ポイント獲得。コミュニティで注目を集めている話題。</div>
-      <a class="card-link research" href="https://lcamtuf.substack.com/p/the-100000-whys-of-ai" target="_blank" rel="noopener">元記事 →</a>
-      <a class="card-link research" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Flcamtuf.substack.com%2Fp%2Fthe-100000-whys-of-ai" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
-    </article>
-
-    <article class="card research">
-      <div class="card-top">
-        <span class="card-label research">研究</span>
-        <div class="stars">
-          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
-        </div>
-      </div>
-      <div class="card-title-ja">信頼性の高いエージェント AI システムの構築</div>
-      <div class="card-title-en">Building reliable agentic AI systems</div>
-      <div class="card-source">Hacker News · 2026-06-21</div>
-      <div class="card-body">Hacker Newsで177ポイント獲得。コミュニティで注目を集めている話題。</div>
-      <a class="card-link research" href="https://martinfowler.com/articles/reliable-llm-bayer.html" target="_blank" rel="noopener">元記事 →</a>
-      <a class="card-link research" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Fmartinfowler.com%2Farticles%2Freliable-llm-bayer.html" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
-    </article>
-
-    <article class="card research">
-      <div class="card-top">
-        <span class="card-label research">研究</span>
-        <div class="stars">
-          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
-        </div>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div></div>
       </div>
       <div class="card-title-ja">AIコードが動作しても拒否した場合</div>
-      <div class="card-title-en">When I reject AI code even if it works</div>
-      <div class="card-source">Hacker News · 2026-06-21</div>
+      <div class="card-source">Hacker News</div>
       <div class="card-body">Hacker Newsで216ポイント獲得。コミュニティで注目を集めている話題。</div>
-      <a class="card-link research" href="https://vinibrasil.com/when-i-reject-ai-code-even-if-it-works/" target="_blank" rel="noopener">元記事 →</a>
-      <a class="card-link research" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Fvinibrasil.com%2Fwhen-i-reject-ai-code-even-if-it-works%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
     </article>
-
-  </div>
-
-  <!-- ポリシー -->
-  <div class="section-label" id="section-policy">ポリシー</div>
-  <div class="grid">
-
-    <article class="card policy">
+    <article class="card policy top">
       <div class="card-top">
         <span class="card-label policy">ポリシー</span>
-        <div class="stars">
-          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
-        </div>
-      </div>
-      <div class="card-title-ja">トランプ政権がAnthropicを取り締まったとき、誰が得をするのでしょうか?</div>
-      <div class="card-title-en">When the Trump administration cracks down on Anthropic, who benefits?</div>
-      <div class="card-source">TechCrunch AI · Sun, 21 Ju</div>
-      <div class="card-body">Equity の新しいエピソードでは、Anthropic に対する政権の最近の動きの実際の原因と、これが AI エコシステムに何を意味するかについて議論しました。</div>
-      <a class="card-link policy" href="https://techcrunch.com/2026/06/21/when-the-trump-administration-cracks-down-on-anthropic-who-benefits/" target="_blank" rel="noopener">元記事 →</a>
-      <a class="card-link policy" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Ftechcrunch.com%2F2026%2F06%2F21%2Fwhen-the-trump-administration-cracks-down-on-anthropic-who-benefits%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
-    </article>
-
-    <article class="card policy">
-      <div class="card-top">
-        <span class="card-label policy">ポリシー</span>
-        <div class="stars">
-          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
-        </div>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div></div>
       </div>
       <div class="card-title-ja">LOCUS による法律の解放 米国の地方条例コーパス</div>
-      <div class="card-title-en">Freeing the Law with LOCUS A Local Ordinance Corpus for the United States</div>
-      <div class="card-source">X / @_akhaliq · Sat, 20 Ju</div>
+      <div class="card-source">X / @_akhaliq</div>
       <div class="card-body">LOCUS で法律を解放する
 
 米国の地方条例コーパス</div>
-      <a class="card-link policy" href="https://x.com/_akhaliq/status/2068389539115389382" target="_blank" rel="noopener">元記事 →</a>
-      <a class="card-link policy" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Fx.com%2F_akhaliq%2Fstatus%2F2068389539115389382" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
     </article>
-
-  </div>
-
-  <!-- ツール -->
-  <div class="section-label" id="section-tools">ツール</div>
-  <div class="grid">
-
-    <article class="card tools">
+    <article class="card tools top">
       <div class="card-top">
         <span class="card-label tools">ツール</span>
-        <div class="stars">
-          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
-        </div>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div></div>
       </div>
-      <div class="card-title-ja">Siri を超えて: iOS 27 で iPhone に搭載される実用的な AI 機能は次のとおりです</div>
-      <div class="card-title-en">Beyond Siri: Here are the practical AI features coming to your iPhone in iOS 27</div>
-      <div class="card-source">TechCrunch AI · Sun, 21 Ju</div>
-      <div class="card-body">Siri の AI オーバーホールは WWDC で見出しを飾ったかもしれませんが、Apple の最も便利な AI 機能の一部は iOS 27 の他の場所にも導入されています。</div>
-      <a class="card-link tools" href="https://techcrunch.com/2026/06/21/beyond-siri-here-are-the-practical-ai-features-coming-to-your-iphone-in-ios-27/" target="_blank" rel="noopener">元記事 →</a>
-      <a class="card-link tools" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Ftechcrunch.com%2F2026%2F06%2F21%2Fbeyond-siri-here-are-the-practical-ai-features-coming-to-your-iphone-in-ios-27%2F" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
-    </article>
-
-    <article class="card tools">
-      <div class="card-top">
-        <span class="card-label tools">ツール</span>
-        <div class="stars">
-          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
-        </div>
-      </div>
-      <div class="card-title-ja">S-Agent 空間ツールの使用により空間インテリジェンスの推論が導き出される</div>
-      <div class="card-title-en">S-Agent Spatial Tool-Use Elicits Reasoning for Spatial Intelligence</div>
-      <div class="card-source">X / @_akhaliq · Sat, 20 Ju</div>
-      <div class="card-body">S-エージェント
+      <div class="card-title-ja">S-Agent 空間ツールの使用により空間インテリジェンスの<span class="t" data-t="inference" tabindex="0" role="button" aria-label="推論の説明を見る">推論</span>が導き出される</div>
+      <div class="card-source">X / @_akhaliq</div>
+      <div class="card-body">S-<span class="t" data-t="ai-agent" tabindex="0" role="button" aria-label="エージェントの説明を見る">エージェント</span>
 
 空間ツールの使用により空間インテリジェンスの推論が導き出される
 
 ビデオ</div>
-      <a class="card-link tools" href="https://x.com/_akhaliq/status/2068350916680720754" target="_blank" rel="noopener">元記事 →</a>
-      <a class="card-link tools" href="https://translate.google.com/translate?hl=ja&sl=auto&tl=ja&u=https%3A%2F%2Fx.com%2F_akhaliq%2Fstatus%2F2068350916680720754" target="_blank" rel="noopener" style="margin-left:8px;opacity:0.75;">🇯🇵 日本語</a>
     </article>
-
   </div>
+  <div class="tier">ジャンル別のニュース（タップで開く）</div>
+  <details class="genre model">
+    <summary><span class="genre-dot"></span>モデル<span class="cnt">1件</span></summary>
+    <div class="genre-body">
+    <article class="card model">
+      <div class="card-top">
+        <span class="card-label model">モデル</span>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
+      </div>
+      <div class="card-title-ja"><span class="t" data-t="gpt" tabindex="0" role="button" aria-label="ChatGPTの説明を見る">ChatGPT</span> <span class="t" data-t="prompt" tabindex="0" role="button" aria-label="プロンプトの説明を見る">プロンプト</span>を次のレベルに引き上げるための 28 のヒント</div>
+      <div class="card-source">Wired AI</div>
+      <div class="card-body">確かに、<span class="t" data-t="openai" tabindex="0" role="button" aria-label="OpenAIの説明を見る">OpenAI</span> のチャットボットは誰でも使用できます。しかし、スマート エンジニアリングを使用すると、さらに興味深い結果が得られます。</div>
+    </article>
+    </div>
+  </details>
+  <details class="genre research">
+    <summary><span class="genre-dot"></span>研究<span class="cnt">3件</span></summary>
+    <div class="genre-body">
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
+      </div>
+      <div class="card-title-ja">早期採用ファネルは現在、両端で壊れつつあります</div>
+      <div class="card-source">Hacker News</div>
+      <div class="card-body">Hacker Newsで89ポイント獲得。コミュニティで注目を集めている話題。</div>
+    </article>
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
+      </div>
+      <div class="card-title-ja">AI の 10 万のなぜ</div>
+      <div class="card-source">Hacker News</div>
+      <div class="card-body">Hacker Newsで162ポイント獲得。コミュニティで注目を集めている話題。</div>
+    </article>
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
+      </div>
+      <div class="card-title-ja">信頼性の高いエージェント AI システムの構築</div>
+      <div class="card-source">Hacker News</div>
+      <div class="card-body">Hacker Newsで177ポイント獲得。コミュニティで注目を集めている話題。</div>
+    </article>
+    </div>
+  </details>
+  <details class="genre policy">
+    <summary><span class="genre-dot"></span>ポリシー<span class="cnt">1件</span></summary>
+    <div class="genre-body">
+    <article class="card policy">
+      <div class="card-top">
+        <span class="card-label policy">ポリシー</span>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
+      </div>
+      <div class="card-title-ja">トランプ政権が<span class="t" data-t="anthropic" tabindex="0" role="button" aria-label="Anthropicの説明を見る">Anthropic</span>を取り締まったとき、誰が得をするのでしょうか?</div>
+      <div class="card-source">TechCrunch AI</div>
+      <div class="card-body">Equity の新しいエピソードでは、Anthropic に対する政権の最近の動きの実際の原因と、これが AI エコシステムに何を意味するかについて議論しました。</div>
+    </article>
+    </div>
+  </details>
+  <details class="genre tools">
+    <summary><span class="genre-dot"></span>ツール<span class="cnt">1件</span></summary>
+    <div class="genre-body">
+    <article class="card tools">
+      <div class="card-top">
+        <span class="card-label tools">ツール</span>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
+      </div>
+      <div class="card-title-ja">Siri を超えて: iOS 27 で iPhone に搭載される実用的な AI 機能は次のとおりです</div>
+      <div class="card-source">TechCrunch AI</div>
+      <div class="card-body">Siri の AI オーバーホールは WWDC で見出しを飾ったかもしれませんが、Apple の最も便利な AI 機能の一部は iOS 27 の他の場所にも導入されています。</div>
+    </article>
+    </div>
+  </details>
 
+  <div class="subscribe">
+    毎朝6時に自動更新しています ─ 
+    <a href="https://teraco-labo.github.io/ai-news-digest/podcast/feed.xml">🎧 ポッドキャスト購読</a> ／ 
+    <a href="feed.xml">📡 サイトのRSS</a> ／ 
+    <a href="archive.html">バックナンバー</a>
+  </div>
 
 </main>
 
 <footer>
-  <strong>AI News Digest</strong> — 2026年4月13日（月）自動生成 | 12記事収録<br>
-  <span style="font-size:0.72rem; margin-top:0.3rem; display:block;">Model: 2 · Research: 5 · Business: 4 · Policy: 1</span>
+  <strong>世界一わかりやすいAIニュース</strong> — 2026年6月22日（月）／ 9 件収録<br>
+  毎朝6時に自動生成しています。
+  <div class="footer-links"><a href="">トップ</a> ／ <a href="terms/">AI用語集</a> ／ <a href="articles/">読み物</a> ／ <a href="archive.html">バックナンバー</a> ／ <a href="about.html">運営者情報・免責事項</a> ／ <a href="https://teraco-labo.com">TERACO.LABO</a></div>
 </footer>
+<script type="application/json" id="glossary-data">{"ai-agent": {"n": "AIエージェント", "s": "指示を受けて、自分で手順を考えながら複数の作業を実行してくれるAIのことです。「答える」から「やってくれる」への進化です。", "u": "terms/ai-agent.html"}, "anthropic": {"n": "Anthropic", "s": "AIアシスタント「Claude」を開発するアメリカの企業です。AIの安全性を重視する方針を掲げています。", "u": "terms/anthropic.html"}, "gpt": {"n": "GPT", "s": "OpenAIが開発しているAIモデルのシリーズ名です。ChatGPTの中身がこれにあたります。", "u": "terms/gpt.html"}, "inference": {"n": "推論", "s": "学習済みのAIを実際に動かして答えを出させることです。AIを「使う」場面はすべて推論にあたります。", "u": "terms/inference.html"}, "openai": {"n": "OpenAI", "s": "ChatGPTを開発したアメリカのAI企業です。2022年のChatGPT公開が、今の生成AIブームの引き金になりました。", "u": "terms/openai.html"}, "prompt": {"n": "プロンプト", "s": "AIに与える指示や質問の文章のことです。書き方しだいで返ってくる答えの質が大きく変わります。", "u": "terms/prompt.html"}}</script>
+
+<script>
+(function(){
+  var el = document.getElementById('glossary-data');
+  if (!el) return;
+  var G; try { G = JSON.parse(el.textContent); } catch(e) { return; }
+
+  // 指でも操作する端末ではシート、マウスがある端末ではポップアップにする
+  var hoverable = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+  var tip = document.createElement('div'); tip.id = 'tip';
+  var veil = document.createElement('div'); veil.id = 'veil';
+  var sheet = document.createElement('div'); sheet.id = 'sheet';
+  sheet.innerHTML = '<div class="sheet-grip"></div><span class="tip-n"></span>'
+    + '<div class="tip-s"></div><a class="tip-m" href="#">くわしい解説を読む →</a>';
+  document.body.appendChild(tip);
+  document.body.appendChild(veil);
+  document.body.appendChild(sheet);
+
+  function showTip(node, d){
+    tip.innerHTML = '<span class="tip-n"></span><span class="tip-s"></span>'
+      + '<a class="tip-m" href="#">くわしい解説 →</a>';
+    tip.querySelector('.tip-n').textContent = d.n;
+    tip.querySelector('.tip-s').textContent = d.s;
+    tip.querySelector('.tip-m').href = d.u;
+    tip.classList.add('on');
+    var r = node.getBoundingClientRect();
+    var w = tip.offsetWidth, h = tip.offsetHeight;
+    var left = Math.min(Math.max(8, r.left + r.width/2 - w/2), window.innerWidth - w - 8);
+    var top = r.top - h - 10;
+    if (top < 8) top = r.bottom + 10;           // 上に入らなければ下に出す
+    tip.style.left = (left + window.scrollX) + 'px';
+    tip.style.top  = (top + window.scrollY) + 'px';
+  }
+  function hideTip(){ tip.classList.remove('on'); }
+
+  function openSheet(d){
+    sheet.querySelector('.tip-n').textContent = d.n;
+    sheet.querySelector('.tip-s').textContent = d.s;
+    sheet.querySelector('.tip-m').href = d.u;
+    sheet.classList.add('on'); veil.classList.add('on');
+  }
+  function closeSheet(){ sheet.classList.remove('on'); veil.classList.remove('on'); }
+  veil.addEventListener('click', closeSheet);
+
+  var hideTimer;
+  document.addEventListener('mouseover', function(e){
+    if (!hoverable) return;
+    var n = e.target.closest('.t'); if (!n) return;
+    clearTimeout(hideTimer);
+    var d = G[n.getAttribute('data-t')]; if (d) showTip(n, d);
+  });
+  document.addEventListener('mouseout', function(e){
+    if (!hoverable) return;
+    if (e.target.closest('.t') && !tip.contains(e.relatedTarget)) {
+      hideTimer = setTimeout(hideTip, 180);
+    }
+  });
+  tip.addEventListener('mouseenter', function(){ clearTimeout(hideTimer); });
+  tip.addEventListener('mouseleave', hideTip);
+
+  document.addEventListener('click', function(e){
+    var n = e.target.closest('.t'); if (!n) return;
+    var d = G[n.getAttribute('data-t')]; if (!d) return;
+    e.preventDefault();
+    if (hoverable) { location.href = d.u; } else { openSheet(d); }
+  });
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape') { hideTip(); closeSheet(); return; }
+    if (e.key !== 'Enter' && e.key !== ' ') return;
+    var n = document.activeElement; if (!n || !n.classList.contains('t')) return;
+    var d = G[n.getAttribute('data-t')]; if (!d) return;
+    e.preventDefault();
+    hoverable ? (location.href = d.u) : openSheet(d);
+  });
+})();
+</script>
 
 </body>
 </html>

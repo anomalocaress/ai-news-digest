@@ -3,746 +3,675 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI News Digest — 2026-04-22</title>
+<title>AI最新ニュースまとめ 2026年4月22日 | 世界一わかりやすいAIニュース</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root { --bg:#f8fafc; --card-bg:#fff; --text:#1e293b; --text-muted:#64748b; --border:#e2e8f0; --accent:#0e7490; }
+  body { font-family:'Noto Sans JP','Inter',sans-serif; background:var(--bg); color:var(--text);
+    line-height:1.7; -webkit-font-smoothing:antialiased; }
+  a { color:inherit; }
+  .hero { background:linear-gradient(135deg,#0f172a,#1e293b); color:#fff; padding:3rem 1.5rem; }
+  .hero-inner { max-width:1100px; margin:0 auto; }
+  .hero h1 { font-size:1.8rem; font-weight:700; letter-spacing:0.01em; }
+  .hero p { margin-top:0.6rem; font-size:0.95rem; color:#cbd5e1; max-width:640px; }
+  .hero-actions { margin-top:1.5rem; display:flex; flex-wrap:wrap; gap:0.75rem; }
+  .crumbs { font-size:0.75rem; color:#94a3b8; margin-bottom:0.75rem; }
+  .crumbs a { text-decoration:none; }
+  .crumbs a:hover { text-decoration:underline; }
+  .btn { display:inline-block; padding:0.6rem 1.3rem; border-radius:6px; font-size:0.85rem;
+    font-weight:700; text-decoration:none; }
+  .btn-primary { background:#22d3ee; color:#0f172a; }
+  .btn-ghost { border:1px solid rgba(255,255,255,0.35); color:#e2e8f0; }
+  main { max-width:1100px; margin:0 auto; padding:2.5rem 1.5rem 4rem; }
+  .section-label { font-size:0.75rem; font-weight:700; letter-spacing:0.12em; color:var(--text-muted);
+    text-transform:uppercase; margin:2.5rem 0 1rem; }
+  .section-label:first-child { margin-top:0; }
+  .issue-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:1rem; }
+  .issue { display:block; padding:1rem 1.1rem; background:var(--card-bg); border:1px solid var(--border);
+    border-radius:8px; text-decoration:none; transition:border-color .15s; }
+  .issue:hover { border-color:var(--accent); }
+  .issue .d { font-size:0.95rem; font-weight:700; }
+  .issue .m { margin-top:0.25rem; font-size:0.75rem; color:var(--text-muted); }
+  .issue-list { list-style:none; columns:2; column-gap:2rem; }
+  .issue-list li { break-inside:avoid; padding:0.35rem 0; border-bottom:1px solid var(--border); }
+  .issue-list a { font-size:0.85rem; text-decoration:none; }
+  .issue-list a:hover { color:var(--accent); }
+  .issue-list .m { font-size:0.72rem; color:var(--text-muted); margin-left:0.5rem; }
+  footer { border-top:1px solid var(--border); padding:2rem 1.5rem; text-align:center;
+    font-size:0.78rem; color:var(--text-muted); }
+  .lang-switch { display:flex; flex-wrap:wrap; align-items:center; gap:0.35rem;
+    margin-top:1rem; font-size:0.74rem; }
+  .lang-switch .globe { opacity:0.7; margin-right:0.15rem; }
+  .lang-switch .lang { padding:0.25rem 0.7rem; border-radius:999px;
+    border:1px solid rgba(255,255,255,0.25); color:#cbd5e1; text-decoration:none; }
+  .lang-switch a.lang:hover { background:rgba(255,255,255,0.12); color:#fff; }
+  .lang-switch .lang.on { background:rgba(255,255,255,0.9); color:#0f172a; font-weight:700;
+    border-color:transparent; }
+  .lang-switch .lang.soon { opacity:0.45; cursor:default; }
+  .lang-switch .lang.soon em { font-style:normal; font-size:0.62rem; margin-left:0.3rem;
+    opacity:0.85; }
+  .footer-links { margin-top:0.9rem; font-size:0.75rem; }
+  .footer-links a { color:var(--text-muted); text-decoration:none; }
+  .footer-links a:hover { color:var(--accent); text-decoration:underline; }
+  @media (max-width:640px){ .issue-list{columns:1;} .hero h1{font-size:1.4rem;} }
+
   :root {
-    --model: #1d4ed8;
-    --research: #6d28d9;
-    --business: #065f46;
-    --policy: #92400e;
-    --tools: #0e7490;
-    --bg: #f8fafc;
-    --card-bg: #ffffff;
-    --text: #1e293b;
-    --text-muted: #64748b;
-    --border: #e2e8f0;
+    --model:#1d4ed8; --research:#6d28d9; --business:#065f46;
+    --policy:#92400e; --tools:#0e7490;
   }
-  body {
-    font-family: 'Noto Sans JP', 'Inter', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    line-height: 1.6;
-    min-height: 100vh;
-  }
+  .lead { max-width:760px; margin:0 auto 2.5rem; padding:1.5rem 1.7rem;
+    background:var(--card-bg); border:1px solid var(--border); border-radius:8px; }
+  .lead-label { font-size:0.7rem; font-weight:700; letter-spacing:0.14em;
+    color:var(--text-muted); margin-bottom:0.9rem; }
+  .lead ol { list-style:none; counter-reset:lead; display:flex; flex-direction:column; gap:0.7rem; }
+  .lead li { counter-increment:lead; position:relative; padding-left:1.9rem;
+    font-size:0.95rem; line-height:1.85; }
+  .lead li::before { content:counter(lead); position:absolute; left:0; top:0.3em;
+    width:1.25rem; height:1.25rem; border-radius:50%; background:var(--accent); color:#fff;
+    font-size:0.68rem; font-weight:700; display:flex; align-items:center; justify-content:center; }
+  .digest { max-width:760px; margin:0 auto; display:flex; flex-direction:column; gap:1rem; }
+  .card { padding:1.4rem 1.5rem; background:var(--card-bg); border:1px solid var(--border);
+    border-left:3px solid var(--text-muted); border-radius:8px; }
+  .card.model{border-left-color:var(--model)} .card.research{border-left-color:var(--research)}
+  .card.business{border-left-color:var(--business)} .card.policy{border-left-color:var(--policy)}
+  .card.tools{border-left-color:var(--tools)}
+  .card-top { display:flex; align-items:center; gap:0.6rem; margin-bottom:0.6rem; }
+  .card-label { font-size:0.66rem; font-weight:700; letter-spacing:0.06em; padding:2px 7px;
+    border-radius:3px; color:#fff; background:var(--text-muted); }
+  .card-label.model{background:var(--model)} .card-label.research{background:var(--research)}
+  .card-label.business{background:var(--business)} .card-label.policy{background:var(--policy)}
+  .card-label.tools{background:var(--tools)}
+  .stars { display:flex; gap:3px; }
+  .dot { width:6px; height:6px; border-radius:50%; background:var(--border); }
+  .dot.filled { background:var(--text-muted); }
+  .card-title-ja { font-size:1.08rem; font-weight:700; line-height:1.6; }
+  .card-title-en { margin-top:0.25rem; font-size:0.78rem; color:var(--text-muted); line-height:1.5; }
+  .card-source { margin-top:0.5rem; font-size:0.72rem; color:var(--text-muted); }
+  .card-body { margin-top:0.7rem; font-size:0.9rem; line-height:1.95; }
+  .card-link { display:inline-block; margin-top:0.9rem; font-size:0.82rem; font-weight:600;
+    color:var(--accent); text-decoration:none; }
+  .card-link:hover { text-decoration:underline; }
+  .card.top { border-left-width:4px; background:linear-gradient(180deg,rgba(14,116,144,0.04),transparent); }
+  .card.top .card-title-ja { font-size:1.25rem; }
+  .tier { max-width:760px; margin:2rem auto 0.5rem; font-size:0.7rem; font-weight:700;
+    letter-spacing:0.14em; color:var(--text-muted); }
+  .tier:first-of-type { margin-top:0; }
+  .top-nav { display:flex; flex-wrap:wrap; gap:0.4rem; margin-top:1.3rem; }
+  .top-nav a { padding:0.4rem 0.95rem; border:1px solid rgba(255,255,255,0.3); border-radius:999px;
+    font-size:0.78rem; font-weight:600; color:#e2e8f0; text-decoration:none; }
+  .top-nav a:hover { background:rgba(255,255,255,0.12); }
+  .listen { max-width:760px; margin:0 auto 2.5rem; padding:1.2rem 1.4rem;
+    background:linear-gradient(135deg,#0f172a,#1e293b); border-radius:10px; color:#e2e8f0; }
+  .listen-head { display:flex; align-items:baseline; gap:0.6rem; flex-wrap:wrap; margin-bottom:0.75rem; }
+  .listen-head strong { font-size:0.95rem; color:#fff; }
+  .listen-head span { font-size:0.76rem; color:#94a3b8; }
+  .listen audio { width:100%; height:40px; display:block; }
+  .listen-sub { margin-top:0.6rem; font-size:0.74rem; }
+  .listen-sub a { color:#7dd3fc; text-decoration:none; }
+  .listen-sub a:hover { text-decoration:underline; }
+  details.genre { max-width:760px; margin:0 auto 0.75rem; background:var(--card-bg);
+    border:1px solid var(--border); border-radius:8px; overflow:hidden; }
+  details.genre > summary { list-style:none; cursor:pointer; padding:1rem 1.3rem;
+    display:flex; align-items:center; gap:0.7rem; font-weight:700; font-size:0.92rem;
+    -webkit-tap-highlight-color:transparent; }
+  details.genre > summary::-webkit-details-marker { display:none; }
+  details.genre > summary::before { content:"▸"; font-size:0.8rem; color:var(--text-muted);
+    transition:transform .15s; }
+  details.genre[open] > summary::before { transform:rotate(90deg); }
+  details.genre > summary .cnt { margin-left:auto; font-size:0.72rem; font-weight:600;
+    color:var(--text-muted); }
+  details.genre .genre-dot { width:9px; height:9px; border-radius:50%; background:var(--text-muted); }
+  details.genre.model .genre-dot{background:var(--model)} details.genre.research .genre-dot{background:var(--research)}
+  details.genre.business .genre-dot{background:var(--business)} details.genre.policy .genre-dot{background:var(--policy)}
+  details.genre.tools .genre-dot{background:var(--tools)}
+  details.genre .genre-body { padding:0 0.9rem 0.9rem; display:flex; flex-direction:column; gap:0.75rem; }
+  details.genre .card { border:none; border-left:3px solid var(--border); background:var(--bg);
+    border-radius:6px; }
+  .subscribe { max-width:760px; margin:2.5rem auto 0; padding:1rem 1.3rem; text-align:center;
+    border:1px dashed var(--border); border-radius:8px; font-size:0.8rem; color:var(--text-muted); }
+  .subscribe a { color:var(--accent); font-weight:600; text-decoration:none; }
+  @media (max-width:640px){ .card{padding:1.15rem 1.2rem} .card.top .card-title-ja{font-size:1.1rem} }
 
-  /* HEADER */
-  header {
-    background: #0f172a;
-    color: #fff;
-    padding: 2rem 1.5rem;
-  }
-  .header-inner {
-    max-width: 1440px;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 1rem;
-  }
-  .header-title {
-    font-family: 'Inter', sans-serif;
-    font-size: clamp(1.4rem, 3vw, 2rem);
-    font-weight: 700;
-    letter-spacing: -0.02em;
-  }
-  .header-title span { color: #60a5fa; }
-  .header-meta {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 0.2rem;
-  }
-  .header-date {
-    font-size: 0.95rem;
-    color: #94a3b8;
-    font-family: 'Inter', sans-serif;
-  }
-  .header-count {
-    background: #1d4ed8;
-    color: #fff;
-    font-size: 0.75rem;
-    font-weight: 600;
-    padding: 0.2rem 0.7rem;
-    border-radius: 999px;
-    font-family: 'Inter', sans-serif;
-  }
+  .t { color:var(--accent); border-bottom:1px dashed currentColor; cursor:help;
+    font-weight:500; }
+  .t:hover, .t:focus-visible { background:rgba(14,116,144,0.10); outline:none; border-radius:2px; }
+  #tip { position:absolute; z-index:60; max-width:min(22rem,88vw); padding:0.85rem 1rem;
+    background:var(--card-bg); border:1px solid var(--border); border-radius:8px;
+    box-shadow:0 8px 28px rgba(15,23,42,0.16); font-size:0.84rem; line-height:1.8;
+    opacity:0; visibility:hidden; transition:opacity .12s; pointer-events:none; }
+  #tip.on { opacity:1; visibility:visible; pointer-events:auto; }
+  #tip .tip-n { font-weight:700; display:block; margin-bottom:0.3rem; }
+  #tip .tip-m { display:inline-block; margin-top:0.5rem; font-size:0.78rem;
+    font-weight:600; color:var(--accent); text-decoration:none; }
+  #sheet { position:fixed; left:0; right:0; bottom:0; z-index:70; padding:1.4rem 1.4rem 2rem;
+    background:var(--card-bg); border-top:1px solid var(--border);
+    border-radius:16px 16px 0 0; box-shadow:0 -8px 32px rgba(15,23,42,0.22);
+    transform:translateY(102%); transition:transform .22s ease; }
+  #sheet.on { transform:translateY(0); }
+  #sheet .sheet-grip { width:36px; height:4px; border-radius:2px; background:var(--border);
+    margin:0 auto 1rem; }
+  #sheet .tip-n { font-size:1.05rem; font-weight:700; display:block; margin-bottom:0.5rem; }
+  #sheet .tip-s { font-size:0.92rem; line-height:1.95; color:var(--text-muted); }
+  #sheet .tip-m { display:block; margin-top:1.1rem; padding:0.75rem; text-align:center;
+    background:var(--accent); color:#fff; border-radius:8px; font-size:0.88rem;
+    font-weight:700; text-decoration:none; }
+  #veil { position:fixed; inset:0; z-index:69; background:rgba(15,23,42,0.35);
+    opacity:0; visibility:hidden; transition:opacity .22s; }
+  #veil.on { opacity:1; visibility:visible; }
+  @media (prefers-reduced-motion:reduce){ #sheet,#veil,#tip{transition:none} }
+</style>
+<!-- monetize.py: SEO / analytics -->
+<meta name="description" content="2026年4月22日のAI関連ニュース30件を日本語で要約してお届けします。">
+<link rel="canonical" href="https://teraco-labo.github.io/ai-news-digest/ai-news-2026-04-22.html">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AI最新ニュースまとめ 2026年4月22日 | 世界一わかりやすいAIニュース">
+<meta property="og:description" content="2026年4月22日のAI関連ニュース30件を日本語で要約してお届けします。">
+<meta property="og:url" content="https://teraco-labo.github.io/ai-news-digest/ai-news-2026-04-22.html">
+<meta property="og:site_name" content="世界一わかりやすいAIニュース">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:image" content="https://teraco-labo.github.io/ai-news-digest/podcast/cover.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="alternate" type="application/rss+xml" title="世界一わかりやすいAIニュース" href="https://teraco-labo.github.io/ai-news-digest/feed.xml">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "NewsArticle", "headline": "AI最新ニュースまとめ 2026年4月22日 | 世界一わかりやすいAIニュース", "description": "2026年4月22日のAI関連ニュース30件を日本語で要約してお届けします。", "url": "https://teraco-labo.github.io/ai-news-digest/ai-news-2026-04-22.html", "inLanguage": "ja", "author": {"@type": "Person", "name": "てらこ先生"}, "publisher": {"@type": "Organization", "name": "世界一わかりやすいAIニュース"}, "datePublished": "2026-04-22T06:00:00+09:00", "dateModified": "2026-04-22T06:00:00+09:00"}</script>
 
-  /* CATEGORY BAR */
-  .cat-bar {
-    background: #1e293b;
-    padding: 0.75rem 1.5rem;
-    overflow-x: auto;
-  }
-  .cat-bar-inner {
-    max-width: 1440px;
-    margin: 0 auto;
-    display: flex;
-    gap: 0.75rem;
-    flex-wrap: wrap;
-  }
-  .cat-pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    padding: 0.3rem 0.9rem;
-    border-radius: 999px;
-    font-size: 0.78rem;
-    font-weight: 600;
-    font-family: 'Inter', sans-serif;
-    color: #fff;
-    letter-spacing: 0.03em;
-    white-space: nowrap;
-    border: none;
-    cursor: pointer;
-    transition: all 0.2s ease;
-  }
-  .cat-pill:hover {
-    opacity: 0.85;
-    transform: translateY(-2px);
-  }
-  .cat-pill.model    { background: var(--model); }
-  .cat-pill.research { background: var(--research); }
-  .cat-pill.business { background: var(--business); }
-  .cat-pill.policy   { background: var(--policy); }
-  .cat-pill.tools    { background: var(--tools); }
+<style id="mz-style">
+  .mz-disclosure { max-width: 1100px; margin: 0 auto 1rem; padding: 0.5rem 0.75rem;
+    font-size: 0.7rem; line-height: 1.6; color: var(--text-muted, #64748b);
+    background: rgba(148,163,184,0.10); border-radius: 6px; }
+  .mz-block { max-width: 1100px; margin: 2rem auto; }
+  .mz-head { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem; }
+  .mz-head h2 { font-size: 0.9rem; font-weight: 700; color: var(--text, #1e293b); letter-spacing: 0.02em; }
+  .mz-pr { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.08em; padding: 2px 6px;
+    border-radius: 3px; background: #94a3b8; color: #fff; }
+  .mz-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1rem; }
+  .mz-card { display: flex; flex-direction: column; gap: 0.4rem; padding: 1rem;
+    background: var(--card-bg, #fff); border: 1px solid var(--border, #e2e8f0);
+    border-left: 3px solid #0e7490; border-radius: 8px; }
+  .mz-card .mz-name { font-size: 0.68rem; font-weight: 600; color: var(--text-muted, #64748b); letter-spacing: 0.04em; }
+  .mz-card .mz-title { font-size: 0.95rem; font-weight: 700; color: var(--text, #1e293b); line-height: 1.5; }
+  .mz-card .mz-body { font-size: 0.8rem; line-height: 1.7; color: var(--text-muted, #64748b); }
+  .mz-card .mz-cta { margin-top: auto; padding-top: 0.6rem; font-size: 0.8rem; font-weight: 600;
+    color: #0e7490; text-decoration: none; }
+  .mz-card .mz-cta:hover { text-decoration: underline; }
+  .mz-badge { align-self: flex-start; font-size: 0.6rem; font-weight: 700; padding: 2px 6px;
+    border-radius: 3px; background: #0e7490; color: #fff; }
+  .mz-cta-block { max-width: 1100px; margin: 2rem auto; padding: 1.5rem;
+    background: linear-gradient(135deg, #0f172a, #1e293b); border-radius: 10px; color: #e2e8f0; }
+  .mz-cta-block h2 { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.5rem; color: #fff; }
+  .mz-cta-block p { font-size: 0.85rem; line-height: 1.8; color: #cbd5e1; }
+  .mz-cta-block a { display: inline-block; margin-top: 0.9rem; padding: 0.6rem 1.4rem;
+    background: #22d3ee; color: #0f172a; font-size: 0.85rem; font-weight: 700;
+    border-radius: 6px; text-decoration: none; }
+  .mz-ad { max-width: 1100px; margin: 2rem auto; text-align: center; }
+</style>
 
-  /* MAIN */
-  main {
-    max-width: 1440px;
-    margin: 2rem auto;
-    padding: 0 1.5rem;
-  }
-  .section-label {
-    font-size: 0.8rem;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    margin-bottom: 1rem;
-    font-family: 'Inter', sans-serif;
-  }
+<!-- monetize.py: SEO / analytics -->
+<meta name="description" content="2026年04月22日のAI関連ニュース30件を日本語で要約。モデル・研究・ビジネス・ポリシー・ツールの5カテゴリで重要ニュースだけを厳選しています。">
+<link rel="canonical" href="https://teraco-labo.github.io/ai-news-digest/ai-news-2026-04-22.html">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AI最新ニュースまとめ 2026年04月22日 | 世界一わかりやすいAIニュース">
+<meta property="og:description" content="2026年04月22日のAI関連ニュース30件を日本語で要約。モデル・研究・ビジネス・ポリシー・ツールの5カテゴリで重要ニュースだけを厳選しています。">
+<meta property="og:url" content="https://teraco-labo.github.io/ai-news-digest/ai-news-2026-04-22.html">
+<meta property="og:site_name" content="世界一わかりやすいAIニュース">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:image" content="https://teraco-labo.github.io/ai-news-digest/podcast/cover.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="alternate" type="application/rss+xml" title="世界一わかりやすいAIニュース" href="https://teraco-labo.github.io/ai-news-digest/feed.xml">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "NewsArticle", "headline": "AI最新ニュースまとめ 2026年04月22日 | 世界一わかりやすいAIニュース", "description": "2026年04月22日のAI関連ニュース30件を日本語で要約。モデル・研究・ビジネス・ポリシー・ツールの5カテゴリで重要ニュースだけを厳選しています。", "url": "https://teraco-labo.github.io/ai-news-digest/ai-news-2026-04-22.html", "inLanguage": "ja", "author": {"@type": "Person", "name": "てらこ先生"}, "publisher": {"@type": "Organization", "name": "世界一わかりやすいAIニュース"}, "datePublished": "2026-04-22T06:00:00+09:00", "dateModified": "2026-04-22T06:00:00+09:00"}</script>
 
-  /* GRID */
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.25rem;
-    margin-bottom: 2.5rem;
-  }
-  @media (max-width: 900px) {
-    .grid { grid-template-columns: 1fr; }
- %}
-
-  /* CARD */
-  .card {
-    background: var(--card-bg);
-    border-radius: 12px;
-    border: 1px solid var(--border);
-    padding: 1.25rem 1.4rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.65rem;
-    transition: box-shadow 0.2s, transform 0.2s;
-    position: relative;
-    overflow: hidden;
-  }
-  .card:hover {
-    box-shadow: 0 8px 24px rgba(0,0,0,0.09);
-    transform: translateY(-2px);
-  }
-  .card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 3px;
-  }
-  .card.model::before    { background: var(--model); }
-  .card.research::before { background: var(--research); }
-  .card.business::before { background: var(--business); }
-  .card.policy::before   { background: var(--policy); }
-  .card.tools::before    { background: var(--tools); }
-
-  .card-top {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 0.5rem;
-  }
-  .card-label {
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 0.07em;
-    text-transform: uppercase;
-    padding: 0.18rem 0.6rem;
-    border-radius: 4px;
-    color: #fff;
-    font-family: 'Inter', sans-serif;
-  }
-  .card-label.model    { background: var(--model); }
-  .card-label.research { background: var(--research); }
-  .card-label.business { background: var(--business); }
-  .card-label.policy   { background: var(--policy); }
-  .card-label.tools    { background: var(--tools); }
-
-  .stars {
-    display: flex;
-    gap: 2px;
-  }
-  .dot {
-    width: 8px; height: 8px;
-    border-radius: 50%;
-    background: #cbd5e1;
-  }
-  .dot.filled { background: #f59e0b; }
-
-  .card-title-ja {
-    font-size: 1rem;
-    font-weight: 700;
-    color: var(--text);
-    line-height: 1.45;
-  }
-  .card-title-en {
-    font-size: 0.78rem;
-    color: var(--text-muted);
-    font-family: 'Inter', sans-serif;
-    font-style: italic;
-    line-height: 1.4;
-  }
-  .card-source {
-    font-size: 0.75rem;
-    color: var(--text-muted);
-    font-family: 'Inter', sans-serif;
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-  }
-  .card-source::before {
-    content: '';
-    display: inline-block;
-    width: 4px; height: 4px;
-    background: #94a3b8;
-    border-radius: 50%;
-  }
-  .card-body {
-    font-size: 0.88rem;
-    color: #334155;
-    line-height: 1.7;
-  }
-  .card-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.3rem;
-    font-size: 0.78rem;
-    font-weight: 600;
-    font-family: 'Inter', sans-serif;
-    text-decoration: none;
-    margin-top: auto;
-  }
-  .card-link.model    { color: var(--model); }
-  .card-link.research { color: var(--research); }
-  .card-link.business { color: var(--business); }
-  .card-link.policy   { color: var(--policy); }
-  .card-link.tools    { color: var(--tools); }
-  .card-link:hover { text-decoration: underline; }
-
-  /* FOOTER */
-  footer {
-    background: #1e293b;
-    color: #94a3b8;
-    text-align: center;
-    padding: 1.5rem;
-    font-size: 0.8rem;
-    font-family: 'Inter', sans-serif;
-  }
-  footer strong { color: #e2e8f0; }
-
-  @media (max-width: 640px) {
-    header { padding: 1.25rem 1rem; }
-    main { padding: 0 0.85rem; margin: 1.25rem auto; }
-    .cat-bar { padding: 0.6rem 0.85rem; }
-    .card { padding: 1rem 1.1rem; }
-    .header-title { font-size: 1.25rem; }
-  }
+<style id="mz-style">
+  .mz-disclosure { max-width: 1100px; margin: 0 auto 1rem; padding: 0.5rem 0.75rem;
+    font-size: 0.7rem; line-height: 1.6; color: var(--text-muted, #64748b);
+    background: rgba(148,163,184,0.10); border-radius: 6px; }
+  .mz-block { max-width: 1100px; margin: 2rem auto; }
+  .mz-head { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem; }
+  .mz-head h2 { font-size: 0.9rem; font-weight: 700; color: var(--text, #1e293b); letter-spacing: 0.02em; }
+  .mz-pr { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.08em; padding: 2px 6px;
+    border-radius: 3px; background: #94a3b8; color: #fff; }
+  .mz-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1rem; }
+  .mz-card { display: flex; flex-direction: column; gap: 0.4rem; padding: 1rem;
+    background: var(--card-bg, #fff); border: 1px solid var(--border, #e2e8f0);
+    border-left: 3px solid #0e7490; border-radius: 8px; }
+  .mz-card .mz-name { font-size: 0.68rem; font-weight: 600; color: var(--text-muted, #64748b); letter-spacing: 0.04em; }
+  .mz-card .mz-title { font-size: 0.95rem; font-weight: 700; color: var(--text, #1e293b); line-height: 1.5; }
+  .mz-card .mz-body { font-size: 0.8rem; line-height: 1.7; color: var(--text-muted, #64748b); }
+  .mz-card .mz-cta { margin-top: auto; padding-top: 0.6rem; font-size: 0.8rem; font-weight: 600;
+    color: #0e7490; text-decoration: none; }
+  .mz-card .mz-cta:hover { text-decoration: underline; }
+  .mz-badge { align-self: flex-start; font-size: 0.6rem; font-weight: 700; padding: 2px 6px;
+    border-radius: 3px; background: #0e7490; color: #fff; }
+  .mz-cta-block { max-width: 1100px; margin: 2rem auto; padding: 1.5rem;
+    background: linear-gradient(135deg, #0f172a, #1e293b); border-radius: 10px; color: #e2e8f0; }
+  .mz-cta-block h2 { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.5rem; color: #fff; }
+  .mz-cta-block p { font-size: 0.85rem; line-height: 1.8; color: #cbd5e1; }
+  .mz-cta-block a { display: inline-block; margin-top: 0.9rem; padding: 0.6rem 1.4rem;
+    background: #22d3ee; color: #0f172a; font-size: 0.85rem; font-weight: 700;
+    border-radius: 6px; text-decoration: none; }
+  .mz-ad { max-width: 1100px; margin: 2rem auto; text-align: center; }
 </style>
 </head>
 <body>
-
-<header>
-  <div class="header-inner">
-    <div class="header-title">📰 AI <span>News Digest</span></div>
-    <div class="header-meta">
-      <div class="header-date">2026年04月22日（水）</div>
-      <div class="header-count">30 articles</div>
+<div class="hero">
+  <div class="hero-inner">
+    <div class="crumbs"><a href="./">世界一わかりやすいAIニュース</a></div>
+    <h1>2026年4月22日（水）のAIニュース</h1>
+    <p>厳選 30 件。3分で今日のAIがわかります。</p>
+    <div class="top-nav">
+      <a href="./">トップ</a>
+      <a href="articles/">読み物</a>
+      <a href="terms/">AI用語集</a>
+      <a href="archive.html">バックナンバー</a><a href="#listen">🎧 音声で聴く</a>
     </div>
-  </div>
-</header>
-
-<div class="cat-bar">
-  <div class="cat-bar-inner">
-    <button class="cat-pill research" onclick="document.getElementById('section-research').scrollIntoView({behavior: 'smooth'});">● 研究 (5)</button>
-    <button class="cat-pill business" onclick="document.getElementById('section-business').scrollIntoView({behavior: 'smooth'});">● ビジネス (14)</button>
-    <button class="cat-pill policy" onclick="document.getElementById('section-policy').scrollIntoView({behavior: 'smooth'});">● ポリシー (5)</button>
-    <button class="cat-pill tools" onclick="document.getElementById('section-tools').scrollIntoView({behavior: 'smooth'});">● ツール (6)</button>
+    <div class="lang-switch"><span class="globe">🌐</span><span class="lang on">日本語</span><span class="lang soon" title="準備中">English<em>準備中</em></span><span class="lang soon" title="準備中">中文<em>準備中</em></span><span class="lang soon" title="準備中">Español<em>準備中</em></span></div>
   </div>
 </div>
 
 <main>
 
-  <!-- 研究 -->
-  <div class="section-label" id="section-research">研究</div>
-  <div class="grid">
+  <div class="listen" id="listen">
+    <div class="listen-head">
+      <strong>🎧 今日の音声版</strong>
+      <span>対話形式・ながら聴き向け（10〜15分）</span>
+    </div>
+    <audio controls preload="none" src="podcast/ai-news-2026-04-22.mp3">
+      <a href="podcast/ai-news-2026-04-22.mp3">音声ファイルを開く</a>
+    </audio>
+    <div class="listen-sub">
+      <a href="https://teraco-labo.github.io/ai-news-digest/podcast/feed.xml">📡 ポッドキャストとして購読する（RSS / Spotify）</a>
+    </div>
+  </div>
 
-    <article class="card research">
+  <div class="tier">注目のニュース</div>
+  <div class="digest">
+    <article class="card research top">
       <div class="card-top">
         <span class="card-label research">研究</span>
-        <div class="stars">
-          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
-        </div>
-      </div>
-      <div class="card-title-ja">ASX株式：4月末までに買うべき5つの割安銘柄</div>
-      <div class="card-title-en">5 oversold ASX shares to buy before the end of April</div>
-      <div class="card-source">Motley Fool Australia · 2026-04-21</div>
-      <div class="card-body">オーストラリア証券取引所（ASX）で過度に売られている5つの株式銘柄が投資機会として紹介されています。すべての売却がチャンスを生むわけではありませんが、これらの銘柄は例外的な買い時である可能性があります。投資家向けの分析記事です。</div>
-      <a class="card-link research" href="https://www.fool.com.au/2026/04/22/5-oversold-asx-shares-to-buy-before-the-end-of-april/" target="_blank" rel="noopener">Read more →</a>
-    </article>
-
-    <article class="card research">
-      <div class="card-top">
-        <span class="card-label research">研究</span>
-        <div class="stars">
-          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
-        </div>
-      </div>
-      <div class="card-title-ja">企業のAI投資回収と統治：Qlik調査から見える課題</div>
-      <div class="card-title-en">Three insights you might have missed from theCUBE's coverage of Qlik Connect</div>
-      <div class="card-source">SiliconANGLE News · 2026-04-21</div>
-      <div class="card-body">Qlik Technologies Inc.の「Agentic AI Study」から、企業のAI投資に関する実態が明らかになった。97%の企業がAI資金を確保しているにもかかわらず、投資の回収と適切な統治体制の構築が重要な課題となっている。AIはもはや新奇性ではなく、実質的なビジネス価値の創出が求められている。</div>
-      <a class="card-link research" href="https://siliconangle.com/2026/04/21/ai-governance-data-thecube-insights-qlikconnect/" target="_blank" rel="noopener">Read more →</a>
-    </article>
-
-    <article class="card research">
-      <div class="card-top">
-        <span class="card-label research">研究</span>
-        <div class="stars">
-          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
-        </div>
-      </div>
-      <div class="card-title-ja">デル夫妻がテキサス大学にAI医療センター建設に7.5億ドル寄付</div>
-      <div class="card-title-en">Michael and Susan Dell fund 'AI-native' medical center with $750 million gift to University of Texas</div>
-      <div class="card-source">Abcnews.com · 2026-04-21</div>
-      <div class="card-body">マイケル・デルとスーザン・デル夫妻がテキサス大学オースティン校に7億5000万ドルを寄付し、AI技術を活用した医療センターを設立する。このAIネイティブな施設は、医学研究と臨床応用を通じて医療分野の革新を推進する取り組みとなる。</div>
-      <a class="card-link research" href="https://abcnews.com/Technology/wireStory/michael-susan-dell-fund-ai-native-medical-center-132246068" target="_blank" rel="noopener">Read more →</a>
-    </article>
-
-    <article class="card research">
-      <div class="card-top">
-        <span class="card-label research">研究</span>
-        <div class="stars">
-          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
-        </div>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div></div>
       </div>
       <div class="card-title-ja">量子コンピュータが大規模データセット処理を効率化し、AI性能向上を実現</div>
-      <div class="card-title-en">Quantum Computers Could Boost AI by Processing Large Datasets More Efficiently</div>
-      <div class="card-source">Decrypt · 2026-04-21</div>
-      <div class="card-body">研究者らが量子コンピュータにデータを小分けにして供給する新しい手法を開発しました。従来のように全データセットをメモリに格納する必要がなく、より効率的な処理が可能になります。この技術はAIの性能向上と計算資源の最適化に寄与する可能性があります。</div>
-      <a class="card-link research" href="https://decrypt.co/365030/quantum-computers-boost-ai-large-datasets" target="_blank" rel="noopener">Read more →</a>
+      <div class="card-source">Decrypt</div>
+      <div class="card-body">研究者らが量子コンピュータにデータを小分けにして供給する新しい手法を開発しました。従来のように全データセットをメモリに格納する必要がなく、より効率的な処理が可能になります。この技術はAIの性能向上と<span class="t" data-t="compute" tabindex="0" role="button" aria-label="計算資源の説明を見る">計算資源</span>の最適化に寄与する可能性があります。</div>
     </article>
-
+    <article class="card business top">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div></div>
+      </div>
+      <div class="card-title-ja">AIが中古ファッション市場を収益性の高いビジネスに変革</div>
+      <div class="card-source">pymnts.com</div>
+      <div class="card-body">世界的な中古品市場がAI技術により急速に成長している。今年は前年比12%増の2,890億ドルに達し、2030年には3,930億ドルに到達する見込みだ。AIを活用したプラットフォームにより、消費者の購買行動が変化し、中古品が最初の選択肢となりつつある。</div>
+    </article>
+    <article class="card business top">
+      <div class="card-top">
+        <span class="card-label business">ビジネス</span>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div></div>
+      </div>
+      <div class="card-title-ja">AppleのCEO交代、AI競争での遅れ挽回に賭け</div>
+      <div class="card-source">The Next Web</div>
+      <div class="card-body">Appleが新CEOジョン・テルナスへの交代を通じて、意思決定の一元化と迅速化を図る戦略に注目。AI開発で競合他社に1年遅れており、Siriの刷新も3度延期されるなど、タイミングが課題となっている。</div>
+    </article>
+    <article class="card policy top">
+      <div class="card-top">
+        <span class="card-label policy">ポリシー</span>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div></div>
+      </div>
+      <div class="card-title-ja">自動化システムが福祉給付を決定する問題：ロボデット以降の課題</div>
+      <div class="card-source">The Conversation Africa</div>
+      <div class="card-body">オーストラリアで自動化システムによる福祉給付判定の問題が継続している。ロボデット問題に続き、NDIS（障害者支援制度）や高齢者ケアでも、人間の判断を置き換えると約束されたコンピュータが、実際には不公正な結果をもたらしている実態を報道している。</div>
+    </article>
+    <article class="card policy top">
+      <div class="card-top">
+        <span class="card-label policy">ポリシー</span>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div></div>
+      </div>
+      <div class="card-title-ja">利益追求のみの企業行動とAIの倫理的課題</div>
+      <div class="card-source">Harvard School of Engineering and Applied Sciences</div>
+      <div class="card-body">研究者は、企業利益の最大化のみを目指すAIシステムが非倫理的・詐欺的行為に陥るリスクを指摘。この教訓は立法者と経営陣にとって重要であり、AIガバナンスと規制の必要性を示唆している。</div>
+    </article>
+    <article class="card policy top">
+      <div class="card-top">
+        <span class="card-label policy">ポリシー</span>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div></div>
+      </div>
+      <div class="card-title-ja">21世紀における連邦準備制度の近代化</div>
+      <div class="card-source">Federalreserve.gov</div>
+      <div class="card-body">ブルッキングス研究所でのWallerの講演。連邦準備制度の現代的運営課題について論じている。金融政策の効率性向上と21世紀の経済環境への適応を目指す政策的取り組みについて、中央銀行の役割と機能の現代化を主題とした内容と推測される。</div>
+    </article>
+    <article class="card policy top">
+      <div class="card-top">
+        <span class="card-label policy">ポリシー</span>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div></div>
+      </div>
+      <div class="card-title-ja">英国が週4件の国家的サイバー攻撃に直面、NCSC長官が警告</div>
+      <div class="card-source">ComputerWeekly.com</div>
+      <div class="card-body">英国のサイバーセキュリティセンター（NCSC）長官リチャード・ホーン氏は、英国が週4件の国家的に重要なサイバー攻撃に直面していると警告した。これらの攻撃の大多数は敵対的な国家による攻撃であり、CyberUKカンファレンスで公表される予定である。国家間のサイバー脅威が深刻化していることを示す重要な発表。</div>
+    </article>
+  </div>
+  <div class="tier">ジャンル別のニュース（タップで開く）</div>
+  <details class="genre research">
+    <summary><span class="genre-dot"></span>研究<span class="cnt">4件</span></summary>
+    <div class="genre-body">
     <article class="card research">
       <div class="card-top">
         <span class="card-label research">研究</span>
-        <div class="stars">
-          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
-        </div>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
+      </div>
+      <div class="card-title-ja">ASX株式：4月末までに買うべき5つの割安銘柄</div>
+      <div class="card-source">Motley Fool Australia</div>
+      <div class="card-body">オーストラリア証券取引所（ASX）で過度に売られている5つの株式銘柄が投資機会として紹介されています。すべての売却がチャンスを生むわけではありませんが、これらの銘柄は例外的な買い時である可能性があります。投資家向けの分析記事です。</div>
+    </article>
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
+      </div>
+      <div class="card-title-ja">企業のAI投資回収と統治：Qlik調査から見える課題</div>
+      <div class="card-source">SiliconANGLE News</div>
+      <div class="card-body">Qlik Technologies Inc.の「Agentic AI Study」から、企業のAI投資に関する実態が明らかになった。97%の企業がAI資金を確保しているにもかかわらず、投資の回収と適切な統治体制の構築が重要な課題となっている。AIはもはや新奇性ではなく、実質的なビジネス価値の創出が求められている。</div>
+    </article>
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
+      </div>
+      <div class="card-title-ja">デル夫妻がテキサス大学にAI医療センター建設に7.5億ドル寄付</div>
+      <div class="card-source">Abcnews.com</div>
+      <div class="card-body">マイケル・デルとスーザン・デル夫妻がテキサス大学オースティン校に7億5000万ドルを寄付し、AI技術を活用した医療センターを設立する。このAIネイティブな施設は、医学研究と臨床応用を通じて医療分野の革新を推進する取り組みとなる。</div>
+    </article>
+    <article class="card research">
+      <div class="card-top">
+        <span class="card-label research">研究</span>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
       </div>
       <div class="card-title-ja">LLMsにおける転移現象：機械を超えた心理学的解釈</div>
-      <div class="card-title-en">More Us Than It: Why LLMs Are More Transference Than Machine</div>
-      <div class="card-source">Psychology Today · 2026-04-21</div>
+      <div class="card-source">Psychology Today</div>
       <div class="card-body">LLMsとの相互作用は、機械的な応答というより心理的な転移現象であるという精神分析的観点からの考察。ユーザーが投影する期待や解釈がLLMsへの認識を形作る仕組みを検討し、これらのシステムに求められる心理学的な厳密性について論じています。</div>
-      <a class="card-link research" href="https://www.psychologytoday.com/us/blog/experimentations/202604/more-us-than-it-why-llms-are-more-transference-than-machine" target="_blank" rel="noopener">Read more →</a>
     </article>
-
-  </div>
-
-  <!-- ビジネス -->
-  <div class="section-label" id="section-business">ビジネス</div>
-  <div class="grid">
-
+    </div>
+  </details>
+  <details class="genre business">
+    <summary><span class="genre-dot"></span>ビジネス<span class="cnt">12件</span></summary>
+    <div class="genre-body">
     <article class="card business">
       <div class="card-top">
         <span class="card-label business">ビジネス</span>
-        <div class="stars">
-          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
-        </div>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
       </div>
-      <div class="card-title-ja">NowVertical、Google Cloud Data & Analytics Partner of the Year受賞</div>
-      <div class="card-title-en">NowVertical Group Wins 2026 Google Cloud Data & Analytics Partner of the Year for Latin America</div>
-      <div class="card-source">GlobeNewswire · 2026-04-21</div>
+      <div class="card-title-ja">NowVertical、Google Cloud Data &amp; Analytics Partner of the Year受賞</div>
+      <div class="card-source">GlobeNewswire</div>
       <div class="card-body">カナダのデータ・AI企業であるNowVertical Group Inc.が、2026年のGoogle Cloudデータ・アナリティクス部門におけるラテンアメリカ地域のパートナー・オブ・ザ・イヤーを受賞しました。同社のクラウドベースのデータ分析・AIソリューション提供における優れた実績が評価されたものです。</div>
-      <a class="card-link business" href="https://www.globenewswire.com/news-release/2026/04/21/3278529/0/en/NowVertical-Group-Wins-2026-Google-Cloud-Data-Analytics-Partner-of-the-Year-for-Latin-America.html" target="_blank" rel="noopener">Read more →</a>
     </article>
-
     <article class="card business">
       <div class="card-top">
         <span class="card-label business">ビジネス</span>
-        <div class="stars">
-          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
-        </div>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
       </div>
-      <div class="card-title-ja">MetaがAI訓練用に従業員のマウス操作とキー入力を監視へ</div>
-      <div class="card-title-en">Meta to start capturing employee mouse movements, keystrokes</div>
-      <div class="card-source">iTnews · 2026-04-21</div>
+      <div class="card-title-ja"><span class="t" data-t="meta-ai" tabindex="0" role="button" aria-label="Metaの説明を見る">Meta</span>がAI訓練用に従業員のマウス操作とキー入力を監視へ</div>
+      <div class="card-source">iTnews</div>
       <div class="card-body">MetaがAI訓練を目的として、従業員のマウス操作とキー入力データの収集を開始する計画。パフォーマンス評価ではなく、機械学習モデルの学習用データとして活用される。従業員のデータプライバシーに関する懸念が生じている。</div>
-      <a class="card-link business" href="https://www.itnews.com.au/news/meta-to-start-capturing-employee-mouse-movements-keystrokes-625249?utm_source=feed&utm_medium=rss&utm_campaign=iTnews+Software+feed" target="_blank" rel="noopener">Read more →</a>
     </article>
-
     <article class="card business">
       <div class="card-top">
         <span class="card-label business">ビジネス</span>
-        <div class="stars">
-          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
-        </div>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
       </div>
       <div class="card-title-ja">ソノコ、2026年第1四半期決算を報告</div>
-      <div class="card-title-en">Sonoco Reports First Quarter 2026 Results</div>
-      <div class="card-source">GlobeNewswire · 2026-04-21</div>
+      <div class="card-source">GlobeNewswire</div>
       <div class="card-body">包装・紙製品大手のソノコが2026年第1四半期の決算結果を発表しました。同社の四半期業績、収益、利益などの財務指標が報告され、事業運営状況と今後の見通しが示されたと考えられます。</div>
-      <a class="card-link business" href="https://www.globenewswire.com/news-release/2026/04/21/3278446/26553/en/Sonoco-Reports-First-Quarter-2026-Results.html" target="_blank" rel="noopener">Read more →</a>
     </article>
-
     <article class="card business">
       <div class="card-top">
         <span class="card-label business">ビジネス</span>
-        <div class="stars">
-          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
-        </div>
-      </div>
-      <div class="card-title-ja">AIが中古ファッション市場を収益性の高いビジネスに変革</div>
-      <div class="card-title-en">AI Turned Thrift Into a Profitable Fashion Machine</div>
-      <div class="card-source">pymnts.com · 2026-04-21</div>
-      <div class="card-body">世界的な中古品市場がAI技術により急速に成長している。今年は前年比12%増の2,890億ドルに達し、2030年には3,930億ドルに到達する見込みだ。AIを活用したプラットフォームにより、消費者の購買行動が変化し、中古品が最初の選択肢となりつつある。</div>
-      <a class="card-link business" href="https://www.pymnts.com/artificial-intelligence-2/2026/ai-turned-thrift-into-a-profitable-fashion-machine/" target="_blank" rel="noopener">Read more →</a>
-    </article>
-
-    <article class="card business">
-      <div class="card-top">
-        <span class="card-label business">ビジネス</span>
-        <div class="stars">
-          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
-        </div>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
       </div>
       <div class="card-title-ja">ロボットは観察するが、意思決定は人間が行う</div>
-      <div class="card-title-en">Why Robots Observe, But Humans Still Decide</div>
-      <div class="card-source">Observer · 2026-04-21</div>
-      <div class="card-body">データセンターの拡大と自律システムの普及に伴い、Micropolis RoboticsのAlexander Rugaevが運用上の境界線を指摘している。ロボットは観察能力を持つが、重要な判断は人間が担当する必要があるという、AI時代における人間と機械の役割分担について論じている。</div>
-      <a class="card-link business" href="https://observer.com/2026/04/ai-security-robots-human-control-data-centers/" target="_blank" rel="noopener">Read more →</a>
+      <div class="card-source">Observer</div>
+      <div class="card-body"><span class="t" data-t="datacenter" tabindex="0" role="button" aria-label="データセンターの説明を見る">データセンター</span>の拡大と自律システムの普及に伴い、Micropolis RoboticsのAlexander Rugaevが運用上の境界線を指摘している。ロボットは観察能力を持つが、重要な判断は人間が担当する必要があるという、AI時代における人間と機械の役割分担について論じている。</div>
     </article>
-
     <article class="card business">
       <div class="card-top">
         <span class="card-label business">ビジネス</span>
-        <div class="stars">
-          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
-        </div>
-      </div>
-      <div class="card-title-ja">AppleのCEO交代、AI競争での遅れ挽回に賭け</div>
-      <div class="card-title-en">Apple is betting John Ternus will bring back Jobs-era decisiveness at the worst possible time to be behind on AI</div>
-      <div class="card-source">The Next Web · 2026-04-21</div>
-      <div class="card-body">Appleが新CEOジョン・テルナスへの交代を通じて、意思決定の一元化と迅速化を図る戦略に注目。AI開発で競合他社に1年遅れており、Siriの刷新も3度延期されるなど、タイミングが課題となっている。</div>
-      <a class="card-link business" href="https://thenextweb.com/news/apple-is-betting-john-ternus-will-bring-back-jobs-era-decisiveness-at-the-worst-possible-time-to-be-behind-on-ai/" target="_blank" rel="noopener">Read more →</a>
-    </article>
-
-    <article class="card business">
-      <div class="card-top">
-        <span class="card-label business">ビジネス</span>
-        <div class="stars">
-          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
-        </div>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
       </div>
       <div class="card-title-ja">ODDITY Tech Ltd.に対する集団訴訟の提起を発表</div>
-      <div class="card-title-en">Pomerantz Law Firm Announces the Filing of a Class Action Against ODDITY Tech Ltd. and Certain Officers – ODD</div>
-      <div class="card-source">GlobeNewswire · 2026-04-21</div>
+      <div class="card-source">GlobeNewswire</div>
       <div class="card-body">Pomerantz法律事務所は、NASDAQ上場企業ODDITY Tech Ltd.とその役員に対する集団訴訟を米国連邦地方裁判所に提起したと発表しました。本訴訟は株主保護に関連する重要な法的措置です。</div>
-      <a class="card-link business" href="https://www.globenewswire.com/news-release/2026/04/21/3278382/1087/en/Pomerantz-Law-Firm-Announces-the-Filing-of-a-Class-Action-Against-ODDITY-Tech-Ltd-and-Certain-Officers-ODD.html" target="_blank" rel="noopener">Read more →</a>
     </article>
-
     <article class="card business">
       <div class="card-top">
         <span class="card-label business">ビジネス</span>
-        <div class="stars">
-          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
-        </div>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
       </div>
       <div class="card-title-ja">Upstart Holdings社に対する集団訴訟の提起を発表</div>
-      <div class="card-title-en">Pomerantz Law Firm Announces the Filing of a Class Action Against Upstart Holdings, Inc. and Certain Officers</div>
-      <div class="card-source">GlobeNewswire · 2026-04-21</div>
+      <div class="card-source">GlobeNewswire</div>
       <div class="card-body">Pomerantz法律事務所がUpstart Holdings社およびその役員に対する集団訴訟を米国連邦裁判所に提起したことを発表。同社はNASDAQにUPSTティッカーで上場する金融テクノロジー企業。訴訟の具体的理由は記事中に記載されていないが、企業の法的問題を示唆するニュース。</div>
-      <a class="card-link business" href="https://www.globenewswire.com/news-release/2026/04/21/3278378/1087/en/Pomerantz-Law-Firm-Announces-the-Filing-of-a-Class-Action-Against-Upstart-Holdings-Inc-and-Certain-Officers-UPST.html" target="_blank" rel="noopener">Read more →</a>
     </article>
-
     <article class="card business">
       <div class="card-top">
         <span class="card-label business">ビジネス</span>
-        <div class="stars">
-          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
-        </div>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
       </div>
       <div class="card-title-ja">アップルのCEO交代は不確実性ではなく企業の強さを示す</div>
-      <div class="card-title-en">Apple's CEO Transition Signals Strength, Not Uncertainty</div>
-      <div class="card-source">Yale.edu · 2026-04-21</div>
+      <div class="card-source">Yale.edu</div>
       <div class="card-body">アップルのCEO交代について、経営学の専門家が企業の安定性と強さの表れであると分析する記事。リーダーシップ研究の権威であるジェフリー・ソネンフェルド教授による見方を提示し、経営陣の世代交代が組織的な成熟度を反映していることを論じています。</div>
-      <a class="card-link business" href="https://insights.som.yale.edu/insights/apples-ceo-transition-signals-strength-not-uncertainty" target="_blank" rel="noopener">Read more →</a>
     </article>
-
     <article class="card business">
       <div class="card-top">
         <span class="card-label business">ビジネス</span>
-        <div class="stars">
-          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
-        </div>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
       </div>
       <div class="card-title-ja">ワールド・インシュアランス、新CEOにニューウェルを指名</div>
-      <div class="card-title-en">Newell Succeeds Founder Eknoian as World Insurance CEO</div>
-      <div class="card-source">Insurance Journal · 2026-04-21</div>
+      <div class="card-source">Insurance Journal</div>
       <div class="card-body">保険仲介業大手のワールド・インシュアランス・アソシエイツは、創業者で長年CEOを務めたリッチ・エクノイアンの後任として、ジョン・ニューウェルを新CEOに指名することを発表した。ニューウェルはテクノロジー対応の専門保険仲介プラットフォーム、ニューフロントで最高商務責任者を務めていた。</div>
-      <a class="card-link business" href="https://www.insurancejournal.com/news/national/2026/04/21/866766.htm" target="_blank" rel="noopener">Read more →</a>
     </article>
-
     <article class="card business">
       <div class="card-top">
         <span class="card-label business">ビジネス</span>
-        <div class="stars">
-          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
-        </div>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
       </div>
-      <div class="card-title-ja">OpenAI、ChatGPTでクリック課金型広告キャンペーンを開始</div>
-      <div class="card-title-en">OpenAI Begins Offering Cost-Per-Click Ad Campaigns on ChatGPT</div>
-      <div class="card-source">pymnts.com · 2026-04-21</div>
+      <div class="card-title-ja"><span class="t" data-t="openai" tabindex="0" role="button" aria-label="OpenAIの説明を見る">OpenAI</span>、<span class="t" data-t="gpt" tabindex="0" role="button" aria-label="ChatGPTの説明を見る">ChatGPT</span>でクリック課金型広告キャンペーンを開始</div>
+      <div class="card-source">pymnts.com</div>
       <div class="card-body">OpenAIがChatGPT上でクリック課金型（CPC）の広告キャンペーンを提供開始したと報じられた。同社の広告マネージャーのスクリーンショットに基づいて確認されたもので、ユーザーのクリック数に応じた料金体系を導入し、AI企業の収益化戦略を強化している。</div>
-      <a class="card-link business" href="https://www.pymnts.com/artificial-intelligence-2/2026/openai-begins-offering-cost-per-click-ad-campaigns-on-chatgpt/" target="_blank" rel="noopener">Read more →</a>
     </article>
-
     <article class="card business">
       <div class="card-top">
         <span class="card-label business">ビジネス</span>
-        <div class="stars">
-          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
-        </div>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
       </div>
       <div class="card-title-ja">Revolut独自のAIモデル開発で外部費用削減に成功</div>
-      <div class="card-title-en">Revolut Stopped Paying for AI and Started Winning</div>
-      <div class="card-source">pymnts.com · 2026-04-21</div>
-      <div class="card-body">ロンドンの新興銀行Revolutは、OpenAIやAnthropicなどの外部AIサービスへの支払いを止め、独自のAIモデル「PRAGMA」を開発した。2,500万ユーザーから得た400億件の取引データとアプリインタラクション、金融イベントでモデルを訓練し、銀行業務の効率化とコスト削減を実現している。</div>
-      <a class="card-link business" href="https://www.pymnts.com/artificial-intelligence-2/2026/revolut-stopped-paying-for-ai-and-started-winning/" target="_blank" rel="noopener">Read more →</a>
+      <div class="card-source">pymnts.com</div>
+      <div class="card-body">ロンドンの新興銀行Revolutは、OpenAIや<span class="t" data-t="anthropic" tabindex="0" role="button" aria-label="Anthropicの説明を見る">Anthropic</span>などの外部AIサービスへの支払いを止め、独自のAIモデル「PRAGMA」を開発した。2,500万ユーザーから得た400億件の取引データとアプリインタラクション、金融イベントでモデルを訓練し、銀行業務の効率化とコスト削減を実現している。</div>
     </article>
-
     <article class="card business">
       <div class="card-top">
         <span class="card-label business">ビジネス</span>
-        <div class="stars">
-          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
-        </div>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
       </div>
       <div class="card-title-ja">トランプ大統領、Anthropicを評価 ペンタゴンとの取引再開の可能性</div>
-      <div class="card-title-en">Trump says Anthropic is 'shaping up,' open to deal with Pentagon</div>
-      <div class="card-source">The Times of India · 2026-04-21</div>
+      <div class="card-source">The Times of India</div>
       <div class="card-body">トランプ大統領がAnthropicについて肯定的な評価を示し、2月に指示したペンタゴンとの取引停止を撤回する可能性を示唆した。これによりAnthropicは米国防総省でのブラックリスト状態から脱する道が開けた。政治的判断がAI企業の商業展開に影響を与える事例である。</div>
-      <a class="card-link business" href="https://economictimes.indiatimes.com/tech/technology/trump-says-anthropic-is-shaping-up-open-to-deal-with-pentagon/articleshow/130424027.cms" target="_blank" rel="noopener">Read more →</a>
     </article>
-
     <article class="card business">
       <div class="card-top">
         <span class="card-label business">ビジネス</span>
-        <div class="stars">
-          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
-        </div>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
       </div>
       <div class="card-title-ja">UT Austinが新医療センター建設を発表、Dellが10億ドル寄付</div>
-      <div class="card-title-en">UT Austin announces new Dell Medical Center, research campus</div>
-      <div class="card-source">KUT · 2026-04-21</div>
+      <div class="card-source">KUT</div>
       <div class="card-body">マイケルとスーザン・デル夫妻がUT Austinに対して10億ドル超の寄付を行い、同大学初の10億ドル規模のドナーとなった。この寄付により、待望のDell Medical Centerと研究キャンパスの建設が実現する。大規模な医療施設と研究機関の設立を通じた、教育機関と民間企業による協業モデル。</div>
-      <a class="card-link business" href="https://www.kut.org/health/2026-04-21/ut-austin-dell-medical-center-hospital-michael-susan-dell-foundation-donation" target="_blank" rel="noopener">Read more →</a>
     </article>
-
-  </div>
-
-  <!-- ポリシー -->
-  <div class="section-label" id="section-policy">ポリシー</div>
-  <div class="grid">
-
+    </div>
+  </details>
+  <details class="genre policy">
+    <summary><span class="genre-dot"></span>ポリシー<span class="cnt">1件</span></summary>
+    <div class="genre-body">
     <article class="card policy">
       <div class="card-top">
         <span class="card-label policy">ポリシー</span>
-        <div class="stars">
-          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
-        </div>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
       </div>
       <div class="card-title-ja">リトアニア、若き起業家育成で都市のテック生態系を構築</div>
-      <div class="card-title-en">New tech for young workers: Building Lithuania's new smart hubs</div>
-      <div class="card-source">Digital Journal · 2026-04-21</div>
+      <div class="card-source">Digital Journal</div>
       <div class="card-body">ビリニュス市の当局者が、学校から直接起業家を採用するという積極的な戦略により、都市のテクノロジーとスタートアップ生態系の未来を形作っている。若い人材の早期発掘と育成を通じて、スマートハブの構築を進める都市政策の事例。</div>
-      <a class="card-link policy" href="https://www.digitaljournal.com/tech-science/new-tech-for-young-workers-building-lithuanias-new-smart-hubs/article" target="_blank" rel="noopener">Read more →</a>
     </article>
-
-    <article class="card policy">
-      <div class="card-top">
-        <span class="card-label policy">ポリシー</span>
-        <div class="stars">
-          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
-        </div>
-      </div>
-      <div class="card-title-ja">自動化システムが福祉給付を決定する問題：ロボデット以降の課題</div>
-      <div class="card-title-en">First Robodebt, now NDIS and aged care: how computers still decide who gets care</div>
-      <div class="card-source">The Conversation Africa · 2026-04-21</div>
-      <div class="card-body">オーストラリアで自動化システムによる福祉給付判定の問題が継続している。ロボデット問題に続き、NDIS（障害者支援制度）や高齢者ケアでも、人間の判断を置き換えると約束されたコンピュータが、実際には不公正な結果をもたらしている実態を報道している。</div>
-      <a class="card-link policy" href="https://theconversation.com/first-robodebt-now-ndis-and-aged-care-how-computers-still-decide-who-gets-care-280711" target="_blank" rel="noopener">Read more →</a>
-    </article>
-
-    <article class="card policy">
-      <div class="card-top">
-        <span class="card-label policy">ポリシー</span>
-        <div class="stars">
-          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
-        </div>
-      </div>
-      <div class="card-title-ja">利益追求のみの企業行動とAIの倫理的課題</div>
-      <div class="card-title-en">Single-minded pursuit of profit can get firms in trouble. Same thing with AI.</div>
-      <div class="card-source">Harvard School of Engineering and Applied Sciences · 2026-04-21</div>
-      <div class="card-body">研究者は、企業利益の最大化のみを目指すAIシステムが非倫理的・詐欺的行為に陥るリスクを指摘。この教訓は立法者と経営陣にとって重要であり、AIガバナンスと規制の必要性を示唆している。</div>
-      <a class="card-link policy" href="https://news.harvard.edu/gazette/story/2026/04/single-minded-pursuit-of-profit-can-get-firms-in-trouble-same-thing-with-ai/" target="_blank" rel="noopener">Read more →</a>
-    </article>
-
-    <article class="card policy">
-      <div class="card-top">
-        <span class="card-label policy">ポリシー</span>
-        <div class="stars">
-          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
-        </div>
-      </div>
-      <div class="card-title-ja">21世紀における連邦準備制度の近代化</div>
-      <div class="card-title-en">Waller, Modernizing Federal Reserve Operations in the 21st Century</div>
-      <div class="card-source">Federalreserve.gov · 2026-04-21</div>
-      <div class="card-body">ブルッキングス研究所でのWallerの講演。連邦準備制度の現代的運営課題について論じている。金融政策の効率性向上と21世紀の経済環境への適応を目指す政策的取り組みについて、中央銀行の役割と機能の現代化を主題とした内容と推測される。</div>
-      <a class="card-link policy" href="https://www.federalreserve.gov/newsevents/speech/waller20260421a.htm" target="_blank" rel="noopener">Read more →</a>
-    </article>
-
-    <article class="card policy">
-      <div class="card-top">
-        <span class="card-label policy">ポリシー</span>
-        <div class="stars">
-          <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
-        </div>
-      </div>
-      <div class="card-title-ja">英国が週4件の国家的サイバー攻撃に直面、NCSC長官が警告</div>
-      <div class="card-title-en">Nation states responsible for 'nationally significant' cyber attacks against UK, says NCSC chief</div>
-      <div class="card-source">ComputerWeekly.com · 2026-04-21</div>
-      <div class="card-body">英国のサイバーセキュリティセンター（NCSC）長官リチャード・ホーン氏は、英国が週4件の国家的に重要なサイバー攻撃に直面していると警告した。これらの攻撃の大多数は敵対的な国家による攻撃であり、CyberUKカンファレンスで公表される予定である。国家間のサイバー脅威が深刻化していることを示す重要な発表。</div>
-      <a class="card-link policy" href="https://www.computerweekly.com/news/366642032/Nation-states-responsible-for-nationally-significant-cyber-attacks-against-UK-says-NCSC-chief" target="_blank" rel="noopener">Read more →</a>
-    </article>
-
-  </div>
-
-  <!-- ツール -->
-  <div class="section-label" id="section-tools">ツール</div>
-  <div class="grid">
-
+    </div>
+  </details>
+  <details class="genre tools">
+    <summary><span class="genre-dot"></span>ツール<span class="cnt">6件</span></summary>
+    <div class="genre-body">
     <article class="card tools">
       <div class="card-top">
         <span class="card-label tools">ツール</span>
-        <div class="stars">
-          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
-        </div>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
       </div>
       <div class="card-title-ja">ChatGPTの新画像生成モデル、テキスト描写能力が大幅向上</div>
-      <div class="card-title-en">ChatGPT's new image model turned my article into handwriting</div>
-      <div class="card-source">PCWorld · 2026-04-21</div>
+      <div class="card-source">PCWorld</div>
       <div class="card-body">ChatGPTの最新画像生成モデル「Images 2.0」は、AI画像生成における長年の課題であったテキスト描写の品質を大幅に改善しました。従来は歪んだ文字がAIの特徴的な欠陥でしたが、本モデルは実際の記事をテキストレンダリング能力に優れた手書きに変換するなど、高い精度でテキストを生成できるようになっています。</div>
-      <a class="card-link tools" href="https://www.pcworld.com/article/3120607/chatgpts-new-image-model-turned-my-article-into-handwriting.html" target="_blank" rel="noopener">Read more →</a>
     </article>
-
     <article class="card tools">
       <div class="card-top">
         <span class="card-label tools">ツール</span>
-        <div class="stars">
-          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
-        </div>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
       </div>
       <div class="card-title-ja">RNO1：AI活用したデジタルマーケティングと UXデザインの統合サービス</div>
-      <div class="card-title-en">RNO1 | UX Design Agency, Web Design, Branding & AI-Digital Marketing | Award-Winning Digital Agency</div>
-      <div class="card-source">Rno1.com · 2026-04-21</div>
+      <div class="card-source">Rno1.com</div>
       <div class="card-body">RNO1は、ブランド戦略、デジタルブランディング、UXデザイン、ウェブデザイン、デジタルプロダクト設計、AI強化型デジタルマーケティングなどを提供する受賞歴のあるデジタルエージェンシーです。モダンブランドが革新的なデジタル体験を創出するためのガイダンスを行います。</div>
-      <a class="card-link tools" href="https://www.rno1.com/work/takeup" target="_blank" rel="noopener">Read more →</a>
     </article>
-
     <article class="card tools">
       <div class="card-top">
         <span class="card-label tools">ツール</span>
-        <div class="stars">
-          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
-        </div>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
       </div>
-      <div class="card-title-ja">Claude Cowork が Amazon Bedrock で利用可能に</div>
-      <div class="card-title-en">From developer desks to the whole organization: Running Claude Cowork in Amazon Bedrock</div>
-      <div class="card-source">Amazon.com · 2026-04-21</div>
-      <div class="card-body">Anthropic は Claude Cowork と Claude Code Desktop を Amazon Bedrock で実行できるようになったことを発表しました。開発者向けツールから組織全体での利用へと拡大し、LLMゲートウェイを通じた直接実行も可能になり、エンタープライズレベルの導入が促進されます。</div>
-      <a class="card-link tools" href="https://aws.amazon.com/blogs/machine-learning/from-developer-desks-to-the-whole-organization-running-claude-cowork-in-amazon-bedrock/" target="_blank" rel="noopener">Read more →</a>
+      <div class="card-title-ja"><span class="t" data-t="claude" tabindex="0" role="button" aria-label="Claudeの説明を見る">Claude</span> Cowork が Amazon Bedrock で利用可能に</div>
+      <div class="card-source">Amazon.com</div>
+      <div class="card-body">Anthropic は Claude Cowork と Claude Code Desktop を Amazon Bedrock で実行できるようになったことを発表しました。開発者向けツールから組織全体での利用へと拡大し、<span class="t" data-t="llm" tabindex="0" role="button" aria-label="LLMの説明を見る">LLM</span>ゲートウェイを通じた直接実行も可能になり、エンタープライズレベルの導入が促進されます。</div>
     </article>
-
     <article class="card tools">
       <div class="card-top">
         <span class="card-label tools">ツール</span>
-        <div class="stars">
-          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
-        </div>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
       </div>
       <div class="card-title-ja">気象予報にAIを導入するカナダ環境省の取り組み</div>
-      <div class="card-title-en">How AI is changing your weather forecast</div>
-      <div class="card-source">CBC News · 2026-04-21</div>
+      <div class="card-source">CBC News</div>
       <div class="card-body">カナダの環境省（Environment Canada）が、天気予報の予測精度向上のためにAI技術を導入しました。複数の気象機関が同様の取り組みを進めており、機械学習アルゴリズムを活用することで、従来の気象予報モデルをより精密にする新しいツールとして機能しています。</div>
-      <a class="card-link tools" href="https://www.cbc.ca/news/canada/nova-scotia/weather-forecasting-ai-9.7171795" target="_blank" rel="noopener">Read more →</a>
     </article>
-
     <article class="card tools">
       <div class="card-top">
         <span class="card-label tools">ツール</span>
-        <div class="stars">
-          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
-        </div>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
       </div>
       <div class="card-title-ja">カメラ搭載AI イヤホンが視界の対象を認識</div>
-      <div class="card-title-en">Camera-equipped AI earbuds tell you what you're looking at</div>
-      <div class="card-source">New Atlas · 2026-04-21</div>
+      <div class="card-source">New Atlas</div>
       <div class="card-body">小型で快適なイヤホンに高度な機能を追加する新しい技術が登場。カメラを搭載したAIイヤホンは、ユーザーが見ている物体や景色をリアルタイムで識別し、音声で情報を提供する。スマートフォンと異なり、ハンズフリーで周囲の環境認識が可能になり、日常生活での利便性を大幅に向上させる実用的なツールである。</div>
-      <a class="card-link tools" href="https://newatlas.com/wearables/vuebuds-ai-earbuds-described-audio/" target="_blank" rel="noopener">Read more →</a>
     </article>
-
     <article class="card tools">
       <div class="card-top">
         <span class="card-label tools">ツール</span>
-        <div class="stars">
-          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
-        </div>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
       </div>
       <div class="card-title-ja">AIが実現する継続的なオンボーディング</div>
-      <div class="card-title-en">The Art Of Perpetual Onboarding: Why AI Makes The Continuous Model Viable At Last</div>
-      <div class="card-source">Elearningindustry.com · 2026-04-21</div>
+      <div class="card-source">Elearningindustry.com</div>
       <div class="card-body">従来のオンボーディングは初期段階に限定されていましたが、昇進や製品変更、新しい課題のたびに効率化への時間が繰り返されます。本記事は、AIが初めて継続的かつ個別化された開発支援を運用可能にするツールであることを論じています。</div>
-      <a class="card-link tools" href="https://elearningindustry.com/the-art-of-perpetual-onboarding-why-ai-makes-the-continuous-model-viable-at-last" target="_blank" rel="noopener">Read more →</a>
     </article>
+    </div>
+  </details>
 
+  <div class="subscribe">
+    毎朝6時に自動更新しています ─ 
+    <a href="https://teraco-labo.github.io/ai-news-digest/podcast/feed.xml">🎧 ポッドキャスト購読</a> ／ 
+    <a href="feed.xml">📡 サイトのRSS</a> ／ 
+    <a href="archive.html">バックナンバー</a>
   </div>
-
 
 </main>
 
 <footer>
-  <strong>AI News Digest</strong> — 2026年4月13日（月）自動生成 | 12記事収録<br>
-  <span style="font-size:0.72rem; margin-top:0.3rem; display:block;">Model: 2 · Research: 5 · Business: 4 · Policy: 1</span>
+  <strong>世界一わかりやすいAIニュース</strong> — 2026年4月22日（水）／ 30 件収録<br>
+  毎朝6時に自動生成しています。
+  <div class="footer-links"><a href="">トップ</a> ／ <a href="terms/">AI用語集</a> ／ <a href="articles/">読み物</a> ／ <a href="archive.html">バックナンバー</a> ／ <a href="about.html">運営者情報・免責事項</a> ／ <a href="https://teraco-labo.com">TERACO.LABO</a></div>
 </footer>
+<script type="application/json" id="glossary-data">{"anthropic": {"n": "Anthropic", "s": "AIアシスタント「Claude」を開発するアメリカの企業です。AIの安全性を重視する方針を掲げています。", "u": "terms/anthropic.html"}, "claude": {"n": "Claude", "s": "Anthropicが開発しているAIアシスタントです。長文の読解や文章作成、プログラミングに強みがあります。", "u": "terms/claude.html"}, "compute": {"n": "計算資源", "s": "AIの学習や実行に使う計算能力の総量のことです。お金・電力・半導体の量とほぼ同じ意味で語られます。", "u": "terms/compute.html"}, "datacenter": {"n": "データセンター", "s": "AIを動かすためのコンピュータを大量に設置した施設です。AI競争は電力と土地の競争でもあります。", "u": "terms/datacenter.html"}, "gpt": {"n": "GPT", "s": "OpenAIが開発しているAIモデルのシリーズ名です。ChatGPTの中身がこれにあたります。", "u": "terms/gpt.html"}, "llm": {"n": "LLM", "s": "大量の文章を学習して、人間のように読み書きできるAIのことです。ChatGPTやClaudeの「頭脳」にあたる部分がこれです。", "u": "terms/llm.html"}, "meta-ai": {"n": "Meta", "s": "FacebookやInstagramを運営する企業で、AIモデル「Llama」を公開しています。", "u": "terms/meta-ai.html"}, "openai": {"n": "OpenAI", "s": "ChatGPTを開発したアメリカのAI企業です。2022年のChatGPT公開が、今の生成AIブームの引き金になりました。", "u": "terms/openai.html"}}</script>
+
+<script>
+(function(){
+  var el = document.getElementById('glossary-data');
+  if (!el) return;
+  var G; try { G = JSON.parse(el.textContent); } catch(e) { return; }
+
+  // 指でも操作する端末ではシート、マウスがある端末ではポップアップにする
+  var hoverable = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+  var tip = document.createElement('div'); tip.id = 'tip';
+  var veil = document.createElement('div'); veil.id = 'veil';
+  var sheet = document.createElement('div'); sheet.id = 'sheet';
+  sheet.innerHTML = '<div class="sheet-grip"></div><span class="tip-n"></span>'
+    + '<div class="tip-s"></div><a class="tip-m" href="#">くわしい解説を読む →</a>';
+  document.body.appendChild(tip);
+  document.body.appendChild(veil);
+  document.body.appendChild(sheet);
+
+  function showTip(node, d){
+    tip.innerHTML = '<span class="tip-n"></span><span class="tip-s"></span>'
+      + '<a class="tip-m" href="#">くわしい解説 →</a>';
+    tip.querySelector('.tip-n').textContent = d.n;
+    tip.querySelector('.tip-s').textContent = d.s;
+    tip.querySelector('.tip-m').href = d.u;
+    tip.classList.add('on');
+    var r = node.getBoundingClientRect();
+    var w = tip.offsetWidth, h = tip.offsetHeight;
+    var left = Math.min(Math.max(8, r.left + r.width/2 - w/2), window.innerWidth - w - 8);
+    var top = r.top - h - 10;
+    if (top < 8) top = r.bottom + 10;           // 上に入らなければ下に出す
+    tip.style.left = (left + window.scrollX) + 'px';
+    tip.style.top  = (top + window.scrollY) + 'px';
+  }
+  function hideTip(){ tip.classList.remove('on'); }
+
+  function openSheet(d){
+    sheet.querySelector('.tip-n').textContent = d.n;
+    sheet.querySelector('.tip-s').textContent = d.s;
+    sheet.querySelector('.tip-m').href = d.u;
+    sheet.classList.add('on'); veil.classList.add('on');
+  }
+  function closeSheet(){ sheet.classList.remove('on'); veil.classList.remove('on'); }
+  veil.addEventListener('click', closeSheet);
+
+  var hideTimer;
+  document.addEventListener('mouseover', function(e){
+    if (!hoverable) return;
+    var n = e.target.closest('.t'); if (!n) return;
+    clearTimeout(hideTimer);
+    var d = G[n.getAttribute('data-t')]; if (d) showTip(n, d);
+  });
+  document.addEventListener('mouseout', function(e){
+    if (!hoverable) return;
+    if (e.target.closest('.t') && !tip.contains(e.relatedTarget)) {
+      hideTimer = setTimeout(hideTip, 180);
+    }
+  });
+  tip.addEventListener('mouseenter', function(){ clearTimeout(hideTimer); });
+  tip.addEventListener('mouseleave', hideTip);
+
+  document.addEventListener('click', function(e){
+    var n = e.target.closest('.t'); if (!n) return;
+    var d = G[n.getAttribute('data-t')]; if (!d) return;
+    e.preventDefault();
+    if (hoverable) { location.href = d.u; } else { openSheet(d); }
+  });
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape') { hideTip(); closeSheet(); return; }
+    if (e.key !== 'Enter' && e.key !== ' ') return;
+    var n = document.activeElement; if (!n || !n.classList.contains('t')) return;
+    var d = G[n.getAttribute('data-t')]; if (!d) return;
+    e.preventDefault();
+    hoverable ? (location.href = d.u) : openSheet(d);
+  });
+})();
+</script>
 
 </body>
 </html>

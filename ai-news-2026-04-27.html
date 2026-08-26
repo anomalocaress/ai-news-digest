@@ -3,893 +3,770 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI News Digest — 2026-04-27</title>
+<title>AI最新ニュースまとめ 2026年4月27日 | 世界一わかりやすいAIニュース</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root { --bg:#f8fafc; --card-bg:#fff; --text:#1e293b; --text-muted:#64748b; --border:#e2e8f0; --accent:#0e7490; }
+  body { font-family:'Noto Sans JP','Inter',sans-serif; background:var(--bg); color:var(--text);
+    line-height:1.7; -webkit-font-smoothing:antialiased; }
+  a { color:inherit; }
+  .hero { background:linear-gradient(135deg,#0f172a,#1e293b); color:#fff; padding:3rem 1.5rem; }
+  .hero-inner { max-width:1100px; margin:0 auto; }
+  .hero h1 { font-size:1.8rem; font-weight:700; letter-spacing:0.01em; }
+  .hero p { margin-top:0.6rem; font-size:0.95rem; color:#cbd5e1; max-width:640px; }
+  .hero-actions { margin-top:1.5rem; display:flex; flex-wrap:wrap; gap:0.75rem; }
+  .crumbs { font-size:0.75rem; color:#94a3b8; margin-bottom:0.75rem; }
+  .crumbs a { text-decoration:none; }
+  .crumbs a:hover { text-decoration:underline; }
+  .btn { display:inline-block; padding:0.6rem 1.3rem; border-radius:6px; font-size:0.85rem;
+    font-weight:700; text-decoration:none; }
+  .btn-primary { background:#22d3ee; color:#0f172a; }
+  .btn-ghost { border:1px solid rgba(255,255,255,0.35); color:#e2e8f0; }
+  main { max-width:1100px; margin:0 auto; padding:2.5rem 1.5rem 4rem; }
+  .section-label { font-size:0.75rem; font-weight:700; letter-spacing:0.12em; color:var(--text-muted);
+    text-transform:uppercase; margin:2.5rem 0 1rem; }
+  .section-label:first-child { margin-top:0; }
+  .issue-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:1rem; }
+  .issue { display:block; padding:1rem 1.1rem; background:var(--card-bg); border:1px solid var(--border);
+    border-radius:8px; text-decoration:none; transition:border-color .15s; }
+  .issue:hover { border-color:var(--accent); }
+  .issue .d { font-size:0.95rem; font-weight:700; }
+  .issue .m { margin-top:0.25rem; font-size:0.75rem; color:var(--text-muted); }
+  .issue-list { list-style:none; columns:2; column-gap:2rem; }
+  .issue-list li { break-inside:avoid; padding:0.35rem 0; border-bottom:1px solid var(--border); }
+  .issue-list a { font-size:0.85rem; text-decoration:none; }
+  .issue-list a:hover { color:var(--accent); }
+  .issue-list .m { font-size:0.72rem; color:var(--text-muted); margin-left:0.5rem; }
+  footer { border-top:1px solid var(--border); padding:2rem 1.5rem; text-align:center;
+    font-size:0.78rem; color:var(--text-muted); }
+  .lang-switch { display:flex; flex-wrap:wrap; align-items:center; gap:0.35rem;
+    margin-top:1rem; font-size:0.74rem; }
+  .lang-switch .globe { opacity:0.7; margin-right:0.15rem; }
+  .lang-switch .lang { padding:0.25rem 0.7rem; border-radius:999px;
+    border:1px solid rgba(255,255,255,0.25); color:#cbd5e1; text-decoration:none; }
+  .lang-switch a.lang:hover { background:rgba(255,255,255,0.12); color:#fff; }
+  .lang-switch .lang.on { background:rgba(255,255,255,0.9); color:#0f172a; font-weight:700;
+    border-color:transparent; }
+  .lang-switch .lang.soon { opacity:0.45; cursor:default; }
+  .lang-switch .lang.soon em { font-style:normal; font-size:0.62rem; margin-left:0.3rem;
+    opacity:0.85; }
+  .footer-links { margin-top:0.9rem; font-size:0.75rem; }
+  .footer-links a { color:var(--text-muted); text-decoration:none; }
+  .footer-links a:hover { color:var(--accent); text-decoration:underline; }
+  @media (max-width:640px){ .issue-list{columns:1;} .hero h1{font-size:1.4rem;} }
+
   :root {
-    --model: #1d4ed8;
-    --research: #6d28d9;
-    --business: #065f46;
-    --policy: #92400e;
-    --tools: #0e7490;
-    --bg: #f8fafc;
-    --card-bg: #ffffff;
-    --text: #1e293b;
-    --text-muted: #64748b;
-    --border: #e2e8f0;
+    --model:#1d4ed8; --research:#6d28d9; --business:#065f46;
+    --policy:#92400e; --tools:#0e7490;
   }
-  body {
-    font-family: 'Noto Sans JP', 'Inter', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    line-height: 1.6;
-    min-height: 100vh;
-  }
+  .lead { max-width:760px; margin:0 auto 2.5rem; padding:1.5rem 1.7rem;
+    background:var(--card-bg); border:1px solid var(--border); border-radius:8px; }
+  .lead-label { font-size:0.7rem; font-weight:700; letter-spacing:0.14em;
+    color:var(--text-muted); margin-bottom:0.9rem; }
+  .lead ol { list-style:none; counter-reset:lead; display:flex; flex-direction:column; gap:0.7rem; }
+  .lead li { counter-increment:lead; position:relative; padding-left:1.9rem;
+    font-size:0.95rem; line-height:1.85; }
+  .lead li::before { content:counter(lead); position:absolute; left:0; top:0.3em;
+    width:1.25rem; height:1.25rem; border-radius:50%; background:var(--accent); color:#fff;
+    font-size:0.68rem; font-weight:700; display:flex; align-items:center; justify-content:center; }
+  .digest { max-width:760px; margin:0 auto; display:flex; flex-direction:column; gap:1rem; }
+  .card { padding:1.4rem 1.5rem; background:var(--card-bg); border:1px solid var(--border);
+    border-left:3px solid var(--text-muted); border-radius:8px; }
+  .card.model{border-left-color:var(--model)} .card.research{border-left-color:var(--research)}
+  .card.business{border-left-color:var(--business)} .card.policy{border-left-color:var(--policy)}
+  .card.tools{border-left-color:var(--tools)}
+  .card-top { display:flex; align-items:center; gap:0.6rem; margin-bottom:0.6rem; }
+  .card-label { font-size:0.66rem; font-weight:700; letter-spacing:0.06em; padding:2px 7px;
+    border-radius:3px; color:#fff; background:var(--text-muted); }
+  .card-label.model{background:var(--model)} .card-label.research{background:var(--research)}
+  .card-label.business{background:var(--business)} .card-label.policy{background:var(--policy)}
+  .card-label.tools{background:var(--tools)}
+  .stars { display:flex; gap:3px; }
+  .dot { width:6px; height:6px; border-radius:50%; background:var(--border); }
+  .dot.filled { background:var(--text-muted); }
+  .card-title-ja { font-size:1.08rem; font-weight:700; line-height:1.6; }
+  .card-title-en { margin-top:0.25rem; font-size:0.78rem; color:var(--text-muted); line-height:1.5; }
+  .card-source { margin-top:0.5rem; font-size:0.72rem; color:var(--text-muted); }
+  .card-body { margin-top:0.7rem; font-size:0.9rem; line-height:1.95; }
+  .card-link { display:inline-block; margin-top:0.9rem; font-size:0.82rem; font-weight:600;
+    color:var(--accent); text-decoration:none; }
+  .card-link:hover { text-decoration:underline; }
+  .card.top { border-left-width:4px; background:linear-gradient(180deg,rgba(14,116,144,0.04),transparent); }
+  .card.top .card-title-ja { font-size:1.25rem; }
+  .tier { max-width:760px; margin:2rem auto 0.5rem; font-size:0.7rem; font-weight:700;
+    letter-spacing:0.14em; color:var(--text-muted); }
+  .tier:first-of-type { margin-top:0; }
+  .top-nav { display:flex; flex-wrap:wrap; gap:0.4rem; margin-top:1.3rem; }
+  .top-nav a { padding:0.4rem 0.95rem; border:1px solid rgba(255,255,255,0.3); border-radius:999px;
+    font-size:0.78rem; font-weight:600; color:#e2e8f0; text-decoration:none; }
+  .top-nav a:hover { background:rgba(255,255,255,0.12); }
+  .listen { max-width:760px; margin:0 auto 2.5rem; padding:1.2rem 1.4rem;
+    background:linear-gradient(135deg,#0f172a,#1e293b); border-radius:10px; color:#e2e8f0; }
+  .listen-head { display:flex; align-items:baseline; gap:0.6rem; flex-wrap:wrap; margin-bottom:0.75rem; }
+  .listen-head strong { font-size:0.95rem; color:#fff; }
+  .listen-head span { font-size:0.76rem; color:#94a3b8; }
+  .listen audio { width:100%; height:40px; display:block; }
+  .listen-sub { margin-top:0.6rem; font-size:0.74rem; }
+  .listen-sub a { color:#7dd3fc; text-decoration:none; }
+  .listen-sub a:hover { text-decoration:underline; }
+  details.genre { max-width:760px; margin:0 auto 0.75rem; background:var(--card-bg);
+    border:1px solid var(--border); border-radius:8px; overflow:hidden; }
+  details.genre > summary { list-style:none; cursor:pointer; padding:1rem 1.3rem;
+    display:flex; align-items:center; gap:0.7rem; font-weight:700; font-size:0.92rem;
+    -webkit-tap-highlight-color:transparent; }
+  details.genre > summary::-webkit-details-marker { display:none; }
+  details.genre > summary::before { content:"▸"; font-size:0.8rem; color:var(--text-muted);
+    transition:transform .15s; }
+  details.genre[open] > summary::before { transform:rotate(90deg); }
+  details.genre > summary .cnt { margin-left:auto; font-size:0.72rem; font-weight:600;
+    color:var(--text-muted); }
+  details.genre .genre-dot { width:9px; height:9px; border-radius:50%; background:var(--text-muted); }
+  details.genre.model .genre-dot{background:var(--model)} details.genre.research .genre-dot{background:var(--research)}
+  details.genre.business .genre-dot{background:var(--business)} details.genre.policy .genre-dot{background:var(--policy)}
+  details.genre.tools .genre-dot{background:var(--tools)}
+  details.genre .genre-body { padding:0 0.9rem 0.9rem; display:flex; flex-direction:column; gap:0.75rem; }
+  details.genre .card { border:none; border-left:3px solid var(--border); background:var(--bg);
+    border-radius:6px; }
+  .subscribe { max-width:760px; margin:2.5rem auto 0; padding:1rem 1.3rem; text-align:center;
+    border:1px dashed var(--border); border-radius:8px; font-size:0.8rem; color:var(--text-muted); }
+  .subscribe a { color:var(--accent); font-weight:600; text-decoration:none; }
+  @media (max-width:640px){ .card{padding:1.15rem 1.2rem} .card.top .card-title-ja{font-size:1.1rem} }
 
-  /* HEADER */
-  header {
-    background: #0f172a;
-    color: #fff;
-    padding: 2rem 1.5rem;
-  }
-  .header-inner {
-    max-width: 1440px;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 1rem;
-  }
-  .header-title {
-    font-family: 'Inter', sans-serif;
-    font-size: clamp(1.4rem, 3vw, 2rem);
-    font-weight: 700;
-    letter-spacing: -0.02em;
-  }
-  .header-title span { color: #60a5fa; }
-  .header-meta {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 0.2rem;
-  }
-  .header-date {
-    font-size: 0.95rem;
-    color: #94a3b8;
-    font-family: 'Inter', sans-serif;
-  }
-  .header-count {
-    background: #1d4ed8;
-    color: #fff;
-    font-size: 0.75rem;
-    font-weight: 600;
-    padding: 0.2rem 0.7rem;
-    border-radius: 999px;
-    font-family: 'Inter', sans-serif;
-  }
+  .t { color:var(--accent); border-bottom:1px dashed currentColor; cursor:help;
+    font-weight:500; }
+  .t:hover, .t:focus-visible { background:rgba(14,116,144,0.10); outline:none; border-radius:2px; }
+  #tip { position:absolute; z-index:60; max-width:min(22rem,88vw); padding:0.85rem 1rem;
+    background:var(--card-bg); border:1px solid var(--border); border-radius:8px;
+    box-shadow:0 8px 28px rgba(15,23,42,0.16); font-size:0.84rem; line-height:1.8;
+    opacity:0; visibility:hidden; transition:opacity .12s; pointer-events:none; }
+  #tip.on { opacity:1; visibility:visible; pointer-events:auto; }
+  #tip .tip-n { font-weight:700; display:block; margin-bottom:0.3rem; }
+  #tip .tip-m { display:inline-block; margin-top:0.5rem; font-size:0.78rem;
+    font-weight:600; color:var(--accent); text-decoration:none; }
+  #sheet { position:fixed; left:0; right:0; bottom:0; z-index:70; padding:1.4rem 1.4rem 2rem;
+    background:var(--card-bg); border-top:1px solid var(--border);
+    border-radius:16px 16px 0 0; box-shadow:0 -8px 32px rgba(15,23,42,0.22);
+    transform:translateY(102%); transition:transform .22s ease; }
+  #sheet.on { transform:translateY(0); }
+  #sheet .sheet-grip { width:36px; height:4px; border-radius:2px; background:var(--border);
+    margin:0 auto 1rem; }
+  #sheet .tip-n { font-size:1.05rem; font-weight:700; display:block; margin-bottom:0.5rem; }
+  #sheet .tip-s { font-size:0.92rem; line-height:1.95; color:var(--text-muted); }
+  #sheet .tip-m { display:block; margin-top:1.1rem; padding:0.75rem; text-align:center;
+    background:var(--accent); color:#fff; border-radius:8px; font-size:0.88rem;
+    font-weight:700; text-decoration:none; }
+  #veil { position:fixed; inset:0; z-index:69; background:rgba(15,23,42,0.35);
+    opacity:0; visibility:hidden; transition:opacity .22s; }
+  #veil.on { opacity:1; visibility:visible; }
+  @media (prefers-reduced-motion:reduce){ #sheet,#veil,#tip{transition:none} }
+</style>
+<!-- monetize.py: SEO / analytics -->
+<meta name="description" content="2026年4月27日のAI関連ニュース40件を日本語で要約してお届けします。">
+<link rel="canonical" href="https://teraco-labo.github.io/ai-news-digest/ai-news-2026-04-27.html">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AI最新ニュースまとめ 2026年4月27日 | 世界一わかりやすいAIニュース">
+<meta property="og:description" content="2026年4月27日のAI関連ニュース40件を日本語で要約してお届けします。">
+<meta property="og:url" content="https://teraco-labo.github.io/ai-news-digest/ai-news-2026-04-27.html">
+<meta property="og:site_name" content="世界一わかりやすいAIニュース">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:image" content="https://teraco-labo.github.io/ai-news-digest/podcast/cover.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="alternate" type="application/rss+xml" title="世界一わかりやすいAIニュース" href="https://teraco-labo.github.io/ai-news-digest/feed.xml">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "NewsArticle", "headline": "AI最新ニュースまとめ 2026年4月27日 | 世界一わかりやすいAIニュース", "description": "2026年4月27日のAI関連ニュース40件を日本語で要約してお届けします。", "url": "https://teraco-labo.github.io/ai-news-digest/ai-news-2026-04-27.html", "inLanguage": "ja", "author": {"@type": "Person", "name": "てらこ先生"}, "publisher": {"@type": "Organization", "name": "世界一わかりやすいAIニュース"}, "datePublished": "2026-04-27T06:00:00+09:00", "dateModified": "2026-04-27T06:00:00+09:00"}</script>
 
-  /* CATEGORY BAR */
-  .cat-bar {
-    background: #1e293b;
-    padding: 0.75rem 1.5rem;
-    overflow-x: auto;
-  }
-  .cat-bar-inner {
-    max-width: 1440px;
-    margin: 0 auto;
-    display: flex;
-    gap: 0.75rem;
-    flex-wrap: wrap;
-  }
-  .cat-pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    padding: 0.3rem 0.9rem;
-    border-radius: 999px;
-    font-size: 0.78rem;
-    font-weight: 600;
-    font-family: 'Inter', sans-serif;
-    color: #fff;
-    letter-spacing: 0.03em;
-    white-space: nowrap;
-    border: none;
-    cursor: pointer;
-    transition: all 0.2s ease;
-  }
-  .cat-pill:hover {
-    opacity: 0.85;
-    transform: translateY(-2px);
-  }
-  .cat-pill.model    { background: var(--model); }
-  .cat-pill.research { background: var(--research); }
-  .cat-pill.business { background: var(--business); }
-  .cat-pill.policy   { background: var(--policy); }
-  .cat-pill.tools    { background: var(--tools); }
+<style id="mz-style">
+  .mz-disclosure { max-width: 1100px; margin: 0 auto 1rem; padding: 0.5rem 0.75rem;
+    font-size: 0.7rem; line-height: 1.6; color: var(--text-muted, #64748b);
+    background: rgba(148,163,184,0.10); border-radius: 6px; }
+  .mz-block { max-width: 1100px; margin: 2rem auto; }
+  .mz-head { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem; }
+  .mz-head h2 { font-size: 0.9rem; font-weight: 700; color: var(--text, #1e293b); letter-spacing: 0.02em; }
+  .mz-pr { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.08em; padding: 2px 6px;
+    border-radius: 3px; background: #94a3b8; color: #fff; }
+  .mz-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1rem; }
+  .mz-card { display: flex; flex-direction: column; gap: 0.4rem; padding: 1rem;
+    background: var(--card-bg, #fff); border: 1px solid var(--border, #e2e8f0);
+    border-left: 3px solid #0e7490; border-radius: 8px; }
+  .mz-card .mz-name { font-size: 0.68rem; font-weight: 600; color: var(--text-muted, #64748b); letter-spacing: 0.04em; }
+  .mz-card .mz-title { font-size: 0.95rem; font-weight: 700; color: var(--text, #1e293b); line-height: 1.5; }
+  .mz-card .mz-body { font-size: 0.8rem; line-height: 1.7; color: var(--text-muted, #64748b); }
+  .mz-card .mz-cta { margin-top: auto; padding-top: 0.6rem; font-size: 0.8rem; font-weight: 600;
+    color: #0e7490; text-decoration: none; }
+  .mz-card .mz-cta:hover { text-decoration: underline; }
+  .mz-badge { align-self: flex-start; font-size: 0.6rem; font-weight: 700; padding: 2px 6px;
+    border-radius: 3px; background: #0e7490; color: #fff; }
+  .mz-cta-block { max-width: 1100px; margin: 2rem auto; padding: 1.5rem;
+    background: linear-gradient(135deg, #0f172a, #1e293b); border-radius: 10px; color: #e2e8f0; }
+  .mz-cta-block h2 { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.5rem; color: #fff; }
+  .mz-cta-block p { font-size: 0.85rem; line-height: 1.8; color: #cbd5e1; }
+  .mz-cta-block a { display: inline-block; margin-top: 0.9rem; padding: 0.6rem 1.4rem;
+    background: #22d3ee; color: #0f172a; font-size: 0.85rem; font-weight: 700;
+    border-radius: 6px; text-decoration: none; }
+  .mz-ad { max-width: 1100px; margin: 2rem auto; text-align: center; }
+</style>
 
-  /* MAIN */
-  main {
-    max-width: 1440px;
-    margin: 2rem auto;
-    padding: 0 1.5rem;
-  }
-  .section-label {
-    font-size: 0.8rem;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    margin-bottom: 1rem;
-    font-family: 'Inter', sans-serif;
-  }
+<!-- monetize.py: SEO / analytics -->
+<meta name="description" content="2026年04月27日のAI関連ニュース40件を日本語で要約。モデル・研究・ビジネス・ポリシー・ツールの5カテゴリで重要ニュースだけを厳選しています。">
+<link rel="canonical" href="https://teraco-labo.github.io/ai-news-digest/ai-news-2026-04-27.html">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AI最新ニュースまとめ 2026年04月27日 | 世界一わかりやすいAIニュース">
+<meta property="og:description" content="2026年04月27日のAI関連ニュース40件を日本語で要約。モデル・研究・ビジネス・ポリシー・ツールの5カテゴリで重要ニュースだけを厳選しています。">
+<meta property="og:url" content="https://teraco-labo.github.io/ai-news-digest/ai-news-2026-04-27.html">
+<meta property="og:site_name" content="世界一わかりやすいAIニュース">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:image" content="https://teraco-labo.github.io/ai-news-digest/podcast/cover.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="alternate" type="application/rss+xml" title="世界一わかりやすいAIニュース" href="https://teraco-labo.github.io/ai-news-digest/feed.xml">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "NewsArticle", "headline": "AI最新ニュースまとめ 2026年04月27日 | 世界一わかりやすいAIニュース", "description": "2026年04月27日のAI関連ニュース40件を日本語で要約。モデル・研究・ビジネス・ポリシー・ツールの5カテゴリで重要ニュースだけを厳選しています。", "url": "https://teraco-labo.github.io/ai-news-digest/ai-news-2026-04-27.html", "inLanguage": "ja", "author": {"@type": "Person", "name": "てらこ先生"}, "publisher": {"@type": "Organization", "name": "世界一わかりやすいAIニュース"}, "datePublished": "2026-04-27T06:00:00+09:00", "dateModified": "2026-04-27T06:00:00+09:00"}</script>
 
-  /* GRID */
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.25rem;
-    margin-bottom: 2.5rem;
-  }
-  @media (max-width: 900px) {
-    .grid { grid-template-columns: 1fr; }
- %}
-
-  /* CARD */
-  .card {
-    background: var(--card-bg);
-    border-radius: 12px;
-    border: 1px solid var(--border);
-    padding: 1.25rem 1.4rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.65rem;
-    transition: box-shadow 0.2s, transform 0.2s;
-    position: relative;
-    overflow: hidden;
-  }
-  .card:hover {
-    box-shadow: 0 8px 24px rgba(0,0,0,0.09);
-    transform: translateY(-2px);
-  }
-  .card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 3px;
-  }
-  .card.model::before    { background: var(--model); }
-  .card.research::before { background: var(--research); }
-  .card.business::before { background: var(--business); }
-  .card.policy::before   { background: var(--policy); }
-  .card.tools::before    { background: var(--tools); }
-
-  .card-top {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 0.5rem;
-  }
-  .card-label {
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 0.07em;
-    text-transform: uppercase;
-    padding: 0.18rem 0.6rem;
-    border-radius: 4px;
-    color: #fff;
-    font-family: 'Inter', sans-serif;
-  }
-  .card-label.model    { background: var(--model); }
-  .card-label.research { background: var(--research); }
-  .card-label.business { background: var(--business); }
-  .card-label.policy   { background: var(--policy); }
-  .card-label.tools    { background: var(--tools); }
-
-  .stars {
-    display: flex;
-    gap: 2px;
-  }
-  .dot {
-    width: 8px; height: 8px;
-    border-radius: 50%;
-    background: #cbd5e1;
-  }
-  .dot.filled { background: #f59e0b; }
-
-  .card-title-ja {
-    font-size: 1rem;
-    font-weight: 700;
-    color: var(--text);
-    line-height: 1.45;
-  }
-  .card-title-en {
-    font-size: 0.78rem;
-    color: var(--text-muted);
-    font-family: 'Inter', sans-serif;
-    font-style: italic;
-    line-height: 1.4;
-  }
-  .card-source {
-    font-size: 0.75rem;
-    color: var(--text-muted);
-    font-family: 'Inter', sans-serif;
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-  }
-  .card-source::before {
-    content: '';
-    display: inline-block;
-    width: 4px; height: 4px;
-    background: #94a3b8;
-    border-radius: 50%;
-  }
-  .card-body {
-    font-size: 0.88rem;
-    color: #334155;
-    line-height: 1.7;
-  }
-  .card-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.3rem;
-    font-size: 0.78rem;
-    font-weight: 600;
-    font-family: 'Inter', sans-serif;
-    text-decoration: none;
-    margin-top: auto;
-  }
-  .card-link.model    { color: var(--model); }
-  .card-link.research { color: var(--research); }
-  .card-link.business { color: var(--business); }
-  .card-link.policy   { color: var(--policy); }
-  .card-link.tools    { color: var(--tools); }
-  .card-link:hover { text-decoration: underline; }
-
-  /* FOOTER */
-  footer {
-    background: #1e293b;
-    color: #94a3b8;
-    text-align: center;
-    padding: 1.5rem;
-    font-size: 0.8rem;
-    font-family: 'Inter', sans-serif;
-  }
-  footer strong { color: #e2e8f0; }
-
-  @media (max-width: 640px) {
-    header { padding: 1.25rem 1rem; }
-    main { padding: 0 0.85rem; margin: 1.25rem auto; }
-    .cat-bar { padding: 0.6rem 0.85rem; }
-    .card { padding: 1rem 1.1rem; }
-    .header-title { font-size: 1.25rem; }
-  }
+<style id="mz-style">
+  .mz-disclosure { max-width: 1100px; margin: 0 auto 1rem; padding: 0.5rem 0.75rem;
+    font-size: 0.7rem; line-height: 1.6; color: var(--text-muted, #64748b);
+    background: rgba(148,163,184,0.10); border-radius: 6px; }
+  .mz-block { max-width: 1100px; margin: 2rem auto; }
+  .mz-head { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem; }
+  .mz-head h2 { font-size: 0.9rem; font-weight: 700; color: var(--text, #1e293b); letter-spacing: 0.02em; }
+  .mz-pr { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.08em; padding: 2px 6px;
+    border-radius: 3px; background: #94a3b8; color: #fff; }
+  .mz-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1rem; }
+  .mz-card { display: flex; flex-direction: column; gap: 0.4rem; padding: 1rem;
+    background: var(--card-bg, #fff); border: 1px solid var(--border, #e2e8f0);
+    border-left: 3px solid #0e7490; border-radius: 8px; }
+  .mz-card .mz-name { font-size: 0.68rem; font-weight: 600; color: var(--text-muted, #64748b); letter-spacing: 0.04em; }
+  .mz-card .mz-title { font-size: 0.95rem; font-weight: 700; color: var(--text, #1e293b); line-height: 1.5; }
+  .mz-card .mz-body { font-size: 0.8rem; line-height: 1.7; color: var(--text-muted, #64748b); }
+  .mz-card .mz-cta { margin-top: auto; padding-top: 0.6rem; font-size: 0.8rem; font-weight: 600;
+    color: #0e7490; text-decoration: none; }
+  .mz-card .mz-cta:hover { text-decoration: underline; }
+  .mz-badge { align-self: flex-start; font-size: 0.6rem; font-weight: 700; padding: 2px 6px;
+    border-radius: 3px; background: #0e7490; color: #fff; }
+  .mz-cta-block { max-width: 1100px; margin: 2rem auto; padding: 1.5rem;
+    background: linear-gradient(135deg, #0f172a, #1e293b); border-radius: 10px; color: #e2e8f0; }
+  .mz-cta-block h2 { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.5rem; color: #fff; }
+  .mz-cta-block p { font-size: 0.85rem; line-height: 1.8; color: #cbd5e1; }
+  .mz-cta-block a { display: inline-block; margin-top: 0.9rem; padding: 0.6rem 1.4rem;
+    background: #22d3ee; color: #0f172a; font-size: 0.85rem; font-weight: 700;
+    border-radius: 6px; text-decoration: none; }
+  .mz-ad { max-width: 1100px; margin: 2rem auto; text-align: center; }
 </style>
 </head>
 <body>
-
-<header>
-  <div class="header-inner">
-    <div class="header-title">📰 AI <span>News Digest</span></div>
-    <div class="header-meta">
-      <div class="header-date">2026年04月27日（月）</div>
-      <div class="header-count">40 articles</div>
+<div class="hero">
+  <div class="hero-inner">
+    <div class="crumbs"><a href="./">世界一わかりやすいAIニュース</a></div>
+    <h1>2026年4月27日（月）のAIニュース</h1>
+    <p>厳選 40 件。3分で今日のAIがわかります。</p>
+    <div class="top-nav">
+      <a href="./">トップ</a>
+      <a href="articles/">読み物</a>
+      <a href="terms/">AI用語集</a>
+      <a href="archive.html">バックナンバー</a><a href="#listen">🎧 音声で聴く</a>
     </div>
-  </div>
-</header>
-
-<div class="cat-bar">
-  <div class="cat-bar-inner">
-    <button class="cat-pill model" onclick="document.getElementById('section-model').scrollIntoView({behavior: 'smooth'});">● モデル (9)</button>
-    <button class="cat-pill research" onclick="document.getElementById('section-research').scrollIntoView({behavior: 'smooth'});">● 研究 (9)</button>
-    <button class="cat-pill business" onclick="document.getElementById('section-business').scrollIntoView({behavior: 'smooth'});">● ビジネス (10)</button>
-    <button class="cat-pill policy" onclick="document.getElementById('section-policy').scrollIntoView({behavior: 'smooth'});">● ポリシー (6)</button>
-    <button class="cat-pill tools" onclick="document.getElementById('section-tools').scrollIntoView({behavior: 'smooth'});">● ツール (6)</button>
+    <div class="lang-switch"><span class="globe">🌐</span><span class="lang on">日本語</span><span class="lang soon" title="準備中">English<em>準備中</em></span><span class="lang soon" title="準備中">中文<em>準備中</em></span><span class="lang soon" title="準備中">Español<em>準備中</em></span></div>
   </div>
 </div>
 
 <main>
 
-  <!-- モデル -->
-  <div class="section-label" id="section-model">モデル</div>
-  <div class="grid">
+  <div class="listen" id="listen">
+    <div class="listen-head">
+      <strong>🎧 今日の音声版</strong>
+      <span>対話形式・ながら聴き向け（10〜15分）</span>
+    </div>
+    <audio controls preload="none" src="podcast/ai-news-2026-04-27.mp3">
+      <a href="podcast/ai-news-2026-04-27.mp3">音声ファイルを開く</a>
+    </audio>
+    <div class="listen-sub">
+      <a href="https://teraco-labo.github.io/ai-news-digest/podcast/feed.xml">📡 ポッドキャストとして購読する（RSS / Spotify）</a>
+    </div>
+  </div>
 
-    <article class="card model">
+  <div class="tier">注目のニュース</div>
+  <div class="digest">
+    <article class="card model top">
       <div class="card-top">
         <span class="card-label model">モデル</span>
-        <div class="stars">
-          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
-        </div>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
       </div>
-      <div class="card-title-ja">Microsoft says it has over 20M paid Copilot users, and they really are using it</div>
-      <div class="card-title-en">Microsoft says it has over 20M paid Copilot users, and they really are using it</div>
-      <div class="card-source">TechCrunch AI · Wed, 29 Ap</div>
+      <div class="card-title-ja"><span class="t" data-t="microsoft" tabindex="0" role="button" aria-label="Microsoftの説明を見る">Microsoft</span> says it has over 20M paid <span class="t" data-t="copilot" tabindex="0" role="button" aria-label="Copilotの説明を見る">Copilot</span> users, and they really are using it</div>
+      <div class="card-source">TechCrunch AI</div>
       <div class="card-body">Despite the lingering perception that no one really uses Copilot, Microsoft said on Wednesday that the number of users and engagement is growing.</div>
-      <a class="card-link model" href="https://techcrunch.com/2026/04/29/microsoft-says-it-has-over-20m-paid-copilot-users-and-they-really-are-using-it/" target="_blank" rel="noopener">Read more →</a>
     </article>
-
+  </div>
+  <div class="tier">ジャンル別のニュース（タップで開く）</div>
+  <details class="genre model">
+    <summary><span class="genre-dot"></span>モデル<span class="cnt">8件</span></summary>
+    <div class="genre-body">
     <article class="card model">
       <div class="card-top">
         <span class="card-label model">モデル</span>
-        <div class="stars">
-          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
-        </div>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
       </div>
-      <div class="card-title-ja">Salesforce rolls out new Slackbot AI agent as it battles Microsoft and Google in workplace AI</div>
-      <div class="card-title-en">Salesforce rolls out new Slackbot AI agent as it battles Microsoft and Google in workplace AI</div>
-      <div class="card-source">VentureBeat AI · Tue, 13 Ja</div>
+      <div class="card-title-ja">Salesforce rolls out new Slackbot <span class="t" data-t="ai-agent" tabindex="0" role="button" aria-label="AI agentの説明を見る">AI agent</span> as it battles Microsoft and Google in workplace AI</div>
+      <div class="card-source">VentureBeat AI</div>
       <div class="card-body">Salesforce on Tuesday launched an entirely rebuilt version of Slackbot, the company&#x27;s workplace assistant, transforming it from a simple notification tool into what executives describe as a fully powered AI agent capable of searching enterprise data, drafting documents, and taking action on beh</div>
-      <a class="card-link model" href="https://venturebeat.com/technology/salesforce-rolls-out-new-slackbot-ai-agent-as-it-battles-microsoft-and" target="_blank" rel="noopener">Read more →</a>
     </article>
-
     <article class="card model">
       <div class="card-top">
         <span class="card-label model">モデル</span>
-        <div class="stars">
-          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
-        </div>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
       </div>
-      <div class="card-title-ja">Nous Research's NousCoder-14B is an open-source coding model landing right in the Claude Code moment</div>
-      <div class="card-title-en">Nous Research's NousCoder-14B is an open-source coding model landing right in the Claude Code moment</div>
-      <div class="card-source">VentureBeat AI · Wed, 07 Ja</div>
-      <div class="card-body">Nous Research, the open-source artificial intelligence startup backed by crypto venture firm Paradigm, released a new competitive programming model on Monday that it says matches or exceeds several larger proprietary systems — trained in just four days using 48 of Nvidia&#x27;s latest B200 graphics </div>
-      <a class="card-link model" href="https://venturebeat.com/technology/nous-researchs-nouscoder-14b-is-an-open-source-coding-model-landing-right-in" target="_blank" rel="noopener">Read more →</a>
+      <div class="card-title-ja">Nous Research&#x27;s NousCoder-14B is an open-source coding model landing right in the <span class="t" data-t="claude" tabindex="0" role="button" aria-label="Claudeの説明を見る">Claude</span> Code moment</div>
+      <div class="card-source">VentureBeat AI</div>
+      <div class="card-body">Nous Research, the open-source artificial intelligence startup backed by crypto venture firm Paradigm, released a new competitive programming model on Monday that it says matches or exceeds several larger proprietary systems — trained in just four days using 48 of <span class="t" data-t="nvidia" tabindex="0" role="button" aria-label="Nvidiaの説明を見る">Nvidia</span>&#x27;s latest <span class="t" data-t="blackwell" tabindex="0" role="button" aria-label="B200の説明を見る">B200</span> graphics</div>
     </article>
-
     <article class="card model">
       <div class="card-top">
         <span class="card-label model">モデル</span>
-        <div class="stars">
-          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
-        </div>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
       </div>
       <div class="card-title-ja">The creator of Claude Code just revealed his workflow, and developers are losing their minds</div>
-      <div class="card-title-en">The creator of Claude Code just revealed his workflow, and developers are losing their minds</div>
-      <div class="card-source">VentureBeat AI · Mon, 05 Ja</div>
-      <div class="card-body">When the creator of the world&#x27;s most advanced coding agent speaks, Silicon Valley doesn&#x27;t just listen — it takes notes.For the past week, the engineering community has been dissecting a thread on X from Boris Cherny, the creator and head of Claude Code at Anthropic. What began as a casual </div>
-      <a class="card-link model" href="https://venturebeat.com/technology/the-creator-of-claude-code-just-revealed-his-workflow-and-developers-are" target="_blank" rel="noopener">Read more →</a>
+      <div class="card-source">VentureBeat AI</div>
+      <div class="card-body">When the creator of the world&#x27;s most advanced coding agent speaks, Silicon Valley doesn&#x27;t just listen — it takes notes.For the past week, the engineering community has been dissecting a thread on X from Boris Cherny, the creator and head of Claude Code at <span class="t" data-t="anthropic" tabindex="0" role="button" aria-label="Anthropicの説明を見る">Anthropic</span>. What began as a casual</div>
     </article>
-
     <article class="card model">
       <div class="card-top">
         <span class="card-label model">モデル</span>
-        <div class="stars">
-          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
-        </div>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
       </div>
       <div class="card-title-ja">The Download: DeepSeek’s latest AI breakthrough, and the race to build world models</div>
-      <div class="card-title-en">The Download: DeepSeek’s latest AI breakthrough, and the race to build world models</div>
-      <div class="card-source">MIT Tech Review · Mon, 27 Ap</div>
-      <div class="card-body">This is today&#8217;s edition of The Download, our weekday newsletter that provides a daily dose of what&#8217;s going on in the world of technology. Three reasons why DeepSeek’s new model matters On Friday, Chinese AI firm DeepSeek released a preview of V4, its long-awaited new flagship model. Nota</div>
-      <a class="card-link model" href="https://www.technologyreview.com/2026/04/27/1136438/the-download-deepseek-v4-ai-world-models/" target="_blank" rel="noopener">Read more →</a>
+      <div class="card-source">MIT Tech Review</div>
+      <div class="card-body">This is today’s edition of The Download, our weekday newsletter that provides a daily dose of what’s going on in the world of technology. Three reasons why DeepSeek’s new model matters On Friday, Chinese AI firm DeepSeek released a preview of V4, its long-awaited new flagship model. Nota</div>
     </article>
-
     <article class="card model">
       <div class="card-top">
         <span class="card-label model">モデル</span>
-        <div class="stars">
-          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
-        </div>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
       </div>
       <div class="card-title-ja">Three reasons why DeepSeek’s new model matters</div>
-      <div class="card-title-en">Three reasons why DeepSeek’s new model matters</div>
-      <div class="card-source">MIT Tech Review · Fri, 24 Ap</div>
+      <div class="card-source">MIT Tech Review</div>
       <div class="card-body">On April 24, Chinese AI firm DeepSeek released a preview of V4, its long-awaited new flagship model. The model can process much longer prompts than its last generation, thanks to a new design that helps it handle large amounts of text more efficiently. Like DeepSeek’s previous models, V4 is open sou</div>
-      <a class="card-link model" href="https://www.technologyreview.com/2026/04/24/1136422/why-deepseeks-v4-matters/" target="_blank" rel="noopener">Read more →</a>
     </article>
-
     <article class="card model">
       <div class="card-top">
         <span class="card-label model">モデル</span>
-        <div class="stars">
-          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
-        </div>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
       </div>
       <div class="card-title-ja">The Download: supercharged scams and studying AI healthcare</div>
-      <div class="card-title-en">The Download: supercharged scams and studying AI healthcare</div>
-      <div class="card-source">MIT Tech Review · Fri, 24 Ap</div>
-      <div class="card-body">This is today&#8217;s edition of The Download, our weekday newsletter that provides a daily dose of what&#8217;s going on in the world of technology. We’re in a new era of AI-driven scams When ChatGPT was released in late 2022, it showed how easily generative AI could create human-like text. This qu</div>
-      <a class="card-link model" href="https://www.technologyreview.com/2026/04/24/1136400/the-download-supercharged-scams-questionable-ai-healthcare/" target="_blank" rel="noopener">Read more →</a>
+      <div class="card-source">MIT Tech Review</div>
+      <div class="card-body">This is today’s edition of The Download, our weekday newsletter that provides a daily dose of what’s going on in the world of technology. We’re in a new era of AI-driven scams When <span class="t" data-t="gpt" tabindex="0" role="button" aria-label="ChatGPTの説明を見る">ChatGPT</span> was released in late 2022, it showed how easily <span class="t" data-t="generative-ai" tabindex="0" role="button" aria-label="generative AIの説明を見る">generative AI</span> could create human-like text. This qu</div>
     </article>
-
     <article class="card model">
       <div class="card-top">
         <span class="card-label model">モデル</span>
-        <div class="stars">
-          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
-        </div>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
       </div>
       <div class="card-title-ja">Sanctioned Chinese AI Firm SenseTime Releases Image Model Built for Speed</div>
-      <div class="card-title-en">Sanctioned Chinese AI Firm SenseTime Releases Image Model Built for Speed</div>
-      <div class="card-source">Wired AI · Wed, 29 Ap</div>
+      <div class="card-source">Wired AI</div>
       <div class="card-body">With US restrictions limiting its access to advanced tech, SenseTime is doubling down on open source with a new model optimized to run on Chinese-made chips.</div>
-      <a class="card-link model" href="https://www.wired.com/story/chinese-ai-giant-sensetime-is-running-its-new-model-on-chinese-chips/" target="_blank" rel="noopener">Read more →</a>
     </article>
-
     <article class="card model">
       <div class="card-top">
         <span class="card-label model">モデル</span>
-        <div class="stars">
-          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
-        </div>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
       </div>
-      <div class="card-title-ja">I've Covered Robots for Years. This One Is Different</div>
-      <div class="card-title-en">I've Covered Robots for Years. This One Is Different</div>
-      <div class="card-source">Wired AI · Wed, 29 Ap</div>
-      <div class="card-body">From sorting chicken nuggets to screwing in lightbulbs, Eka’s robotic claw feels like we're approaching a ChatGPT moment for the physical world.</div>
-      <a class="card-link model" href="https://www.wired.com/story/when-robots-have-their-chatgpt-moment-remember-these-pincers/" target="_blank" rel="noopener">Read more →</a>
+      <div class="card-title-ja">I&#x27;ve Covered Robots for Years. This One Is Different</div>
+      <div class="card-source">Wired AI</div>
+      <div class="card-body">From sorting chicken nuggets to screwing in lightbulbs, Eka’s robotic claw feels like we&#x27;re approaching a ChatGPT moment for the physical world.</div>
     </article>
-
-  </div>
-
-  <!-- 研究 -->
-  <div class="section-label" id="section-research">研究</div>
-  <div class="grid">
-
+    </div>
+  </details>
+  <details class="genre research">
+    <summary><span class="genre-dot"></span>研究<span class="cnt">9件</span></summary>
+    <div class="genre-body">
     <article class="card research">
       <div class="card-top">
         <span class="card-label research">研究</span>
-        <div class="stars">
-          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
-        </div>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
       </div>
       <div class="card-title-ja">On the stand, Elon Musk can’t escape his own tweets</div>
-      <div class="card-title-en">On the stand, Elon Musk can’t escape his own tweets</div>
-      <div class="card-source">TechCrunch AI · Wed, 29 Ap</div>
-      <div class="card-body">Elon Musk took the stand for the second day for his attempt to legally dismantle OpenAI.</div>
-      <a class="card-link research" href="https://techcrunch.com/2026/04/29/on-the-stand-elon-musk-cant-escape-his-own-tweets/" target="_blank" rel="noopener">Read more →</a>
+      <div class="card-source">TechCrunch AI</div>
+      <div class="card-body">Elon Musk took the stand for the second day for his attempt to legally dismantle <span class="t" data-t="openai" tabindex="0" role="button" aria-label="OpenAIの説明を見る">OpenAI</span>.</div>
     </article>
-
     <article class="card research">
       <div class="card-top">
         <span class="card-label research">研究</span>
-        <div class="stars">
-          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
-        </div>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
       </div>
       <div class="card-title-ja">Google gains 25M subscriptions in Q1, driven by YouTube and Google One</div>
-      <div class="card-title-en">Google gains 25M subscriptions in Q1, driven by YouTube and Google One</div>
-      <div class="card-source">TechCrunch AI · Wed, 29 Ap</div>
+      <div class="card-source">TechCrunch AI</div>
       <div class="card-body">Google added 25M paid subscriptions in Q1, reaching 350M total, as YouTube and Google One grow.</div>
-      <a class="card-link research" href="https://techcrunch.com/2026/04/29/google-gains-25m-subscriptions-in-q1-driven-by-youtube-and-google-one/" target="_blank" rel="noopener">Read more →</a>
     </article>
-
     <article class="card research">
       <div class="card-top">
         <span class="card-label research">研究</span>
-        <div class="stars">
-          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
-        </div>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
       </div>
       <div class="card-title-ja">The missing step between hype and profit</div>
-      <div class="card-title-en">The missing step between hype and profit</div>
-      <div class="card-source">MIT Tech Review · Mon, 27 Ap</div>
+      <div class="card-source">MIT Tech Review</div>
       <div class="card-body">This story originally appeared in The Algorithm, our weekly newsletter on AI. To get stories like this in your inbox first, sign up here. In February, I picked up a flyer at an anti-AI march in London. I can’t say for sure whether or not its writers meant to riff on South Park’s underpants gnomes. B</div>
-      <a class="card-link research" href="https://www.technologyreview.com/2026/04/27/1136456/the-missing-step-between-hype-and-profit/" target="_blank" rel="noopener">Read more →</a>
     </article>
-
     <article class="card research">
       <div class="card-top">
         <span class="card-label research">研究</span>
-        <div class="stars">
-          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
-        </div>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
       </div>
       <div class="card-title-ja">Taylor Swift Wants to Trademark Her Likeness. These TikTok Deepfake Ads Show Why</div>
-      <div class="card-title-en">Taylor Swift Wants to Trademark Her Likeness. These TikTok Deepfake Ads Show Why</div>
-      <div class="card-source">Wired AI · Wed, 29 Ap</div>
+      <div class="card-source">Wired AI</div>
       <div class="card-body">Researchers show scammers are using AI-manipulated footage of celebrity interviews to trick users into sharing their personal data.</div>
-      <a class="card-link research" href="https://www.wired.com/story/taylor-swift-rihanna-tiktok-deepfake-ads/" target="_blank" rel="noopener">Read more →</a>
     </article>
-
     <article class="card research">
       <div class="card-top">
         <span class="card-label research">研究</span>
-        <div class="stars">
-          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
-        </div>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
       </div>
       <div class="card-title-ja">How AI Could Help Combat Antibiotic Resistance</div>
-      <div class="card-title-en">How AI Could Help Combat Antibiotic Resistance</div>
-      <div class="card-source">Wired AI · Wed, 29 Ap</div>
+      <div class="card-source">Wired AI</div>
       <div class="card-body">At WIRED Health, British surgeon Ara Darzi said AI is set to transform the diagnosis and treatment of drug-resistant infections. But a lack of incentives means innovation may not reach patients.</div>
-      <a class="card-link research" href="https://www.wired.com/story/wired-health-2026-tackling-antimicrobial-resistance-ara-darzi/" target="_blank" rel="noopener">Read more →</a>
     </article>
-
     <article class="card research">
       <div class="card-top">
         <span class="card-label research">研究</span>
-        <div class="stars">
-          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
-        </div>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
       </div>
       <div class="card-title-ja">OpenAI Really Wants Codex to Shut Up About Goblins</div>
-      <div class="card-title-en">OpenAI Really Wants Codex to Shut Up About Goblins</div>
-      <div class="card-source">Wired AI · Tue, 28 Ap</div>
+      <div class="card-source">Wired AI</div>
       <div class="card-body">“Never talk about goblins, gremlins, raccoons, trolls, ogres, pigeons, or other animals or creatures unless it is absolutely and unambiguously relevant,” reads OpenAI’s coding agent instructions.</div>
-      <a class="card-link research" href="https://www.wired.com/story/openai-really-wants-codex-to-shut-up-about-goblins/" target="_blank" rel="noopener">Read more →</a>
     </article>
-
     <article class="card research">
       <div class="card-top">
         <span class="card-label research">研究</span>
-        <div class="stars">
-          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
-        </div>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
       </div>
       <div class="card-title-ja">Elon Musk Testifies That He Started OpenAI to Prevent a ‘Terminator Outcome’</div>
-      <div class="card-title-en">Elon Musk Testifies That He Started OpenAI to Prevent a ‘Terminator Outcome’</div>
-      <div class="card-source">Wired AI · Tue, 28 Ap</div>
+      <div class="card-source">Wired AI</div>
       <div class="card-body">The judge also warned Musk and Sam Altman to curb their “propensity to use social media to make things worse outside the courtroom” after both sides traded attacks online.</div>
-      <a class="card-link research" href="https://www.wired.com/story/model-behavior-elon-musk-testifies-at-musk-v-altman-trial/" target="_blank" rel="noopener">Read more →</a>
     </article>
-
     <article class="card research">
       <div class="card-top">
         <span class="card-label research">研究</span>
-        <div class="stars">
-          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
-        </div>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
       </div>
       <div class="card-title-ja">The Race Is on to Keep AI Agents From Running Wild With Your Credit Cards</div>
-      <div class="card-title-en">The Race Is on to Keep AI Agents From Running Wild With Your Credit Cards</div>
-      <div class="card-source">Wired AI · Tue, 28 Ap</div>
-      <div class="card-body">AI agents may soon be buying your stuff for you. The FIDO Alliance has teamed up with Google and Mastercard to try to ensure that shopping in the near future isn't a complete disaster.</div>
-      <a class="card-link research" href="https://www.wired.com/story/the-race-is-on-to-keep-ai-agents-from-running-wild-with-your-credit-cards/" target="_blank" rel="noopener">Read more →</a>
+      <div class="card-source">Wired AI</div>
+      <div class="card-body">AI agents may soon be buying your stuff for you. The FIDO Alliance has teamed up with Google and Mastercard to try to ensure that shopping in the near future isn&#x27;t a complete disaster.</div>
     </article>
-
     <article class="card research">
       <div class="card-top">
         <span class="card-label research">研究</span>
-        <div class="stars">
-          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
-        </div>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
       </div>
-      <div class="card-title-ja">Howdy's dated $3/month ad-free streaming service said to have 1M subscribers</div>
-      <div class="card-title-en">Howdy's dated $3/month ad-free streaming service said to have 1M subscribers</div>
-      <div class="card-source">Ars Technica · Wed, 29 Ap</div>
+      <div class="card-title-ja">Howdy&#x27;s dated $3/month ad-free streaming service said to have 1M subscribers</div>
+      <div class="card-source">Ars Technica</div>
       <div class="card-body">Most are keeping their subscriptions after signing up, too, research firm says.</div>
-      <a class="card-link research" href="https://arstechnica.com/gadgets/2026/04/howdys-dated-3-month-ad-free-streaming-service-said-to-have-1m-subscribers/" target="_blank" rel="noopener">Read more →</a>
     </article>
-
-  </div>
-
-  <!-- ビジネス -->
-  <div class="section-label" id="section-business">ビジネス</div>
-  <div class="grid">
-
+    </div>
+  </details>
+  <details class="genre business">
+    <summary><span class="genre-dot"></span>ビジネス<span class="cnt">10件</span></summary>
+    <div class="genre-body">
     <article class="card business">
       <div class="card-top">
         <span class="card-label business">ビジネス</span>
-        <div class="stars">
-          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
-        </div>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
       </div>
-      <div class="card-title-ja">SoftBank is creating a robotics company that builds data centers — and already eyeing a $100B IPO</div>
-      <div class="card-title-en">SoftBank is creating a robotics company that builds data centers — and already eyeing a $100B IPO</div>
-      <div class="card-source">TechCrunch AI · Thu, 30 Ap</div>
+      <div class="card-title-ja">SoftBank is creating a robotics company that builds data centers — and already eyeing a $100B <span class="t" data-t="ipo" tabindex="0" role="button" aria-label="IPOの説明を見る">IPO</span></div>
+      <div class="card-source">TechCrunch AI</div>
       <div class="card-body">You need infrastructure to build AI a and robots, but apparently you also need AI and robots to build infrastructure.</div>
-      <a class="card-link business" href="https://techcrunch.com/2026/04/29/softbank-is-creating-a-robotics-company-that-builds-data-centers-and-already-eyeing-a-100b-ipo/" target="_blank" rel="noopener">Read more →</a>
     </article>
-
     <article class="card business">
       <div class="card-top">
         <span class="card-label business">ビジネス</span>
-        <div class="stars">
-          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
-        </div>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
       </div>
       <div class="card-title-ja">Sources: Anthropic could raise a new $50B round at a valuation of $900B</div>
-      <div class="card-title-en">Sources: Anthropic could raise a new $50B round at a valuation of $900B</div>
-      <div class="card-source">TechCrunch AI · Thu, 30 Ap</div>
+      <div class="card-source">TechCrunch AI</div>
       <div class="card-body">The maker of Claude has received multiple pre-emptive offers at valuations in the $850 billion to $900 billion range, according to sources familiar with the matter.</div>
-      <a class="card-link business" href="https://techcrunch.com/2026/04/29/sources-anthropic-could-raise-a-new-50b-round-at-a-valuation-of-900b/" target="_blank" rel="noopener">Read more →</a>
     </article>
-
     <article class="card business">
       <div class="card-top">
         <span class="card-label business">ビジネス</span>
-        <div class="stars">
-          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
-        </div>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
       </div>
-      <div class="card-title-ja">Meta is still burning money on AR/VR</div>
-      <div class="card-title-en">Meta is still burning money on AR/VR</div>
-      <div class="card-source">TechCrunch AI · Wed, 29 Ap</div>
+      <div class="card-title-ja"><span class="t" data-t="meta-ai" tabindex="0" role="button" aria-label="Metaの説明を見る">Meta</span> is still burning money on AR/VR</div>
+      <div class="card-source">TechCrunch AI</div>
       <div class="card-body">Meta is losing billions on Reality Labs each quarter, and its AI expenditures are only going to increase its spending.</div>
-      <a class="card-link business" href="https://techcrunch.com/2026/04/29/meta-is-still-burning-money-on-ar-vr/" target="_blank" rel="noopener">Read more →</a>
     </article>
-
     <article class="card business">
       <div class="card-top">
         <span class="card-label business">ビジネス</span>
-        <div class="stars">
-          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
-        </div>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
       </div>
       <div class="card-title-ja">Satya Nadella says he’s ready to ‘exploit’ the new OpenAI deal</div>
-      <div class="card-title-en">Satya Nadella says he’s ready to ‘exploit’ the new OpenAI deal</div>
-      <div class="card-source">TechCrunch AI · Wed, 29 Ap</div>
-      <div class="card-body">Microsoft gets to offer OpenAI's tech to its cloud customers and doesn't have to pay for it. "We fully plan to exploit it," Nadella said.</div>
-      <a class="card-link business" href="https://techcrunch.com/2026/04/29/satya-nadella-says-hes-ready-to-exploit-the-new-openai-deal/" target="_blank" rel="noopener">Read more →</a>
+      <div class="card-source">TechCrunch AI</div>
+      <div class="card-body">Microsoft gets to offer OpenAI&#x27;s tech to its cloud customers and doesn&#x27;t have to pay for it. &quot;We fully plan to exploit it,&quot; Nadella said.</div>
     </article>
-
     <article class="card business">
       <div class="card-top">
         <span class="card-label business">ビジネス</span>
-        <div class="stars">
-          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
-        </div>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
       </div>
       <div class="card-title-ja">Google Cloud surpasses $20B, but says growth was capacity-constrained</div>
-      <div class="card-title-en">Google Cloud surpasses $20B, but says growth was capacity-constrained</div>
-      <div class="card-source">TechCrunch AI · Wed, 29 Ap</div>
+      <div class="card-source">TechCrunch AI</div>
       <div class="card-body">Google Cloud topped $20B in quarterly revenue for the first time, fueled by surging demand for AI. But capacity constraints mean it could have grown even faster.</div>
-      <a class="card-link business" href="https://techcrunch.com/2026/04/29/google-cloud-surpasses-20b-but-says-growth-was-capacity-constrained/" target="_blank" rel="noopener">Read more →</a>
     </article>
-
     <article class="card business">
       <div class="card-top">
         <span class="card-label business">ビジネス</span>
-        <div class="stars">
-          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
-        </div>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
       </div>
       <div class="card-title-ja">Is AI video just a prequel? Runway’s CEO thinks world models are next</div>
-      <div class="card-title-en">Is AI video just a prequel? Runway’s CEO thinks world models are next</div>
-      <div class="card-source">TechCrunch AI · Wed, 29 Ap</div>
+      <div class="card-source">TechCrunch AI</div>
       <div class="card-body">AI-generated video has gone from novelty to creative tool almost overnight, and Runway has a front row seat to the shift. The New York-based company has raised close to $860 million at a $5.3 billion valuation, and its models are going toe-to-toe with the most well-funded labs in the world, includin</div>
-      <a class="card-link business" href="https://techcrunch.com/podcast/equity-podcast-runway-ceo-cristobal-valenzuela-ai-video-world-models/" target="_blank" rel="noopener">Read more →</a>
     </article>
-
     <article class="card business">
       <div class="card-top">
         <span class="card-label business">ビジネス</span>
-        <div class="stars">
-          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
-        </div>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
       </div>
       <div class="card-title-ja">Railway secures $100 million to challenge AWS with AI-native cloud infrastructure</div>
-      <div class="card-title-en">Railway secures $100 million to challenge AWS with AI-native cloud infrastructure</div>
-      <div class="card-source">VentureBeat AI · Thu, 22 Ja</div>
+      <div class="card-source">VentureBeat AI</div>
       <div class="card-body">Railway, a San Francisco-based cloud platform that has quietly amassed two million developers without spending a dollar on marketing, announced Thursday that it raised $100 million in a Series B funding round, as surging demand for artificial intelligence applications exposes the limitations of lega</div>
-      <a class="card-link business" href="https://venturebeat.com/infrastructure/railway-secures-usd100-million-to-challenge-aws-with-ai-native-cloud" target="_blank" rel="noopener">Read more →</a>
     </article>
-
     <article class="card business">
       <div class="card-top">
         <span class="card-label business">ビジネス</span>
-        <div class="stars">
-          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
-        </div>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
       </div>
-      <div class="card-title-ja">Listen Labs raises $69M after viral billboard hiring stunt to scale AI customer interviews</div>
-      <div class="card-title-en">Listen Labs raises $69M after viral billboard hiring stunt to scale AI customer interviews</div>
-      <div class="card-source">VentureBeat AI · Fri, 16 Ja</div>
-      <div class="card-body">Alfred Wahlforss was running out of options. His startup, Listen Labs, needed to hire over 100 engineers, but competing against Mark Zuckerberg&#x27;s $100 million offers seemed impossible. So he spent $5,000 — a fifth of his marketing budget — on a billboard in San Francisco displaying what looked </div>
-      <a class="card-link business" href="https://venturebeat.com/technology/listen-labs-raises-usd69m-after-viral-billboard-hiring-stunt-to-scale-ai" target="_blank" rel="noopener">Read more →</a>
+      <div class="card-title-ja">Listen Labs raises $69M after viral billboard hiring stunt to <span class="t" data-t="scale-ai" tabindex="0" role="button" aria-label="scale AIの説明を見る">scale AI</span> customer interviews</div>
+      <div class="card-source">VentureBeat AI</div>
+      <div class="card-body">Alfred Wahlforss was running out of options. His startup, Listen Labs, needed to hire over 100 engineers, but competing against Mark Zuckerberg&#x27;s $100 million offers seemed impossible. So he spent $5,000 — a fifth of his marketing budget — on a billboard in San Francisco displaying what looked</div>
     </article>
-
     <article class="card business">
       <div class="card-top">
         <span class="card-label business">ビジネス</span>
-        <div class="stars">
-          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
-        </div>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
       </div>
       <div class="card-title-ja">The Download: Musk and Altman’s legal showdown, and AI’s profit problem</div>
-      <div class="card-title-en">The Download: Musk and Altman’s legal showdown, and AI’s profit problem</div>
-      <div class="card-source">MIT Tech Review · Tue, 28 Ap</div>
-      <div class="card-body">This is today&#8217;s edition of The Download, our weekday newsletter that provides a daily dose of what&#8217;s going on in the world of technology. Elon Musk and Sam Altman are going to court over OpenAI’s future Elon Musk and OpenAI CEO Sam Altman head to trial this week in a case with sweeping c</div>
-      <a class="card-link business" href="https://www.technologyreview.com/2026/04/28/1136479/the-download-musk-altman-openai-trial-ai-profit-problem/" target="_blank" rel="noopener">Read more →</a>
+      <div class="card-source">MIT Tech Review</div>
+      <div class="card-body">This is today’s edition of The Download, our weekday newsletter that provides a daily dose of what’s going on in the world of technology. Elon Musk and Sam Altman are going to court over OpenAI’s future Elon Musk and OpenAI CEO Sam Altman head to trial this week in a case with sweeping c</div>
     </article>
-
     <article class="card business">
       <div class="card-top">
         <span class="card-label business">ビジネス</span>
-        <div class="stars">
-          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
-        </div>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
       </div>
       <div class="card-title-ja">Elon Musk and Sam Altman are going to court over OpenAI’s future</div>
-      <div class="card-title-en">Elon Musk and Sam Altman are going to court over OpenAI’s future</div>
-      <div class="card-source">MIT Tech Review · Mon, 27 Ap</div>
+      <div class="card-source">MIT Tech Review</div>
       <div class="card-body">After a yearslong legal feud, Elon Musk and OpenAI CEO Sam Altman are heading to trial this week in Northern California in a case that could have sweeping consequences. Ahead of OpenAI’s highly anticipated IPO, the court could rule on whether the company is allowed to exist as a for-profit enterpris</div>
-      <a class="card-link business" href="https://www.technologyreview.com/2026/04/27/1136466/elon-musk-and-sam-altman-are-going-to-court-over-openais-future/" target="_blank" rel="noopener">Read more →</a>
     </article>
-
-  </div>
-
-  <!-- ポリシー -->
-  <div class="section-label" id="section-policy">ポリシー</div>
-  <div class="grid">
-
+    </div>
+  </details>
+  <details class="genre policy">
+    <summary><span class="genre-dot"></span>ポリシー<span class="cnt">6件</span></summary>
+    <div class="genre-body">
     <article class="card policy">
       <div class="card-top">
         <span class="card-label policy">ポリシー</span>
-        <div class="stars">
-          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
-        </div>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
       </div>
       <div class="card-title-ja">It’s time to make a plan for nuclear waste</div>
-      <div class="card-title-en">It’s time to make a plan for nuclear waste</div>
-      <div class="card-source">MIT Tech Review · Wed, 29 Ap</div>
-      <div class="card-body">Today, nuclear energy enjoys a rare moment of support across the political spectrum in the US. Interest from tech companies that are scrambling to meet demand for massive data centers has sparked a resurgence of money and attention in the industry. That newfound interest is exactly why it’s time to </div>
-      <a class="card-link policy" href="https://www.technologyreview.com/2026/04/29/1136659/plan-nuclear-waste/" target="_blank" rel="noopener">Read more →</a>
+      <div class="card-source">MIT Tech Review</div>
+      <div class="card-body">Today, nuclear energy enjoys a rare moment of support across the political spectrum in the US. Interest from tech companies that are scrambling to meet demand for massive data centers has sparked a resurgence of money and attention in the industry. That newfound interest is exactly why it’s time to</div>
     </article>
-
     <article class="card policy">
       <div class="card-top">
         <span class="card-label policy">ポリシー</span>
-        <div class="stars">
-          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
-        </div>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
       </div>
       <div class="card-title-ja">Health-care AI is here. We don’t know if it actually helps patients.</div>
-      <div class="card-title-en">Health-care AI is here. We don’t know if it actually helps patients.</div>
-      <div class="card-source">MIT Tech Review · Fri, 24 Ap</div>
-      <div class="card-body">I don’t need to tell you that&#160;AI is everywhere. Or that it is being used, increasingly, in hospitals. Doctors are using AI to help them with note-taking. AI-based tools are trawling through patient records, flagging people who may require certain support or treatments. They are also used to int</div>
-      <a class="card-link policy" href="https://www.technologyreview.com/2026/04/24/1136352/health-care-ai-dont-know-actually-helps-patients/" target="_blank" rel="noopener">Read more →</a>
+      <div class="card-source">MIT Tech Review</div>
+      <div class="card-body">I don’t need to tell you that AI is everywhere. Or that it is being used, increasingly, in hospitals. Doctors are using AI to help them with note-taking. AI-based tools are trawling through patient records, flagging people who may require certain support or treatments. They are also used to int</div>
     </article>
-
     <article class="card policy">
       <div class="card-top">
         <span class="card-label policy">ポリシー</span>
-        <div class="stars">
-          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
-        </div>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
       </div>
-      <div class="card-title-ja">How Elon Musk Squeezed OpenAI: They 'Are Gonna Want to Kill Me’</div>
-      <div class="card-title-en">How Elon Musk Squeezed OpenAI: They 'Are Gonna Want to Kill Me’</div>
-      <div class="card-source">Wired AI · Wed, 29 Ap</div>
+      <div class="card-title-ja">How Elon Musk Squeezed OpenAI: They &#x27;Are Gonna Want to Kill Me’</div>
+      <div class="card-source">Wired AI</div>
       <div class="card-body">Tensions flared on the third day of trial in Musk v. Altman as OpenAI’s lawyers cross-examined Musk.</div>
-      <a class="card-link policy" href="https://www.wired.com/story/model-behavior-elon-musk-cross-examined-sam-altman/" target="_blank" rel="noopener">Read more →</a>
     </article>
-
     <article class="card policy">
       <div class="card-top">
         <span class="card-label policy">ポリシー</span>
-        <div class="stars">
-          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
-        </div>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
       </div>
       <div class="card-title-ja">‘It’s Undignified’: Hundreds of Workers Training Meta’s AI Could Be Laid Off</div>
-      <div class="card-title-en">‘It’s Undignified’: Hundreds of Workers Training Meta’s AI Could Be Laid Off</div>
-      <div class="card-source">Wired AI · Tue, 28 Ap</div>
+      <div class="card-source">Wired AI</div>
       <div class="card-body">More than 700 people working for a Meta contractor in Ireland are at risk of losing their jobs, documents show.</div>
-      <a class="card-link policy" href="https://www.wired.com/story/meta-covalen-ai-workers-layoffs/" target="_blank" rel="noopener">Read more →</a>
     </article>
-
     <article class="card policy">
       <div class="card-top">
         <span class="card-label policy">ポリシー</span>
-        <div class="stars">
-          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
-        </div>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
       </div>
-      <div class="card-title-ja">OpenAI Codex system prompt includes explicit directive to "never talk about goblins"</div>
-      <div class="card-title-en">OpenAI Codex system prompt includes explicit directive to "never talk about goblins"</div>
-      <div class="card-source">Ars Technica · Wed, 29 Ap</div>
-      <div class="card-body">Directions also include system instructions to act like "you have a vivid inner life."</div>
-      <a class="card-link policy" href="https://arstechnica.com/ai/2026/04/openai-codex-system-prompt-includes-explicit-directive-to-never-talk-about-goblins/" target="_blank" rel="noopener">Read more →</a>
+      <div class="card-title-ja">OpenAI Codex system <span class="t" data-t="prompt" tabindex="0" role="button" aria-label="promptの説明を見る">prompt</span> includes explicit directive to &quot;never talk about goblins&quot;</div>
+      <div class="card-source">Ars Technica</div>
+      <div class="card-body">Directions also include system instructions to act like &quot;you have a vivid inner life.&quot;</div>
     </article>
-
     <article class="card policy">
       <div class="card-top">
         <span class="card-label policy">ポリシー</span>
-        <div class="stars">
-          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
-        </div>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
       </div>
       <div class="card-title-ja">New Sam Bankman-Fried trial would be huge waste of court’s time, judge says</div>
-      <div class="card-title-en">New Sam Bankman-Fried trial would be huge waste of court’s time, judge says</div>
-      <div class="card-source">Ars Technica · Wed, 29 Ap</div>
-      <div class="card-body">FTX fraudster came out as Republican, then tried to claim Biden's DOJ targeted him.</div>
-      <a class="card-link policy" href="https://arstechnica.com/tech-policy/2026/04/new-sam-bankman-fried-trial-would-be-huge-waste-of-courts-time-judge-says/" target="_blank" rel="noopener">Read more →</a>
+      <div class="card-source">Ars Technica</div>
+      <div class="card-body">FTX fraudster came out as Republican, then tried to claim Biden&#x27;s DOJ targeted him.</div>
     </article>
-
-  </div>
-
-  <!-- ツール -->
-  <div class="section-label" id="section-tools">ツール</div>
-  <div class="grid">
-
+    </div>
+  </details>
+  <details class="genre tools">
+    <summary><span class="genre-dot"></span>ツール<span class="cnt">6件</span></summary>
+    <div class="genre-body">
     <article class="card tools">
       <div class="card-top">
         <span class="card-label tools">ツール</span>
-        <div class="stars">
-          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
-        </div>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
       </div>
       <div class="card-title-ja">Amazon’s cloud business is surging — and so is its capital spending</div>
-      <div class="card-title-en">Amazon’s cloud business is surging — and so is its capital spending</div>
-      <div class="card-source">TechCrunch AI · Thu, 30 Ap</div>
-      <div class="card-body">The e-commerce giant is making more money than expected from AWS but it's also spending a lot, and will continue to do so in the near term, its chief executive said.</div>
-      <a class="card-link tools" href="https://techcrunch.com/2026/04/29/amazons-cloud-business-is-surging-and-so-is-its-capital-spending/" target="_blank" rel="noopener">Read more →</a>
+      <div class="card-source">TechCrunch AI</div>
+      <div class="card-body">The e-commerce giant is making more money than expected from AWS but it&#x27;s also spending a lot, and will continue to do so in the near term, its chief executive said.</div>
     </article>
-
     <article class="card tools">
       <div class="card-top">
         <span class="card-label tools">ツール</span>
-        <div class="stars">
-          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
-        </div>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
       </div>
       <div class="card-title-ja">Claude Code costs up to $200 a month. Goose does the same thing for free.</div>
-      <div class="card-title-en">Claude Code costs up to $200 a month. Goose does the same thing for free.</div>
-      <div class="card-source">VentureBeat AI · Mon, 19 Ja</div>
+      <div class="card-source">VentureBeat AI</div>
       <div class="card-body">The artificial intelligence coding revolution comes with a catch: it&#x27;s expensive.Claude Code, Anthropic&#x27;s terminal-based AI agent that can write, debug, and deploy code autonomously, has captured the imagination of software developers worldwide. But its pricing — ranging from $20 to $200 p</div>
-      <a class="card-link tools" href="https://venturebeat.com/infrastructure/claude-code-costs-up-to-usd200-a-month-goose-does-the-same-thing-for-free" target="_blank" rel="noopener">Read more →</a>
     </article>
-
     <article class="card tools">
       <div class="card-top">
         <span class="card-label tools">ツール</span>
-        <div class="stars">
-          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
-        </div>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
       </div>
       <div class="card-title-ja">Anthropic launches Cowork, a Claude Desktop agent that works in your files — no coding required</div>
-      <div class="card-title-en">Anthropic launches Cowork, a Claude Desktop agent that works in your files — no coding required</div>
-      <div class="card-source">VentureBeat AI · Mon, 12 Ja</div>
+      <div class="card-source">VentureBeat AI</div>
       <div class="card-body">Anthropic released Cowork on Monday, a new AI agent capability that extends the power of its wildly successful Claude Code tool to non-technical users — and according to company insiders, the team built the entire feature in approximately a week and a half, largely using Claude Code itself.The launc</div>
-      <a class="card-link tools" href="https://venturebeat.com/technology/anthropic-launches-cowork-a-claude-desktop-agent-that-works-in-your-files-no" target="_blank" rel="noopener">Read more →</a>
     </article>
-
     <article class="card tools">
       <div class="card-top">
         <span class="card-label tools">ツール</span>
-        <div class="stars">
-          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
-        </div>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
       </div>
       <div class="card-title-ja">The Download: storing nuclear waste and orchestrating agents</div>
-      <div class="card-title-en">The Download: storing nuclear waste and orchestrating agents</div>
-      <div class="card-source">MIT Tech Review · Wed, 29 Ap</div>
-      <div class="card-body">This is today&#8217;s edition of The Download, our weekday newsletter that provides a daily dose of what&#8217;s going on in the world of technology. It’s time to make a plan for nuclear waste Today, nuclear energy enjoys rare support across the political spectrum. Public approval has spiked, and Bi</div>
-      <a class="card-link tools" href="https://www.technologyreview.com/2026/04/29/1136666/the-download-nuclear-waste-orchestrated-ai-agents/" target="_blank" rel="noopener">Read more →</a>
+      <div class="card-source">MIT Tech Review</div>
+      <div class="card-body">This is today’s edition of The Download, our weekday newsletter that provides a daily dose of what’s going on in the world of technology. It’s time to make a plan for nuclear waste Today, nuclear energy enjoys rare support across the political spectrum. Public approval has spiked, and Bi</div>
     </article>
-
     <article class="card tools">
       <div class="card-top">
         <span class="card-label tools">ツール</span>
-        <div class="stars">
-          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
-        </div>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
       </div>
       <div class="card-title-ja">Rebuilding the data stack for AI</div>
-      <div class="card-title-en">Rebuilding the data stack for AI</div>
-      <div class="card-source">MIT Tech Review · Mon, 27 Ap</div>
+      <div class="card-source">MIT Tech Review</div>
       <div class="card-body">Artificial intelligence may be dominating boardroom agendas, but many enterprises are discovering that the biggest obstacle to meaningful adoption is the state of their data. While consumer-facing AI tools have dazzled users with speed and ease, enterprise leaders are discovering that deploying AI a</div>
-      <a class="card-link tools" href="https://www.technologyreview.com/2026/04/27/1136322/rebuilding-the-data-stack-for-ai/" target="_blank" rel="noopener">Read more →</a>
     </article>
-
     <article class="card tools">
       <div class="card-top">
         <span class="card-label tools">ツール</span>
-        <div class="stars">
-          <div class="dot filled"></div><div class="dot filled"></div><div class="dot "></div>
-        </div>
+        <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
       </div>
       <div class="card-title-ja">Emergency First Responders Say Waymos Are Getting Worse</div>
-      <div class="card-title-en">Emergency First Responders Say Waymos Are Getting Worse</div>
-      <div class="card-source">Wired AI · Wed, 29 Ap</div>
+      <div class="card-source">Wired AI</div>
       <div class="card-body">“I believe the technology was deployed too quickly in too vast amounts, with hundreds of vehicles, when it wasn’t really ready,” one police official told federal regulators last month.</div>
-      <a class="card-link tools" href="https://www.wired.com/story/emergency-first-responders-say-waymos-are-getting-worse/" target="_blank" rel="noopener">Read more →</a>
     </article>
+    </div>
+  </details>
 
+  <div class="subscribe">
+    毎朝6時に自動更新しています ─ 
+    <a href="https://teraco-labo.github.io/ai-news-digest/podcast/feed.xml">🎧 ポッドキャスト購読</a> ／ 
+    <a href="feed.xml">📡 サイトのRSS</a> ／ 
+    <a href="archive.html">バックナンバー</a>
   </div>
-
 
 </main>
 
 <footer>
-  <strong>AI News Digest</strong> — 2026年4月13日（月）自動生成 | 12記事収録<br>
-  <span style="font-size:0.72rem; margin-top:0.3rem; display:block;">Model: 2 · Research: 5 · Business: 4 · Policy: 1</span>
+  <strong>世界一わかりやすいAIニュース</strong> — 2026年4月27日（月）／ 40 件収録<br>
+  毎朝6時に自動生成しています。
+  <div class="footer-links"><a href="">トップ</a> ／ <a href="terms/">AI用語集</a> ／ <a href="articles/">読み物</a> ／ <a href="archive.html">バックナンバー</a> ／ <a href="about.html">運営者情報・免責事項</a> ／ <a href="https://teraco-labo.com">TERACO.LABO</a></div>
 </footer>
+<script type="application/json" id="glossary-data">{"ai-agent": {"n": "AIエージェント", "s": "指示を受けて、自分で手順を考えながら複数の作業を実行してくれるAIのことです。「答える」から「やってくれる」への進化です。", "u": "terms/ai-agent.html"}, "anthropic": {"n": "Anthropic", "s": "AIアシスタント「Claude」を開発するアメリカの企業です。AIの安全性を重視する方針を掲げています。", "u": "terms/anthropic.html"}, "blackwell": {"n": "Blackwell", "s": "NVIDIAのAI用GPUの世代名です。世代ごとに研究者の名前が付けられており、その最新版にあたります。", "u": "terms/blackwell.html"}, "claude": {"n": "Claude", "s": "Anthropicが開発しているAIアシスタントです。長文の読解や文章作成、プログラミングに強みがあります。", "u": "terms/claude.html"}, "copilot": {"n": "Copilot", "s": "AIが作業を隣で手伝う形のツールにつけられる名前です。プログラミング支援のGitHub Copilotが代表例です。", "u": "terms/copilot.html"}, "generative-ai": {"n": "生成AI", "s": "文章・画像・音声・動画などを新しく作り出せるAIの総称です。分類や予測をするだけだった従来のAIとの違いがここにあります。", "u": "terms/generative-ai.html"}, "gpt": {"n": "GPT", "s": "OpenAIが開発しているAIモデルのシリーズ名です。ChatGPTの中身がこれにあたります。", "u": "terms/gpt.html"}, "ipo": {"n": "IPO", "s": "企業が株式を証券取引所に上場し、誰でも売買できるようにすることです。新規株式公開ともいいます。", "u": "terms/ipo.html"}, "meta-ai": {"n": "Meta", "s": "FacebookやInstagramを運営する企業で、AIモデル「Llama」を公開しています。", "u": "terms/meta-ai.html"}, "microsoft": {"n": "Microsoft", "s": "OpenAIに巨額の出資を行い、自社サービスにAIを組み込んでいる企業です。", "u": "terms/microsoft.html"}, "nvidia": {"n": "NVIDIA", "s": "AI開発に不可欠なGPUを作っている半導体企業です。生成AIブームの最大の受益者と言われています。", "u": "terms/nvidia.html"}, "openai": {"n": "OpenAI", "s": "ChatGPTを開発したアメリカのAI企業です。2022年のChatGPT公開が、今の生成AIブームの引き金になりました。", "u": "terms/openai.html"}, "prompt": {"n": "プロンプト", "s": "AIに与える指示や質問の文章のことです。書き方しだいで返ってくる答えの質が大きく変わります。", "u": "terms/prompt.html"}, "scale-ai": {"n": "データラベリング企業", "s": "AIの学習に使うデータへ人手で正解を付ける作業を請け負う会社のことです。", "u": "terms/scale-ai.html"}}</script>
+
+<script>
+(function(){
+  var el = document.getElementById('glossary-data');
+  if (!el) return;
+  var G; try { G = JSON.parse(el.textContent); } catch(e) { return; }
+
+  // 指でも操作する端末ではシート、マウスがある端末ではポップアップにする
+  var hoverable = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+  var tip = document.createElement('div'); tip.id = 'tip';
+  var veil = document.createElement('div'); veil.id = 'veil';
+  var sheet = document.createElement('div'); sheet.id = 'sheet';
+  sheet.innerHTML = '<div class="sheet-grip"></div><span class="tip-n"></span>'
+    + '<div class="tip-s"></div><a class="tip-m" href="#">くわしい解説を読む →</a>';
+  document.body.appendChild(tip);
+  document.body.appendChild(veil);
+  document.body.appendChild(sheet);
+
+  function showTip(node, d){
+    tip.innerHTML = '<span class="tip-n"></span><span class="tip-s"></span>'
+      + '<a class="tip-m" href="#">くわしい解説 →</a>';
+    tip.querySelector('.tip-n').textContent = d.n;
+    tip.querySelector('.tip-s').textContent = d.s;
+    tip.querySelector('.tip-m').href = d.u;
+    tip.classList.add('on');
+    var r = node.getBoundingClientRect();
+    var w = tip.offsetWidth, h = tip.offsetHeight;
+    var left = Math.min(Math.max(8, r.left + r.width/2 - w/2), window.innerWidth - w - 8);
+    var top = r.top - h - 10;
+    if (top < 8) top = r.bottom + 10;           // 上に入らなければ下に出す
+    tip.style.left = (left + window.scrollX) + 'px';
+    tip.style.top  = (top + window.scrollY) + 'px';
+  }
+  function hideTip(){ tip.classList.remove('on'); }
+
+  function openSheet(d){
+    sheet.querySelector('.tip-n').textContent = d.n;
+    sheet.querySelector('.tip-s').textContent = d.s;
+    sheet.querySelector('.tip-m').href = d.u;
+    sheet.classList.add('on'); veil.classList.add('on');
+  }
+  function closeSheet(){ sheet.classList.remove('on'); veil.classList.remove('on'); }
+  veil.addEventListener('click', closeSheet);
+
+  var hideTimer;
+  document.addEventListener('mouseover', function(e){
+    if (!hoverable) return;
+    var n = e.target.closest('.t'); if (!n) return;
+    clearTimeout(hideTimer);
+    var d = G[n.getAttribute('data-t')]; if (d) showTip(n, d);
+  });
+  document.addEventListener('mouseout', function(e){
+    if (!hoverable) return;
+    if (e.target.closest('.t') && !tip.contains(e.relatedTarget)) {
+      hideTimer = setTimeout(hideTip, 180);
+    }
+  });
+  tip.addEventListener('mouseenter', function(){ clearTimeout(hideTimer); });
+  tip.addEventListener('mouseleave', hideTip);
+
+  document.addEventListener('click', function(e){
+    var n = e.target.closest('.t'); if (!n) return;
+    var d = G[n.getAttribute('data-t')]; if (!d) return;
+    e.preventDefault();
+    if (hoverable) { location.href = d.u; } else { openSheet(d); }
+  });
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape') { hideTip(); closeSheet(); return; }
+    if (e.key !== 'Enter' && e.key !== ' ') return;
+    var n = document.activeElement; if (!n || !n.classList.contains('t')) return;
+    var d = G[n.getAttribute('data-t')]; if (!d) return;
+    e.preventDefault();
+    hoverable ? (location.href = d.u) : openSheet(d);
+  });
+})();
+</script>
 
 </body>
 </html>

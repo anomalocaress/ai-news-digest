@@ -14,7 +14,34 @@
     "parent_site_url": "https://teraco-labo.com",
     "_base_url_note": "サイトのURLはここ1箇所で決まります。DNS設定が済んだら https://news.teraco-labo.com に書き換えてください（手順は DOMAIN_SETUP.md）。",
     "lang": "ja",
-    "_lang_note": "将来の多言語展開用。lang を切り替え、glossary.json と curate.py のプロンプトを言語ごとに用意すれば別言語版を出せる構造にしてあります。"
+    "_lang_note": "将来の多言語展開用。lang を切り替え、glossary.json と curate.py のプロンプトを言語ごとに用意すれば別言語版を出せる構造にしてあります。",
+    "languages": [
+      {
+        "code": "ja",
+        "label": "日本語",
+        "status": "live",
+        "url": "./"
+      },
+      {
+        "code": "en",
+        "label": "English",
+        "status": "soon",
+        "url": ""
+      },
+      {
+        "code": "zh",
+        "label": "中文",
+        "status": "soon",
+        "url": ""
+      },
+      {
+        "code": "es",
+        "label": "Español",
+        "status": "soon",
+        "url": ""
+      }
+    ],
+    "_languages_note": "多言語展開用。status を live にして url を入れると切り替えボタンが有効になります。別言語版は、この構成一式を別リポジトリ（または別ディレクトリ）に置き、site.lang と glossary.json、curate.py のプロンプトを差し替えれば作れます。"
   },
   "podcast": {
     "_note": "2026-08-22 のアカウント移管(anomalocaress→teraco-labo)で旧URLは404になりました。GitHub Pages はアカウント間の移管ではリダイレクトされません。現在は site.base_url と同じURLを使います。",

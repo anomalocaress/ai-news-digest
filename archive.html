@@ -41,6 +41,17 @@
   .issue-list .m { font-size:0.72rem; color:var(--text-muted); margin-left:0.5rem; }
   footer { border-top:1px solid var(--border); padding:2rem 1.5rem; text-align:center;
     font-size:0.78rem; color:var(--text-muted); }
+  .lang-switch { display:flex; flex-wrap:wrap; align-items:center; gap:0.35rem;
+    margin-top:1rem; font-size:0.74rem; }
+  .lang-switch .globe { opacity:0.7; margin-right:0.15rem; }
+  .lang-switch .lang { padding:0.25rem 0.7rem; border-radius:999px;
+    border:1px solid rgba(255,255,255,0.25); color:#cbd5e1; text-decoration:none; }
+  .lang-switch a.lang:hover { background:rgba(255,255,255,0.12); color:#fff; }
+  .lang-switch .lang.on { background:rgba(255,255,255,0.9); color:#0f172a; font-weight:700;
+    border-color:transparent; }
+  .lang-switch .lang.soon { opacity:0.45; cursor:default; }
+  .lang-switch .lang.soon em { font-style:normal; font-size:0.62rem; margin-left:0.3rem;
+    opacity:0.85; }
   .footer-links { margin-top:0.9rem; font-size:0.75rem; }
   .footer-links a { color:var(--text-muted); text-decoration:none; }
   .footer-links a:hover { color:var(--accent); text-decoration:underline; }
@@ -95,11 +106,14 @@
 <body>
 <div class="hero">
   <div class="hero-inner">
+    <div class="crumbs"><a href="./">世界一わかりやすいAIニュース</a></div>
     <h1>バックナンバー</h1>
     <p>世界一わかりやすいAIニュース 全 91 号</p>
     <div class="hero-actions">
       <a class="btn btn-ghost" href="./">トップへ戻る</a>
+      <a class="btn btn-ghost" href="terms/">📘 AI用語集</a>
     </div>
+    <div class="lang-switch"><span class="globe">🌐</span><span class="lang on">日本語</span><span class="lang soon" title="準備中">English<em>準備中</em></span><span class="lang soon" title="準備中">中文<em>準備中</em></span><span class="lang soon" title="準備中">Español<em>準備中</em></span></div>
   </div>
 </div>
 
@@ -112,102 +126,102 @@
   </ul>
   <div class="section-label">2026年7月</div>
   <ul class="issue-list">
-    <li><a href="ai-news-2026-07-16.html">2026年7月16日（木）</a><span class="m">50記事 🎧</span></li>
-    <li><a href="ai-news-2026-07-15.html">2026年7月15日（水）</a><span class="m">49記事 🎧</span></li>
-    <li><a href="ai-news-2026-07-14.html">2026年7月14日（火）</a><span class="m">32記事 🎧</span></li>
-    <li><a href="ai-news-2026-07-13.html">2026年7月13日（月）</a><span class="m">16記事 🎧</span></li>
-    <li><a href="ai-news-2026-07-12.html">2026年7月12日（日）</a><span class="m">22記事 🎧</span></li>
-    <li><a href="ai-news-2026-07-11.html">2026年7月11日（土）</a><span class="m">40記事 🎧</span></li>
-    <li><a href="ai-news-2026-07-10.html">2026年7月10日（金）</a><span class="m">48記事 🎧</span></li>
-    <li><a href="ai-news-2026-07-09.html">2026年7月9日（木）</a><span class="m">38記事 🎧</span></li>
-    <li><a href="ai-news-2026-07-08.html">2026年7月8日（水）</a><span class="m">34記事 🎧</span></li>
-    <li><a href="ai-news-2026-07-07.html">2026年7月7日（火）</a><span class="m">28記事 🎧</span></li>
-    <li><a href="ai-news-2026-07-06.html">2026年7月6日（月）</a><span class="m">8記事 🎧</span></li>
-    <li><a href="ai-news-2026-07-05.html">2026年7月5日（日）</a><span class="m">15記事 🎧</span></li>
-    <li><a href="ai-news-2026-07-04.html">2026年7月4日（土）</a><span class="m">17記事 🎧</span></li>
-    <li><a href="ai-news-2026-07-03.html">2026年7月3日（金）</a><span class="m">34記事 🎧</span></li>
-    <li><a href="ai-news-2026-07-02.html">2026年7月2日（木）</a><span class="m">44記事 🎧</span></li>
-    <li><a href="ai-news-2026-07-01.html">2026年7月1日（水）</a><span class="m">35記事 🎧</span></li>
+    <li><a href="ai-news-2026-07-16.html">2026年7月16日（木）</a><span class="m">🎧</span></li>
+    <li><a href="ai-news-2026-07-15.html">2026年7月15日（水）</a><span class="m">🎧</span></li>
+    <li><a href="ai-news-2026-07-14.html">2026年7月14日（火）</a><span class="m">🎧</span></li>
+    <li><a href="ai-news-2026-07-13.html">2026年7月13日（月）</a><span class="m">🎧</span></li>
+    <li><a href="ai-news-2026-07-12.html">2026年7月12日（日）</a><span class="m">🎧</span></li>
+    <li><a href="ai-news-2026-07-11.html">2026年7月11日（土）</a><span class="m">🎧</span></li>
+    <li><a href="ai-news-2026-07-10.html">2026年7月10日（金）</a><span class="m">🎧</span></li>
+    <li><a href="ai-news-2026-07-09.html">2026年7月9日（木）</a><span class="m">🎧</span></li>
+    <li><a href="ai-news-2026-07-08.html">2026年7月8日（水）</a><span class="m">🎧</span></li>
+    <li><a href="ai-news-2026-07-07.html">2026年7月7日（火）</a><span class="m">🎧</span></li>
+    <li><a href="ai-news-2026-07-06.html">2026年7月6日（月）</a><span class="m">🎧</span></li>
+    <li><a href="ai-news-2026-07-05.html">2026年7月5日（日）</a><span class="m">🎧</span></li>
+    <li><a href="ai-news-2026-07-04.html">2026年7月4日（土）</a><span class="m">🎧</span></li>
+    <li><a href="ai-news-2026-07-03.html">2026年7月3日（金）</a><span class="m">🎧</span></li>
+    <li><a href="ai-news-2026-07-02.html">2026年7月2日（木）</a><span class="m">🎧</span></li>
+    <li><a href="ai-news-2026-07-01.html">2026年7月1日（水）</a><span class="m">🎧</span></li>
   </ul>
   <div class="section-label">2026年6月</div>
   <ul class="issue-list">
-    <li><a href="ai-news-2026-06-30.html">2026年6月30日（火）</a><span class="m">24記事 🎧</span></li>
-    <li><a href="ai-news-2026-06-29.html">2026年6月29日（月）</a><span class="m">20記事 🎧</span></li>
-    <li><a href="ai-news-2026-06-28.html">2026年6月28日（日）</a><span class="m">23記事 🎧</span></li>
-    <li><a href="ai-news-2026-06-27.html">2026年6月27日（土）</a><span class="m">38記事 🎧</span></li>
-    <li><a href="ai-news-2026-06-26.html">2026年6月26日（金）</a><span class="m">40記事 🎧</span></li>
-    <li><a href="ai-news-2026-06-25.html">2026年6月25日（木）</a><span class="m">43記事 🎧</span></li>
-    <li><a href="ai-news-2026-06-24.html">2026年6月24日（水）</a><span class="m">36記事 🎧</span></li>
-    <li><a href="ai-news-2026-06-23.html">2026年6月23日（火）</a><span class="m">27記事 🎧</span></li>
-    <li><a href="ai-news-2026-06-22.html">2026年6月22日（月）</a><span class="m">9記事 🎧</span></li>
-    <li><a href="ai-news-2026-06-21.html">2026年6月21日（日）</a><span class="m">14記事 🎧</span></li>
-    <li><a href="ai-news-2026-06-20.html">2026年6月20日（土）</a><span class="m">31記事 🎧</span></li>
-    <li><a href="ai-news-2026-06-19.html">2026年6月19日（金）</a><span class="m">39記事 🎧</span></li>
-    <li><a href="ai-news-2026-06-18.html">2026年6月18日（木）</a><span class="m">44記事 🎧</span></li>
-    <li><a href="ai-news-2026-06-17.html">2026年6月17日（水）</a><span class="m">42記事 🎧</span></li>
-    <li><a href="ai-news-2026-06-16.html">2026年6月16日（火）</a><span class="m">25記事 🎧</span></li>
-    <li><a href="ai-news-2026-06-15.html">2026年6月15日（月）</a><span class="m">11記事 🎧</span></li>
-    <li><a href="ai-news-2026-06-14.html">2026年6月14日（日）</a><span class="m">32記事 🎧</span></li>
-    <li><a href="ai-news-2026-06-13.html">2026年6月13日（土）</a><span class="m">46記事 🎧</span></li>
-    <li><a href="ai-news-2026-06-12.html">2026年6月12日（金）</a><span class="m">37記事 🎧</span></li>
-    <li><a href="ai-news-2026-06-11.html">2026年6月11日（木）</a><span class="m">45記事 🎧</span></li>
-    <li><a href="ai-news-2026-06-10.html">2026年6月10日（水）</a><span class="m">48記事 🎧</span></li>
-    <li><a href="ai-news-2026-06-09.html">2026年6月9日（火）</a><span class="m">36記事 🎧</span></li>
-    <li><a href="ai-news-2026-06-08.html">2026年6月8日（月）</a><span class="m">4記事 🎧</span></li>
-    <li><a href="ai-news-2026-06-07.html">2026年6月7日（日）</a><span class="m">5記事 🎧</span></li>
-    <li><a href="ai-news-2026-06-06.html">2026年6月6日（土）</a><span class="m">22記事 🎧</span></li>
-    <li><a href="ai-news-2026-06-05.html">2026年6月5日（金）</a><span class="m">19記事 🎧</span></li>
-    <li><a href="ai-news-2026-06-04.html">2026年6月4日（木）</a><span class="m">22記事 🎧</span></li>
-    <li><a href="ai-news-2026-06-03.html">2026年6月3日（水）</a><span class="m">22記事 🎧</span></li>
+    <li><a href="ai-news-2026-06-30.html">2026年6月30日（火）</a><span class="m">🎧</span></li>
+    <li><a href="ai-news-2026-06-29.html">2026年6月29日（月）</a><span class="m">🎧</span></li>
+    <li><a href="ai-news-2026-06-28.html">2026年6月28日（日）</a><span class="m">🎧</span></li>
+    <li><a href="ai-news-2026-06-27.html">2026年6月27日（土）</a><span class="m">🎧</span></li>
+    <li><a href="ai-news-2026-06-26.html">2026年6月26日（金）</a><span class="m">🎧</span></li>
+    <li><a href="ai-news-2026-06-25.html">2026年6月25日（木）</a><span class="m">🎧</span></li>
+    <li><a href="ai-news-2026-06-24.html">2026年6月24日（水）</a><span class="m">🎧</span></li>
+    <li><a href="ai-news-2026-06-23.html">2026年6月23日（火）</a><span class="m">🎧</span></li>
+    <li><a href="ai-news-2026-06-22.html">2026年6月22日（月）</a><span class="m">🎧</span></li>
+    <li><a href="ai-news-2026-06-21.html">2026年6月21日（日）</a><span class="m">🎧</span></li>
+    <li><a href="ai-news-2026-06-20.html">2026年6月20日（土）</a><span class="m">🎧</span></li>
+    <li><a href="ai-news-2026-06-19.html">2026年6月19日（金）</a><span class="m">🎧</span></li>
+    <li><a href="ai-news-2026-06-18.html">2026年6月18日（木）</a><span class="m">🎧</span></li>
+    <li><a href="ai-news-2026-06-17.html">2026年6月17日（水）</a><span class="m">🎧</span></li>
+    <li><a href="ai-news-2026-06-16.html">2026年6月16日（火）</a><span class="m">🎧</span></li>
+    <li><a href="ai-news-2026-06-15.html">2026年6月15日（月）</a><span class="m">🎧</span></li>
+    <li><a href="ai-news-2026-06-14.html">2026年6月14日（日）</a><span class="m">🎧</span></li>
+    <li><a href="ai-news-2026-06-13.html">2026年6月13日（土）</a><span class="m">🎧</span></li>
+    <li><a href="ai-news-2026-06-12.html">2026年6月12日（金）</a><span class="m">🎧</span></li>
+    <li><a href="ai-news-2026-06-11.html">2026年6月11日（木）</a><span class="m">🎧</span></li>
+    <li><a href="ai-news-2026-06-10.html">2026年6月10日（水）</a><span class="m">🎧</span></li>
+    <li><a href="ai-news-2026-06-09.html">2026年6月9日（火）</a><span class="m">🎧</span></li>
+    <li><a href="ai-news-2026-06-08.html">2026年6月8日（月）</a><span class="m">🎧</span></li>
+    <li><a href="ai-news-2026-06-07.html">2026年6月7日（日）</a><span class="m">🎧</span></li>
+    <li><a href="ai-news-2026-06-06.html">2026年6月6日（土）</a><span class="m">🎧</span></li>
+    <li><a href="ai-news-2026-06-05.html">2026年6月5日（金）</a><span class="m">🎧</span></li>
+    <li><a href="ai-news-2026-06-04.html">2026年6月4日（木）</a><span class="m">🎧</span></li>
+    <li><a href="ai-news-2026-06-03.html">2026年6月3日（水）</a><span class="m">🎧</span></li>
   </ul>
   <div class="section-label">2026年5月</div>
   <ul class="issue-list">
-    <li><a href="ai-news-2026-05-29.html">2026年5月29日（金）</a><span class="m">24記事 🎧</span></li>
-    <li><a href="ai-news-2026-05-28.html">2026年5月28日（木）</a><span class="m">20記事 🎧</span></li>
-    <li><a href="ai-news-2026-05-27.html">2026年5月27日（水）</a><span class="m">22記事 🎧</span></li>
-    <li><a href="ai-news-2026-05-26.html">2026年5月26日（火）</a><span class="m">5記事 🎧</span></li>
-    <li><a href="ai-news-2026-05-25.html">2026年5月25日（月）</a><span class="m">3記事 🎧</span></li>
-    <li><a href="ai-news-2026-05-24.html">2026年5月24日（日）</a><span class="m">3記事 🎧</span></li>
-    <li><a href="ai-news-2026-05-23.html">2026年5月23日（土）</a><span class="m">21記事</span></li>
-    <li><a href="ai-news-2026-05-22.html">2026年5月22日（金）</a><span class="m">21記事</span></li>
-    <li><a href="ai-news-2026-05-21.html">2026年5月21日（木）</a><span class="m">18記事</span></li>
-    <li><a href="ai-news-2026-05-20.html">2026年5月20日（水）</a><span class="m">31記事</span></li>
-    <li><a href="ai-news-2026-05-19.html">2026年5月19日（火）</a><span class="m">17記事 🎧</span></li>
-    <li><a href="ai-news-2026-05-18.html">2026年5月18日（月）</a><span class="m">4記事 🎧</span></li>
-    <li><a href="ai-news-2026-05-17.html">2026年5月17日（日）</a><span class="m">6記事 🎧</span></li>
-    <li><a href="ai-news-2026-05-16.html">2026年5月16日（土）</a><span class="m">19記事 🎧</span></li>
-    <li><a href="ai-news-2026-05-15.html">2026年5月15日（金）</a><span class="m">23記事 🎧</span></li>
-    <li><a href="ai-news-2026-05-14.html">2026年5月14日（木）</a><span class="m">32記事 🎧</span></li>
-    <li><a href="ai-news-2026-05-13.html">2026年5月13日（水）</a><span class="m">19記事 🎧</span></li>
-    <li><a href="ai-news-2026-05-12.html">2026年5月12日（火）</a><span class="m">40記事 🎧</span></li>
-    <li><a href="ai-news-2026-05-10.html">2026年5月10日（日）</a><span class="m">40記事 🎧</span></li>
-    <li><a href="ai-news-2026-05-09.html">2026年5月9日（土）</a><span class="m">40記事 🎧</span></li>
-    <li><a href="ai-news-2026-05-08.html">2026年5月8日（金）</a><span class="m">40記事 🎧</span></li>
-    <li><a href="ai-news-2026-05-07.html">2026年5月7日（木）</a><span class="m">40記事 🎧</span></li>
-    <li><a href="ai-news-2026-05-06.html">2026年5月6日（水）</a><span class="m">40記事 🎧</span></li>
-    <li><a href="ai-news-2026-05-05.html">2026年5月5日（火）</a><span class="m">40記事 🎧</span></li>
-    <li><a href="ai-news-2026-05-04.html">2026年5月4日（月）</a><span class="m">40記事 🎧</span></li>
-    <li><a href="ai-news-2026-05-03.html">2026年5月3日（日）</a><span class="m">40記事</span></li>
-    <li><a href="ai-news-2026-05-02.html">2026年5月2日（土）</a><span class="m">40記事</span></li>
-    <li><a href="ai-news-2026-05-01.html">2026年5月1日（金）</a><span class="m">40記事</span></li>
+    <li><a href="ai-news-2026-05-29.html">2026年5月29日（金）</a><span class="m">🎧</span></li>
+    <li><a href="ai-news-2026-05-28.html">2026年5月28日（木）</a><span class="m">🎧</span></li>
+    <li><a href="ai-news-2026-05-27.html">2026年5月27日（水）</a><span class="m">🎧</span></li>
+    <li><a href="ai-news-2026-05-26.html">2026年5月26日（火）</a><span class="m">🎧</span></li>
+    <li><a href="ai-news-2026-05-25.html">2026年5月25日（月）</a><span class="m">🎧</span></li>
+    <li><a href="ai-news-2026-05-24.html">2026年5月24日（日）</a><span class="m">🎧</span></li>
+    <li><a href="ai-news-2026-05-23.html">2026年5月23日（土）</a><span class="m"></span></li>
+    <li><a href="ai-news-2026-05-22.html">2026年5月22日（金）</a><span class="m"></span></li>
+    <li><a href="ai-news-2026-05-21.html">2026年5月21日（木）</a><span class="m"></span></li>
+    <li><a href="ai-news-2026-05-20.html">2026年5月20日（水）</a><span class="m"></span></li>
+    <li><a href="ai-news-2026-05-19.html">2026年5月19日（火）</a><span class="m">🎧</span></li>
+    <li><a href="ai-news-2026-05-18.html">2026年5月18日（月）</a><span class="m">🎧</span></li>
+    <li><a href="ai-news-2026-05-17.html">2026年5月17日（日）</a><span class="m">🎧</span></li>
+    <li><a href="ai-news-2026-05-16.html">2026年5月16日（土）</a><span class="m">🎧</span></li>
+    <li><a href="ai-news-2026-05-15.html">2026年5月15日（金）</a><span class="m">🎧</span></li>
+    <li><a href="ai-news-2026-05-14.html">2026年5月14日（木）</a><span class="m">🎧</span></li>
+    <li><a href="ai-news-2026-05-13.html">2026年5月13日（水）</a><span class="m">🎧</span></li>
+    <li><a href="ai-news-2026-05-12.html">2026年5月12日（火）</a><span class="m">🎧</span></li>
+    <li><a href="ai-news-2026-05-10.html">2026年5月10日（日）</a><span class="m">🎧</span></li>
+    <li><a href="ai-news-2026-05-09.html">2026年5月9日（土）</a><span class="m">🎧</span></li>
+    <li><a href="ai-news-2026-05-08.html">2026年5月8日（金）</a><span class="m">🎧</span></li>
+    <li><a href="ai-news-2026-05-07.html">2026年5月7日（木）</a><span class="m">🎧</span></li>
+    <li><a href="ai-news-2026-05-06.html">2026年5月6日（水）</a><span class="m">🎧</span></li>
+    <li><a href="ai-news-2026-05-05.html">2026年5月5日（火）</a><span class="m">🎧</span></li>
+    <li><a href="ai-news-2026-05-04.html">2026年5月4日（月）</a><span class="m">🎧</span></li>
+    <li><a href="ai-news-2026-05-03.html">2026年5月3日（日）</a><span class="m"></span></li>
+    <li><a href="ai-news-2026-05-02.html">2026年5月2日（土）</a><span class="m"></span></li>
+    <li><a href="ai-news-2026-05-01.html">2026年5月1日（金）</a><span class="m"></span></li>
   </ul>
   <div class="section-label">2026年4月</div>
   <ul class="issue-list">
-    <li><a href="ai-news-2026-04-30.html">2026年4月30日（木）</a><span class="m">40記事</span></li>
-    <li><a href="ai-news-2026-04-29.html">2026年4月29日（水）</a><span class="m">30記事 🎧</span></li>
-    <li><a href="ai-news-2026-04-28.html">2026年4月28日（火）</a><span class="m">30記事 🎧</span></li>
-    <li><a href="ai-news-2026-04-27.html">2026年4月27日（月）</a><span class="m">40記事 🎧</span></li>
-    <li><a href="ai-news-2026-04-26.html">2026年4月26日（日）</a><span class="m">30記事 🎧</span></li>
-    <li><a href="ai-news-2026-04-22.html">2026年4月22日（水）</a><span class="m">30記事 🎧</span></li>
-    <li><a href="ai-news-2026-04-21.html">2026年4月21日（火）</a><span class="m">30記事 🎧</span></li>
-    <li><a href="ai-news-2026-04-20.html">2026年4月20日（月）</a><span class="m">30記事 🎧</span></li>
-    <li><a href="ai-news-2026-04-19.html">2026年4月19日（日）</a><span class="m">2記事</span></li>
-    <li><a href="ai-news-2026-04-18.html">2026年4月18日（土）</a><span class="m">2記事</span></li>
-    <li><a href="ai-news-2026-04-17.html">2026年4月17日（金）</a><span class="m">2記事</span></li>
-    <li><a href="ai-news-2026-04-16.html">2026年4月16日（木）</a><span class="m">2記事</span></li>
-    <li><a href="ai-news-2026-04-15.html">2026年4月15日（水）</a><span class="m">2記事</span></li>
+    <li><a href="ai-news-2026-04-30.html">2026年4月30日（木）</a><span class="m"></span></li>
+    <li><a href="ai-news-2026-04-29.html">2026年4月29日（水）</a><span class="m">🎧</span></li>
+    <li><a href="ai-news-2026-04-28.html">2026年4月28日（火）</a><span class="m">🎧</span></li>
+    <li><a href="ai-news-2026-04-27.html">2026年4月27日（月）</a><span class="m">🎧</span></li>
+    <li><a href="ai-news-2026-04-26.html">2026年4月26日（日）</a><span class="m">🎧</span></li>
+    <li><a href="ai-news-2026-04-22.html">2026年4月22日（水）</a><span class="m">🎧</span></li>
+    <li><a href="ai-news-2026-04-21.html">2026年4月21日（火）</a><span class="m">🎧</span></li>
+    <li><a href="ai-news-2026-04-20.html">2026年4月20日（月）</a><span class="m">🎧</span></li>
+    <li><a href="ai-news-2026-04-19.html">2026年4月19日（日）</a><span class="m"></span></li>
+    <li><a href="ai-news-2026-04-18.html">2026年4月18日（土）</a><span class="m"></span></li>
+    <li><a href="ai-news-2026-04-17.html">2026年4月17日（金）</a><span class="m"></span></li>
+    <li><a href="ai-news-2026-04-16.html">2026年4月16日（木）</a><span class="m"></span></li>
+    <li><a href="ai-news-2026-04-15.html">2026年4月15日（水）</a><span class="m"></span></li>
     <li><a href="ai-news-2026-04-14.html">2026年4月14日（火）</a><span class="m"></span></li>
-    <li><a href="ai-news-2026-04-13.html">2026年4月13日（月）</a><span class="m">12記事</span></li>
+    <li><a href="ai-news-2026-04-13.html">2026年4月13日（月）</a><span class="m"></span></li>
     <li><a href="ai-news-2026-04-12.html">2026年4月12日（日）</a><span class="m"></span></li>
     <li><a href="ai-news-2026-04-10.html">2026年4月10日（金）</a><span class="m"></span></li>
   </ul>

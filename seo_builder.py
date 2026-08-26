@@ -138,6 +138,7 @@ def build_home(issues: List[Dict], articles: List[Dict], config: Dict) -> str:
     <p style="font-size:0.85rem;margin-top:0.75rem;">{_html.escape(site.get("description", ""))}</p>
     <div class="hero-actions">
 {hero_actions}    </div>
+    {site_theme.lang_switch(config)}
   </div>
 </div>
 
@@ -197,11 +198,14 @@ def build_archive(issues: List[Dict], config: Dict) -> str:
 
     body = f"""<div class="hero">
   <div class="hero-inner">
+    <div class="crumbs"><a href="./">{_html.escape(name)}</a></div>
     <h1>バックナンバー</h1>
     <p>{_html.escape(name)} 全 {len(issues)} 号</p>
     <div class="hero-actions">
       <a class="btn btn-ghost" href="./">トップへ戻る</a>
+      <a class="btn btn-ghost" href="terms/">📘 AI用語集</a>
     </div>
+    {site_theme.lang_switch(config)}
   </div>
 </div>
 

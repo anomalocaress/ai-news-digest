@@ -448,6 +448,7 @@ def build_index_page(terms: List[Dict], config: Dict) -> str:
       <a href="../">トップ</a>
       <a href="../archive.html">バックナンバー</a>
     </div>
+    {site_theme.lang_switch(config)}
   </div>
 </div>
 

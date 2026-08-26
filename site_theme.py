@@ -41,6 +41,17 @@ PAGE_CSS = """
   .issue-list .m { font-size:0.72rem; color:var(--text-muted); margin-left:0.5rem; }
   footer { border-top:1px solid var(--border); padding:2rem 1.5rem; text-align:center;
     font-size:0.78rem; color:var(--text-muted); }
+  .lang-switch { display:flex; flex-wrap:wrap; align-items:center; gap:0.35rem;
+    margin-top:1rem; font-size:0.74rem; }
+  .lang-switch .globe { opacity:0.7; margin-right:0.15rem; }
+  .lang-switch .lang { padding:0.25rem 0.7rem; border-radius:999px;
+    border:1px solid rgba(255,255,255,0.25); color:#cbd5e1; text-decoration:none; }
+  .lang-switch a.lang:hover { background:rgba(255,255,255,0.12); color:#fff; }
+  .lang-switch .lang.on { background:rgba(255,255,255,0.9); color:#0f172a; font-weight:700;
+    border-color:transparent; }
+  .lang-switch .lang.soon { opacity:0.45; cursor:default; }
+  .lang-switch .lang.soon em { font-style:normal; font-size:0.62rem; margin-left:0.3rem;
+    opacity:0.85; }
   .footer-links { margin-top:0.9rem; font-size:0.75rem; }
   .footer-links a { color:var(--text-muted); text-decoration:none; }
   .footer-links a:hover { color:var(--accent); text-decoration:underline; }
@@ -97,6 +108,29 @@ PROSE_CSS = """
   .toc a:hover { color:var(--accent); text-decoration:underline; }
   .article-meta { max-width:720px; margin:0 auto 2rem; font-size:0.78rem; color:var(--text-muted); }
 """
+
+
+def lang_switch(config: dict, prefix: str = "") -> str:
+    """言語切り替え。未対応の言語は「準備中」として無効表示にする。
+
+    先に置き場所を作っておくことで、英語版を出したときに
+    設定の status を live にするだけで切り替えが有効になる。
+    """
+    langs = config.get("site", {}).get("languages", [])
+    if len(langs) < 2:
+        return ""
+    current = config.get("site", {}).get("lang", "ja")
+    items = []
+    for l in langs:
+        label = _html.escape(l.get("label", l.get("code", "")))
+        if l.get("code") == current:
+            items.append(f'<span class="lang on">{label}</span>')
+        elif l.get("status") == "live" and l.get("url"):
+            items.append(f'<a class="lang" href="{_html.escape(l["url"])}">{label}</a>')
+        else:
+            items.append(f'<span class="lang soon" title="準備中">{label}'
+                         f'<em>準備中</em></span>')
+    return '<div class="lang-switch"><span class="globe">🌐</span>' + "".join(items) + "</div>"
 
 
 def footer_links(config: dict, prefix: str = "") -> str:
