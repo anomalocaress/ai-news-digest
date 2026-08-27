@@ -556,11 +556,9 @@ Markdown で、下の見出し構成のとおりに出力する。前置き・�
 ## タイムスタンプ付き要約
 
 「前半｜セットアップ」のように話の区切りで小見出し（###）を立て、その下に
-
-    0:00　開始前
-    1:56　あいさつ・参加確認
-
-の形で1行ずつ並べる。表にはしない。項目名は10〜20文字程度の名詞句にする。
+「0:00　開始前」「1:56　あいさつ・参加確認」のように1行ずつ、そのまま並べる。
+表にもコードブロック（```）にもしないこと。メールに貼って読むものなので、
+飾りが付くとかえって読みにくい。項目名は10〜20文字程度の名詞句にする。
 行数は文字起こしにあるタイムスタンプの数に合わせる。数を揃えるために
 存在しない時刻を作らないこと。逆に、行数が少ないことへの言い訳も書かないこと。
 
@@ -568,6 +566,25 @@ Markdown で、下の見出し構成のとおりに出力する。前置き・�
 
 話し合われた内容を項目立ててまとめる。決まったこと・出た質問と回答・
 保留になったことが分かるように書く。
+
+## ツールの使い方
+
+**この回でツールやサービスの操作説明があった場合だけ、この見出しを作る。**
+雑談や報告だけの回では、この見出しごと省略してよい（無いものを埋めない）。
+
+あとから動画を見返さずに手を動かせる粒度で書く。読む人は録画を見ていない、
+あるいは見たが手順を覚えていない人。具体的には:
+
+- セットアップ・導入は番号付きの手順にする。各手順の末尾に、動画の該当箇所の
+  タイムスタンプを `（8:25）` のように添える。詰まったらそこへ飛べるようにするため
+- 画面のどこを押すか、どのメニューか、何を入力するかを、録画で言われたとおりに書く
+- 設定値・ファイル名・コマンド・URL・プラン名・金額は、**言われたまま正確に**書き写す。
+  丸めない、言い換えない。ここを要約すると資料として使えなくなる
+- 「ここでよく間違える」「ここは飛ばしていい」といった注意が出てきたら、
+  該当手順の下に「⚠️」付きで残す
+- 複数のやり方（例: 版・プラン・モードの違い）が説明されたなら、
+  表で並べて違いが一目で分かるようにする
+- 質疑で出た「こうしたい時はどうするか」も、操作の話ならここにまとめる
 
 ## 決まったこと
 
@@ -587,12 +604,19 @@ Markdown で、下の見出し構成のとおりに出力する。前置き・�
 """
 
 
-def build_notes(title: str, transcript: str, source: str, verbose: bool = True) -> Optional[str]:
+def build_notes(title: str, transcript: str, source: str, focus: str = "",
+                verbose: bool = True) -> Optional[str]:
     if verbose:
         print("④ 議事録・要約を作成しています…")
+    focus_block = (
+        f"# この回で特に厚く書いてほしいところ\n{focus}\n\n"
+        "上の指示は、決められた見出し構成の中で反映してください。"
+        "見出しを増やしたり順番を変えたりはしないこと。\n\n"
+    ) if focus.strip() else ""
     user = (
         f"# セミナー名\n{title}\n\n"
         f"# 録画URL\n{source if _is_url(source) else '（ローカル録画）'}\n\n"
+        f"{focus_block}"
         f"# 文字起こし\n\n{transcript}"
     )
     return ask_claude(NOTES_SYSTEM, user, max_tokens=16000,
@@ -691,6 +715,8 @@ def main() -> int:
     parser.add_argument("--cookies", help="Cookie ファイル（限定公開・要ログインの動画用）")
     parser.add_argument("--cookies-from-browser", help="ブラウザから Cookie を借りる（chrome / firefox 等）")
     parser.add_argument("--audio", action="store_true", help="字幕を使わず音声から文字起こしする")
+    parser.add_argument("--focus", default="",
+                        help="議事録で厚く書いてほしいところ（例: \"ツールの使い方を手順まで詳しく\"）")
     parser.add_argument("--no-notes", action="store_true", help="文字起こしだけ作って議事録は作らない")
     parser.add_argument("--ask", metavar="質問", help="保存済みのセミナーに質問する")
     parser.add_argument("--list", action="store_true", help="保存済みのセミナー一覧")
@@ -747,7 +773,7 @@ def main() -> int:
     }, ensure_ascii=False, indent=2), encoding="utf-8")
 
     if not args.no_notes:
-        notes = build_notes(title, transcript, args.source)
+        notes = build_notes(title, transcript, args.source, args.focus)
         if notes:
             (outdir / "notes.md").write_text(f"# {title}\n\n{notes}\n", encoding="utf-8")
             print("   ✅ 議事録を作成しました\n")

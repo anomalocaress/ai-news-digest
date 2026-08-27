@@ -44,6 +44,9 @@ python seminar_notes.py <URL> --cookies-from-browser chrome
 python seminar_notes.py --ask "MCP版とAPI版の違いは？"
 python seminar_notes.py --ask "料金の話はどこ？" --slug 2026-08-27-勉強会
 
+# 重点を指定する（ツールの使い方が中心の回など）
+python seminar_notes.py <URL> --title "..." --focus "ツールの使い方を手順まで詳しく"
+
 # 保存済みの一覧
 python seminar_notes.py --list
 ```
@@ -55,7 +58,9 @@ python seminar_notes.py --list
 - **`transcript.txt`** — タイムスタンプ付きの文字起こし。
   これを NotebookLM の「テキストを貼り付け」に渡せば、限定公開のままソースにできます
 - **`notes.md`** — 議事録・タイムスタンプ付き要約・決まったこと・
-  ネクストアクション・**参加者への配布メール文面**
+  ネクストアクション・**参加者への配布メール文面**。
+  ツールの操作説明があった回は **「ツールの使い方」** も付きます
+  （番号付きの手順＋各手順のタイムスタンプ＋設定値の原文＋つまずきポイント）
 - **`meta.json`** — 元URL・取得方法・文字数の記録
 
 セミナーの中身は社外に出せないことが多いので、`seminars/` は `.gitignore` 済みです。
