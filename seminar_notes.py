@@ -83,7 +83,13 @@ try:  # .env に置いた鍵（Zoom・Gemini 等）を読む。無くても動�
 except ImportError:
     pass
 
-SEMINAR_DIR = Path(__file__).resolve().parent / "seminars"
+# 出力先。既定はこのフォルダの seminars/（.gitignore 済み）。
+# セミナーの中身は社外に出せないことが多いので、リポジトリの外に置きたい場合は
+# .env に SEMINAR_NOTES_DIR=/Users/…/セミナー議事録 のように書けばそちらに出る。
+SEMINAR_DIR = Path(
+    os.environ.get("SEMINAR_NOTES_DIR")
+    or (Path(__file__).resolve().parent / "seminars")
+).expanduser()
 
 # 日本語のセミナーを想定。無ければ英語、それも無ければ動画にある任意の字幕。
 DEFAULT_LANGS = ["ja", "ja-JP", "ja-orig", "en", "en-US"]
@@ -91,6 +97,9 @@ DEFAULT_LANGS = ["ja", "ja-JP", "ja-orig", "en", "en-US"]
 CLI_MODEL = "opus"
 API_MODEL = "claude-opus-5"
 GEMINI_MODEL = "gemini-flash-latest"
+
+# ローカル文字起こしのモデル。turbo は日本語の精度と速さのつり合いが一番よい。
+WHISPER_MODEL = os.environ.get("WHISPER_MODEL", "turbo")
 
 
 # ---------------------------------------------------------------------------
@@ -370,7 +379,7 @@ def _zoom_find_meeting(source: str, token: str, days: int, verbose: bool,
 
 
 def _from_zoom(source: str, days: int, verbose: bool = True,
-               explicit: bool = False) -> Optional[Tuple[str, str]]:
+               explicit: bool = False, cloud_first: bool = False) -> Optional[Tuple[str, str]]:
     if verbose:
         print("① Zoom のクラウド録画を取得します…")
     token = _zoom_token(verbose)
@@ -409,7 +418,7 @@ def _from_zoom(source: str, days: int, verbose: bool = True,
                 print("   Zoom側の文字起こしが無いので、録画の音声から起こします")
             path = _zoom_download(audio_file, token, Path(tmp), verbose)
             if path:
-                text = _transcribe_gemini(path, verbose) or _transcribe_openai(path, verbose)
+                text = _transcribe(path, cloud_first, verbose)
                 if text:
                     return text, "Zoom録画の音声からの文字起こし"
 
@@ -510,7 +519,9 @@ def _parse_json3(path: Path) -> List[Dict]:
 
 def _parse_vtt(path: Path) -> List[Dict]:
     """VTT を読む。自動生成字幕は同じ行が転がり続けるので重複を落とす。"""
-    time_re = re.compile(r"(\d+:\d{2}:\d{2}[.,]\d{3})\s+-->\s+")
+    # 「0:01:23.456」だけでなく「01:23.456」（時間の桁が無い形）も受ける。
+    # whisper のローカル出力は1時間未満だと時の桁を省く。
+    time_re = re.compile(r"((?:\d+:)?\d{1,2}:\d{2}[.,]\d{3})\s+-->\s+")
     segments: List[Dict] = []
     start = None
     buf: List[str] = []
@@ -531,7 +542,11 @@ def _parse_vtt(path: Path) -> List[Dict]:
         m = time_re.search(line)
         if m:
             flush()
-            h, mi, rest = m.group(1).split(":")
+            parts = m.group(1).split(":")
+            if len(parts) == 3:
+                h, mi, rest = parts
+            else:
+                h, (mi, rest) = "0", parts
             sec = float(rest.replace(",", "."))
             start = int(h) * 3600 + int(mi) * 60 + sec
         elif (line.strip() and not line.strip().isdigit()
@@ -621,6 +636,59 @@ _TRANSCRIBE_PROMPT = """この音声はセミナー・勉強会の録画です�
 """
 
 
+def _transcribe_whisper(path: Path, verbose: bool) -> Optional[str]:
+    """Mac の中だけで文字起こしする（openai-whisper）。
+
+    鍵も費用も要らず、**音声が Mac から外に出ない**。セミナーの中身は社外に
+    出せないことが多いので、これを既定にしている。代償は時間で、録画の
+    再生時間とだいたい同じくらいかかる（1時間の録画で1時間弱）。
+    急ぐときは GEMINI_API_KEY を入れて --cloud-transcribe を使う。
+    """
+    exe = shutil.which("whisper")
+    if not exe:
+        if verbose:
+            print("   ローカルの whisper が入っていないのでスキップします"
+                  "（brew install openai-whisper で入る）")
+        return None
+
+    if verbose:
+        minutes = _media_minutes(path)
+        est = f"およそ{max(int(minutes * 0.9), 1)}分" if minutes else "しばらく"
+        print(f"   Mac の中で文字起こしします（費用ゼロ・音声は外に出ません / {est}かかります）")
+
+    with tempfile.TemporaryDirectory() as tmp:
+        code, _, err = _run([
+            exe, str(path),
+            "--model", WHISPER_MODEL,
+            "--language", "ja",
+            "--output_format", "vtt",
+            "--output_dir", tmp,
+            "--device", "cpu",     # MPS(GPU) は長時間の録画で落ちることがある
+            "--verbose", "False",
+        ], timeout=6 * 3600)
+        if code != 0:
+            print(f"   ⚠️  ローカルの文字起こしに失敗しました: {err.strip()[-300:]}")
+            return None
+        vtts = sorted(Path(tmp).glob("*.vtt"))
+        if not vtts:
+            print("   ⚠️  文字起こしの結果が見つかりませんでした")
+            return None
+        segments = _parse_vtt(vtts[0])
+    return _format_segments(segments) if segments else None
+
+
+def _media_minutes(path: Path) -> Optional[float]:
+    exe = shutil.which("ffprobe")
+    if not exe:
+        return None
+    code, out, _ = _run([exe, "-v", "error", "-show_entries", "format=duration",
+                         "-of", "csv=p=0", str(path)], timeout=120)
+    try:
+        return float(out.strip()) / 60.0 if code == 0 else None
+    except ValueError:
+        return None
+
+
 def _transcribe_gemini(path: Path, verbose: bool) -> Optional[str]:
     api_key = os.environ.get("GEMINI_API_KEY", "").strip()
     if not api_key:
@@ -688,8 +756,24 @@ def _transcribe_openai(path: Path, verbose: bool) -> Optional[str]:
     return "\n".join(lines) if lines else (data.get("text") or None)
 
 
+def _transcribe(path: Path, cloud_first: bool, verbose: bool) -> Optional[str]:
+    """文字起こしの担当を選ぶ。
+
+    既定は Mac の中の whisper。鍵が要らず、費用もかからず、なにより
+    **セミナーの音声を外に出さない**。社外に出せない録画が多いので既定にしている。
+    速さが要るときだけ --cloud-transcribe でクラウド（Gemini）を先に使う。
+    """
+    if cloud_first:
+        return (_transcribe_gemini(path, verbose)
+                or _transcribe_openai(path, verbose)
+                or _transcribe_whisper(path, verbose))
+    return (_transcribe_whisper(path, verbose)
+            or _transcribe_gemini(path, verbose)
+            or _transcribe_openai(path, verbose))
+
+
 def _from_audio(source: str, cookies: Optional[str], browser: Optional[str],
-                verbose: bool) -> Optional[str]:
+                verbose: bool, cloud_first: bool = False) -> Optional[str]:
     """URL でも手元のファイルでも、音声から文字起こし済みテキストを返す。"""
     if not _is_url(source):
         path = Path(source).expanduser().resolve()
@@ -700,13 +784,13 @@ def _from_audio(source: str, cookies: Optional[str], browser: Optional[str],
             # テキストは既に fetch_transcript で扱っている。ここに来たなら中身が空。
             print(f"   ⚠️  文字起こしファイルが空か、読み取れませんでした: {path}")
             return None
-        return _transcribe_gemini(path, verbose) or _transcribe_openai(path, verbose)
+        return _transcribe(path, cloud_first, verbose)
 
     with tempfile.TemporaryDirectory() as tmp:
         path = _download_audio(source, Path(tmp), cookies, browser, verbose)
         if not path:
             return None
-        return _transcribe_gemini(path, verbose) or _transcribe_openai(path, verbose)
+        return _transcribe(path, cloud_first, verbose)
 
 
 # ---------------------------------------------------------------------------
@@ -766,11 +850,13 @@ def _parse_srt(path: Path) -> List[Dict]:
 def fetch_transcript(source: str, langs: List[str], cookies: Optional[str],
                      browser: Optional[str], force_audio: bool,
                      zoom: bool = False, zoom_days: int = 30,
+                     cloud_first: bool = False,
                      verbose: bool = True) -> Optional[Tuple[str, str]]:
     """(文字起こしテキスト, 取得方法) を返す。取れなければ None。"""
     is_zoom_source = zoom or _is_zoom(source)
     if (is_zoom_source or _zoom_key(source)) and _zoom_creds():
-        got = _from_zoom(source, zoom_days, verbose, explicit=zoom)
+        got = _from_zoom(source, zoom_days, verbose, explicit=zoom,
+                         cloud_first=cloud_first)
         if got:
             return got
         if is_zoom_source:
@@ -809,9 +895,10 @@ def fetch_transcript(source: str, langs: List[str], cookies: Optional[str],
 
     if verbose:
         print("③ 音声から文字起こしします…")
-    text = _from_audio(source, cookies, browser, verbose)
+    text = _from_audio(source, cookies, browser, verbose, cloud_first)
     if text:
-        return text, "音声からの文字起こし"
+        method = "クラウドでの文字起こし" if cloud_first else "Macの中での文字起こし（whisper）"
+        return text, method
     return None
 
 
@@ -1135,6 +1222,9 @@ def main() -> int:
     parser.add_argument("--cookies", help="Cookie ファイル（限定公開・要ログインの動画用）")
     parser.add_argument("--cookies-from-browser", help="ブラウザから Cookie を借りる（chrome / firefox 等）")
     parser.add_argument("--audio", action="store_true", help="字幕を使わず音声から文字起こしする")
+    parser.add_argument("--cloud-transcribe", action="store_true",
+                        help="文字起こしをクラウド（Gemini）で行う。速いが鍵と費用が要り、"
+                             "音声が外に出る。既定は Mac の中で処理する")
     parser.add_argument("--focus", default="",
                         help="議事録で厚く書いてほしいところ（例: \"ツールの使い方を手順まで詳しく\"）")
     parser.add_argument("--no-notes", action="store_true", help="文字起こしだけ作って議事録は作らない")
@@ -1179,11 +1269,12 @@ def main() -> int:
 
     got = fetch_transcript(args.source, langs, args.cookies,
                            args.cookies_from_browser, args.audio,
-                           zoom=args.zoom, zoom_days=args.zoom_days)
+                           zoom=args.zoom, zoom_days=args.zoom_days,
+                           cloud_first=args.cloud_transcribe)
     if not got:
         print("\n⚠️  文字起こしを取得できませんでした。次のどれかを試してください:")
         print("   - 限定公開でログインが要る場合: --cookies-from-browser chrome")
-        print("   - 字幕が無い動画: GEMINI_API_KEY を設定して --audio")
+        print("   - 字幕が無い動画: --audio（Mac の中で文字起こしします。費用ゼロ）")
         print("   - Zoom のクラウド録画: --zoom-list で一覧を出して会議IDを指定する")
         print("   - 手元に録画ファイルがあるなら、URL の代わりにファイルを渡す")
         return 1

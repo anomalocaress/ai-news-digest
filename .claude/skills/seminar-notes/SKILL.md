@@ -22,14 +22,19 @@ description: セミナー・勉強会・会議の録画から、文字起こし�
 「これを実行してください」と手順を渡すのは最後の手段。
 
 ```bash
-python3 -c "import youtube_transcript_api, yt_dlp, anthropic" 2>&1   # 足りないものを確認
-python3 -m pip install -r requirements.txt                                      # 足りなければ入れる
+python3 -c "import youtube_transcript_api, yt_dlp, anthropic, dotenv" 2>&1   # 足りないものを確認
+python3 -m pip install -r requirements.txt                                   # 足りなければ入れる
+command -v whisper || brew install openai-whisper                            # 音声から起こす用
 ```
 
-`GEMINI_API_KEY` は、字幕が無い録画を音声から文字起こしするときだけ要る。
-最初から要求しない。実際に必要になった場面で「字幕が無いので音声から起こします。
-そのために Gemini のキーが要ります」と、理由とセットで頼む。
-先回りして設定を求めると、それだけで面倒に感じさせてしまう。
+字幕が無い録画（Zoomのローカル録画など）は、**Mac の中の `whisper` で文字起こしする**。
+鍵も費用も要らず、音声が外に出ない。セミナーは社外に出せない内容が多いのでこれが既定。
+**鍵を要求しないこと。** 代わりに時間がかかる（録画の長さとだいたい同じ）ので、
+実行前に「1時間の録画なので1時間弱かかります。裏で走らせます」と必ず伝える。
+
+`--cloud-transcribe` を使うのは、ユーザーが**急いでいると明言したときだけ**。
+その場合は `GEMINI_API_KEY` が要ること、費用がかかること、**音声が Google に渡ること**を
+3点セットで伝えてから使う。社外秘の録画では勧めない。
 
 ## 新しい録画をまとめるとき
 
