@@ -29,29 +29,29 @@ YouTube が持っている字幕データをそのまま取り込んでいるだ
 `seminar_notes.py` が、文字起こしを取ってくるところから議事録を書くところまでやります。
 
 ```bash
-pip install -r requirements.txt
+python3 -m pip install -r requirements.txt
 
 # 録画から一式（文字起こし＋議事録）を作る
-python seminar_notes.py https://youtu.be/XXXXXXXXXXX --title "第3回 社内勉強会"
+python3 seminar_notes.py https://youtu.be/XXXXXXXXXXX --title "第3回 社内勉強会"
 
 # 手元に録画ファイルがあるならそれでもいい（Zoomのローカル録画など）
-python seminar_notes.py ./recording.m4a --title "Zoom録画（2026-08-27）"
+python3 seminar_notes.py ./recording.m4a --title "Zoom録画（2026-08-27）"
 
 # 文字起こしが既にあるなら、それを渡すのが一番速い（.txt / .vtt / .srt）
-python seminar_notes.py ./transcript.txt --title "第3回 社内勉強会"
+python3 seminar_notes.py ./transcript.txt --title "第3回 社内勉強会"
 
 # 限定公開でログインが要る場合はブラウザのCookieを借りる
-python seminar_notes.py <URL> --cookies-from-browser chrome
+python3 seminar_notes.py <URL> --cookies-from-browser chrome
 
 # できたものに質問する（NotebookLMの代わり）
-python seminar_notes.py --ask "MCP版とAPI版の違いは？"
-python seminar_notes.py --ask "料金の話はどこ？" --slug 2026-08-27-勉強会
+python3 seminar_notes.py --ask "MCP版とAPI版の違いは？"
+python3 seminar_notes.py --ask "料金の話はどこ？" --slug 2026-08-27-勉強会
 
 # 重点を指定する（ツールの使い方が中心の回など）
-python seminar_notes.py <URL> --title "..." --focus "ツールの使い方を手順まで詳しく"
+python3 seminar_notes.py <URL> --title "..." --focus "ツールの使い方を手順まで詳しく"
 
 # 保存済みの一覧
-python seminar_notes.py --list
+python3 seminar_notes.py --list
 ```
 
 ### 出力
@@ -97,7 +97,7 @@ YouTube の動画ページで 説明欄の「...もっと見る」→「文字�
 
 1. Zoom で録画（クラウド録画でもローカル録画でもよい）
 2. YouTube に**限定公開**でアップ、または録画ファイルをそのまま使う
-3. `python seminar_notes.py <URL or ファイル> --title "..."`
+3. `python3 seminar_notes.py <URL or ファイル> --title "..."`
 4. `notes.md` の議事録を Google ドキュメントに貼って、必要なら手直しする
 5. `notes.md` の末尾にあるメール文面に、議事録URLと録画URLを差し込んで送る
 6. あとから内容を確認したくなったら `--ask` で質問する。

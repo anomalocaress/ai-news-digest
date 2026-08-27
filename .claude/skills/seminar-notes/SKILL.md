@@ -23,7 +23,7 @@ description: セミナー・勉強会・会議の録画から、文字起こし�
 
 ```bash
 python3 -c "import youtube_transcript_api, yt_dlp, anthropic" 2>&1   # 足りないものを確認
-pip install -r requirements.txt                                      # 足りなければ入れる
+python3 -m pip install -r requirements.txt                                      # 足りなければ入れる
 ```
 
 `GEMINI_API_KEY` は、字幕が無い録画を音声から文字起こしするときだけ要る。
@@ -45,7 +45,7 @@ pip install -r requirements.txt                                      # 足りな
 ### 2. 実行する
 
 ```bash
-python seminar_notes.py "<URL またはファイルパス>" --title "<セミナー名>"
+python3 seminar_notes.py "<URL またはファイルパス>" --title "<セミナー名>"
 ```
 
 文字起こしが既にある場合（YouTube の「文字起こしを表示」からコピーしたテキストを
@@ -53,13 +53,13 @@ python seminar_notes.py "<URL またはファイルパス>" --title "<セミナ�
 `.txt` `.vtt` `.srt` を受け付ける。
 
 ```bash
-python seminar_notes.py "<文字起こしファイル>" --title "<セミナー名>"
+python3 seminar_notes.py "<文字起こしファイル>" --title "<セミナー名>"
 ```
 
 ユーザーが「ここを重点的に」と言っている場合は `--focus` にそのまま渡す。
 
 ```bash
-python seminar_notes.py "<URL>" --title "<名前>" --focus "ツールの使い方を手順まで詳しく"
+python3 seminar_notes.py "<URL>" --title "<名前>" --focus "ツールの使い方を手順まで詳しく"
 ```
 
 ツールやサービスの操作説明が中心の回（インストール手順・設定画面・プラン比較など）は
@@ -98,7 +98,7 @@ python seminar_notes.py "<URL>" --title "<名前>" --focus "ツールの使い�
 | ダウンロードが 403 / ログインが要る | 限定公開＋要ログイン | `--cookies-from-browser chrome` を足して再実行する。ブラウザ名はユーザーに確認する |
 | 3つの経路すべてが 403 / ProxyError で落ちる | 実行環境が YouTube への通信自体を遮断している | ユーザーの設定ミスではないことを先に伝える。YouTube の「文字起こしを表示」からコピーして貼ってもらい、それをファイルに保存して渡す（下記）。この経路なら通信は要らない |
 | 議事録だけできない | Claude を呼べていない | 文字起こしは保存済みなことを伝える。`claude` CLI のログイン状態か `ANTHROPIC_API_KEY` を確認してもらう |
-| 「未インストールなのでスキップします」が出る | 依存パッケージが入っていない | `pip install -r requirements.txt` をこちらで実行してから、やり直す |
+| 「未インストールなのでスキップします」が出る | 依存パッケージが入っていない | `python3 -m pip install -r requirements.txt` をこちらで実行してから、やり直す |
 
 ## 過去の録画に質問されたとき
 
@@ -106,9 +106,9 @@ python seminar_notes.py "<URL>" --title "<名前>" --focus "ツールの使い�
 文字起こしを根拠に答えるために `--ask` を使う。
 
 ```bash
-python seminar_notes.py --list                          # どれのことか分からないとき
-python seminar_notes.py --ask "<質問>" --slug <スラッグ>   # 特定の回を指定
-python seminar_notes.py --ask "<質問>"                   # 直近の回でよければ
+python3 seminar_notes.py --list                          # どれのことか分からないとき
+python3 seminar_notes.py --ask "<質問>" --slug <スラッグ>   # 特定の回を指定
+python3 seminar_notes.py --ask "<質問>"                   # 直近の回でよければ
 ```
 
 回答にはタイムスタンプが付いて返ってくる。**そのタイムスタンプを消さずに**ユーザーに見せる。

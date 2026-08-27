@@ -20,22 +20,22 @@ YouTube が返す字幕データをそのまま取り込んでいるだけなの
 ## 使い方
 
     # 録画から一式（文字起こし＋議事録）を作る
-    python seminar_notes.py https://youtu.be/XXXXXXXXXXX --title "第3回 社内勉強会"
-    python seminar_notes.py ./recording.m4a --title "Zoom録画（2026-08-27）"
+    python3 seminar_notes.py https://youtu.be/XXXXXXXXXXX --title "第3回 社内勉強会"
+    python3 seminar_notes.py ./recording.m4a --title "Zoom録画（2026-08-27）"
 
     # 文字起こしが既にあるなら、それを渡すのが一番速い
     # （YouTubeの「文字起こしを表示」からコピーしたもの、Zoomの字幕ファイルなど）
-    python seminar_notes.py ./transcript.txt --title "第3回 社内勉強会"
+    python3 seminar_notes.py ./transcript.txt --title "第3回 社内勉強会"
 
     # 限定公開でログインが要る場合はブラウザの Cookie を借りる
-    python seminar_notes.py <URL> --cookies-from-browser chrome
+    python3 seminar_notes.py <URL> --cookies-from-browser chrome
 
     # できたものに質問する（NotebookLM の代わり）
-    python seminar_notes.py --ask "MCP版とAPI版の違いは？"
-    python seminar_notes.py --ask "料金の話はどこ？" --slug rakumubi-benkyokai
+    python3 seminar_notes.py --ask "MCP版とAPI版の違いは？"
+    python3 seminar_notes.py --ask "料金の話はどこ？" --slug rakumubi-benkyokai
 
     # 作ったセミナーの一覧
-    python seminar_notes.py --list
+    python3 seminar_notes.py --list
 
 ## 出力（seminars/<スラッグ>/ 以下）
 
@@ -747,7 +747,7 @@ def latest_slug() -> Optional[str]:
 def list_seminars() -> None:
     if not SEMINAR_DIR.exists() or not any(SEMINAR_DIR.iterdir()):
         print("まだセミナーがありません。")
-        print("  python seminar_notes.py <録画URL または音声ファイル> --title \"セミナー名\"")
+        print("  python3 seminar_notes.py <録画URL または音声ファイル> --title \"セミナー名\"")
         return
     print("保存済みのセミナー:\n")
     for d in sorted(SEMINAR_DIR.iterdir()):
@@ -854,7 +854,7 @@ def main() -> int:
     if (outdir / "notes.md").exists():
         print(f"   notes.md       … 議事録・タイムスタンプ付き要約・配布メール文面")
     print(f"\n💬 質問する:")
-    print(f"   python seminar_notes.py --ask \"知りたいこと\" --slug {slug}")
+    print(f"   python3 seminar_notes.py --ask \"知りたいこと\" --slug {slug}")
     return 0
 
 
