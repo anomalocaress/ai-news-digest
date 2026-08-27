@@ -37,6 +37,9 @@ python seminar_notes.py https://youtu.be/XXXXXXXXXXX --title "第3回 社内勉�
 # 手元に録画ファイルがあるならそれでもいい（Zoomのローカル録画など）
 python seminar_notes.py ./recording.m4a --title "Zoom録画（2026-08-27）"
 
+# 文字起こしが既にあるなら、それを渡すのが一番速い（.txt / .vtt / .srt）
+python seminar_notes.py ./transcript.txt --title "第3回 社内勉強会"
+
 # 限定公開でログインが要る場合はブラウザのCookieを借りる
 python seminar_notes.py <URL> --cookies-from-browser chrome
 
@@ -69,12 +72,22 @@ python seminar_notes.py --list
 
 上から順に試して、通ったところで止まります。
 
+0. **手元の文字起こしをそのまま読む** — `.txt` `.vtt` `.srt` を渡した場合
 1. **YouTube の字幕を API で取得** — 限定公開でも字幕さえあれば通る。無料・数秒
 2. **yt-dlp で自動生成字幕を取得** — 1が塞がれたときの予備
 3. **音声をダウンロードして Gemini で文字起こし** — 字幕が無い動画・ローカル録画用
 
 3 だけ API キーが要ります（`GEMINI_API_KEY`。予備で `OPENAI_API_KEY`）。
-1・2 は鍵なしで動きます。
+0〜2 は鍵なしで動きます。
+
+### ネットワークが YouTube を塞いでいる環境では
+
+会社のプロキシやクラウド実行環境が YouTube への接続を禁止していると、1〜3 は
+どれも通りません（`403 Forbidden` で止まります）。その場合は 0 を使います。
+
+YouTube の動画ページで 説明欄の「...もっと見る」→「文字起こしを表示」を開き、
+右側に出るテキストをコピーしてファイルに保存すれば、それを渡すだけで
+議事録まで進められます。
 
 議事録の作成と質問への回答は Claude が担当します。`claude` CLI がログイン済みなら
 サブスクリプションの枠で動き、無ければ `ANTHROPIC_API_KEY` の従量課金に落ちます

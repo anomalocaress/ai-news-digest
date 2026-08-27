@@ -23,6 +23,10 @@ YouTube が返す字幕データをそのまま取り込んでいるだけなの
     python seminar_notes.py https://youtu.be/XXXXXXXXXXX --title "第3回 社内勉強会"
     python seminar_notes.py ./recording.m4a --title "Zoom録画（2026-08-27）"
 
+    # 文字起こしが既にあるなら、それを渡すのが一番速い
+    # （YouTubeの「文字起こしを表示」からコピーしたもの、Zoomの字幕ファイルなど）
+    python seminar_notes.py ./transcript.txt --title "第3回 社内勉強会"
+
     # 限定公開でログインが要る場合はブラウザの Cookie を借りる
     python seminar_notes.py <URL> --cookies-from-browser chrome
 
@@ -380,6 +384,10 @@ def _from_audio(source: str, cookies: Optional[str], browser: Optional[str],
         if not path.exists():
             print(f"   ⚠️  ファイルが見つかりません: {path}")
             return None
+        if path.suffix.lower() in TEXT_SUFFIXES:
+            # テキストは既に fetch_transcript で扱っている。ここに来たなら中身が空。
+            print(f"   ⚠️  文字起こしファイルが空か、読み取れませんでした: {path}")
+            return None
         return _transcribe_gemini(path, verbose) or _transcribe_openai(path, verbose)
 
     with tempfile.TemporaryDirectory() as tmp:
@@ -393,10 +401,69 @@ def _from_audio(source: str, cookies: Optional[str], browser: Optional[str],
 # 文字起こしの取得（全体）
 # ---------------------------------------------------------------------------
 
+TEXT_SUFFIXES = {".txt", ".md", ".vtt", ".srt", ".json3", ".json"}
+
+
+def _from_text_file(path: Path, verbose: bool) -> Optional[str]:
+    """すでに手元にある文字起こしを読み込む。
+
+    YouTube の「文字起こしを表示」からコピーしたテキスト、Zoom や Teams が
+    書き出した字幕ファイルなど、文字起こしが既にある場合はそれが一番速い。
+    録画を取りに行けない環境でも、これなら議事録まで進められる。
+    """
+    suffix = path.suffix.lower()
+    try:
+        if suffix == ".vtt":
+            return _format_segments(_parse_vtt(path))
+        if suffix in (".json3", ".json"):
+            return _format_segments(_parse_json3(path))
+        if suffix == ".srt":
+            return _format_segments(_parse_srt(path))
+        return path.read_text(encoding="utf-8").strip() or None
+    except Exception as e:
+        if verbose:
+            print(f"   ⚠️  文字起こしファイルを読めませんでした: {e}")
+        return None
+
+
+def _parse_srt(path: Path) -> List[Dict]:
+    time_re = re.compile(r"(\d+):(\d{2}):(\d{2})[,.](\d{3})\s+-->")
+    segments: List[Dict] = []
+    start: Optional[float] = None
+    buf: List[str] = []
+
+    def flush():
+        nonlocal start, buf
+        text = " ".join(buf).strip()
+        if start is not None and text:
+            segments.append({"start": start, "text": text})
+        start, buf = None, []
+
+    for line in path.read_text(encoding="utf-8", errors="ignore").splitlines():
+        m = time_re.search(line)
+        if m:
+            flush()
+            h, mi, sec, ms = (int(g) for g in m.groups())
+            start = h * 3600 + mi * 60 + sec + ms / 1000.0
+        elif line.strip() and not line.strip().isdigit():
+            buf.append(line.strip())
+    flush()
+    return segments
+
+
 def fetch_transcript(source: str, langs: List[str], cookies: Optional[str],
                      browser: Optional[str], force_audio: bool,
                      verbose: bool = True) -> Optional[Tuple[str, str]]:
     """(文字起こしテキスト, 取得方法) を返す。取れなければ None。"""
+    if not _is_url(source):
+        path = Path(source).expanduser().resolve()
+        if path.suffix.lower() in TEXT_SUFFIXES and path.exists():
+            if verbose:
+                print("① 手元の文字起こしを読み込みます…")
+            text = _from_text_file(path, verbose)
+            if text:
+                return text, "手元の文字起こしファイル"
+
     if _is_url(source) and not force_audio:
         vid = _video_id(source)
         if vid:
@@ -708,7 +775,9 @@ def main() -> int:
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog=__doc__.split("## 使い方")[1].split("## 出力")[0] if "## 使い方" in __doc__ else "",
     )
-    parser.add_argument("source", nargs="?", help="録画のURL（YouTube等）または音声・動画ファイル")
+    parser.add_argument("source", nargs="?",
+                        help="録画のURL（YouTube等）、音声・動画ファイル、"
+                             "または文字起こし済みのテキスト（.txt/.vtt/.srt）")
     parser.add_argument("--title", default="", help="セミナー名（議事録の見出しに使う）")
     parser.add_argument("--slug", help="保存先フォルダ名。省略時は日付＋タイトルから作る")
     parser.add_argument("--lang", default="", help="字幕の言語を指定（例: ja）")
