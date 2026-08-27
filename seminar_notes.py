@@ -23,6 +23,10 @@ YouTube が返す字幕データをそのまま取り込んでいるだけなの
     python3 seminar_notes.py https://youtu.be/XXXXXXXXXXX --title "第3回 社内勉強会"
     python3 seminar_notes.py ./recording.m4a --title "Zoom録画（2026-08-27）"
 
+    # Zoom のクラウド録画（Zoom自身の文字起こしを使うので追加費用ゼロ・話者名つき）
+    python3 seminar_notes.py --zoom-list                 # どの録画か一覧で選ぶ
+    python3 seminar_notes.py "<会議ID>" --title "第3回 社内勉強会"
+
     # 文字起こしが既にあるなら、それを渡すのが一番速い
     # （YouTubeの「文字起こしを表示」からコピーしたもの、Zoomの字幕ファイルなど）
     python3 seminar_notes.py ./transcript.txt --title "第3回 社内勉強会"
@@ -49,11 +53,16 @@ YouTube が返す字幕データをそのまま取り込んでいるだけなの
 
 ## 文字起こしの取り方（上から順に試す）
 
+    0. Zoom のクラウド録画から、Zoom 自身が作った文字起こしを取得（話者名つき・無料）
     1. YouTube の字幕を API で取得（限定公開でも字幕さえあれば通る・無料）
     2. yt-dlp で自動生成字幕を取得（1が塞がれたとき用）
     3. 音声をダウンロードして Gemini で文字起こし（字幕が無い動画・ローカル音声）
 
-3 だけは API キー（GEMINI_API_KEY / 予備で OPENAI_API_KEY）が要る。
+0 は Zoom の3点セット（ZOOM_ACCOUNT_ID / ZOOM_CLIENT_ID / ZOOM_CLIENT_SECRET）が
+.env にあるときだけ動く。3 だけは API キー（GEMINI_API_KEY / 予備で OPENAI_API_KEY）が要る。
+
+Zoom を最優先にしているのは、話者名が入るぶん議事録の質が上がるのと、
+YouTube にアップし直す手間も音声から起こす費用もかからないため。
 """
 
 import argparse
@@ -67,6 +76,12 @@ import tempfile
 from datetime import datetime
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple
+
+try:  # .env に置いた鍵（Zoom・Gemini 等）を読む。無くても動く
+    from dotenv import load_dotenv
+    load_dotenv()
+except ImportError:
+    pass
 
 SEMINAR_DIR = Path(__file__).resolve().parent / "seminars"
 
@@ -132,6 +147,301 @@ def _run(cmd: List[str], timeout: int = 1800) -> Tuple[int, str, str]:
         return 127, "", f"コマンドが見つかりません: {cmd[0]}"
     except subprocess.TimeoutExpired:
         return 124, "", "タイムアウトしました"
+
+
+# ---------------------------------------------------------------------------
+# 0. Zoom のクラウド録画から取る
+#
+# Zoom は録画と一緒に文字起こし（VTT）を自分で作っている。これが取れれば
+# YouTube にアップし直す手間も、音声から起こし直す費用もかからない。
+# しかも Zoom の文字起こしには**話者名が入る**ので、YouTube の自動字幕より
+# 議事録の質が上がる（誰の発言かが分かるとネクストアクションの担当が埋まる）。
+#
+# 使うのは Zoom の「サーバー間 OAuth（Server-to-Server OAuth）」アプリ。
+# 3点セット（アカウントID / クライアントID / クライアントシークレット）を
+# .env に置く。無ければこの経路は静かに飛ばして、従来どおりの案内を出す。
+# ---------------------------------------------------------------------------
+
+ZOOM_API = "https://api.zoom.us/v2"
+
+# Zoom の録画一覧は 1回の問い合わせで最大1か月ぶんしか返らないため、
+# それより長い期間はこの幅で区切って繰り返し取りに行く。
+ZOOM_WINDOW_DAYS = 30
+
+
+def _zoom_creds() -> Optional[Tuple[str, str, str]]:
+    """3点セットが揃っているときだけ返す。1つでも欠けたら使わない。"""
+    account = os.environ.get("ZOOM_ACCOUNT_ID", "").strip()
+    client = os.environ.get("ZOOM_CLIENT_ID", "").strip()
+    secret = os.environ.get("ZOOM_CLIENT_SECRET", "").strip()
+    if account and client and secret:
+        return account, client, secret
+    return None
+
+
+def _zoom_setup_hint() -> None:
+    print("   Zoom の設定がまだのようです。次のどちらかで進められます:")
+    print("   (A) 設定なしで今すぐ: Zoom のウェブ画面で録画を開き、"
+          "「音声文字起こし」の VTT ファイルをダウンロードして、そのファイルを渡す")
+    print("   (B) 自動化する: Zoom の「サーバー間 OAuth」アプリを作り、"
+          ".env に ZOOM_ACCOUNT_ID / ZOOM_CLIENT_ID / ZOOM_CLIENT_SECRET を書く"
+          "（→ SEMINAR_NOTES.md）")
+
+
+def _zoom_token(verbose: bool = True) -> Optional[str]:
+    creds = _zoom_creds()
+    if not creds:
+        return None
+    account, client, secret = creds
+    try:
+        import requests
+    except ImportError:
+        return None
+    try:
+        r = requests.post(
+            "https://zoom.us/oauth/token",
+            params={"grant_type": "account_credentials", "account_id": account},
+            auth=(client, secret),
+            timeout=60,
+        )
+        r.raise_for_status()
+        token = r.json().get("access_token")
+    except Exception as e:
+        if verbose:
+            print(f"   ⚠️  Zoom への接続に失敗しました: {e}")
+            print("      .env の ZOOM_ACCOUNT_ID / ZOOM_CLIENT_ID / "
+                  "ZOOM_CLIENT_SECRET を確認してください")
+        return None
+    return token or None
+
+
+def _zoom_get(path: str, token: str, params: Optional[Dict] = None,
+              verbose: bool = True) -> Optional[Dict]:
+    try:
+        import requests
+        r = requests.get(f"{ZOOM_API}{path}",
+                         headers={"Authorization": f"Bearer {token}"},
+                         params=params or {}, timeout=120)
+        if r.status_code == 404:
+            return None
+        r.raise_for_status()
+        return r.json()
+    except Exception as e:
+        if verbose:
+            print(f"   ⚠️  Zoom からの取得に失敗しました: {e}")
+        return None
+
+
+def _is_zoom(source: str) -> bool:
+    return bool(re.search(r"(^|//|\.)zoom\.(us|com)/", source or ""))
+
+
+def _zoom_key(source: str) -> Optional[str]:
+    """URL や入力から会議のIDを取り出す。共有リンクからは取れない（Noneを返す）。"""
+    if not source:
+        return None
+    from urllib.parse import unquote
+    m = re.search(r"[?&]meeting_id=([^&]+)", source)
+    if m:
+        return unquote(m.group(1))
+    m = re.search(r"/j/(\d{9,12})", source)
+    if m:
+        return m.group(1)
+    plain = re.sub(r"[\s-]", "", source.strip())
+    if plain.isdigit() and 9 <= len(plain) <= 12:
+        return plain
+    return None
+
+
+def _zoom_path_key(key: str) -> str:
+    """会議IDをURLに埋め込める形にする。
+
+    数字だけの会議番号はそのまま。UUID は base64 なので `/` や `+` `=` を含み、
+    そのまま URL に入れるとパスが割れて 404 になる。Zoom は二重エンコードした
+    UUID を受け付けるので、数字以外はすべて二重エンコードする。
+    """
+    from urllib.parse import quote
+    if key.isdigit():
+        return key
+    return quote(quote(key, safe=""), safe="")
+
+
+def _zoom_list_meetings(token: str, days: int, verbose: bool = True) -> List[Dict]:
+    """直近 days 日ぶんのクラウド録画を新しい順に返す。"""
+    from datetime import date, timedelta
+    meetings: List[Dict] = []
+    end = date.today()
+    remaining = max(days, 1)
+    while remaining > 0:
+        span = min(remaining, ZOOM_WINDOW_DAYS)
+        start = end - timedelta(days=span)
+        page_token = ""
+        while True:
+            params = {"from": start.isoformat(), "to": end.isoformat(), "page_size": 100}
+            if page_token:
+                params["next_page_token"] = page_token
+            data = _zoom_get("/users/me/recordings", token, params, verbose)
+            if not data:
+                break
+            meetings.extend(data.get("meetings", []))
+            page_token = data.get("next_page_token") or ""
+            if not page_token:
+                break
+        end = start - timedelta(days=1)
+        remaining -= span + 1
+
+    # 期間を区切って何度も問い合わせるので、同じ会議が二度入ることがある
+    unique: Dict[str, Dict] = {}
+    for m in meetings:
+        unique.setdefault(str(m.get("uuid") or m.get("id")), m)
+    result = list(unique.values())
+    result.sort(key=lambda m: str(m.get("start_time", "")), reverse=True)
+    return result
+
+
+def _zoom_files(meeting: Dict) -> Tuple[Optional[Dict], Optional[Dict]]:
+    """(文字起こしファイル, 音声ファイル) を選ぶ。文字起こしが最優先。"""
+    transcript = None
+    audio = None
+    for f in meeting.get("recording_files", []):
+        ftype = str(f.get("file_type", "")).upper()
+        if ftype in ("TRANSCRIPT", "CC") and transcript is None:
+            transcript = f
+        elif ftype == "M4A" and audio is None:
+            audio = f
+    if transcript is None:
+        # TRANSCRIPT が無ければ MP4 でも音声だけ取り出せる
+        for f in meeting.get("recording_files", []):
+            if str(f.get("file_type", "")).upper() == "MP4" and audio is None:
+                audio = f
+    return transcript, audio
+
+
+def _zoom_download(file_obj: Dict, token: str, dest: Path, verbose: bool) -> Optional[Path]:
+    url = file_obj.get("download_url")
+    if not url:
+        return None
+    ext = str(file_obj.get("file_extension") or file_obj.get("file_type") or "dat").lower()
+    out = dest / f"zoom.{ext}"
+    try:
+        import requests
+        with requests.get(url, headers={"Authorization": f"Bearer {token}"},
+                          stream=True, timeout=1800) as r:
+            r.raise_for_status()
+            with out.open("wb") as fh:
+                for chunk in r.iter_content(chunk_size=1 << 20):
+                    fh.write(chunk)
+    except Exception as e:
+        if verbose:
+            print(f"   ⚠️  Zoom からのダウンロードに失敗しました: {e}")
+        return None
+    return out
+
+
+def _zoom_find_meeting(source: str, token: str, days: int, verbose: bool,
+                       explicit: bool = False) -> Optional[Dict]:
+    """会議IDが分かればそれで取り、共有リンクしか無ければ一覧から突き合わせる。"""
+    key = _zoom_key(source)
+    if not key and explicit and not _is_url(source):
+        # `--zoom` で渡された UUID（`abc/def==` のような数字でない形）はそのまま使う
+        key = source.strip()
+    if key:
+        data = _zoom_get(f"/meetings/{_zoom_path_key(key)}/recordings", token,
+                         verbose=verbose)
+        if data:
+            return data
+        if verbose:
+            print(f"   その会議ID（{key}）の録画が見つかりませんでした。一覧から探します…")
+
+    if verbose:
+        print(f"   直近 {days} 日ぶんの録画から探しています…")
+    meetings = _zoom_list_meetings(token, days, verbose)
+    if _is_zoom(source):
+        # 共有リンク（/rec/share/...）は会議IDを含まないので、share_url で突き合わせる
+        wanted = source.split("?")[0].rstrip("/")
+        for m in meetings:
+            share = str(m.get("share_url", "")).split("?")[0].rstrip("/")
+            if share and (share == wanted or wanted.startswith(share)):
+                return m
+    if verbose and meetings:
+        print("   一致する録画が見つかりませんでした。"
+              "`--zoom-list` で一覧を出して、会議IDを指定してください")
+    return None
+
+
+def _from_zoom(source: str, days: int, verbose: bool = True,
+               explicit: bool = False) -> Optional[Tuple[str, str]]:
+    if verbose:
+        print("① Zoom のクラウド録画を取得します…")
+    token = _zoom_token(verbose)
+    if not token:
+        if verbose and not _zoom_creds():
+            _zoom_setup_hint()
+        return None
+
+    meeting = _zoom_find_meeting(source, token, days, verbose, explicit)
+    if not meeting:
+        return None
+
+    topic = str(meeting.get("topic", "")).strip()
+    if verbose and topic:
+        print(f"   録画が見つかりました: {topic}（{str(meeting.get('start_time',''))[:16]}）")
+
+    transcript_file, audio_file = _zoom_files(meeting)
+
+    with tempfile.TemporaryDirectory() as tmp:
+        if transcript_file:
+            if verbose:
+                print("   Zoom が作った文字起こしを使います（話者名つき・追加費用なし）")
+            path = _zoom_download(transcript_file, token, Path(tmp), verbose)
+            if path:
+                try:
+                    segments = _parse_vtt(path)
+                except Exception as e:
+                    if verbose:
+                        print(f"   ⚠️  文字起こしを読めませんでした: {e}")
+                    segments = []
+                if segments:
+                    return _format_segments(segments), "Zoomの文字起こし（クラウド録画）"
+
+        if audio_file:
+            if verbose:
+                print("   Zoom側の文字起こしが無いので、録画の音声から起こします")
+            path = _zoom_download(audio_file, token, Path(tmp), verbose)
+            if path:
+                text = _transcribe_gemini(path, verbose) or _transcribe_openai(path, verbose)
+                if text:
+                    return text, "Zoom録画の音声からの文字起こし"
+
+    if verbose:
+        print("   ⚠️  この録画から使える文字起こしも音声も取れませんでした")
+    return None
+
+
+def zoom_list(days: int = 30) -> int:
+    """クラウド録画の一覧を出す。持ち主に「どれ？」と聞くための材料。"""
+    token = _zoom_token()
+    if not token:
+        if not _zoom_creds():
+            _zoom_setup_hint()
+        return 1
+
+    meetings = _zoom_list_meetings(token, days)
+    if not meetings:
+        print(f"直近 {days} 日ぶんのクラウド録画はありませんでした。")
+        return 0
+
+    print(f"📼 直近 {days} 日ぶんのクラウド録画（新しい順）\n")
+    for m in meetings:
+        transcript_file, _ = _zoom_files(m)
+        mark = "文字起こしあり" if transcript_file else "文字起こしなし（音声から起こします）"
+        minutes = m.get("duration") or 0
+        print(f"  {str(m.get('start_time',''))[:16].replace('T',' ')}  "
+              f"{str(m.get('topic','（無題）')).strip()}")
+        print(f"     {minutes}分 / {mark} / 会議ID: {m.get('uuid') or m.get('id')}")
+    print("\n議事録にするとき:")
+    print('   python3 seminar_notes.py --zoom "<会議ID>" --title "<セミナー名>"')
+    return 0
 
 
 # ---------------------------------------------------------------------------
@@ -224,7 +534,9 @@ def _parse_vtt(path: Path) -> List[Dict]:
             h, mi, rest = m.group(1).split(":")
             sec = float(rest.replace(",", "."))
             start = int(h) * 3600 + int(mi) * 60 + sec
-        elif line.strip() and not line.startswith(("WEBVTT", "Kind:", "Language:", "NOTE")):
+        elif (line.strip() and not line.strip().isdigit()
+              and not line.startswith(("WEBVTT", "Kind:", "Language:", "NOTE"))):
+            # Zoom の VTT は字幕ごとに通し番号の行が入る。拾うと発言に数字が混ざる
             buf.append(line.strip())
     flush()
 
@@ -453,8 +765,24 @@ def _parse_srt(path: Path) -> List[Dict]:
 
 def fetch_transcript(source: str, langs: List[str], cookies: Optional[str],
                      browser: Optional[str], force_audio: bool,
+                     zoom: bool = False, zoom_days: int = 30,
                      verbose: bool = True) -> Optional[Tuple[str, str]]:
     """(文字起こしテキスト, 取得方法) を返す。取れなければ None。"""
+    is_zoom_source = zoom or _is_zoom(source)
+    if (is_zoom_source or _zoom_key(source)) and _zoom_creds():
+        got = _from_zoom(source, zoom_days, verbose, explicit=zoom)
+        if got:
+            return got
+        if is_zoom_source:
+            # Zoom の録画だと分かっている入力を、ファイル名や動画URLとして
+            # 扱い直しても混乱するだけなので、ここで止める
+            return None
+    elif is_zoom_source:
+        if verbose:
+            print("① Zoom のクラウド録画を取得します…")
+            _zoom_setup_hint()
+        return None
+
     if not _is_url(source):
         path = Path(source).expanduser().resolve()
         if path.suffix.lower() in TEXT_SUFFIXES and path.exists():
@@ -487,21 +815,44 @@ def fetch_transcript(source: str, langs: List[str], cookies: Optional[str],
     return None
 
 
+# 「藤崎 秀一: こんにちは」の頭の部分。数字を含む語は時刻（10:30）なので話者とみなさない。
+_SPEAKER_RE = re.compile(r"^([^\d:：]{1,24})[:：]\s")
+
+
+def _speaker_of(text: str) -> Optional[str]:
+    m = _SPEAKER_RE.match(text.strip())
+    return m.group(1).strip() if m else None
+
+
 def _format_segments(segments: List[Dict]) -> str:
-    """バラバラの字幕を、読める粒度（およそ30秒）にまとめる。"""
+    """バラバラの字幕を、読める粒度（およそ30秒）にまとめる。
+
+    話者名が入っている文字起こし（Zoom など）では、話者が変わったところで必ず
+    行を分ける。誰の発言かが分かると、議事録のネクストアクションに担当者が入る。
+    """
     lines: List[str] = []
     chunk_start: Optional[float] = None
+    chunk_speaker: Optional[str] = None
     buf: List[str] = []
 
+    def flush():
+        nonlocal chunk_start, chunk_speaker, buf
+        if buf and chunk_start is not None:
+            lines.append(f"[{_hhmmss(chunk_start)}] {' '.join(buf)}")
+        chunk_start, chunk_speaker, buf = None, None, []
+
     for seg in segments:
+        text = seg["text"].replace("\n", " ").strip()
+        speaker = _speaker_of(text)
+        if chunk_start is not None and speaker and speaker != chunk_speaker:
+            flush()
         if chunk_start is None:
             chunk_start = seg["start"]
-        buf.append(seg["text"].replace("\n", " ").strip())
+            chunk_speaker = speaker
+        buf.append(text)
         if seg["start"] - chunk_start >= 30:
-            lines.append(f"[{_hhmmss(chunk_start)}] {' '.join(buf)}")
-            chunk_start, buf = None, []
-    if buf and chunk_start is not None:
-        lines.append(f"[{_hhmmss(chunk_start)}] {' '.join(buf)}")
+            flush()
+    flush()
     return "\n".join(lines)
 
 
@@ -776,7 +1127,7 @@ def main() -> int:
         epilog=__doc__.split("## 使い方")[1].split("## 出力")[0] if "## 使い方" in __doc__ else "",
     )
     parser.add_argument("source", nargs="?",
-                        help="録画のURL（YouTube等）、音声・動画ファイル、"
+                        help="録画のURL（YouTube / Zoom）、Zoom の会議ID、音声・動画ファイル、"
                              "または文字起こし済みのテキスト（.txt/.vtt/.srt）")
     parser.add_argument("--title", default="", help="セミナー名（議事録の見出しに使う）")
     parser.add_argument("--slug", help="保存先フォルダ名。省略時は日付＋タイトルから作る")
@@ -789,11 +1140,20 @@ def main() -> int:
     parser.add_argument("--no-notes", action="store_true", help="文字起こしだけ作って議事録は作らない")
     parser.add_argument("--ask", metavar="質問", help="保存済みのセミナーに質問する")
     parser.add_argument("--list", action="store_true", help="保存済みのセミナー一覧")
+    parser.add_argument("--zoom", action="store_true",
+                        help="ソースを Zoom のクラウド録画として扱う（会議IDを渡すとき）")
+    parser.add_argument("--zoom-list", action="store_true",
+                        help="Zoom のクラウド録画の一覧を出す")
+    parser.add_argument("--zoom-days", type=int, default=30,
+                        help="Zoom の録画をさかのぼる日数（既定30日）")
     args = parser.parse_args()
 
     if args.list:
         list_seminars()
         return 0
+
+    if args.zoom_list:
+        return zoom_list(args.zoom_days)
 
     if args.ask:
         slug = args.slug or latest_slug()
@@ -818,11 +1178,13 @@ def main() -> int:
     print(f"   ソース: {args.source}\n")
 
     got = fetch_transcript(args.source, langs, args.cookies,
-                           args.cookies_from_browser, args.audio)
+                           args.cookies_from_browser, args.audio,
+                           zoom=args.zoom, zoom_days=args.zoom_days)
     if not got:
         print("\n⚠️  文字起こしを取得できませんでした。次のどれかを試してください:")
         print("   - 限定公開でログインが要る場合: --cookies-from-browser chrome")
         print("   - 字幕が無い動画: GEMINI_API_KEY を設定して --audio")
+        print("   - Zoom のクラウド録画: --zoom-list で一覧を出して会議IDを指定する")
         print("   - 手元に録画ファイルがあるなら、URL の代わりにファイルを渡す")
         return 1
 

@@ -34,6 +34,10 @@ python3 -m pip install -r requirements.txt
 # 録画から一式（文字起こし＋議事録）を作る
 python3 seminar_notes.py https://youtu.be/XXXXXXXXXXX --title "第3回 社内勉強会"
 
+# Zoom のクラウド録画から直接（YouTubeにアップし直さなくていい）
+python3 seminar_notes.py --zoom-list                          # まず一覧で選ぶ
+python3 seminar_notes.py --zoom "<会議ID>" --title "第3回 社内勉強会"
+
 # 手元に録画ファイルがあるならそれでもいい（Zoomのローカル録画など）
 python3 seminar_notes.py ./recording.m4a --title "Zoom録画（2026-08-27）"
 
@@ -73,12 +77,57 @@ python3 seminar_notes.py --list
 上から順に試して、通ったところで止まります。
 
 0. **手元の文字起こしをそのまま読む** — `.txt` `.vtt` `.srt` を渡した場合
-1. **YouTube の字幕を API で取得** — 限定公開でも字幕さえあれば通る。無料・数秒
-2. **yt-dlp で自動生成字幕を取得** — 1が塞がれたときの予備
-3. **音声をダウンロードして Gemini で文字起こし** — 字幕が無い動画・ローカル録画用
+1. **Zoom のクラウド録画から取る** — Zoom 自身が作った文字起こし。**話者名が入る**
+2. **YouTube の字幕を API で取得** — 限定公開でも字幕さえあれば通る。無料・数秒
+3. **yt-dlp で自動生成字幕を取得** — 2が塞がれたときの予備
+4. **音声をダウンロードして Gemini で文字起こし** — 字幕が無い動画・ローカル録画用
 
-3 だけ API キーが要ります（`GEMINI_API_KEY`。予備で `OPENAI_API_KEY`）。
-0〜2 は鍵なしで動きます。
+4 だけ API キーが要ります（`GEMINI_API_KEY`。予備で `OPENAI_API_KEY`）。
+0〜3 は追加費用ゼロです（1 は Zoom の設定が要ります）。
+
+**録画が Zoom にあるなら 1 が一番いい。** 理由は3つ。YouTube にアップし直す手間が
+要らない、AIに文字起こしさせる費用がかからない、そして **誰の発言かが残る**。
+話者名が入ると、議事録のネクストアクションに担当者が自動で埋まります。
+
+### Zoom のクラウド録画を使う準備
+
+Zoom の設定をしなくても使う方法と、一度だけ設定して自動化する方法があります。
+
+**(A) 設定なしで今すぐ**
+
+Zoom のウェブ画面で録画を開き、「音声文字起こし」の VTT ファイルをダウンロードして、
+そのファイルを渡すだけです。
+
+```bash
+python3 seminar_notes.py ~/Downloads/GMT20260825-020000_Recording.transcript.vtt \
+  --title "9月の運営ミーティング"
+```
+
+**(B) 一度だけ設定して自動化する**
+
+毎回ダウンロードするのが面倒なら、Zoom に「サーバー間 OAuth アプリ
+（Server-to-Server OAuth App）」を1つ作ります。プログラムから Zoom の録画を
+読むための鍵で、作れるのは Zoom アカウントの管理者だけです。
+
+1. [Zoom App Marketplace](https://marketplace.zoom.us/) にログイン
+2. 右上の「Develop」→「Build App」→ **Server-to-Server OAuth** を選ぶ
+3. 名前を付けて作成すると、**Account ID / Client ID / Client Secret** の3つが出る
+4. 「Scopes」で `cloud_recording:read:list_user_recordings` と
+   `cloud_recording:read:recording` を追加する
+5. 「Activate your app」で有効化する
+6. リポジトリの `.env` に3つを書く
+
+```
+ZOOM_ACCOUNT_ID=（Account ID）
+ZOOM_CLIENT_ID=（Client ID）
+ZOOM_CLIENT_SECRET=（Client Secret）
+```
+
+`.env` は `.gitignore` 済みなので、GitHub には上がりません。
+
+なお **Zoom の文字起こしは、有料プランでクラウド録画＋音声文字起こしをオンに
+している場合だけ作られます。** オフだと録画はあっても文字起こしが無く、その場合は
+音声から起こす（`GEMINI_API_KEY` が要る）ほうに自動で落ちます。
 
 ### ネットワークが YouTube を塞いでいる環境では
 
@@ -95,9 +144,12 @@ YouTube の動画ページで 説明欄の「...もっと見る」→「文字�
 
 ## 運用の流れ
 
-1. Zoom で録画（クラウド録画でもローカル録画でもよい）
-2. YouTube に**限定公開**でアップ、または録画ファイルをそのまま使う
-3. `python3 seminar_notes.py <URL or ファイル> --title "..."`
+1. Zoom で録画する
+2. **クラウド録画なら、そのまま次へ。** ローカル録画なら YouTube に限定公開でアップ
+   するか、録画ファイルをそのまま使う
+3. `python3 seminar_notes.py --zoom-list` でどの録画かを選び、
+   `python3 seminar_notes.py --zoom "<会議ID>" --title "..."`
+   （YouTube・ファイルの場合は `python3 seminar_notes.py <URL or ファイル> --title "..."`）
 4. `notes.md` の議事録を Google ドキュメントに貼って、必要なら手直しする
 5. `notes.md` の末尾にあるメール文面に、議事録URLと録画URLを差し込んで送る
 6. あとから内容を確認したくなったら `--ask` で質問する。
@@ -112,6 +164,9 @@ YouTube の動画ページで 説明欄の「...もっと見る」→「文字�
 | 音声の文字起こしが失敗する | `GEMINI_API_KEY` を設定する。OpenAI 側は1ファイル25MB上限で長時間録画に向かない |
 | 議事録が作られない | `claude` CLI がログイン済みか、`ANTHROPIC_API_KEY` があるか確認する |
 | 話者が「講師」「参加者」になる | 音声からの文字起こしは話者名を推測できない。`notes.md` で手で直す |
+| 人名が聞き取り違いで崩れている | YouTube の自動字幕はよくある。Zoom の文字起こしなら話者名が正しく入る。配布前に名前だけ直す |
+| Zoom の録画が見つからない | `--zoom-list --zoom-days 90` で期間を広げる。共有リンクではなく会議IDを渡すと確実 |
+| Zoom に文字起こしが無い | 有料プランで「音声文字起こし」がオンのときだけ作られる。オフなら音声から起こすので `GEMINI_API_KEY` が要る |
 
 ## 参考
 
