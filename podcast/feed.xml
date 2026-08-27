@@ -3,8 +3,8 @@
   xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd"
   xmlns:podcast="https://podcastindex.org/namespace/1.0">
 <channel>
-  <title>てらこAIニュースダイジェスト</title>
-  <itunes:title>てらこAIニュースダイジェスト</itunes:title>
+  <title>世界一わかりやすいAIニュース</title>
+  <itunes:title>世界一わかりやすいAIニュース</itunes:title>
   <description>毎朝6時配信。AIの最新ニュースを厳選してわかりやすくお届けします。</description>
   <itunes:summary>毎朝6時配信。AIの最新ニュースを厳選してわかりやすくお届けします。</itunes:summary>
   <link>https://teraco-labo.github.io/ai-news-digest</link>
@@ -19,7 +19,7 @@
   </itunes:owner>
   <image>
     <url>https://teraco-labo.github.io/ai-news-digest/podcast/cover.jpg</url>
-    <title>てらこAIニュースダイジェスト</title>
+    <title>世界一わかりやすいAIニュース</title>
     <link>https://teraco-labo.github.io/ai-news-digest</link>
   </image>
   <itunes:image href="https://teraco-labo.github.io/ai-news-digest/podcast/cover.jpg"/>
@@ -30,11 +30,25 @@
   </itunes:category>
   
   <item>
+    <title>世界一わかりやすいAIニュース - 2026-08-27</title>
+    <itunes:title>世界一わかりやすいAIニュース - 2026-08-27</itunes:title>
+    <description>世界一わかりやすいAIニュース - 2026-08-27</description>
+    <author>fujisaki@teraco-labo.com</author>
+    <itunes:author>世界一わかりやすいAIニュース</itunes:author>
+    <itunes:episode>61</itunes:episode>
+    <itunes:episodeType>full</itunes:episodeType>
+    <itunes:duration>10:06</itunes:duration>
+    <itunes:explicit>false</itunes:explicit>
+    <enclosure url="https://teraco-labo.github.io/ai-news-digest/podcast/ai-news-2026-08-27.mp3" length="6066200" type="audio/mpeg"/>
+    <pubDate>Thu, 27 Aug 2026 21:00:00 GMT</pubDate>
+    <guid isPermaLink="false">https://teraco-labo.github.io/ai-news-digest/podcast/ai-news-2026-08-27.mp3</guid>
+  </item>
+  <item>
     <title>てらこAIニュースダイジェスト - 2026-08-26</title>
     <itunes:title>てらこAIニュースダイジェスト - 2026-08-26</itunes:title>
     <description>てらこAIニュースダイジェスト - 2026-08-26</description>
     <author>fujisaki@teraco-labo.com</author>
-    <itunes:author>てらこAIニュースダイジェスト</itunes:author>
+    <itunes:author>世界一わかりやすいAIニュース</itunes:author>
     <itunes:episode>61</itunes:episode>
     <itunes:episodeType>full</itunes:episodeType>
     <itunes:duration>12:39</itunes:duration>
@@ -48,7 +62,7 @@
     <itunes:title>てらこAIニュースダイジェスト - 2026-08-25</itunes:title>
     <description>てらこAIニュースダイジェスト - 2026-08-25</description>
     <author>fujisaki@teraco-labo.com</author>
-    <itunes:author>てらこAIニュースダイジェスト</itunes:author>
+    <itunes:author>世界一わかりやすいAIニュース</itunes:author>
     <itunes:episode>61</itunes:episode>
     <itunes:episodeType>full</itunes:episodeType>
     <itunes:duration>12:34</itunes:duration>
@@ -62,7 +76,7 @@
     <itunes:title>てらこAIニュースダイジェスト - 2026-07-16</itunes:title>
     <description>てらこAIニュースダイジェスト - 2026-07-16</description>
     <author>fujisaki@teraco-labo.com</author>
-    <itunes:author>てらこAIニュースダイジェスト</itunes:author>
+    <itunes:author>世界一わかりやすいAIニュース</itunes:author>
     <itunes:episode>61</itunes:episode>
     <itunes:episodeType>full</itunes:episodeType>
     <itunes:duration>13:10</itunes:duration>
@@ -76,7 +90,7 @@
     <itunes:title>てらこAIニュースダイジェスト - 2026-07-15</itunes:title>
     <description>てらこAIニュースダイジェスト - 2026-07-15</description>
     <author>fujisaki@teraco-labo.com</author>
-    <itunes:author>てらこAIニュースダイジェスト</itunes:author>
+    <itunes:author>世界一わかりやすいAIニュース</itunes:author>
     <itunes:episode>61</itunes:episode>
     <itunes:episodeType>full</itunes:episodeType>
     <itunes:duration>13:37</itunes:duration>
@@ -90,7 +104,7 @@
     <itunes:title>てらこAIニュースダイジェスト - 2026-07-14</itunes:title>
     <description>てらこAIニュースダイジェスト - 2026-07-14</description>
     <author>fujisaki@teraco-labo.com</author>
-    <itunes:author>てらこAIニュースダイジェスト</itunes:author>
+    <itunes:author>世界一わかりやすいAIニュース</itunes:author>
     <itunes:episode>60</itunes:episode>
     <itunes:episodeType>full</itunes:episodeType>
     <itunes:duration>12:52</itunes:duration>
@@ -104,7 +118,7 @@
     <itunes:title>てらこAIニュースダイジェスト - 2026-07-13</itunes:title>
     <description>てらこAIニュースダイジェスト - 2026-07-13</description>
     <author>fujisaki@teraco-labo.com</author>
-    <itunes:author>てらこAIニュースダイジェスト</itunes:author>
+    <itunes:author>世界一わかりやすいAIニュース</itunes:author>
     <itunes:episode>59</itunes:episode>
     <itunes:episodeType>full</itunes:episodeType>
     <itunes:duration>13:42</itunes:duration>
@@ -118,7 +132,7 @@
     <itunes:title>てらこAIニュースダイジェスト - 2026-07-12</itunes:title>
     <description>てらこAIニュースダイジェスト - 2026-07-12</description>
     <author>fujisaki@teraco-labo.com</author>
-    <itunes:author>てらこAIニュースダイジェスト</itunes:author>
+    <itunes:author>世界一わかりやすいAIニュース</itunes:author>
     <itunes:episode>58</itunes:episode>
     <itunes:episodeType>full</itunes:episodeType>
     <itunes:duration>13:02</itunes:duration>
@@ -132,7 +146,7 @@
     <itunes:title>てらこAIニュースダイジェスト - 2026-07-11</itunes:title>
     <description>てらこAIニュースダイジェスト - 2026-07-11</description>
     <author>fujisaki@teraco-labo.com</author>
-    <itunes:author>てらこAIニュースダイジェスト</itunes:author>
+    <itunes:author>世界一わかりやすいAIニュース</itunes:author>
     <itunes:episode>57</itunes:episode>
     <itunes:episodeType>full</itunes:episodeType>
     <itunes:duration>15:17</itunes:duration>
@@ -146,7 +160,7 @@
     <itunes:title>てらこAIニュースダイジェスト - 2026-07-10</itunes:title>
     <description>てらこAIニュースダイジェスト - 2026-07-10</description>
     <author>fujisaki@teraco-labo.com</author>
-    <itunes:author>てらこAIニュースダイジェスト</itunes:author>
+    <itunes:author>世界一わかりやすいAIニュース</itunes:author>
     <itunes:episode>56</itunes:episode>
     <itunes:episodeType>full</itunes:episodeType>
     <itunes:duration>15:00</itunes:duration>
@@ -160,7 +174,7 @@
     <itunes:title>てらこAIニュースダイジェスト - 2026-07-09</itunes:title>
     <description>てらこAIニュースダイジェスト - 2026-07-09</description>
     <author>fujisaki@teraco-labo.com</author>
-    <itunes:author>てらこAIニュースダイジェスト</itunes:author>
+    <itunes:author>世界一わかりやすいAIニュース</itunes:author>
     <itunes:episode>55</itunes:episode>
     <itunes:episodeType>full</itunes:episodeType>
     <itunes:duration>0:22</itunes:duration>
@@ -174,7 +188,7 @@
     <itunes:title>てらこAIニュースダイジェスト - 2026-07-08</itunes:title>
     <description>てらこAIニュースダイジェスト - 2026-07-08</description>
     <author>fujisaki@teraco-labo.com</author>
-    <itunes:author>てらこAIニュースダイジェスト</itunes:author>
+    <itunes:author>世界一わかりやすいAIニュース</itunes:author>
     <itunes:episode>54</itunes:episode>
     <itunes:episodeType>full</itunes:episodeType>
     <itunes:duration>12:04</itunes:duration>
@@ -188,7 +202,7 @@
     <itunes:title>てらこAIニュースダイジェスト - 2026-07-07</itunes:title>
     <description>てらこAIニュースダイジェスト - 2026-07-07</description>
     <author>fujisaki@teraco-labo.com</author>
-    <itunes:author>てらこAIニュースダイジェスト</itunes:author>
+    <itunes:author>世界一わかりやすいAIニュース</itunes:author>
     <itunes:episode>53</itunes:episode>
     <itunes:episodeType>full</itunes:episodeType>
     <itunes:duration>13:56</itunes:duration>
@@ -202,7 +216,7 @@
     <itunes:title>てらこAIニュースダイジェスト - 2026-07-06</itunes:title>
     <description>てらこAIニュースダイジェスト - 2026-07-06</description>
     <author>fujisaki@teraco-labo.com</author>
-    <itunes:author>てらこAIニュースダイジェスト</itunes:author>
+    <itunes:author>世界一わかりやすいAIニュース</itunes:author>
     <itunes:episode>52</itunes:episode>
     <itunes:episodeType>full</itunes:episodeType>
     <itunes:duration>11:42</itunes:duration>
@@ -216,7 +230,7 @@
     <itunes:title>てらこAIニュースダイジェスト - 2026-07-05</itunes:title>
     <description>てらこAIニュースダイジェスト - 2026-07-05</description>
     <author>fujisaki@teraco-labo.com</author>
-    <itunes:author>てらこAIニュースダイジェスト</itunes:author>
+    <itunes:author>世界一わかりやすいAIニュース</itunes:author>
     <itunes:episode>51</itunes:episode>
     <itunes:episodeType>full</itunes:episodeType>
     <itunes:duration>14:53</itunes:duration>
@@ -230,7 +244,7 @@
     <itunes:title>てらこAIニュースダイジェスト - 2026-07-04</itunes:title>
     <description>てらこAIニュースダイジェスト - 2026-07-04</description>
     <author>fujisaki@teraco-labo.com</author>
-    <itunes:author>てらこAIニュースダイジェスト</itunes:author>
+    <itunes:author>世界一わかりやすいAIニュース</itunes:author>
     <itunes:episode>50</itunes:episode>
     <itunes:episodeType>full</itunes:episodeType>
     <itunes:duration>0:20</itunes:duration>
@@ -244,7 +258,7 @@
     <itunes:title>てらこAIニュースダイジェスト - 2026-07-03</itunes:title>
     <description>てらこAIニュースダイジェスト - 2026-07-03</description>
     <author>fujisaki@teraco-labo.com</author>
-    <itunes:author>てらこAIニュースダイジェスト</itunes:author>
+    <itunes:author>世界一わかりやすいAIニュース</itunes:author>
     <itunes:episode>49</itunes:episode>
     <itunes:episodeType>full</itunes:episodeType>
     <itunes:duration>16:50</itunes:duration>
@@ -258,7 +272,7 @@
     <itunes:title>てらこAIニュースダイジェスト - 2026-07-02</itunes:title>
     <description>てらこAIニュースダイジェスト - 2026-07-02</description>
     <author>fujisaki@teraco-labo.com</author>
-    <itunes:author>てらこAIニュースダイジェスト</itunes:author>
+    <itunes:author>世界一わかりやすいAIニュース</itunes:author>
     <itunes:episode>48</itunes:episode>
     <itunes:episodeType>full</itunes:episodeType>
     <itunes:duration>14:39</itunes:duration>
@@ -272,7 +286,7 @@
     <itunes:title>てらこAIニュースダイジェスト - 2026-07-01</itunes:title>
     <description>てらこAIニュースダイジェスト - 2026-07-01</description>
     <author>fujisaki@teraco-labo.com</author>
-    <itunes:author>てらこAIニュースダイジェスト</itunes:author>
+    <itunes:author>世界一わかりやすいAIニュース</itunes:author>
     <itunes:episode>47</itunes:episode>
     <itunes:episodeType>full</itunes:episodeType>
     <itunes:duration>12:56</itunes:duration>
@@ -286,7 +300,7 @@
     <itunes:title>てらこAIニュースダイジェスト - 2026-06-30</itunes:title>
     <description>てらこAIニュースダイジェスト - 2026-06-30</description>
     <author>fujisaki@teraco-labo.com</author>
-    <itunes:author>てらこAIニュースダイジェスト</itunes:author>
+    <itunes:author>世界一わかりやすいAIニュース</itunes:author>
     <itunes:episode>46</itunes:episode>
     <itunes:episodeType>full</itunes:episodeType>
     <itunes:duration>14:24</itunes:duration>
@@ -300,7 +314,7 @@
     <itunes:title>てらこAIニュースダイジェスト - 2026-06-29</itunes:title>
     <description>てらこAIニュースダイジェスト - 2026-06-29</description>
     <author>fujisaki@teraco-labo.com</author>
-    <itunes:author>てらこAIニュースダイジェスト</itunes:author>
+    <itunes:author>世界一わかりやすいAIニュース</itunes:author>
     <itunes:episode>45</itunes:episode>
     <itunes:episodeType>full</itunes:episodeType>
     <itunes:duration>14:53</itunes:duration>
@@ -314,7 +328,7 @@
     <itunes:title>てらこAIニュースダイジェスト - 2026-06-28</itunes:title>
     <description>てらこAIニュースダイジェスト - 2026-06-28</description>
     <author>fujisaki@teraco-labo.com</author>
-    <itunes:author>てらこAIニュースダイジェスト</itunes:author>
+    <itunes:author>世界一わかりやすいAIニュース</itunes:author>
     <itunes:episode>44</itunes:episode>
     <itunes:episodeType>full</itunes:episodeType>
     <itunes:duration>14:03</itunes:duration>
@@ -328,7 +342,7 @@
     <itunes:title>てらこAIニュースダイジェスト - 2026-06-27</itunes:title>
     <description>てらこAIニュースダイジェスト - 2026-06-27</description>
     <author>fujisaki@teraco-labo.com</author>
-    <itunes:author>てらこAIニュースダイジェスト</itunes:author>
+    <itunes:author>世界一わかりやすいAIニュース</itunes:author>
     <itunes:episode>43</itunes:episode>
     <itunes:episodeType>full</itunes:episodeType>
     <itunes:duration>11:43</itunes:duration>
@@ -342,7 +356,7 @@
     <itunes:title>てらこAIニュースダイジェスト - 2026-06-26</itunes:title>
     <description>てらこAIニュースダイジェスト - 2026-06-26</description>
     <author>fujisaki@teraco-labo.com</author>
-    <itunes:author>てらこAIニュースダイジェスト</itunes:author>
+    <itunes:author>世界一わかりやすいAIニュース</itunes:author>
     <itunes:episode>42</itunes:episode>
     <itunes:episodeType>full</itunes:episodeType>
     <itunes:duration>14:04</itunes:duration>
@@ -356,7 +370,7 @@
     <itunes:title>てらこAIニュースダイジェスト - 2026-06-25</itunes:title>
     <description>てらこAIニュースダイジェスト - 2026-06-25</description>
     <author>fujisaki@teraco-labo.com</author>
-    <itunes:author>てらこAIニュースダイジェスト</itunes:author>
+    <itunes:author>世界一わかりやすいAIニュース</itunes:author>
     <itunes:episode>41</itunes:episode>
     <itunes:episodeType>full</itunes:episodeType>
     <itunes:duration>16:24</itunes:duration>
@@ -370,7 +384,7 @@
     <itunes:title>てらこAIニュースダイジェスト - 2026-06-24</itunes:title>
     <description>てらこAIニュースダイジェスト - 2026-06-24</description>
     <author>fujisaki@teraco-labo.com</author>
-    <itunes:author>てらこAIニュースダイジェスト</itunes:author>
+    <itunes:author>世界一わかりやすいAIニュース</itunes:author>
     <itunes:episode>40</itunes:episode>
     <itunes:episodeType>full</itunes:episodeType>
     <itunes:duration>13:43</itunes:duration>
@@ -384,7 +398,7 @@
     <itunes:title>てらこAIニュースダイジェスト - 2026-06-23</itunes:title>
     <description>てらこAIニュースダイジェスト - 2026-06-23</description>
     <author>fujisaki@teraco-labo.com</author>
-    <itunes:author>てらこAIニュースダイジェスト</itunes:author>
+    <itunes:author>世界一わかりやすいAIニュース</itunes:author>
     <itunes:episode>39</itunes:episode>
     <itunes:episodeType>full</itunes:episodeType>
     <itunes:duration>13:11</itunes:duration>
@@ -398,7 +412,7 @@
     <itunes:title>てらこAIニュースダイジェスト - 2026-06-22</itunes:title>
     <description>てらこAIニュースダイジェスト - 2026-06-22</description>
     <author>fujisaki@teraco-labo.com</author>
-    <itunes:author>てらこAIニュースダイジェスト</itunes:author>
+    <itunes:author>世界一わかりやすいAIニュース</itunes:author>
     <itunes:episode>38</itunes:episode>
     <itunes:episodeType>full</itunes:episodeType>
     <itunes:duration>16:28</itunes:duration>
@@ -412,7 +426,7 @@
     <itunes:title>てらこAIニュースダイジェスト - 2026-06-21</itunes:title>
     <description>てらこAIニュースダイジェスト - 2026-06-21</description>
     <author>fujisaki@teraco-labo.com</author>
-    <itunes:author>てらこAIニュースダイジェスト</itunes:author>
+    <itunes:author>世界一わかりやすいAIニュース</itunes:author>
     <itunes:episode>37</itunes:episode>
     <itunes:episodeType>full</itunes:episodeType>
     <itunes:duration>14:14</itunes:duration>
@@ -426,7 +440,7 @@
     <itunes:title>てらこAIニュースダイジェスト - 2026-06-20</itunes:title>
     <description>てらこAIニュースダイジェスト - 2026-06-20</description>
     <author>fujisaki@teraco-labo.com</author>
-    <itunes:author>てらこAIニュースダイジェスト</itunes:author>
+    <itunes:author>世界一わかりやすいAIニュース</itunes:author>
     <itunes:episode>36</itunes:episode>
     <itunes:episodeType>full</itunes:episodeType>
     <itunes:duration>12:25</itunes:duration>
@@ -440,7 +454,7 @@
     <itunes:title>てらこAIニュースダイジェスト - 2026-06-19</itunes:title>
     <description>てらこAIニュースダイジェスト - 2026-06-19</description>
     <author>fujisaki@teraco-labo.com</author>
-    <itunes:author>てらこAIニュースダイジェスト</itunes:author>
+    <itunes:author>世界一わかりやすいAIニュース</itunes:author>
     <itunes:episode>35</itunes:episode>
     <itunes:episodeType>full</itunes:episodeType>
     <itunes:duration>14:06</itunes:duration>
@@ -454,7 +468,7 @@
     <itunes:title>てらこAIニュースダイジェスト - 2026-06-18</itunes:title>
     <description>てらこAIニュースダイジェスト - 2026-06-18</description>
     <author>fujisaki@teraco-labo.com</author>
-    <itunes:author>てらこAIニュースダイジェスト</itunes:author>
+    <itunes:author>世界一わかりやすいAIニュース</itunes:author>
     <itunes:episode>34</itunes:episode>
     <itunes:episodeType>full</itunes:episodeType>
     <itunes:duration>14:06</itunes:duration>
@@ -468,7 +482,7 @@
     <itunes:title>てらこAIニュースダイジェスト - 2026-06-17</itunes:title>
     <description>てらこAIニュースダイジェスト - 2026-06-17</description>
     <author>fujisaki@teraco-labo.com</author>
-    <itunes:author>てらこAIニュースダイジェスト</itunes:author>
+    <itunes:author>世界一わかりやすいAIニュース</itunes:author>
     <itunes:episode>33</itunes:episode>
     <itunes:episodeType>full</itunes:episodeType>
     <itunes:duration>12:26</itunes:duration>
@@ -482,7 +496,7 @@
     <itunes:title>てらこAIニュースダイジェスト - 2026-06-16</itunes:title>
     <description>てらこAIニュースダイジェスト - 2026-06-16</description>
     <author>fujisaki@teraco-labo.com</author>
-    <itunes:author>てらこAIニュースダイジェスト</itunes:author>
+    <itunes:author>世界一わかりやすいAIニュース</itunes:author>
     <itunes:episode>32</itunes:episode>
     <itunes:episodeType>full</itunes:episodeType>
     <itunes:duration>4:25</itunes:duration>
@@ -496,7 +510,7 @@
     <itunes:title>てらこAIニュースダイジェスト - 2026-06-15</itunes:title>
     <description>てらこAIニュースダイジェスト - 2026-06-15</description>
     <author>fujisaki@teraco-labo.com</author>
-    <itunes:author>てらこAIニュースダイジェスト</itunes:author>
+    <itunes:author>世界一わかりやすいAIニュース</itunes:author>
     <itunes:episode>31</itunes:episode>
     <itunes:episodeType>full</itunes:episodeType>
     <itunes:duration>9:35</itunes:duration>
@@ -510,7 +524,7 @@
     <itunes:title>てらこAIニュースダイジェスト - 2026-06-14</itunes:title>
     <description>てらこAIニュースダイジェスト - 2026-06-14</description>
     <author>fujisaki@teraco-labo.com</author>
-    <itunes:author>てらこAIニュースダイジェスト</itunes:author>
+    <itunes:author>世界一わかりやすいAIニュース</itunes:author>
     <itunes:episode>30</itunes:episode>
     <itunes:episodeType>full</itunes:episodeType>
     <itunes:duration>10:05</itunes:duration>
@@ -524,7 +538,7 @@
     <itunes:title>てらこAIニュースダイジェスト - 2026-06-13</itunes:title>
     <description>てらこAIニュースダイジェスト - 2026-06-13</description>
     <author>fujisaki@teraco-labo.com</author>
-    <itunes:author>てらこAIニュースダイジェスト</itunes:author>
+    <itunes:author>世界一わかりやすいAIニュース</itunes:author>
     <itunes:episode>29</itunes:episode>
     <itunes:episodeType>full</itunes:episodeType>
     <itunes:duration>10:24</itunes:duration>
@@ -538,7 +552,7 @@
     <itunes:title>てらこAIニュースダイジェスト - 2026-06-12</itunes:title>
     <description>てらこAIニュースダイジェスト - 2026-06-12</description>
     <author>fujisaki@teraco-labo.com</author>
-    <itunes:author>てらこAIニュースダイジェスト</itunes:author>
+    <itunes:author>世界一わかりやすいAIニュース</itunes:author>
     <itunes:episode>28</itunes:episode>
     <itunes:episodeType>full</itunes:episodeType>
     <itunes:duration>8:47</itunes:duration>
@@ -552,7 +566,7 @@
     <itunes:title>てらこAIニュースダイジェスト - 2026-06-11</itunes:title>
     <description>てらこAIニュースダイジェスト - 2026-06-11</description>
     <author>fujisaki@teraco-labo.com</author>
-    <itunes:author>てらこAIニュースダイジェスト</itunes:author>
+    <itunes:author>世界一わかりやすいAIニュース</itunes:author>
     <itunes:episode>27</itunes:episode>
     <itunes:episodeType>full</itunes:episodeType>
     <itunes:duration>5:19</itunes:duration>
@@ -566,7 +580,7 @@
     <itunes:title>てらこAIニュースダイジェスト - 2026-06-10</itunes:title>
     <description>てらこAIニュースダイジェスト - 2026-06-10</description>
     <author>fujisaki@teraco-labo.com</author>
-    <itunes:author>てらこAIニュースダイジェスト</itunes:author>
+    <itunes:author>世界一わかりやすいAIニュース</itunes:author>
     <itunes:episode>26</itunes:episode>
     <itunes:episodeType>full</itunes:episodeType>
     <itunes:duration>9:27</itunes:duration>
@@ -580,7 +594,7 @@
     <itunes:title>てらこAIニュースダイジェスト - 2026-06-09</itunes:title>
     <description>てらこAIニュースダイジェスト - 2026-06-09</description>
     <author>fujisaki@teraco-labo.com</author>
-    <itunes:author>てらこAIニュースダイジェスト</itunes:author>
+    <itunes:author>世界一わかりやすいAIニュース</itunes:author>
     <itunes:episode>25</itunes:episode>
     <itunes:episodeType>full</itunes:episodeType>
     <itunes:duration>8:49</itunes:duration>
@@ -594,7 +608,7 @@
     <itunes:title>てらこAIニュースダイジェスト - 2026-06-08</itunes:title>
     <description>てらこAIニュースダイジェスト - 2026-06-08</description>
     <author>fujisaki@teraco-labo.com</author>
-    <itunes:author>てらこAIニュースダイジェスト</itunes:author>
+    <itunes:author>世界一わかりやすいAIニュース</itunes:author>
     <itunes:episode>25</itunes:episode>
     <itunes:episodeType>full</itunes:episodeType>
     <itunes:duration>14:52</itunes:duration>
@@ -608,7 +622,7 @@
     <itunes:title>てらこAIニュースダイジェスト - 2026-06-03</itunes:title>
     <description>てらこAIニュースダイジェスト - 2026-06-03</description>
     <author>fujisaki@teraco-labo.com</author>
-    <itunes:author>てらこAIニュースダイジェスト</itunes:author>
+    <itunes:author>世界一わかりやすいAIニュース</itunes:author>
     <itunes:episode>24</itunes:episode>
     <itunes:episodeType>full</itunes:episodeType>
     <itunes:duration>10:24</itunes:duration>
@@ -622,7 +636,7 @@
     <itunes:title>てらこAIニュースダイジェスト - 2026-05-29</itunes:title>
     <description>てらこAIニュースダイジェスト - 2026-05-29</description>
     <author>fujisaki@teraco-labo.com</author>
-    <itunes:author>てらこAIニュースダイジェスト</itunes:author>
+    <itunes:author>世界一わかりやすいAIニュース</itunes:author>
     <itunes:episode>22</itunes:episode>
     <itunes:episodeType>full</itunes:episodeType>
     <itunes:duration>7:59</itunes:duration>
@@ -636,7 +650,7 @@
     <itunes:title>てらこAIニュースダイジェスト - 2026-05-28</itunes:title>
     <description>てらこAIニュースダイジェスト - 2026-05-28</description>
     <author>fujisaki@teraco-labo.com</author>
-    <itunes:author>てらこAIニュースダイジェスト</itunes:author>
+    <itunes:author>世界一わかりやすいAIニュース</itunes:author>
     <itunes:episode>21</itunes:episode>
     <itunes:episodeType>full</itunes:episodeType>
     <itunes:duration>5:26</itunes:duration>
@@ -650,7 +664,7 @@
     <itunes:title>てらこAIニュースダイジェスト - 2026-05-24</itunes:title>
     <description>てらこAIニュースダイジェスト - 2026-05-24</description>
     <author>fujisaki@teraco-labo.com</author>
-    <itunes:author>てらこAIニュースダイジェスト</itunes:author>
+    <itunes:author>世界一わかりやすいAIニュース</itunes:author>
     <itunes:episode>21</itunes:episode>
     <itunes:episodeType>full</itunes:episodeType>
     <itunes:duration>9:48</itunes:duration>
@@ -664,7 +678,7 @@
     <itunes:title>てらこAIニュースダイジェスト - 2026-05-27</itunes:title>
     <description>てらこAIニュースダイジェスト - 2026-05-27</description>
     <author>fujisaki@teraco-labo.com</author>
-    <itunes:author>てらこAIニュースダイジェスト</itunes:author>
+    <itunes:author>世界一わかりやすいAIニュース</itunes:author>
     <itunes:episode>20</itunes:episode>
     <itunes:episodeType>full</itunes:episodeType>
     <itunes:duration>1:41</itunes:duration>
@@ -678,7 +692,7 @@
     <itunes:title>てらこAIニュースダイジェスト - 2026-05-26</itunes:title>
     <description>てらこAIニュースダイジェスト - 2026-05-26</description>
     <author>fujisaki@teraco-labo.com</author>
-    <itunes:author>てらこAIニュースダイジェスト</itunes:author>
+    <itunes:author>世界一わかりやすいAIニュース</itunes:author>
     <itunes:episode>19</itunes:episode>
     <itunes:episodeType>full</itunes:episodeType>
     <itunes:duration>21:43</itunes:duration>
@@ -692,7 +706,7 @@
     <itunes:title>てらこAIニュースダイジェスト - 2026-05-25</itunes:title>
     <description>てらこAIニュースダイジェスト - 2026-05-25</description>
     <author>fujisaki@teraco-labo.com</author>
-    <itunes:author>てらこAIニュースダイジェスト</itunes:author>
+    <itunes:author>世界一わかりやすいAIニュース</itunes:author>
     <itunes:episode>18</itunes:episode>
     <itunes:episodeType>full</itunes:episodeType>
     <itunes:duration>17:52</itunes:duration>
@@ -706,7 +720,7 @@
     <itunes:title>てらこAIニュースダイジェスト - 2026-05-19</itunes:title>
     <description>てらこAIニュースダイジェスト - 2026-05-19</description>
     <author>fujisaki@teraco-labo.com</author>
-    <itunes:author>てらこAIニュースダイジェスト</itunes:author>
+    <itunes:author>世界一わかりやすいAIニュース</itunes:author>
     <itunes:episode>16</itunes:episode>
     <itunes:episodeType>full</itunes:episodeType>
     <itunes:duration>20:54</itunes:duration>
@@ -720,7 +734,7 @@
     <itunes:title>てらこAIニュースダイジェスト - 2026-05-18</itunes:title>
     <description>てらこAIニュースダイジェスト - 2026-05-18</description>
     <author>fujisaki@teraco-labo.com</author>
-    <itunes:author>てらこAIニュースダイジェスト</itunes:author>
+    <itunes:author>世界一わかりやすいAIニュース</itunes:author>
     <itunes:episode>15</itunes:episode>
     <itunes:episodeType>full</itunes:episodeType>
     <itunes:duration>18:01</itunes:duration>
@@ -734,7 +748,7 @@
     <itunes:title>てらこAIニュースダイジェスト - 2026-05-17</itunes:title>
     <description>てらこAIニュースダイジェスト - 2026-05-17</description>
     <author>fujisaki@teraco-labo.com</author>
-    <itunes:author>てらこAIニュースダイジェスト</itunes:author>
+    <itunes:author>世界一わかりやすいAIニュース</itunes:author>
     <itunes:episode>14</itunes:episode>
     <itunes:episodeType>full</itunes:episodeType>
     <itunes:duration>20:20</itunes:duration>
@@ -748,7 +762,7 @@
     <itunes:title>てらこAIニュースダイジェスト - 2026-05-16</itunes:title>
     <description>てらこAIニュースダイジェスト - 2026-05-16</description>
     <author>fujisaki@teraco-labo.com</author>
-    <itunes:author>てらこAIニュースダイジェスト</itunes:author>
+    <itunes:author>世界一わかりやすいAIニュース</itunes:author>
     <itunes:episode>13</itunes:episode>
     <itunes:episodeType>full</itunes:episodeType>
     <itunes:duration>17:24</itunes:duration>
@@ -762,7 +776,7 @@
     <itunes:title>てらこAIニュースダイジェスト - 2026-05-15</itunes:title>
     <description>てらこAIニュースダイジェスト - 2026-05-15</description>
     <author>fujisaki@teraco-labo.com</author>
-    <itunes:author>てらこAIニュースダイジェスト</itunes:author>
+    <itunes:author>世界一わかりやすいAIニュース</itunes:author>
     <itunes:episode>12</itunes:episode>
     <itunes:episodeType>full</itunes:episodeType>
     <itunes:duration>17:45</itunes:duration>
@@ -776,7 +790,7 @@
     <itunes:title>てらこAIニュースダイジェスト - 2026-05-14</itunes:title>
     <description>てらこAIニュースダイジェスト - 2026-05-14</description>
     <author>fujisaki@teraco-labo.com</author>
-    <itunes:author>てらこAIニュースダイジェスト</itunes:author>
+    <itunes:author>世界一わかりやすいAIニュース</itunes:author>
     <itunes:episode>11</itunes:episode>
     <itunes:episodeType>full</itunes:episodeType>
     <itunes:duration>18:36</itunes:duration>
@@ -790,7 +804,7 @@
     <itunes:title>てらこAIニュースダイジェスト - 2026-05-13</itunes:title>
     <description>てらこAIニュースダイジェスト - 2026-05-13</description>
     <author>fujisaki@teraco-labo.com</author>
-    <itunes:author>てらこAIニュースダイジェスト</itunes:author>
+    <itunes:author>世界一わかりやすいAIニュース</itunes:author>
     <itunes:episode>10</itunes:episode>
     <itunes:episodeType>full</itunes:episodeType>
     <itunes:duration>24:45</itunes:duration>
@@ -804,7 +818,7 @@
     <itunes:title>てらこAIニュースダイジェスト - 2026-05-12</itunes:title>
     <description>てらこAIニュースダイジェスト - 2026-05-12</description>
     <author>fujisaki@teraco-labo.com</author>
-    <itunes:author>てらこAIニュースダイジェスト</itunes:author>
+    <itunes:author>世界一わかりやすいAIニュース</itunes:author>
     <itunes:episode>9</itunes:episode>
     <itunes:episodeType>full</itunes:episodeType>
     <itunes:duration>18:35</itunes:duration>
@@ -818,7 +832,7 @@
     <itunes:title>てらこAIニュースダイジェスト - 2026-05-11</itunes:title>
     <description>てらこAIニュースダイジェスト - 2026-05-11</description>
     <author>fujisaki@teraco-labo.com</author>
-    <itunes:author>てらこAIニュースダイジェスト</itunes:author>
+    <itunes:author>世界一わかりやすいAIニュース</itunes:author>
     <itunes:episode>9</itunes:episode>
     <itunes:episodeType>full</itunes:episodeType>
     <itunes:duration>18:25</itunes:duration>
@@ -832,7 +846,7 @@
     <itunes:title>てらこAIニュースダイジェスト - 2026-05-10</itunes:title>
     <description>てらこAIニュースダイジェスト - 2026-05-10</description>
     <author>fujisaki@teraco-labo.com</author>
-    <itunes:author>てらこAIニュースダイジェスト</itunes:author>
+    <itunes:author>世界一わかりやすいAIニュース</itunes:author>
     <itunes:episode>7</itunes:episode>
     <itunes:episodeType>full</itunes:episodeType>
     <itunes:duration>11:56</itunes:duration>
@@ -846,7 +860,7 @@
     <itunes:title>てらこAIニュースダイジェスト - 2026-05-09</itunes:title>
     <description>てらこAIニュースダイジェスト - 2026-05-09</description>
     <author>fujisaki@teraco-labo.com</author>
-    <itunes:author>てらこAIニュースダイジェスト</itunes:author>
+    <itunes:author>世界一わかりやすいAIニュース</itunes:author>
     <itunes:episode>6</itunes:episode>
     <itunes:episodeType>full</itunes:episodeType>
     <itunes:duration>12:57</itunes:duration>
@@ -854,20 +868,6 @@
     <enclosure url="https://teraco-labo.github.io/ai-news-digest/podcast/ai-news-2026-05-09.mp3" length="3109536" type="audio/mpeg"/>
     <pubDate>Sat, 09 May 2026 21:00:00 GMT</pubDate>
     <guid isPermaLink="false">https://teraco-labo.github.io/ai-news-digest/podcast/ai-news-2026-05-09.mp3</guid>
-  </item>
-  <item>
-    <title>てらこAIニュースダイジェスト - 2026-05-08</title>
-    <itunes:title>てらこAIニュースダイジェスト - 2026-05-08</itunes:title>
-    <description>てらこAIニュースダイジェスト - 2026-05-08</description>
-    <author>fujisaki@teraco-labo.com</author>
-    <itunes:author>てらこAIニュースダイジェスト</itunes:author>
-    <itunes:episode>5</itunes:episode>
-    <itunes:episodeType>full</itunes:episodeType>
-    <itunes:duration>12:46</itunes:duration>
-    <itunes:explicit>false</itunes:explicit>
-    <enclosure url="https://teraco-labo.github.io/ai-news-digest/podcast/ai-news-2026-05-08.mp3" length="3065040" type="audio/mpeg"/>
-    <pubDate>Fri, 08 May 2026 21:00:00 GMT</pubDate>
-    <guid isPermaLink="false">https://teraco-labo.github.io/ai-news-digest/podcast/ai-news-2026-05-08.mp3</guid>
   </item>
 </channel>
 </rss>
