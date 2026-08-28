@@ -49,6 +49,13 @@ PAGE_CSS = """
   .sub-card:hover { border-color:var(--accent); }
   .sub-card.mail { border-color:var(--accent); border-width:2px;
     background:linear-gradient(180deg,rgba(14,116,144,0.05),transparent); }
+  .sub-embed { cursor:default; }
+  .sub-embed form { margin-top:0.5rem; }
+  .sub-embed input[type="email"] { width:100%; padding:0.6rem 0.8rem; font-size:0.9rem;
+    border:1px solid var(--border); border-radius:6px; background:var(--bg); color:var(--text); }
+  .sub-embed button, .sub-embed input[type="submit"] { margin-top:0.5rem; width:100%;
+    padding:0.65rem; background:var(--accent); color:#fff; font-size:0.88rem; font-weight:700;
+    border:none; border-radius:6px; cursor:pointer; }
   .sub-ico { font-size:1.2rem; }
   .sub-t { font-size:0.92rem; font-weight:700; }
   .sub-d { font-size:0.76rem; line-height:1.7; color:var(--text-muted); }
@@ -132,8 +139,23 @@ def subscribe_block(config: dict, prefix: str = "") -> str:
     nl = config.get("newsletter", {})
     pod = config.get("podcast", {}).get("base_url", site.get("base_url", "")).rstrip("/")
 
+    # フォームの直接埋め込み（設定されていればリンクより優先。登録率が高いため）
+    embed = nl.get("embed_html", "").strip() if nl.get("enabled", True) else ""
+    embed_html = ""
+    if embed:
+        embed_html = (
+            '    <div class="sub-card mail sub-embed">\n'
+            '      <span class="sub-ico">✉️</span>\n'
+            '      <span class="sub-t">メールで受け取る</span>\n'
+            f'      <span class="sub-d">{_html.escape(nl.get("blurb", ""))}</span>\n'
+            f"      {embed}\n"
+            "    </div>\n"
+        )
+
     cards = []
-    if nl.get("enabled", True) and nl.get("signup_url"):
+    if embed_html:
+        cards.append(embed_html)
+    if nl.get("enabled", True) and nl.get("signup_url") and not embed_html:
         cards.append(
             f'    <a class="sub-card mail" href="{_html.escape(nl["signup_url"])}">\n'
             f'      <span class="sub-ico">✉️</span>\n'
