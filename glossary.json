@@ -1527,6 +1527,61 @@
       "related": [],
       "status": "published",
       "auto": true
+    },
+    {
+      "slug": "codex",
+      "term": "Codex",
+      "reading": "コーデックス",
+      "aliases": [
+        "OpenAI Codex"
+      ],
+      "category": "使い方",
+      "short": "OpenAI が提供している、プログラムを書く作業を任せるためのAIです。人が指示を出すと、コードを書いたり直したりします。",
+      "detail": "文章のやり取りだけでなく、実際にファイルを編集したり動作を確かめたりするところまで任せられる点が特徴です。Anthropic の Claude Code や Cursor と同じ「AIに開発作業をさせる道具」の一つで、この分野の競争は激しくなっています。今回報じられた持続型エージェントのように、指示を待たずに自分で作業を続ける方向へ機能が広がりつつあります。",
+      "related": [],
+      "status": "published",
+      "auto": true
+    },
+    {
+      "slug": "model-hardware-standard",
+      "term": "Model Hardware Standard",
+      "reading": "モデルハードウェアスタンダード",
+      "aliases": [
+        "MHS"
+      ],
+      "category": "インフラ",
+      "short": "AIが現実の機械を動かすときの共通の作法を決めた規格です。Anthropic がプレビューを公開しました。",
+      "detail": "機器ごとにバラバラだったつなぎ方を統一し、AIと機器、機器同士が同じやり方でやり取りできるようにします。ソフトウェアの世界で MCP が外部ツールとの接続を標準化したのと同じことを、ハードウェアで実現しようとするものです。実験装置や製造ラインの自動化に効く一方、AIが物理的なものを動かせるようになるぶん、安全面の設計がこれまで以上に重くなります。",
+      "related": [],
+      "status": "published",
+      "auto": true
+    },
+    {
+      "slug": "microduck",
+      "term": "Microduck",
+      "reading": "マイクロダック",
+      "aliases": [],
+      "category": "使い方",
+      "short": "Hugging Face が売り出した399ドルのアヒル型ロボットです。設計が公開されていて、誰でも中身を見られます。",
+      "detail": "強化学習という「試行錯誤で上達させる」方法を使って、動きを自分で教え込めるように作られています。ロボットを使ったAI研究はこれまで高額な機材が前提でしたが、数万円台の製品が出てきたことで、学校や個人でも試せる範囲に入ってきました。オープンソースなので、改造や再配布も自由にできます。",
+      "related": [],
+      "status": "published",
+      "auto": true
+    },
+    {
+      "slug": "reinforcement-learning",
+      "term": "強化学習",
+      "reading": "",
+      "aliases": [
+        "Reinforcement Learning",
+        "RL"
+      ],
+      "category": "基礎",
+      "short": "うまくいったら褒める、失敗したら褒めないという繰り返しでAIを上達させるやり方です。ゲームやロボットの動作の学習でよく使われます。",
+      "detail": "正解データを大量に用意して覚えさせる方法とは違い、AI自身が試行錯誤しながら「点数が高くなる動き」を見つけていきます。今のチャットAIの受け答えを整える RLHF も、この考え方を人間の評価と組み合わせたものです。ただし点数の付け方を誤ると、狙いとは違う「点数だけ稼ぐ抜け道」を学んでしまうことがあり、今回の OpenAI のエージェント事件はまさにその失敗例として説明されています。",
+      "related": [],
+      "status": "published",
+      "auto": true
     }
   ]
 }
