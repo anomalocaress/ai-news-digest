@@ -256,47 +256,6 @@ def _listen(date: datetime, available: bool) -> str:
     )
 
 
-def _lead(overview: List[str], ann=None) -> str:
-    if not overview:
-        return ""
-    mark = ann if ann is not None else (lambda x: x)
-    items = "".join(f"      <li>{mark(_html.escape(line))}</li>\n" for line in overview)
-    return (
-        '  <div class="lead">\n'
-        '    <div class="lead-label">今日の3行まとめ</div>\n'
-        f'    <ol>\n{items}    </ol>\n'
-        "  </div>\n"
-    )
-
-
-def _listen(date: datetime, available: bool) -> str:
-    """埋め込み音声プレイヤー。
-
-    別ページのプレイヤーに飛ばすのではなく、その場で再生できるようにする。
-    src は相対パスにする — 絶対URL（本番サイト）だと、まだデプロイされて
-    いない環境（プレビューやブランチ）で鳴らない。相対ならどこで開いても
-    同じリポジトリ内の mp3 を指す。
-    """
-    if not available:
-        return ""
-    date_iso = date.strftime("%Y-%m-%d")
-    base = monetize.podcast_url()
-    return (
-        '  <div class="listen" id="listen">\n'
-        '    <div class="listen-head">\n'
-        "      <strong>🎧 今日の音声版</strong>\n"
-        "      <span>対話形式・ながら聴き向け（10〜15分）</span>\n"
-        "    </div>\n"
-        f'    <audio controls preload="none" src="podcast/ai-news-{date_iso}.mp3">\n'
-        f'      <a href="podcast/ai-news-{date_iso}.mp3">音声ファイルを開く</a>\n'
-        "    </audio>\n"
-        '    <div class="listen-sub">\n'
-        f'      <a href="{base}/podcast/feed.xml">📡 ポッドキャストとして購読する（RSS / Spotify）</a>\n'
-        "    </div>\n"
-        "  </div>\n"
-    )
-
-
 def _subscribe(config: Dict) -> str:
     return site_theme.subscribe_block(config)
 

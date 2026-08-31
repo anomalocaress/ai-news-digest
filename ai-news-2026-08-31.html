@@ -50,6 +50,16 @@
   .sub-card.mail { border-color:var(--accent); border-width:2px;
     background:linear-gradient(180deg,rgba(14,116,144,0.05),transparent); }
   .sub-embed { cursor:default; }
+  .sub-badge { display:block; margin-top:0.5rem; padding:0.6rem; text-align:center;
+    border-radius:6px; font-size:0.85rem; font-weight:700; text-decoration:none; color:#fff; }
+  .sub-badge.spotify { background:#1db954; }
+  .sub-badge.apple { background:#8e44ec; }
+  .sub-copy { margin-top:0.6rem; width:100%; padding:0.6rem; background:var(--accent);
+    color:#fff; font-size:0.85rem; font-weight:700; border:none; border-radius:6px;
+    cursor:pointer; }
+  .sub-advanced { max-width:760px; margin:0.8rem auto 0; font-size:0.72rem;
+    color:var(--text-muted); }
+  .sub-advanced a { color:var(--text-muted); }
   .sub-embed form { margin-top:0.5rem; }
   .sub-embed input[type="email"] { width:100%; padding:0.6rem 0.8rem; font-size:0.9rem;
     border:1px solid var(--border); border-radius:6px; background:var(--bg); color:var(--text); }
@@ -126,7 +136,16 @@
   .listen-head strong { font-size:0.95rem; color:#fff; }
   .listen-head span { font-size:0.76rem; color:#94a3b8; }
   .listen audio { width:100%; height:40px; display:block; }
-  .listen-sub { margin-top:0.6rem; font-size:0.74rem; }
+  .speed-row { display:flex; align-items:center; gap:0.4rem; margin-top:0.7rem; flex-wrap:wrap; }
+  .speed-label { font-size:0.7rem; color:#94a3b8; margin-right:0.2rem; }
+  .speed-btn { padding:0.3rem 0.75rem; background:rgba(255,255,255,0.1);
+    border:1px solid rgba(255,255,255,0.25); border-radius:999px; color:#e2e8f0;
+    font-size:0.75rem; font-weight:600; cursor:pointer; }
+  .speed-btn.on { background:#22d3ee; border-color:#22d3ee; color:#0f172a; }
+  .copy-feed { padding:0.25rem 0.7rem; background:rgba(255,255,255,0.12);
+    border:1px solid rgba(255,255,255,0.3); border-radius:6px; color:#e2e8f0;
+    font-size:0.72rem; font-weight:600; cursor:pointer; }
+  .listen-sub { margin-top:0.8rem; font-size:0.74rem; color:#94a3b8; line-height:1.8; }
   .listen-sub a { color:#7dd3fc; text-decoration:none; }
   .listen-sub a:hover { text-decoration:underline; }
   details.genre { max-width:760px; margin:0 auto 0.75rem; background:var(--card-bg);
@@ -303,13 +322,37 @@
       <strong>🎧 今日の音声版</strong>
       <span>対話形式・ながら聴き向け（10〜15分）</span>
     </div>
-    <audio controls preload="none" src="podcast/ai-news-2026-08-31.mp3">
+    <audio id="pod-audio" controls preload="none" src="podcast/ai-news-2026-08-31.mp3">
       <a href="podcast/ai-news-2026-08-31.mp3">音声ファイルを開く</a>
     </audio>
-    <div class="listen-sub">
-      <a href="https://teraco-labo.github.io/ai-news-digest/podcast/feed.xml">📡 ポッドキャストとして購読する（RSS / Spotify）</a>
+    <div class="speed-row"><span class="speed-label">再生速度</span>
+      <button type="button" class="speed-btn" data-speed="0.75">0.75×</button>
+      <button type="button" class="speed-btn" data-speed="1">1×</button>
+      <button type="button" class="speed-btn" data-speed="1.25">1.25×</button>
+      <button type="button" class="speed-btn" data-speed="1.5">1.5×</button>
+      <button type="button" class="speed-btn" data-speed="2">2×</button>
     </div>
+    <div class="listen-sub">ポッドキャストアプリで毎朝受け取るには <button type="button" class="copy-feed" data-copy="https://teraco-labo.github.io/ai-news-digest/podcast/feed.xml" onclick="navigator.clipboard.writeText(this.dataset.copy).then(()=>{this.textContent='✓ コピーしました';setTimeout(()=>this.textContent='番組アドレスをコピー',2000);});">番組アドレスをコピー</button> して、アプリの「番組を追加」に貼り付けてください</div>
   </div>
+<script>
+(function(){
+  var audio = document.getElementById('pod-audio');
+  if (!audio) return;
+  var btns = document.querySelectorAll('.speed-btn');
+  function apply(v){
+    audio.playbackRate = parseFloat(v);
+    btns.forEach(function(b){ b.classList.toggle('on', b.dataset.speed === v); });
+    try { localStorage.setItem('wk-speed', v); } catch(e) {}
+  }
+  var saved = '1';
+  try { saved = localStorage.getItem('wk-speed') || '1'; } catch(e) {}
+  apply(saved);
+  audio.addEventListener('play', function(){ audio.playbackRate = parseFloat(saved); });
+  btns.forEach(function(b){
+    b.addEventListener('click', function(){ saved = b.dataset.speed; apply(saved); });
+  });
+})();
+</script>
 
   <div class="tier">注目のニュース</div>
   <div class="digest">
@@ -319,10 +362,8 @@
         <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div></div>
       </div>
       <div class="card-title-ja">マスク氏、<span class="t" data-t="gas-turbine" tabindex="0" role="button" aria-label="ガスタービンの説明を見る">ガスタービン</span>自前生産で電力確保を急ぐ</div>
-      <div class="card-title-en">Musk’s faster path to more gas turbines comes with pollution problem</div>
-      <div class="card-source">TechCrunch AI · Sun, 30 Au</div>
+      <div class="card-source">TechCrunch AI</div>
       <div class="card-body">Elon Musk氏が、SpaceXの非公開の新しい鋳造所（金属を溶かして部品を作る施設）で、ガスタービンの羽根を自社で鋳造すると明かしました。部品の順番待ちをなくすことで、ガス火力による発電をほかの誰よりも18カ月早く立ち上げられる、というのが同氏の主張です。背景には、AIの計算を支える<span class="t" data-t="datacenter" tabindex="0" role="button" aria-label="データセンターの説明を見る">データセンター</span>に送る電力が足りていない事情があります。ただしガス火力は、これまで同氏や他社のタービンが設置された各地で訴訟や健康影響の調査を招いており、公害の問題を抱えたままの賭けでもあります。電力をどう確保するかが、AI開発競争の勝敗を分ける段階に入ったことを示す動きです。</div>
-      <a class="card-link" href="https://techcrunch.com/2026/08/30/musks-faster-path-to-more-gas-turbines-comes-with-pollution-problem/" target="_blank" rel="noopener">元記事を読む →</a>
     </article>
   </div>
   <div class="tier">ジャンル別のニュース（タップで開く）</div>
@@ -335,10 +376,8 @@
         <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
       </div>
       <div class="card-title-ja"><span class="t" data-t="ai-agent" tabindex="0" role="button" aria-label="AIエージェントの説明を見る">AIエージェント</span>の集団は栄えて滅びるのか</div>
-      <div class="card-title-en">The Rise and Fall of Agent Civilizations</div>
-      <div class="card-source">Hacker News · 2026-08-29</div>
+      <div class="card-source">Hacker News</div>
       <div class="card-body">複数のAIエージェント（自分で判断して作業を進めるAI）を集団として動かしたときに何が起きるかを扱った「The Rise and Fall of Agent Civilizations」が、<span class="t" data-t="hacker-news" tabindex="0" role="button" aria-label="Hacker Newsの説明を見る">Hacker News</span>で209ポイントを集めました。タイトルが示すとおり、エージェントの集団が立ち上がり、やがて崩れていく過程が主題です。エージェント1体の賢さではなく、多数が影響し合ったときの振る舞いに関心が移りつつあることを示しています。エージェントを業務に組み込む動きが広がるなかで、集団としての安定性は今後の実務上の論点になりそうです。</div>
-      <a class="card-link" href="https://www.dwarkesh.com/p/openai-huggingface" target="_blank" rel="noopener">元記事を読む →</a>
     </article>
     </div>
   </details>
@@ -351,10 +390,8 @@
         <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
       </div>
       <div class="card-title-ja">Caterpillar、鉱山の無人化で得た知見をAI導入へ</div>
-      <div class="card-title-en">Caterpillar is bringing to AI deployment what it learned from automating mining</div>
-      <div class="card-source">TechCrunch AI · Sun, 30 Au</div>
+      <div class="card-source">TechCrunch AI</div>
       <div class="card-body">建設・鉱山機械大手のCaterpillarが、遠隔地の鉱山で自律走行の機械を動かしてきた数十年の経験を、AIの導入現場に持ち込もうとしています。人がそばにいない過酷な場所で機械を止めずに動かし続けるための段取りは、AIを実際の業務に組み込むときの課題とほぼ重なります。試作段階で動くことと、現場で毎日動き続けることの間には大きな隔たりがあり、同社はその差を先に経験してきた立場です。AIを「試す」段階から「業務で使い続ける」段階へ進もうとしている企業にとって、参考になる事例といえます。</div>
-      <a class="card-link" href="https://techcrunch.com/2026/08/30/caterpillar-is-bringing-to-ai-deployment-what-it-learned-from-automating-mining/" target="_blank" rel="noopener">元記事を読む →</a>
     </article>
     </div>
   </details>
@@ -367,10 +404,8 @@
         <div class="stars"><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div>
       </div>
       <div class="card-title-ja"><span class="t" data-t="claude" tabindex="0" role="button" aria-label="Claudeの説明を見る">Claude</span>の作業履歴URLがコミットに既定で付く</div>
-      <div class="card-title-en">Claude Session URL appended to commit messages and PR descriptions by default</div>
-      <div class="card-source">Hacker News · 2026-08-30</div>
+      <div class="card-source">Hacker News</div>
       <div class="card-body">Claudeにコードを書かせると、コミットメッセージ（変更の記録に添える説明文）や<span class="t" data-t="pull-request" tabindex="0" role="button" aria-label="プルリクエストの説明を見る">プルリクエスト</span>の説明に、その作業セッションのURLが最初から自動で追記される、という指摘がHacker Newsで175ポイントを集めました。開発の記録に「どのやり取りから生まれた変更か」が残る利点がある一方、外から見える場所に内部の作業リンクが残ることを懸念する声も出ています。設定を変えなくても付いてしまう、つまり既定で有効になっている点が議論の中心です。AIに書かせたコードの履歴をどこまで公開するかは、チームごとに方針を決めておきたい論点です。</div>
-      <a class="card-link" href="https://github.com/anthropics/claude-code/issues/66504" target="_blank" rel="noopener">元記事を読む →</a>
     </article>
     <article class="card tools">
       <div class="card-top">
@@ -378,27 +413,22 @@
         <div class="stars"><div class="dot filled"></div><div class="dot"></div><div class="dot"></div></div>
       </div>
       <div class="card-title-ja">週に一度AIを使わない日を設ける提案が議論に</div>
-      <div class="card-title-en">No AI Fridays</div>
-      <div class="card-source">Hacker News · 2026-08-30</div>
+      <div class="card-source">Hacker News</div>
       <div class="card-body">「No AI Fridays（AIを使わない金曜日）」と題した記事が、Hacker Newsで260ポイントを集めました。週に一日だけAIの支援を使わずに手を動かす日を設ける、という開発チーム向けの提案です。これだけの反応が集まったこと自体が、AIを使って書くことが当たり前になった現在の開発現場を映しています。生産性の向上と、自分で考える力の維持をどう両立させるかという問いは、開発以外の職場にも共通します。</div>
-      <a class="card-link" href="https://noaifridays.com/" target="_blank" rel="noopener">元記事を読む →</a>
     </article>
     </div>
   </details>
 
   <div class="section-label">毎朝うけとる</div>
   <div class="sub-grid">
-    <a class="sub-card" href="https://teraco-labo.github.io/ai-news-digest/podcast/feed.xml">
+    <div class="sub-card sub-embed">
       <span class="sub-ico">🎧</span>
       <span class="sub-t">ポッドキャストで聴く</span>
-      <span class="sub-d">Spotify・Apple Podcast などのアプリにこのリンクを登録してください</span>
-    </a>
-    <a class="sub-card" href="feed.xml">
-      <span class="sub-ico">📡</span>
-      <span class="sub-t">RSSで読む</span>
-      <span class="sub-d">Feedly などのRSSリーダー用。本文がまるごと届きます</span>
-    </a>
+      <span class="sub-d">お使いのポッドキャストアプリの「番組を追加」「URLで追加」に、下のボタンでコピーした番組アドレスを貼り付けてください</span>
+      <button type="button" class="sub-copy" data-copy="https://teraco-labo.github.io/ai-news-digest/podcast/feed.xml" onclick="navigator.clipboard.writeText(this.dataset.copy).then(()=>{this.textContent='✓ コピーしました';setTimeout(()=>this.textContent='番組アドレスをコピー',2000);});">番組アドレスをコピー</button>
+    </div>
   </div>
+  <p class="sub-advanced">上級者向け：<a href="feed.xml">RSS配信</a>（サイトの更新を自動で受け取るための仕組みです。Feedly などのRSSリーダーをお使いの方はこちらを登録してください）</p>
 
 </main>
 
