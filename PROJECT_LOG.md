@@ -39,7 +39,7 @@ RSS/Hacker News から収集
 | 毎日3分 | `social/YYYY-MM-DD.md` の投稿文をコピーしてXへ（一言足すと伸びる） |
 | 週1本 | 解説記事を書く（→ WRITING.md） |
 | 月1回 | ASPの成果を記録（`python revenue_tracker.py add`） |
-| 月1回 | 課金の棚卸し（`python service_costs.py check`）→ COST_TRACKING.md |
+| 随時 | サブスクAPIチェッカーの通知に対応（毎朝自動で走る）→ COST_TRACKING.md |
 
 ---
 
@@ -145,10 +145,11 @@ GitHub上に安全に残っています。続きをやるときはここから�
 | `article_builder.py` | 解説記事（`articles/*.md` → HTML） |
 | `social_kit.py` | SNS投稿文の生成 |
 | `revenue_tracker.py` | 収支の記録 |
-| `service_costs.py` / `service_costs.json` | **課金サービスの台帳**。サブスク・前払い・無料体験の期限まで（→ COST_TRACKING.md） |
+| `service_costs.py` / `service_costs.json` | **サブスクAPIチェッカーの台帳**。サブスク・前払い・無料体験の期限まで（→ COST_TRACKING.md） |
+| `billing_watch.py` | 毎朝、受信箱から新しい課金を見つける（→ COST_TRACKING.md） |
 | `rerender.py` | 過去号の再描画（費用ゼロ） |
 | `WRITING.md` | 記事に自分の言葉を入れる方法 |
 | `MONETIZATION.md` | 収益化の手順 |
 | `STRATEGY_BRIEF.md` | 戦略の判断材料 |
 | `DOMAIN_SETUP.md` | 独自ドメインの設定手順 |
-| `COST_TRACKING.md` | 課金トラッキングの考え方と月1回の手順 |
+| `COST_TRACKING.md` | サブスクAPIチェッカーの考え方と手順 |

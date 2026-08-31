@@ -110,7 +110,16 @@ jobs:
             python generate_news.py
           fi
 
-      - name: Watch billing inbox
+      # 既に知らせたものを実行間で覚えておく。これが無いと毎朝2日ぶんを見るせいで
+      # 同じ請求を二度知らせてしまう。件名は入れず識別子だけなのでキャッシュで十分。
+      - name: Restore billing watch memory
+        uses: actions/cache@v4
+        with:
+          path: .billing-seen.json
+          key: billing-seen-${{ github.run_id }}
+          restore-keys: billing-seen-
+
+      - name: Watch billing inbox (サブスクAPIチェッカー)
         # 課金の見張り。ダイジェスト本体とは独立させ、ここで失敗しても
         # 毎朝の配信は止めない（continue-on-error）。
         # 読むのはヘッダだけで、本文は取らず既読にもしない。

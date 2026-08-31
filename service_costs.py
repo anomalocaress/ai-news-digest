@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-サービス課金トラッカー — 「どこにいくら払っているか」を1枚で見る。
+サブスクAPIチェッカー（台帳） — 「どこにいくら払っているか」を1枚で見る。
 
 api_cost_calculator.py が扱うのは *このリポジトリのコードが呼んだ API* の従量課金だけです。
 実際に財布から出ていくお金には、コードが一切関与しないもの（サブスク、前払いクレジット、
@@ -173,7 +173,7 @@ def alerts(cfg: Dict = None, today: date = None) -> List[Dict]:
 
 def cmd_report(_args: List[str]):
     s = summarize()
-    print("💳 課金しているサービス一覧\n")
+    print("💳 サブスクAPIチェッカー — 課金しているサービス一覧\n")
     for r in s["rows"]:
         jpy = r["monthly_jpy"]
         amount = f"¥{round(jpy):>7,}" if jpy is not None else "   不明  "
@@ -333,4 +333,8 @@ def main() -> int:
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    try:
+        sys.exit(main())
+    except BrokenPipeError:
+        # `| head` などで打ち切られたときに醜い traceback を出さない
+        sys.exit(0)
