@@ -1165,6 +1165,152 @@ def answer(slug: str, question: str, verbose: bool = True) -> Optional[str]:
 # 保存 / 一覧
 # ---------------------------------------------------------------------------
 
+# ---------------------------------------------------------------------------
+# 読むためのHTMLを書き出す
+#
+# notes.md はそのままでも読めるが、タイムスタンプが本文に埋もれて
+# 「何分のところか」が拾いにくい。会が増えるほど読み返す機会が増えるので、
+# 読む用の1枚を必ず添える。画面の明暗どちらでも読めるようにしてある。
+# ---------------------------------------------------------------------------
+
+_NOTES_STYLE = """
+:root{--bg:#F6F7F9;--paper:#fff;--ink:#15181D;--ink2:#4A5260;--ink3:#79828F;
+--line:#E2E6EB;--accent:#2F5D8A;--accent-bg:#E8EFF7;--ts:#8A6A2F;--ts-bg:#F5EEDF;color-scheme:light}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#0F1216;--paper:#171B21;
+--ink:#ECEFF3;--ink2:#B0B9C4;--ink3:#7F8896;--line:#282E37;--accent:#8FB4DC;--accent-bg:#182432;
+--ts:#D6B072;--ts-bg:#2B2416;color-scheme:dark}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+font-family:"Hiragino Sans","Yu Gothic",system-ui,sans-serif;line-height:1.9;font-size:15px}
+main{max-width:820px;margin:0 auto;padding:32px 22px 80px}
+h1{font-size:26px;line-height:1.4;margin:0 0 28px;padding-bottom:14px;border-bottom:2px solid var(--line)}
+h2{font-size:20px;margin:40px 0 14px;padding:10px 14px;background:var(--accent-bg);
+color:var(--accent);border-radius:3px}
+h3{font-size:16px;margin:28px 0 10px;color:var(--ink);border-left:3px solid var(--accent);padding-left:10px}
+h4{font-size:14px;margin:20px 0 8px;color:var(--ink2)}
+p,li{color:var(--ink2)}
+li{margin:5px 0}
+strong{color:var(--ink)}
+ul{padding-left:1.4em}
+li.todo,li.done{list-style:none;margin-left:-1.4em;padding-left:1.9em;position:relative}
+li.todo::before,li.done::before{position:absolute;left:0;top:.1em;width:1.15em;height:1.15em;
+border:1.5px solid var(--ink3);border-radius:3px;content:"";display:block}
+li.done::before{content:"✓";border-color:var(--accent);color:var(--accent);
+text-align:center;line-height:1.05em;font-weight:700}
+.ts{font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:.86em;
+color:var(--ts);background:var(--ts-bg);padding:1px 5px;border-radius:3px;white-space:nowrap}
+table{border-collapse:collapse;width:100%;margin:14px 0;font-size:13.5px;
+background:var(--paper);border:1px solid var(--line);border-radius:3px;overflow:hidden}
+th,td{text-align:left;padding:10px 13px;border-bottom:1px solid var(--line);vertical-align:top}
+th{background:var(--bg);color:var(--ink3);font-size:12.5px;white-space:nowrap}
+tr:last-child td{border-bottom:0}
+code{background:var(--bg);padding:1px 5px;border-radius:2px;font-size:.9em}
+hr{border:0;border-top:1px solid var(--line);margin:32px 0}
+.wrap-table{overflow-x:auto}
+"""
+
+
+def write_html(md_path: Path, out_path: Path) -> Optional[Path]:
+    """議事録の Markdown を、そのまま読める1枚のHTMLにする。"""
+    try:
+        import markdown as _markdown
+    except ImportError:
+        return None  # 無くても議事録そのものは出来ているので黙って諦める
+
+    import html as _html
+    text = md_path.read_text(encoding="utf-8")
+    title = text.splitlines()[0].lstrip("# ").strip() or md_path.stem
+    try:
+        body = _markdown.markdown(
+            text, extensions=["tables", "sane_lists", "nl2br"], output_format="html5"
+        )
+    except Exception:
+        return None
+
+    # 「- [ ]」はMarkdownでは箇条書きになるだけなので、四角に見せる
+    body = body.replace("<li>[ ] ", '<li class="todo">').replace("<li>[x] ", '<li class="done">')
+    # 時刻（0:00 / 12:34 / 1:02:03）を拾いやすくする
+    body = re.sub(r"(?<![\d:])(\d{1,2}:\d{2}(?::\d{2})?)(?![\d:])", r'<span class="ts">\1</span>', body)
+
+    out_path.write_text(
+        "<!doctype html><html lang=ja><head><meta charset=utf-8>"
+        "<meta name=viewport content='width=device-width,initial-scale=1'>"
+        f"<title>{_html.escape(title)}</title><style>{_NOTES_STYLE}</style></head>"
+        f"<body><main>{body}</main></body></html>",
+        encoding="utf-8",
+    )
+    return out_path
+
+
+def write_index() -> Optional[Path]:
+    """溜まった議事録の目次を1枚のHTMLにする。
+
+    会が増えるほど「あの話はどの回か」が分からなくなる。ファイルが溜まる
+    だけでは知識にならないので、新しい順に並べた入口を必ず更新する。
+    """
+    if not SEMINAR_DIR.exists():
+        return None
+    import html as _html
+
+    rows = []
+    for d in sorted(SEMINAR_DIR.iterdir(), reverse=True):
+        meta_file = d / "meta.json"
+        if not d.is_dir() or not meta_file.exists():
+            continue
+        try:
+            meta = json.loads(meta_file.read_text(encoding="utf-8"))
+        except Exception:
+            continue
+        rows.append((d.name, meta))
+    if not rows:
+        return None
+
+    items = []
+    for slug, meta in rows:
+        title = _html.escape(str(meta.get("title", slug)))
+        created = str(meta.get("created_at", ""))[:10]
+        method = _html.escape(str(meta.get("method", "")))
+        chars = meta.get("chars") or 0
+        has_notes = (SEMINAR_DIR / slug / "notes.html").exists()
+        link = f"{slug}/notes.html" if has_notes else f"{slug}/transcript.txt"
+        label = "議事録を読む" if has_notes else "文字起こしのみ"
+        items.append(
+            f'<li><a href="{_html.escape(link)}"><span class="d">{created}</span>'
+            f'<span class="t">{title}</span></a>'
+            f'<span class="m">{label} ／ {chars:,}字 ／ {method}</span></li>'
+        )
+
+    style = """
+:root{--bg:#F6F7F9;--paper:#fff;--ink:#15181D;--ink2:#4A5260;--ink3:#79828F;
+--line:#E2E6EB;--accent:#2F5D8A;color-scheme:light}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#0F1216;--paper:#171B21;
+--ink:#ECEFF3;--ink2:#B0B9C4;--ink3:#7F8896;--line:#282E37;--accent:#8FB4DC;color-scheme:dark}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+font-family:"Hiragino Sans","Yu Gothic",system-ui,sans-serif;line-height:1.8;font-size:15px}
+main{max-width:760px;margin:0 auto;padding:36px 22px 80px}
+h1{font-size:24px;margin:0 0 6px}
+.lead{color:var(--ink3);font-size:13.5px;margin:0 0 28px}
+ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px}
+li{background:var(--paper);border:1px solid var(--line);border-radius:4px;padding:14px 16px}
+li a{text-decoration:none;display:flex;gap:14px;align-items:baseline;flex-wrap:wrap}
+.d{font-family:ui-monospace,Menlo,monospace;font-size:12.5px;color:var(--ink3);white-space:nowrap}
+.t{font-size:16px;font-weight:700;color:var(--accent)}
+li a:hover .t{text-decoration:underline}
+.m{display:block;margin-top:5px;font-size:12px;color:var(--ink3)}
+"""
+    out = SEMINAR_DIR / "index.html"
+    out.write_text(
+        "<!doctype html><html lang=ja><head><meta charset=utf-8>"
+        "<meta name=viewport content='width=device-width,initial-scale=1'>"
+        f"<title>議事録の目次</title><style>{style}</style></head><body><main>"
+        f"<h1>議事録の目次</h1><p class=lead>新しい順。{len(rows)}件たまっています。</p>"
+        f"<ul>{''.join(items)}</ul></main></body></html>",
+        encoding="utf-8",
+    )
+    return out
+
+
 def _resolve_slug(explicit: Optional[str], title: str) -> str:
     if explicit:
         return explicit
@@ -1230,6 +1376,8 @@ def main() -> int:
     parser.add_argument("--no-notes", action="store_true", help="文字起こしだけ作って議事録は作らない")
     parser.add_argument("--ask", metavar="質問", help="保存済みのセミナーに質問する")
     parser.add_argument("--list", action="store_true", help="保存済みのセミナー一覧")
+    parser.add_argument("--index", action="store_true",
+                        help="溜まった議事録の目次（index.html）を作り直す")
     parser.add_argument("--zoom", action="store_true",
                         help="ソースを Zoom のクラウド録画として扱う（会議IDを渡すとき）")
     parser.add_argument("--zoom-list", action="store_true",
@@ -1240,6 +1388,11 @@ def main() -> int:
 
     if args.list:
         list_seminars()
+        return 0
+
+    if args.index:
+        out = write_index()
+        print(f"📇 目次を作りました: {out}" if out else "⚠️  まだ議事録がありません")
         return 0
 
     if args.zoom_list:
@@ -1297,7 +1450,10 @@ def main() -> int:
     if not args.no_notes:
         notes = build_notes(title, transcript, args.source, args.focus)
         if notes:
-            (outdir / "notes.md").write_text(f"# {title}\n\n{notes}\n", encoding="utf-8")
+            md = outdir / "notes.md"
+            md.write_text(f"# {title}\n\n{notes}\n", encoding="utf-8")
+            write_html(md, outdir / "notes.html")
+            write_index()
             print("   ✅ 議事録を作成しました\n")
         else:
             print("   ⚠️  議事録の作成は失敗しましたが、文字起こしは保存済みです\n")
