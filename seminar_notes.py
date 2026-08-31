@@ -1253,7 +1253,7 @@ def write_index() -> Optional[Path]:
     import html as _html
 
     rows = []
-    for d in sorted(SEMINAR_DIR.iterdir(), reverse=True):
+    for d in SEMINAR_DIR.iterdir():
         meta_file = d / "meta.json"
         if not d.is_dir() or not meta_file.exists():
             continue
@@ -1265,10 +1265,19 @@ def write_index() -> Optional[Path]:
     if not rows:
         return None
 
+    # 並べ替えは「開催日」が最優先。作成日は処理した日なので、あとから
+    # 古い録画を読み込むと順番が狂う。開催日が無い回はフォルダ名で補う。
+    def sort_key(row):
+        slug, meta = row
+        return (str(meta.get("held_on") or "")
+                or str(meta.get("created_at", ""))[:10]
+                or slug)
+    rows.sort(key=sort_key, reverse=True)
+
     items = []
     for slug, meta in rows:
         title = _html.escape(str(meta.get("title", slug)))
-        created = str(meta.get("created_at", ""))[:10]
+        created = str(meta.get("held_on") or str(meta.get("created_at", ""))[:10])
         method = _html.escape(str(meta.get("method", "")))
         chars = meta.get("chars") or 0
         has_notes = (SEMINAR_DIR / slug / "notes.html").exists()
@@ -1439,11 +1448,15 @@ def main() -> int:
     outdir = SEMINAR_DIR / slug
     outdir.mkdir(parents=True, exist_ok=True)
     (outdir / "transcript.txt").write_text(transcript, encoding="utf-8")
+    # 開催日はスラッグ先頭の日付から拾う（例: 2026-08-31-...）。
+    # 作成日＝処理した日なので、古い録画を後から読み込むと目次の順番が狂う。
+    held = re.match(r"(\d{4}-\d{2}-\d{2})", slug)
     (outdir / "meta.json").write_text(json.dumps({
         "title": title,
         "source": args.source,
         "method": method,
         "chars": len(transcript),
+        "held_on": held.group(1) if held else None,
         "created_at": datetime.now().isoformat(timespec="seconds"),
     }, ensure_ascii=False, indent=2), encoding="utf-8")
 
