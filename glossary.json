@@ -1772,6 +1772,131 @@
       "related": [],
       "status": "published",
       "auto": true
+    },
+    {
+      "slug": "sam-altman",
+      "term": "Sam Altman",
+      "reading": "サム・アルトマン",
+      "aliases": [
+        "サム・アルトマン",
+        "アルトマン"
+      ],
+      "category": "人物",
+      "short": "ChatGPTを作ったOpenAIのトップ（CEO）です。今のAIブームの顔ともいえる人物です。",
+      "detail": "スタートアップ支援組織 Y Combinator の代表を経て、OpenAIの経営トップに就きました。2023年に取締役会から一度解任され、社員の反発により数日で復帰した騒動は業界に大きな衝撃を与えました。AIへの巨額投資や規制をめぐる議論で、発言がそのままニュースになる存在です。",
+      "related": [
+        "openai",
+        "chatgpt",
+        "y-combinator"
+      ],
+      "status": "published"
+    },
+    {
+      "slug": "dario-amodei",
+      "term": "Dario Amodei",
+      "reading": "ダリオ・アモデイ",
+      "aliases": [
+        "ダリオ・アモデイ",
+        "アモデイ"
+      ],
+      "category": "人物",
+      "short": "Claudeを作ったAnthropicのトップ（CEO）です。AIの安全性を重視する姿勢で知られます。",
+      "detail": "OpenAIで研究部門を率いたのち、2021年に妹のダニエラ氏らとAnthropicを設立しました。AIが急速に賢くなることの恩恵と危険の両方を早くから発信しており、論文やエッセイが業界で広く読まれています。",
+      "related": [
+        "anthropic",
+        "claude",
+        "alignment"
+      ],
+      "status": "published"
+    },
+    {
+      "slug": "jensen-huang",
+      "term": "Jensen Huang",
+      "reading": "ジェンスン・フアン",
+      "aliases": [
+        "ジェンスン・フアン",
+        "フアン",
+        "ジェンスン・ファン"
+      ],
+      "category": "人物",
+      "short": "AI用の半導体で圧倒的なシェアを持つNVIDIAの創業者・トップです。黒い革ジャンがトレードマークです。",
+      "detail": "1993年にNVIDIAを創業し、ゲーム用の部品だったGPUをAI計算の中心へと育てました。AIブームでNVIDIAは世界で最も価値のある企業の一つになり、同氏の講演やコメントは半導体業界全体を動かすニュースとして扱われます。",
+      "related": [
+        "nvidia",
+        "gpu",
+        "blackwell"
+      ],
+      "status": "published"
+    },
+    {
+      "slug": "elon-musk",
+      "term": "イーロン・マスク",
+      "reading": "イーロン・マスク",
+      "aliases": [
+        "Elon Musk",
+        "マスク氏"
+      ],
+      "category": "人物",
+      "short": "テスラやスペースX、X（旧Twitter）を率いる実業家です。AI企業xAIも設立しました。",
+      "detail": "OpenAIの初期の出資者でしたが、のちに方針の違いから離れ、対抗するxAIを立ち上げました。AIの危険性を早くから警告する一方、自らも開発競争に参加しており、その言動はたびたび論争を呼びます。",
+      "related": [
+        "xai",
+        "openai"
+      ],
+      "status": "published"
+    },
+    {
+      "slug": "demis-hassabis",
+      "term": "Demis Hassabis",
+      "reading": "デミス・ハサビス",
+      "aliases": [
+        "デミス・ハサビス",
+        "ハサビス"
+      ],
+      "category": "人物",
+      "short": "Google DeepMindのトップです。タンパク質構造の予測AIでノーベル化学賞を受賞しました。",
+      "detail": "元プロ級のチェスプレイヤーで、ゲームAIの研究からキャリアを始めました。囲碁で人間の世界チャンピオンを破ったAlphaGoと、生命科学を変えたAlphaFoldという二つの金字塔を主導し、2024年にノーベル化学賞を受賞しています。",
+      "related": [
+        "google-deepmind",
+        "gemini"
+      ],
+      "status": "published"
+    },
+    {
+      "slug": "mark-zuckerberg",
+      "term": "Mark Zuckerberg",
+      "reading": "マーク・ザッカーバーグ",
+      "aliases": [
+        "ザッカーバーグ",
+        "Zuckerberg"
+      ],
+      "category": "人物",
+      "short": "FacebookやInstagramを持つMetaの創業者・トップです。AIモデルを無料公開する路線を主導しています。",
+      "detail": "自社のAIモデル Llama の重みを公開する戦略を取り、閉じた開発を進める競合との対立軸を作りました。トップ研究者を巨額の報酬で引き抜く動きもたびたび報じられ、AI人材市場の相場を押し上げる存在としても話題になります。",
+      "related": [
+        "meta-ai",
+        "llama",
+        "open-weight"
+      ],
+      "status": "published"
+    },
+    {
+      "slug": "satya-nadella",
+      "term": "Satya Nadella",
+      "reading": "サティア・ナデラ",
+      "aliases": [
+        "ナデラ",
+        "Nadella"
+      ],
+      "category": "人物",
+      "short": "Microsoftのトップです。OpenAIへの巨額出資を決断し、AI時代の同社を方向づけました。",
+      "detail": "2014年にCEOに就任してからクラウド事業を軸に会社を立て直し、OpenAIとの提携によってAI競争の主要プレイヤーに返り咲かせました。OfficeやWindowsへのAI組み込みは同氏の路線の延長にあります。",
+      "related": [
+        "microsoft",
+        "openai",
+        "copilot"
+      ],
+      "status": "published"
     }
   ]
 }

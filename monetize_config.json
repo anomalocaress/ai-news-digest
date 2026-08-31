@@ -271,7 +271,7 @@
     "_note": "用語解説の設定。auto_discover を有効にすると、毎朝のキュレーション時に新出用語を検出して glossary.json へ自動追加します。max_marks_per_page は1ページに付ける解説の上限。「今日の3行まとめ」から順に割り当てられます。",
     "enabled": true,
     "auto_discover": true,
-    "max_marks_per_page": 26
+    "max_marks_per_page": 34
   },
   "newsletter": {
     "_note": "メールニュースレター（Kit）。手順は NEWSLETTER_SETUP.md。signup_url に登録ページのURLを入れるとサイトに購読ボタンが出ます。embed_html に Kit のフォーム埋め込みコードを入れると、リンクの代わりにサイト内で直接登録できるフォームが出ます（そちらが優先）。配信そのものは Kit の RSS 連携に feed.xml を登録するだけ。",
