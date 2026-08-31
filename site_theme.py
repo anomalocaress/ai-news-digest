@@ -50,6 +50,16 @@ PAGE_CSS = """
   .sub-card.mail { border-color:var(--accent); border-width:2px;
     background:linear-gradient(180deg,rgba(14,116,144,0.05),transparent); }
   .sub-embed { cursor:default; }
+  .sub-badge { display:block; margin-top:0.5rem; padding:0.6rem; text-align:center;
+    border-radius:6px; font-size:0.85rem; font-weight:700; text-decoration:none; color:#fff; }
+  .sub-badge.spotify { background:#1db954; }
+  .sub-badge.apple { background:#8e44ec; }
+  .sub-copy { margin-top:0.6rem; width:100%; padding:0.6rem; background:var(--accent);
+    color:#fff; font-size:0.85rem; font-weight:700; border:none; border-radius:6px;
+    cursor:pointer; }
+  .sub-advanced { max-width:760px; margin:0.8rem auto 0; font-size:0.72rem;
+    color:var(--text-muted); }
+  .sub-advanced a { color:var(--text-muted); }
   .sub-embed form { margin-top:0.5rem; }
   .sub-embed input[type="email"] { width:100%; padding:0.6rem 0.8rem; font-size:0.9rem;
     border:1px solid var(--border); border-radius:6px; background:var(--bg); color:var(--text); }
@@ -131,58 +141,87 @@ PROSE_CSS = """
 def subscribe_block(config: dict, prefix: str = "") -> str:
     """購読の導線。
 
-    以前は「📡 購読」がポッドキャストのRSSを直接指しており、
-    ブラウザで押すと生のXMLが出るという状態だった。
-    メール・音声・RSSは目的が違うので、それぞれ何が届くのかを明示して並べる。
+    「RSS」のような作り手側の言葉を読者に見せない。
+    メールは「メールマガジン」、音声は「Spotify / Apple Podcast」という
+    誰でも知っている名前で置き、RSS は上級者向けの補足に格下げする。
     """
     site = config.get("site", {})
     nl = config.get("newsletter", {})
-    pod = config.get("podcast", {}).get("base_url", site.get("base_url", "")).rstrip("/")
+    pod_cfg = config.get("podcast", {})
+    pod = pod_cfg.get("base_url", site.get("base_url", "")).rstrip("/")
 
-    # フォームの直接埋め込み（設定されていればリンクより優先。登録率が高いため）
+    cards = []
+
+    # --- メールマガジン ---
     embed = nl.get("embed_html", "").strip() if nl.get("enabled", True) else ""
-    embed_html = ""
     if embed:
-        embed_html = (
+        cards.append(
             '    <div class="sub-card mail sub-embed">\n'
             '      <span class="sub-ico">✉️</span>\n'
-            '      <span class="sub-t">メールで受け取る</span>\n'
+            '      <span class="sub-t">メールマガジンで受け取る</span>\n'
             f'      <span class="sub-d">{_html.escape(nl.get("blurb", ""))}</span>\n'
             f"      {embed}\n"
             "    </div>\n"
         )
-
-    cards = []
-    if embed_html:
-        cards.append(embed_html)
-    if nl.get("enabled", True) and nl.get("signup_url") and not embed_html:
+    elif nl.get("enabled", True) and nl.get("signup_url"):
         cards.append(
             f'    <a class="sub-card mail" href="{_html.escape(nl["signup_url"])}">\n'
-            f'      <span class="sub-ico">✉️</span>\n'
-            f'      <span class="sub-t">メールで受け取る</span>\n'
-            f'      <span class="sub-d">{_html.escape(nl.get("blurb", ""))}</span>\n'
+            '      <span class="sub-ico">✉️</span>\n'
+            '      <span class="sub-t">メールマガジンで受け取る</span>\n'
+            f'      <span class="sub-d">{_html.escape(nl.get("blurb", ""))} 無料・いつでも解除できます</span>\n'
             "    </a>\n"
         )
-    if pod:
+
+    # --- ポッドキャスト ---
+    spotify = pod_cfg.get("spotify_url", "").strip()
+    apple = pod_cfg.get("apple_url", "").strip()
+    feed_url = f"{pod}/podcast/feed.xml" if pod else ""
+    if spotify or apple:
+        badges = ""
+        if spotify:
+            badges += (f'      <a class="sub-badge spotify" href="{_html.escape(spotify)}">'
+                       "Spotify で聴く</a>\n")
+        if apple:
+            badges += (f'      <a class="sub-badge apple" href="{_html.escape(apple)}">'
+                       "Apple Podcast で聴く</a>\n")
         cards.append(
-            f'    <a class="sub-card" href="{_html.escape(pod)}/podcast/feed.xml">\n'
-            "      <span class=\"sub-ico\">🎧</span>\n"
-            "      <span class=\"sub-t\">ポッドキャストで聴く</span>\n"
-            "      <span class=\"sub-d\">Spotify・Apple Podcast などのアプリに"
-            "このリンクを登録してください</span>\n"
-            "    </a>\n"
+            '    <div class="sub-card sub-embed">\n'
+            '      <span class="sub-ico">🎧</span>\n'
+            '      <span class="sub-t">ポッドキャストで聴く</span>\n'
+            '      <span class="sub-d">通勤中や作業中に。毎朝10〜15分の音声版です</span>\n'
+            f"{badges}"
+            "    </div>\n"
         )
-    cards.append(
-        f'    <a class="sub-card" href="{prefix}feed.xml">\n'
-        "      <span class=\"sub-ico\">📡</span>\n"
-        "      <span class=\"sub-t\">RSSで読む</span>\n"
-        "      <span class=\"sub-d\">Feedly などのRSSリーダー用。"
-        "本文がまるごと届きます</span>\n"
-        "    </a>\n"
+    elif feed_url:
+        # 番組登録が済むまでの暫定。アプリへの登録方法を言葉で案内する
+        cards.append(
+            '    <div class="sub-card sub-embed">\n'
+            '      <span class="sub-ico">🎧</span>\n'
+            '      <span class="sub-t">ポッドキャストで聴く</span>\n'
+            '      <span class="sub-d">お使いのポッドキャストアプリの「番組を追加」「URLで追加」に、'
+            "下のボタンでコピーした番組アドレスを貼り付けてください</span>\n"
+            f'      <button type="button" class="sub-copy" data-copy="{_html.escape(feed_url)}" '
+            "onclick=\"navigator.clipboard.writeText(this.dataset.copy)"
+            ".then(()=>{this.textContent='✓ コピーしました';"
+            "setTimeout(()=>this.textContent='番組アドレスをコピー',2000);});\">"
+            "番組アドレスをコピー</button>\n"
+            "    </div>\n"
+        )
+
+    if not cards:
+        return ""
+
+    # RSS は上級者向けの一行に格下げ（一般の読者には意味が通らないため）
+    advanced = (
+        '  <p class="sub-advanced">上級者向け：'
+        f'<a href="{prefix}feed.xml">RSS配信</a>'
+        "（サイトの更新を自動で受け取るための仕組みです。Feedly などの"
+        "RSSリーダーをお使いの方はこちらを登録してください）</p>\n"
     )
 
     return ('  <div class="section-label">毎朝うけとる</div>\n'
-            f'  <div class="sub-grid">\n{"".join(cards)}  </div>\n')
+            f'  <div class="sub-grid">\n{"".join(cards)}  </div>\n'
+            + advanced)
 
 
 def lang_switch(config: dict, prefix: str = "") -> str:

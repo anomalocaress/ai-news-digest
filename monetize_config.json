@@ -45,7 +45,10 @@
   },
   "podcast": {
     "_note": "2026-08-22 のアカウント移管(anomalocaress→teraco-labo)で旧URLは404になりました。GitHub Pages はアカウント間の移管ではリダイレクトされません。現在は site.base_url と同じURLを使います。",
-    "base_url": "https://teraco-labo.github.io/ai-news-digest"
+    "base_url": "https://teraco-labo.github.io/ai-news-digest",
+    "spotify_url": "",
+    "apple_url": "",
+    "_apps_note": "Spotify / Apple Podcast に番組登録したら、番組ページのURLをここに貼るとサイトの購読ボタンが「Spotifyで聴く」「Apple Podcastで聴く」に変わります。登録手順: 各サービスの配信者向けページ（Spotify for Creators / Apple Podcasts Connect）で feed.xml のURLを提出するだけです。"
   },
   "disclosure": {
     "enabled": true,
