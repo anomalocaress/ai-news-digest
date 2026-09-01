@@ -30,6 +30,20 @@
   </itunes:category>
   
   <item>
+    <title>世界一わかりやすいAIニュース - 2026-09-01</title>
+    <itunes:title>世界一わかりやすいAIニュース - 2026-09-01</itunes:title>
+    <description>世界一わかりやすいAIニュース - 2026-09-01</description>
+    <author>fujisaki@teraco-labo.com</author>
+    <itunes:author>世界一わかりやすいAIニュース</itunes:author>
+    <itunes:episode>61</itunes:episode>
+    <itunes:episodeType>full</itunes:episodeType>
+    <itunes:duration>12:35</itunes:duration>
+    <itunes:explicit>false</itunes:explicit>
+    <enclosure url="https://teraco-labo.github.io/ai-news-digest/podcast/ai-news-2026-09-01.mp3" length="7559621" type="audio/mpeg"/>
+    <pubDate>Tue, 01 Sep 2026 21:00:00 GMT</pubDate>
+    <guid isPermaLink="false">https://teraco-labo.github.io/ai-news-digest/podcast/ai-news-2026-09-01.mp3</guid>
+  </item>
+  <item>
     <title>世界一わかりやすいAIニュース - 2026-08-31</title>
     <itunes:title>世界一わかりやすいAIニュース - 2026-08-31</itunes:title>
     <description>世界一わかりやすいAIニュース - 2026-08-31</description>
@@ -854,20 +868,6 @@
     <enclosure url="https://teraco-labo.github.io/ai-news-digest/podcast/ai-news-2026-05-14.mp3" length="4466541" type="audio/mpeg"/>
     <pubDate>Thu, 14 May 2026 21:00:00 GMT</pubDate>
     <guid isPermaLink="false">https://teraco-labo.github.io/ai-news-digest/podcast/ai-news-2026-05-14.mp3</guid>
-  </item>
-  <item>
-    <title>てらこAIニュースダイジェスト - 2026-05-13</title>
-    <itunes:title>てらこAIニュースダイジェスト - 2026-05-13</itunes:title>
-    <description>てらこAIニュースダイジェスト - 2026-05-13</description>
-    <author>fujisaki@teraco-labo.com</author>
-    <itunes:author>世界一わかりやすいAIニュース</itunes:author>
-    <itunes:episode>10</itunes:episode>
-    <itunes:episodeType>full</itunes:episodeType>
-    <itunes:duration>24:45</itunes:duration>
-    <itunes:explicit>false</itunes:explicit>
-    <enclosure url="https://teraco-labo.github.io/ai-news-digest/podcast/ai-news-2026-05-13.mp3" length="5943021" type="audio/mpeg"/>
-    <pubDate>Wed, 13 May 2026 21:00:00 GMT</pubDate>
-    <guid isPermaLink="false">https://teraco-labo.github.io/ai-news-digest/podcast/ai-news-2026-05-13.mp3</guid>
   </item>
 </channel>
 </rss>
