@@ -227,8 +227,9 @@ def _listen(date: datetime, available: bool) -> str:
         '    <div class="speed-row"><span class="speed-label">再生速度</span>\n'
         + "".join(
             f'      <button type="button" class="speed-btn" data-speed="{v}">{label}</button>\n'
+            # 単独プレイヤー(podcast/player.html)と選択肢を揃えること
             for v, label in [("0.75", "0.75×"), ("1", "1×"), ("1.25", "1.25×"),
-                             ("1.5", "1.5×"), ("2", "2×")]
+                             ("1.5", "1.5×"), ("2", "2×"), ("2.5", "2.5×")]
         )
         + "    </div>\n"
         f'    <div class="listen-sub">{sub_line}</div>\n'
