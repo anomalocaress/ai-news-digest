@@ -2,7 +2,7 @@
   "_readme": "収益化の全設定はこのファイルだけで完結します。url が空の案件は一切表示されません（空の広告枠は出ません）。MONETIZATION.md の手順に従って埋めてください。",
   "site": {
     "base_url": "https://teraco-labo.github.io/ai-news-digest",
-    "name": "Teraco News",
+    "name": "世界一わかりやすいAIニュース",
     "tagline": "読むだけで賢くなる。専門用語ぜんぶ解説つき。",
     "author": "てらこ先生",
     "description": "AIの最新ニュースを毎朝6時に日本語でお届けします。企業名・ツール名・専門用語にはすべて解説がつくので、予備知識がなくても読むだけで理解が深まります。音声版もあります。",
@@ -41,7 +41,9 @@
         "url": ""
       }
     ],
-    "_languages_note": "多言語展開用。status を live にして url を入れると切り替えボタンが有効になります。別言語版は、この構成一式を別リポジトリ（または別ディレクトリ）に置き、site.lang と glossary.json、curate.py のプロンプトを差し替えれば作れます。"
+    "_languages_note": "多言語展開用。status を live にして url を入れると切り替えボタンが有効になります。別言語版は、この構成一式を別リポジトリ（または別ディレクトリ）に置き、site.lang と glossary.json、curate.py のプロンプトを差し替えれば作れます。",
+    "brand_line": "Teraco News by てらこ先生",
+    "_brand_line_note": "フッターに小さく出す運営元の通称。見出し・音声の番組名は site.name を使うこと。"
   },
   "podcast": {
     "_note": "2026-08-22 のアカウント移管(anomalocaress→teraco-labo)で旧URLは404になりました。GitHub Pages はアカウント間の移管ではリダイレクトされません。現在は site.base_url と同じURLを使います。",

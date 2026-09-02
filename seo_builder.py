@@ -203,6 +203,7 @@ def build_home(issues: List[Dict], articles: List[Dict], config: Dict) -> str:
   <strong>{_html.escape(name)}</strong> — {_html.escape(site.get("author", ""))}<br>
   毎朝6時に自動生成・自動配信しています。
   {site_theme.footer_links(config)}
+  {site_theme.footer_brand(config)}
 </footer>
 {glossary.assets(ann) if ann else ""}"""
 

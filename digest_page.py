@@ -388,6 +388,7 @@ def render(categorized: Dict[str, List[Dict]], date: datetime,
   <strong>{_html.escape(name)}</strong> — {date_str}（{weekday}）／ {total} 件収録<br>
   毎朝6時に自動生成しています。
   {site_theme.footer_links(config)}
+  {site_theme.footer_brand(config)}
 </footer>
 {glossary.assets(ann) if ann else ""}"""
 

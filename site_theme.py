@@ -83,6 +83,8 @@ PAGE_CSS = """
   .footer-links { margin-top:0.9rem; font-size:0.75rem; }
   .footer-links a { color:var(--text-muted); text-decoration:none; }
   .footer-links a:hover { color:var(--accent); text-decoration:underline; }
+  .footer-brand { margin-top:1.1rem; font-size:0.68rem; letter-spacing:0.04em;
+    color:var(--text-muted); opacity:0.55; }
   @media (max-width:640px){ .issue-list{columns:1;} .hero h1{font-size:1.4rem;} }
 """
 
@@ -262,6 +264,17 @@ def footer_links(config: dict, prefix: str = "") -> str:
         items.append((parent, config.get("site", {}).get("parent_site_name", "運営元")))
     links = " ／ ".join(f'<a href="{href}">{label}</a>' for href, label in items)
     return f'<div class="footer-links">{links}</div>'
+
+
+def footer_brand(config: dict) -> str:
+    """運営元の通称を、いちばん下に小さく置く。
+    見出し・音声の番組名は site.name（世界一わかりやすいAIニュース）を使い、
+    こちらは署名としてひっそり出すだけ。持ち主の指示による住み分け。"""
+    line = config.get("site", {}).get("brand_line", "").strip()
+    if not line:
+        return ""
+    import html as _h
+    return f'<div class="footer-brand">{_h.escape(line)}</div>'
 
 
 def page_shell(title: str, head_extra: str, body: str, extra_css: str = "") -> str:
