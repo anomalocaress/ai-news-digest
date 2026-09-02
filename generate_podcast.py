@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-世界一わかりやすいAIニュース — 音声生成
+Teraco News — 音声生成
 edge-tts (Microsoft Neural voices) を使用。APIキー・費用不要。
 """
 
@@ -58,6 +58,16 @@ _TRANSITIONS = [
 # TTS 発音改善：略語・固有名詞をカタカナに変換
 # ---------------------------------------------------------------------------
 _TTS_REPLACEMENTS = [
+    # --- 番組名（辞書登録）---
+    # 長い表記から先に置換する。"Teraco" 単体を先に処理すると
+    # "Teraco News" が壊れるため、必ずこの順序を守ること。
+    ("Teraco News", "テラコニュース"),
+    ("TERACO NEWS", "テラコニュース"),
+    ("Teraco news", "テラコニュース"),
+    ("TeracoNews",  "テラコニュース"),
+    ("TERACO.LABO", "テラコラボ"),
+    ("Teraco",      "テラコ"),
+    ("TERACO",      "テラコ"),
     ("ChatGPT",   "チャットジーピーティー"),
     ("GPT-4o",    "ジーピーティーフォーオー"),
     ("GPT-4",     "ジーピーティーフォー"),
@@ -141,7 +151,7 @@ def build_script(articles_by_category: Dict[str, List[Dict]], date: datetime) ->
 
     # ---- オープニング ----
     lines.append(
-        f"てらこ エーアイ ニュースダイジェスト。"
+        f"テラコニュース。"
         f"{date_str}、{weekday}曜日版をお届けします。"
         f"本日は特に注目の{total}件をピックアップし、内容まで詳しく解説します。"
         f"ではさっそく参りましょう。"
@@ -202,7 +212,7 @@ def build_script(articles_by_category: Dict[str, List[Dict]], date: datetime) ->
     # ---- クロージング ----
     lines.append(
         f"以上、本日の注目 {total}件をお届けしました。"
-        "てらこ エーアイ ニュースダイジェスト、また明日もお楽しみに。"
+        "テラコニュース、また明日もお楽しみに。"
     )
 
     return "\n".join(lines)
@@ -296,7 +306,7 @@ def update_feed(date: datetime, audio_file: Path) -> None:
     episodes = [e for e in episodes if e.get("date") != date_str]
     episodes.insert(0, {
         "date":        date_str,
-        "title":       f"世界一わかりやすいAIニュース - {date_str}",
+        "title":       f"Teraco News - {date_str}",
         "url":         audio_url,
         "size":        size_bytes,
         "duration":    duration_sec,
@@ -328,7 +338,7 @@ def update_feed(date: datetime, audio_file: Path) -> None:
     <itunes:title>{ep['title']}</itunes:title>
     <description>{ep['title']}</description>
     <author>{PODCAST_EMAIL}</author>
-    <itunes:author>世界一わかりやすいAIニュース</itunes:author>
+    <itunes:author>Teraco News</itunes:author>
     <itunes:episode>{ep_ep_num}</itunes:episode>
     <itunes:episodeType>full</itunes:episodeType>
     <itunes:duration>{dur_hms}</itunes:duration>
@@ -343,8 +353,8 @@ def update_feed(date: datetime, audio_file: Path) -> None:
   xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd"
   xmlns:podcast="https://podcastindex.org/namespace/1.0">
 <channel>
-  <title>世界一わかりやすいAIニュース</title>
-  <itunes:title>世界一わかりやすいAIニュース</itunes:title>
+  <title>Teraco News</title>
+  <itunes:title>Teraco News</itunes:title>
   <description>毎朝6時配信。AIの最新ニュースを厳選してわかりやすくお届けします。</description>
   <itunes:summary>毎朝6時配信。AIの最新ニュースを厳選してわかりやすくお届けします。</itunes:summary>
   <link>{BASE_URL}</link>
@@ -359,7 +369,7 @@ def update_feed(date: datetime, audio_file: Path) -> None:
   </itunes:owner>
   <image>
     <url>{COVER_URL}</url>
-    <title>世界一わかりやすいAIニュース</title>
+    <title>Teraco News</title>
     <link>{BASE_URL}</link>
   </image>
   <itunes:image href="{COVER_URL}"/>

@@ -486,7 +486,7 @@ def send_email_draft(email_html: str, target_date: datetime) -> bool:
 
         # Create email message
         msg = MIMEMultipart("alternative")
-        msg["Subject"] = f"世界一わかりやすいAIニュース - {date_str}"
+        msg["Subject"] = f"Teraco News - {date_str}"
         msg["From"] = gmail_user
         msg["To"] = email_to
         # 標準の配信停止ヘッダー（メールクライアントの「配信停止」ボタンに対応）
@@ -604,7 +604,7 @@ def build_email_html(categorized: Dict[str, List[Dict]], date: datetime, include
   </div>
 
   <p>おはようございます！</p>
-  <p>世界一わかりやすいAIニュース、本日の最新情報をお届けします。</p>
+  <p>Teraco News、本日の最新情報をお届けします。</p>
   <!-- PODCAST_PLACEHOLDER -->
 """
     )
@@ -686,13 +686,13 @@ def build_email_html(categorized: Dict[str, List[Dict]], date: datetime, include
     unsubscribe_mailto = (
         "mailto:fujisaki@teraco-labo.com"
         "?subject=配信停止希望"
-        "&body=このメールをそのまま送信すると、世界一わかりやすいAIニュースの配信を停止します。"
+        "&body=このメールをそのまま送信すると、Teraco Newsの配信を停止します。"
     )
     email_html += '  <div class="footer">\n'
-    email_html += f'    <p>世界一わかりやすいAIニュース | <a href="{SITE_URL}" style="color: #60a5fa; text-decoration: none;">サイトを見る</a></p>\n'
+    email_html += f'    <p>Teraco News | <a href="{SITE_URL}" style="color: #60a5fa; text-decoration: none;">サイトを見る</a></p>\n'
     email_html += (
         '    <p style="margin-top:10px;font-size:11px;color:#94a3b8;">\n'
-        '      このメールは「世界一わかりやすいAIニュース」の購読者にお届けしています。<br>\n'
+        '      このメールは「Teraco News」の購読者にお届けしています。<br>\n'
         f'      配信を停止したい場合は <a href="{unsubscribe_mailto}" style="color:#94a3b8;text-decoration:underline;">こちらから配信停止</a> してください。\n'
         '    </p>\n'
     )

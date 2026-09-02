@@ -2,7 +2,7 @@
   "_readme": "収益化の全設定はこのファイルだけで完結します。url が空の案件は一切表示されません（空の広告枠は出ません）。MONETIZATION.md の手順に従って埋めてください。",
   "site": {
     "base_url": "https://teraco-labo.github.io/ai-news-digest",
-    "name": "世界一わかりやすいAIニュース",
+    "name": "Teraco News",
     "tagline": "読むだけで賢くなる。専門用語ぜんぶ解説つき。",
     "author": "てらこ先生",
     "description": "AIの最新ニュースを毎朝6時に日本語でお届けします。企業名・ツール名・専門用語にはすべて解説がつくので、予備知識がなくても読むだけで理解が深まります。音声版もあります。",
