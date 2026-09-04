@@ -61,6 +61,11 @@ PLAYER_CSS = """
   .turn.terako .who { color:var(--accent); }
   .turn.mika .who { color:#db2777; }
   .status { padding:1rem 1.3rem; font-size:0.85rem; color:var(--text-muted); }
+  .read-cta { max-width:760px; margin:1rem auto 0; display:block; padding:1rem 1.3rem;
+    background:var(--card-bg); border:2px solid var(--accent); border-radius:8px;
+    text-decoration:none; color:var(--text); }
+  .read-cta strong { display:block; font-size:0.95rem; color:var(--accent); }
+  .read-cta span { display:block; margin-top:0.2rem; font-size:0.78rem; color:var(--text-muted); line-height:1.7; }
   .kbd-help { max-width:760px; margin:1rem auto 0; font-size:0.72rem; color:var(--text-muted);
     text-align:center; }
   @media (max-width:640px){ .ctl.play{width:54px;height:54px} }
@@ -127,6 +132,11 @@ def build(config: dict) -> str:
       </div>
     </div>
 
+    <a class="read-cta" id="readLink" href="../">
+      <strong>この号を、専門用語の解説つきで読む →</strong>
+      <span>記事では、企業名・モデル名・専門用語ぜんぶに注釈がつきます。聴いてわからなかった言葉は、こちらで確認できます。</span>
+    </a>
+
     <details class="script" id="scriptBox">
       <summary>台本を読む</summary>
       <div id="scriptBody" class="status">読み込み中…</div>
@@ -158,6 +168,7 @@ def build(config: dict) -> str:
   document.getElementById('pDate').textContent = label + ' の号';
   document.title = label + ' 音声版 | {esc(name)}';
   document.getElementById('newsLink').href = '../ai-news-' + iso + '.html';
+  document.getElementById('readLink').href = '../ai-news-' + iso + '.html';
   document.getElementById('mp3Link').href = 'ai-news-' + iso + '.mp3';
 
   var a = document.getElementById('audio');

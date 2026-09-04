@@ -268,6 +268,18 @@ def _hms(seconds) -> str:
     return f"{h}:{m:02d}:{s:02d}" if h else f"{m}:{s:02d}"
 
 
+
+def _episode_description(ep: Dict) -> str:
+    """エピソードの説明欄（概要欄）。音声だけ聴いた人を、用語解説つきの記事へ案内する。
+    この番組の強みは「記事中の専門用語にぜんぶ注釈がつく」ことなので、必ずリンクを置く。"""
+    date = ep.get("date", "")
+    article = f"{BASE_URL}/ai-news-{date}.html"
+    player  = f"{BASE_URL}/podcast/player.html?date={date}"
+    text = (f"{ep.get('title','')}。"
+            f" 今日の内容は、専門用語の解説つきの記事でも読めます → {article}"
+            f" ／ 台本つき音声プレイヤー → {player}")
+    return text.replace("&", "&amp;").replace("<", "&lt;")
+
 def update_feed(date: datetime, audio_file: Path) -> None:
     """episodes.json と Spotify/Apple 対応 feed.xml を更新する。"""
     PODCAST_DIR.mkdir(exist_ok=True)
@@ -338,7 +350,8 @@ def update_feed(date: datetime, audio_file: Path) -> None:
   <item>
     <title>{ep['title']}</title>
     <itunes:title>{ep['title']}</itunes:title>
-    <description>{ep['title']}</description>
+    <description>{_episode_description(ep)}</description>
+    <itunes:summary>{_episode_description(ep)}</itunes:summary>
     <author>{PODCAST_EMAIL}</author>
     <itunes:author>世界一わかりやすいAIニュース</itunes:author>
     <itunes:episode>{ep_ep_num}</itunes:episode>
