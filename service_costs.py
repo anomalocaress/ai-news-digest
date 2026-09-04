@@ -145,6 +145,9 @@ def alerts(cfg: Dict = None, today: date = None) -> List[Dict]:
             if left < 0:
                 out.append({"level": "danger", "service": name,
                             "message": f"無料体験は {trial_end} に終了済み。{yen} の課金が始まっているはず"})
+            elif left == 0:
+                out.append({"level": "danger", "service": name,
+                            "message": f"無料体験は今日（{trial_end}）が最終日。続けないなら今すぐ解約。放置すると {yen}"})
             elif left <= TRIAL_WARN_DAYS:
                 out.append({"level": "danger", "service": name,
                             "message": f"無料体験があと {left} 日で終了（{trial_end}）。続けないなら前日までに解約。放置すると {yen}"})
