@@ -97,7 +97,7 @@
 
 こちらの実装は完了済み。持ち主が登録したら値を `monetize_config.json` に入れるだけ。
 
-1. **Kit**（メルマガ）アカウント作成 → `signup_url` をもらう（手順：`NEWSLETTER_SETUP.md`）
+1. ~~Kit~~ → **Substack に変更・接続済（2026-09-04）**。既存媒体 teracosensei.substack.com のセクション「世界一わかりやすいAIニュース」を使う。RSS自動配信は無いので、週1で Substack に投稿する運用（`NEWSLETTER_SETUP.md` 末尾）
 2. ~~Spotify~~ **済（2026-09-04 再登録、`podcast.spotify_url` 設定済）**。**Apple Podcasts** は未登録 → 番組URLをもらう
 3. **GA4** の測定IDをもらう（現状アクセス数がゼロ件も測れていない。最優先で推奨）
 4. **Search Console** に sitemap.xml を登録
