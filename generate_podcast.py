@@ -278,6 +278,13 @@ def _episode_description(ep: Dict) -> str:
     text = (f"{ep.get('title','')}。"
             f" 今日の内容は、専門用語の解説つきの記事でも読めます → {article}"
             f" ／ 台本つき音声プレイヤー → {player}")
+    try:
+        import monetize, site_theme
+        mail = site_theme.newsletter_links(monetize.load_config())["signup_url"]
+        if mail:
+            text += f" ／ メールで毎朝受け取る（無料）→ {mail}"
+    except Exception:
+        pass
     return text.replace("&", "&amp;").replace("<", "&lt;")
 
 def update_feed(date: datetime, audio_file: Path) -> None:

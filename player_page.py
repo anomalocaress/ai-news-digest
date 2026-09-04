@@ -90,6 +90,8 @@ def build(config: dict) -> str:
         f'<button type="button" class="speed-btn" data-speed="{v}">{label}</button>'
         for v, label in speeds
     )
+    mail = site_theme.newsletter_links(config)["signup_url"]
+    mail_link = f'<a href="{esc(mail)}" target="_blank" rel="noopener">メールで毎朝受け取る</a>' if mail else ""
     spotify = (config.get("podcast", {}).get("spotify_url") or "").strip()
     spotify_link = f'<a href="{esc(spotify)}" target="_blank" rel="noopener">Spotify で聴く</a>' if spotify else ""
 
@@ -127,6 +129,7 @@ def build(config: dict) -> str:
       <div class="speed-row"><span class="speed-label">再生速度</span>{speed_btns}</div>
       <div class="p-links">
         <a id="mp3Link" href="#">音声ファイルを開く</a>
+        {mail_link}
         {spotify_link}
         <a href="feed.xml">ポッドキャストアプリ用アドレス</a>
       </div>

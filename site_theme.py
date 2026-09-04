@@ -140,6 +140,24 @@ PROSE_CSS = """
 """
 
 
+def newsletter_links(config: dict) -> dict:
+    """メール購読の「登録ページURL」と「埋め込みフォーム」を設定から組み立てる。
+    provider=substack なら substack_url 1つから両方作る（Substack は /subscribe と /embed を用意している）。
+    signup_url / embed_html が直接書かれていればそちらを優先。未設定なら空＝どこにも出ない。"""
+    nl = config.get("newsletter", {})
+    if not nl.get("enabled", True):
+        return {"signup_url": "", "embed_html": ""}
+    signup = nl.get("signup_url", "").strip()
+    embed = nl.get("embed_html", "").strip()
+    base = nl.get("substack_url", "").strip().rstrip("/")
+    if nl.get("provider") == "substack" and base:
+        signup = signup or f"{base}/subscribe"
+        embed = embed or (f'<iframe src="{base}/embed" width="100%" height="150" '
+                          'style="border:1px solid var(--border);border-radius:6px;background:#fff;" '
+                          'frameborder="0" scrolling="no" title="メールマガジン登録"></iframe>')
+    return {"signup_url": signup, "embed_html": embed}
+
+
 def subscribe_block(config: dict, prefix: str = "") -> str:
     """購読の導線。
 
@@ -155,7 +173,8 @@ def subscribe_block(config: dict, prefix: str = "") -> str:
     cards = []
 
     # --- メールマガジン ---
-    embed = nl.get("embed_html", "").strip() if nl.get("enabled", True) else ""
+    links = newsletter_links(config)
+    embed = links["embed_html"]
     if embed:
         cards.append(
             '    <div class="sub-card mail sub-embed">\n'
@@ -165,9 +184,9 @@ def subscribe_block(config: dict, prefix: str = "") -> str:
             f"      {embed}\n"
             "    </div>\n"
         )
-    elif nl.get("enabled", True) and nl.get("signup_url"):
+    elif links["signup_url"]:
         cards.append(
-            f'    <a class="sub-card mail" href="{_html.escape(nl["signup_url"])}">\n'
+            f'    <a class="sub-card mail" href="{_html.escape(links["signup_url"])}">\n'
             '      <span class="sub-ico">✉️</span>\n'
             '      <span class="sub-t">メールマガジンで受け取る</span>\n'
             f'      <span class="sub-d">{_html.escape(nl.get("blurb", ""))} 無料・いつでも解除できます</span>\n'

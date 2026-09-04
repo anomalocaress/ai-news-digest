@@ -202,8 +202,19 @@ def build_dialogue_script(articles_by_category: Dict[str, List[Dict]], date: dat
             news_text += line + "\n"
         news_text += "\n"
 
+    # メール購読が設定済みなら、締めの案内に「メールでも毎朝届く」を一言足す
+    mail_note = ""
+    try:
+        import monetize, site_theme
+        if site_theme.newsletter_links(monetize.load_config())["signup_url"]:
+            mail_note = ("\n補足：メール購読（無料）も用意しています。締めの案内では"
+                         "「説明欄のリンクから、記事を読むこともメールで毎朝受け取ることもできます」"
+                         "のように、記事とメールの両方に一言で触れてください。")
+    except Exception:
+        pass
+
     user_prompt = (
-        f"{news_text}\n"
+        f"{news_text}{mail_note}\n"
         f"上記の素材（多くは英語）を理解し、{date_str}版の「世界一わかりやすいAIニュース」台本を作ってください。"
         "英語をそのまま直訳するのではなく、内容をかみくだいて、日本語のラジオで自然に話す言葉に置き換えてください。"
     )
