@@ -281,9 +281,9 @@
     "enabled": true,
     "provider": "substack",
     "signup_url": "",
-    "blurb": "毎朝6時、AIの重要ニュースだけを日本語で。専門用語には解説つき。",
+    "blurb": "毎朝6時のAIニュースと、週1回のまとめ・解説記事をメールで。専門用語には解説つき。無料・いつでも解除できます",
     "rss_full_body_items": 12,
     "embed_html": "",
-    "substack_url": ""
+    "substack_url": "https://teracosensei.substack.com"
   }
 }
