@@ -1,6 +1,12 @@
 #!/usr/bin/env python3
 """
-サブスクAPIチェッカー（台帳） — 「どこにいくら払っているか」を1枚で見る。
+サブスクAPIチェッカー（台帳） — 「何を使っていて、どこにいくら払っているか」を1枚で見る。
+
+金額がゼロのものも載せます。無料で使っているツールこそ、あとから有料プランへ
+誘導されて課金が始まる入口だからです。
+
+前払いクレジット制のものは、残高と自動リチャージの ON/OFF も持ちます。
+自動リチャージが ON のまま放置された前払い残高は、請求が来るまで誰も気づけません。
 
 api_cost_calculator.py が扱うのは *このリポジトリのコードが呼んだ API* の従量課金だけです。
 実際に財布から出ていくお金には、コードが一切関与しないもの（サブスク、前払いクレジット、
@@ -38,6 +44,25 @@ STATUS_LABEL = {
 }
 
 CYCLE_LABEL = {"monthly": "毎月", "yearly": "毎年", "one_time": "都度"}
+
+BILLING_LABEL = {
+    "subscription": "サブスク", "prepaid": "前払いクレジット",
+    "usage": "従量課金", "free": "無料", "included": "枠内",
+}
+
+# お金が出ていかない型。金額未確認の催促はしない
+NO_COST = ("free", "included")
+
+# 残高を持つ型。ここは残高と自動リチャージも見張る
+CHARGE_LIKE = ("prepaid", "usage")
+
+RECHARGE_LABEL = {
+    "on": "自動リチャージ ON", "off": "自動リチャージ OFF",
+    "off?": "自動リチャージ OFF（推定）", "unknown": "自動リチャージ 未確認",
+}
+
+# 残高をいつ確認したか。これより古いと数字を信用しない
+BALANCE_STALE_DAYS = 30
 
 # 月額合計に数えるステータス
 COUNTED = ("active", "trial", "watch")
@@ -159,11 +184,10 @@ def alerts(cfg: Dict = None, today: date = None) -> List[Dict]:
                 out.append({"level": "warn", "service": name,
                             "message": f"{left} 日後（{charge}）に次の請求。{yen}"})
 
-        if svc.get("billing") == "prepaid":
-            out.append({"level": "warn", "service": name,
-                        "message": "前払いクレジット制。自動リチャージが ON だと残高が減るたび黙って再課金される。設定を確認"})
+        if svc.get("billing") in CHARGE_LIKE:
+            out.extend(charge_alerts(svc, name, today))
 
-        if jpy is None and status in COUNTED:
+        if jpy is None and status in COUNTED and svc.get("billing") not in NO_COST:
             out.append({"level": "info", "service": name,
                         "message": "金額が未確認。請求書を見て service_costs.json の amount を埋める"})
 
@@ -172,27 +196,108 @@ def alerts(cfg: Dict = None, today: date = None) -> List[Dict]:
     return out
 
 
+def charge_alerts(svc: Dict, name: str, today: date) -> List[Dict]:
+    """残高を持つサービスの見張り。ON のまま忘れられた自動リチャージが一番こわい。"""
+    out = []
+    where = svc.get("dashboard") or "各社の請求ページ"
+    recharge = svc.get("auto_recharge", "unknown")
+
+    if recharge == "on":
+        out.append({"level": "danger", "service": name,
+                    "message": f"自動リチャージが ON。残高が減るたび黙って再課金される。"
+                               f"上限が要るなら {where} で設定する"})
+    elif recharge in ("unknown", "off?"):
+        certainty = "推定でしかない" if recharge == "off?" else "未確認"
+        out.append({"level": "warn", "service": name,
+                    "message": f"自動リチャージの ON/OFF が{certainty}。{where} で見て台帳に記録する"})
+
+    balance = svc.get("balance")
+    checked = parse_day(svc.get("balance_checked_at"))
+    unit = svc.get("balance_currency", "USD")
+
+    if balance is None:
+        out.append({"level": "info", "service": name,
+                    "message": f"残高が未確認。{where} で見て balance に書く"})
+    elif checked is None:
+        out.append({"level": "info", "service": name,
+                    "message": f"残高 {balance} {unit} の確認日が空。balance_checked_at に日付を入れる"})
+    else:
+        age = (today - checked).days
+        if age > BALANCE_STALE_DAYS:
+            out.append({"level": "info", "service": name,
+                        "message": f"残高 {balance} {unit} は {age} 日前の数字。もう当てにならない"})
+        elif recharge in ("off", "off?") and float(balance) <= 2:
+            out.append({"level": "warn", "service": name,
+                        "message": f"残高が {balance} {unit} しかない。自動リチャージは入っていないので、"
+                                   f"尽きた時点で止まる"})
+    return out
+
+
 # ---------------------------------------------------------------- コマンド
 
 def cmd_report(_args: List[str]):
     s = summarize()
-    print("💳 サブスクAPIチェッカー — 課金しているサービス一覧\n")
+    print("💳 サブスクAPIチェッカー\n")
+
+    # 課金の有無で分けて出す。無料のものも必ず載せる（有料化の入口はそこなので）
+    paid, gratis, stopped = [], [], []
     for r in s["rows"]:
-        jpy = r["monthly_jpy"]
-        amount = f"¥{round(jpy):>7,}" if jpy is not None else "   不明  "
         if not r["counted"]:
+            stopped.append(r)
+        elif r.get("billing") in NO_COST:
+            gratis.append(r)
+        else:
+            paid.append(r)
+
+    def line(r):
+        jpy = r["monthly_jpy"]
+        if r.get("billing") in NO_COST:
             amount = "     ―  "
-        cycle = "都度" if r.get("cycle") == "one_time" else "/月"
+        elif not r["counted"]:
+            amount = "     ―  "
+        elif jpy is None:
+            amount = "   不明  "
+        else:
+            amount = f"¥{round(jpy):>7,}"
+        cycle = "都度" if r.get("cycle") == "one_time" else ("  " if r.get("billing") in NO_COST else "/月")
         mark = {"active": "●", "trial": "◐", "watch": "○"}.get(r.get("status"), "×")
         print(f"  {mark} {amount}{cycle:<3}{r.get('name','?')}")
-        print(f"        {r.get('category','')} / {STATUS_LABEL.get(r.get('status'), r.get('status'))}"
-              f" / {r.get('dashboard') or 'ダッシュボードなし'}")
+
+        bits = [r.get("category", ""), BILLING_LABEL.get(r.get("billing"), r.get("billing", ""))]
+        if r.get("plan"):
+            bits.append(r["plan"])
+        bits.append(STATUS_LABEL.get(r.get("status"), r.get("status", "")))
+        print(f"        {' / '.join(b for b in bits if b)}")
+
+        if r.get("billing") in CHARGE_LIKE:
+            bal = r.get("balance")
+            unit = r.get("balance_currency", "USD")
+            when = r.get("balance_checked_at")
+            shown = f"{bal} {unit}" + (f"（{when} 時点）" if when else "") if bal is not None else "未確認"
+            print(f"        残高 {shown} / {RECHARGE_LABEL.get(r.get('auto_recharge'), '未確認')}")
+
+        if r.get("dashboard"):
+            print(f"        {r['dashboard']}")
         if r.get("note"):
             print(f"        {r['note']}")
         print()
 
+    if paid:
+        print(f"── 課金あり（{len(paid)}）──\n")
+        for r in paid:
+            line(r)
+    if gratis:
+        print(f"── 無料・枠内で使用中（{len(gratis)}）──\n")
+        for r in gratis:
+            line(r)
+    if stopped:
+        print(f"── 止めたもの（{len(stopped)}）──\n")
+        for r in stopped:
+            line(r)
+
     print(f"  月額合計: ¥{s['monthly_total_jpy']:,}"
           + (f"（金額未確認 {s['unknown_count']} 件を除く）" if s["unknown_count"] else ""))
+    print(f"  使用中のサービス: {len(paid) + len(gratis)} 件（うち無料・枠内 {len(gratis)} 件）")
     budget = s["budget_jpy"]
     if budget:
         print(f"  予算（収益で賄いたい額）: ¥{budget:,} / 月  →  残り ¥{budget - s['monthly_total_jpy']:,}")
