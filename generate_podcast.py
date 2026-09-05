@@ -64,6 +64,9 @@ _TTS_REPLACEMENTS = [
     # 変な読みにならないよう登録しておく。
     # 長い表記から先に置換すること（"Teraco" 単体を先に処理すると
     # "Teraco News" が壊れるため、必ずこの順序を守る）。
+    ("Teraco Voice", "テラコボイス"),   # 本人の声クローンの製品名（2026-09-05 登録）
+    ("TERACO VOICE", "テラコボイス"),
+    ("TeracoVoice",  "テラコボイス"),
     ("Teraco News", "テラコニュース"),
     ("TERACO NEWS", "テラコニュース"),
     ("TeracoNews",  "テラコニュース"),
@@ -322,9 +325,11 @@ def update_feed(date: datetime, audio_file: Path) -> None:
     if not duration_sec:
         duration_sec = size_bytes // 10000
 
-    ep_num = len(episodes) + 1  # 既存エピソード数 + 1
-
+    # 同じ日を作り直したとき（Teraco Voice への差し替えなど）は番号を据え置く。
+    # 以前は「既存数+1」を先に計算していたため、作り直すたびに番号が1つ進んでいた
+    existing = next((e for e in episodes if e.get("date") == date_str), None)
     episodes = [e for e in episodes if e.get("date") != date_str]
+    ep_num = existing.get("episode_num") if existing and existing.get("episode_num") else len(episodes) + 1
     episodes.insert(0, {
         "date":        date_str,
         "title":       f"世界一わかりやすいAIニュース - {date_str}",
