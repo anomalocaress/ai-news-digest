@@ -38,9 +38,9 @@
     <itunes:author>世界一わかりやすいAIニュース</itunes:author>
     <itunes:episode>61</itunes:episode>
     <itunes:episodeType>full</itunes:episodeType>
-    <itunes:duration>11:25</itunes:duration>
+    <itunes:duration>10:47</itunes:duration>
     <itunes:explicit>false</itunes:explicit>
-    <enclosure url="https://teraco-labo.github.io/ai-news-digest/podcast/ai-news-2026-09-05.mp3" length="6850919" type="audio/mpeg"/>
+    <enclosure url="https://teraco-labo.github.io/ai-news-digest/podcast/ai-news-2026-09-05.mp3" length="6475015" type="audio/mpeg"/>
     <pubDate>Sat, 05 Sep 2026 21:00:00 GMT</pubDate>
     <guid isPermaLink="false">https://teraco-labo.github.io/ai-news-digest/podcast/ai-news-2026-09-05.mp3</guid>
   </item>
