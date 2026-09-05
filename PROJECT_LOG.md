@@ -111,7 +111,8 @@ Googleは開示を求めていない。ペナルティ対象は「AI生成かど
 
 ## 次にやること
 
-1. **teraco.money にサブスク台帳を反映**: `npx prisma db push` → `scripts/import-subscriptions.mjs` で22件を流し込み → GitHub Secrets に `SUBSCHECK_URL` / `SUBSCHECK_SYNC_TOKEN`（手順は teraco-money の SPEC.md）
+1. **サブスクAPIチェッカーの初期設定**: teraco.money の「サブスク」を開いて「初期設定を実行する」を1回押すだけ（2026-09-05 に統合・マージ済み。テーブル作成と22件の投入がボタンで終わる）
+   - 受信箱の見張りを繋ぐなら、このリポジトリの Secrets に `SUBSCHECK_URL` と `SUBSCHECK_SYNC_TOKEN` を追加
 2. **Gemini API のお支払い方法**を 10/12 までに前払いへ切り替え（放置すると API が止まる）
    ※ Adobe Premiere は 9/4 に交渉で月1,980円に値引きして契約済み（済）
 3. **GA4の測定ID**を取得 → `monetize_config.json` に1行

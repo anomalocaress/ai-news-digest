@@ -2,7 +2,7 @@
 
 「気づいたら請求が来ていた」を無くすための仕組みです。
 
-> **2026-09-05: 台帳の本体は teraco.money に移りました。**
+> **2026-09-05: 台帳の本体は teraco.money に移りました（統合済み・マージ済み）。**
 > 画面は https://teraco-money.vercel.app/advice/subscriptions 、仕様は teraco-money リポジトリの SPEC.md。
 > 「実際にいくら引き落とされたか」は仕訳にしか無いので、台帳もそこに置くのが正しい判断でした。
 >
