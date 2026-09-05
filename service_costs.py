@@ -64,6 +64,9 @@ RECHARGE_LABEL = {
 # 残高をいつ確認したか。これより古いと数字を信用しない
 BALANCE_STALE_DAYS = 30
 
+# 為替をいつ更新したか。これより古いとドル建てが信用できない
+RATE_STALE_DAYS = 14
+
 # 月額合計に数えるステータス
 COUNTED = ("active", "trial", "watch")
 
@@ -93,15 +96,18 @@ def save_config(cfg: Dict):
     )
 
 
-def to_jpy(amount: Optional[float], currency: str, rate: float) -> Optional[float]:
+def to_jpy(amount: Optional[float], currency: str, rate: float, fee_pct: float = 0.0) -> Optional[float]:
+    """ドル建てはカードの海外事務手数料を乗せないと、実際の引き落とし額に合わない。"""
     if amount is None:
         return None
-    return float(amount) * rate if currency.upper() == "USD" else float(amount)
+    if currency.upper() != "USD":
+        return float(amount)
+    return float(amount) * rate * (1 + fee_pct / 100.0)
 
 
-def monthly_jpy(svc: Dict, rate: float) -> Optional[float]:
+def monthly_jpy(svc: Dict, rate: float, fee_pct: float = 0.0) -> Optional[float]:
     """月あたりに均した円。一度きりの支払いは 0（合計を膨らませないため）。"""
-    jpy = to_jpy(svc.get("amount"), svc.get("currency", "JPY"), rate)
+    jpy = to_jpy(svc.get("amount"), svc.get("currency", "JPY"), rate, fee_pct)
     if jpy is None:
         return None
     cycle = svc.get("cycle", "monthly")
@@ -124,12 +130,13 @@ def parse_day(value: Optional[str]) -> Optional[date]:
 def summarize(cfg: Dict = None) -> Dict:
     cfg = cfg or load_config()
     rate = float(cfg.get("jpy_per_usd", 150))
+    fee = float(cfg.get("fx_fee_pct", 0))
     rows: List[Dict] = []
     total = 0.0
     unknown = 0
 
     for svc in cfg.get("services", []):
-        jpy = monthly_jpy(svc, rate)
+        jpy = monthly_jpy(svc, rate, fee)
         counted = svc.get("status") in COUNTED
         if counted:
             if jpy is None:
@@ -141,6 +148,8 @@ def summarize(cfg: Dict = None) -> Dict:
     rows.sort(key=lambda r: (r["monthly_jpy"] is None, -(r["monthly_jpy"] or 0)))
     return {
         "rate": rate,
+        "fee_pct": fee,
+        "rate_updated_at": cfg.get("jpy_per_usd_updated_at"),
         "rows": rows,
         "monthly_total_jpy": round(total),
         "unknown_count": unknown,
@@ -153,7 +162,21 @@ def alerts(cfg: Dict = None, today: date = None) -> List[Dict]:
     cfg = cfg or load_config()
     today = today or today_jst()
     rate = float(cfg.get("jpy_per_usd", 150))
+    fee = float(cfg.get("fx_fee_pct", 0))
     out: List[Dict] = []
+
+    # 為替が古いと、ドル建ての行が全部ずれる
+    rate_day = parse_day(cfg.get("jpy_per_usd_updated_at"))
+    has_usd = any(s.get("currency") == "USD" and s.get("status") in COUNTED
+                  for s in cfg.get("services", []))
+    if has_usd:
+        if rate_day is None:
+            out.append({"level": "info", "service": "為替レート",
+                        "message": f"1 USD = {rate} 円 の更新日が空。jpy_per_usd_updated_at を入れる"})
+        elif (today - rate_day).days > RATE_STALE_DAYS:
+            out.append({"level": "warn", "service": "為替レート",
+                        "message": f"1 USD = {rate} 円 は {(today - rate_day).days} 日前の値。"
+                                   f"ドル建ての金額が実際とずれている"})
 
     for svc in cfg.get("services", []):
         name = svc.get("name", svc.get("id", "?"))
@@ -298,6 +321,9 @@ def cmd_report(_args: List[str]):
     print(f"  月額合計: ¥{s['monthly_total_jpy']:,}"
           + (f"（金額未確認 {s['unknown_count']} 件を除く）" if s["unknown_count"] else ""))
     print(f"  使用中のサービス: {len(paid) + len(gratis)} 件（うち無料・枠内 {len(gratis)} 件）")
+    print(f"  為替: 1 USD = {s['rate']} 円"
+          + (f"（{s['rate_updated_at']} 時点）" if s.get("rate_updated_at") else "")
+          + (f" + カード海外事務手数料 {s['fee_pct']}%" if s.get("fee_pct") else ""))
     budget = s["budget_jpy"]
     if budget:
         print(f"  予算（収益で賄いたい額）: ¥{budget:,} / 月  →  残り ¥{budget - s['monthly_total_jpy']:,}")
@@ -402,7 +428,7 @@ def generate_service_costs_html() -> str:
         else:
             amount = f"¥{round(jpy):,}"
         if r.get("cycle") == "one_time":
-            spot = to_jpy(r.get("amount"), r.get("currency", "JPY"), s["rate"])
+            spot = to_jpy(r.get("amount"), r.get("currency", "JPY"), s["rate"], s["fee_pct"])
             amount = f"¥{round(spot):,}" if spot else "―"
         color = {"active": "#22c55e", "trial": "#f59e0b", "watch": "#60a5fa"}.get(r.get("status"), "#475569")
         url = r.get("dashboard") or "#"

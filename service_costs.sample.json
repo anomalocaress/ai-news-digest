@@ -1,6 +1,6 @@
 {
   "_comment": "お金がかかる（かかりそうな）サービスの台帳のひな形。service_costs.json が無いときに自動でコピーされる。金額はローカルだけに置きたいので、このリポジトリは公開されている以上ここには入れない。",
-  "jpy_per_usd": 150,
+  "jpy_per_usd": 156.23,
   "monthly_budget_jpy": 30000,
   "services": [
     {
@@ -58,7 +58,7 @@
       "cycle": "one_time",
       "next_charge": null,
       "dashboard": "https://fal.ai/dashboard/billing",
-      "note": "2026-08-22 にアカウント作成し 少額のクレジットを購入。前払いクレジット制なので、使い切って自動リチャージが ON だと黙って再課金される。このリポジトリのコードは fal を一切呼んでいない",
+      "note": "2026-08-22 にアカウント作成し $10 分のクレジットを購入。自動リチャージなし＝使い切ったら止まるだけで、勝手に増えることはない。このリポジトリのコードは fal を一切呼んでいない",
       "evidence": "",
       "cancel_url": "https://fal.ai/dashboard/billing",
       "mail_match": [
@@ -70,8 +70,8 @@
       "balance": null,
       "balance_currency": "USD",
       "balance_checked_at": null,
-      "auto_recharge": "unknown",
-      "auto_recharge_note": ""
+      "auto_recharge": "off",
+      "auto_recharge_note": "本人確認済み（2026-09-05）。1回チャージしただけで自動リチャージは設定していない"
     },
     {
       "id": "gcp-apis",
@@ -207,13 +207,13 @@
       "name": "Supabase",
       "category": "インフラ",
       "billing": "free",
-      "status": "watch",
+      "status": "active",
       "amount": 0,
       "currency": "JPY",
       "cycle": "monthly",
       "next_charge": null,
       "dashboard": "https://supabase.com/dashboard/org/_/billing",
-      "note": "2026-08-22 に GitHub 連携でアカウント作成。無料枠のうちは0円だが、Pro へ上げると有料",
+      "note": "teraco.money（自作の会計アプリ）の PostgreSQL。遊んでいるアカウントではなく本番で使用中。無料プランのうちは0円だが、Pro は $25/月。DBサイズと接続数に注意",
       "evidence": "",
       "cancel_url": "https://supabase.com/dashboard/org/_/billing",
       "mail_match": [
@@ -355,6 +355,112 @@
         "remotion.dev"
       ],
       "evidence": ""
+    },
+    {
+      "id": "teraco-money",
+      "name": "teraco.money（自作の会計アプリ）",
+      "category": "インフラ",
+      "billing": "free",
+      "status": "active",
+      "plan": "Vercel / Supabase の無料枠",
+      "amount": 0,
+      "currency": "JPY",
+      "cycle": "monthly",
+      "next_charge": null,
+      "trial_ends": null,
+      "dashboard": "https://teraco-money.vercel.app",
+      "cancel_url": "",
+      "note": "青色申告用に自作した会計アプリ。カード・銀行の入出金が全部ここに集まるので、ドル建てサービスの「実際に何円引き落とされたか」はここで突合できる。毎朝6:07にマネーフォワードのCSVを自動取込",
+      "mail_match": [
+        "teraco-money",
+        "vercel.com"
+      ],
+      "evidence": ""
+    },
+    {
+      "id": "moneyforward",
+      "name": "マネーフォワード ME プレミアム",
+      "category": "ツール",
+      "billing": "subscription",
+      "status": "active",
+      "plan": "プレミアム",
+      "amount": null,
+      "currency": "JPY",
+      "cycle": "monthly",
+      "next_charge": null,
+      "trial_ends": null,
+      "dashboard": "https://moneyforward.com/me/settings",
+      "cancel_url": "https://moneyforward.com/me/settings",
+      "note": "teraco.money が銀行・カードの明細を取り込む元。ここを切ると自動取込が止まる。MFクラウド確定申告（月5,500円）は teraco.money の自作で置き換え済み",
+      "mail_match": [
+        "moneyforward.com",
+        "マネーフォワード"
+      ],
+      "evidence": ""
+    },
+    {
+      "id": "vercel",
+      "name": "Vercel",
+      "category": "インフラ",
+      "billing": "free",
+      "status": "active",
+      "plan": "Hobby（無料）",
+      "amount": 0,
+      "currency": "JPY",
+      "cycle": "monthly",
+      "next_charge": null,
+      "trial_ends": null,
+      "dashboard": "https://vercel.com/account/billing",
+      "cancel_url": "",
+      "note": "teraco.money の本番ホスティング（東京リージョン）。無料枠を超えると Pro が月$20。帯域と実行時間に注意",
+      "mail_match": [
+        "vercel.com"
+      ],
+      "evidence": ""
+    },
+    {
+      "id": "gcp-vision",
+      "name": "Google Cloud Vision API（レシートOCR）",
+      "category": "AI API",
+      "billing": "usage",
+      "status": "unused",
+      "plan": "月1,000枚まで無料",
+      "amount": 0,
+      "currency": "JPY",
+      "cycle": "monthly",
+      "next_charge": null,
+      "trial_ends": null,
+      "dashboard": "https://console.cloud.google.com/billing",
+      "cancel_url": "",
+      "note": "teraco.money のレシート読み取り用に実装したが、従量課金なので休眠中。いまはレシート写真を Claude Code に貼る運用（無料）。再開するならここを active に戻す",
+      "mail_match": [],
+      "balance": null,
+      "balance_currency": "USD",
+      "balance_checked_at": null,
+      "auto_recharge": "unknown",
+      "auto_recharge_note": "",
+      "evidence": ""
+    },
+    {
+      "id": "google-storage",
+      "name": "Google ストレージ（年払い）",
+      "category": "インフラ",
+      "billing": "subscription",
+      "status": "watch",
+      "plan": "年払いに変更済み",
+      "amount": null,
+      "currency": "JPY",
+      "cycle": "yearly",
+      "next_charge": null,
+      "trial_ends": null,
+      "dashboard": "https://one.google.com/storage",
+      "cancel_url": "https://one.google.com/storage",
+      "note": "年払いに切り替えたとのことだが、この受信箱に確認メールが見つからなかった。別アカウント（fujisaki.eizo@gmail.com など）宛か、Google Play 経由の可能性。teraco.money のカード明細を「Google」で検索すれば実額と時期が出るはず",
+      "mail_match": [
+        "one.google.com",
+        "Google One"
+      ],
+      "evidence": ""
     }
   ],
   "mail": {
@@ -397,5 +503,8 @@
       "povo.jp"
     ],
     "_ignore_note": "カード利用通知は1件ごとに飛んでくる上、契約元も必ず領収書を送るので既定では無視する。取りこぼしが怖ければ vpass.ne.jp を外す。"
-  }
+  },
+  "jpy_per_usd_updated_at": "2026-09-04",
+  "fx_fee_pct": 2.2,
+  "_fx_note": "jpy_per_usd は実勢の仲値。fx_fee_pct は三井住友カードの海外事務手数料 2.20%。ドル建ての請求は「仲値 × (1 + 手数料)」で円に直す"
 }
