@@ -329,7 +329,10 @@ def update_feed(date: datetime, audio_file: Path) -> None:
     # 以前は「既存数+1」を先に計算していたため、作り直すたびに番号が1つ進んでいた
     existing = next((e for e in episodes if e.get("date") == date_str), None)
     episodes = [e for e in episodes if e.get("date") != date_str]
-    ep_num = existing.get("episode_num") if existing and existing.get("episode_num") else len(episodes) + 1
+    # 新しい日は「これまでの最大番号+1」。以前の「件数+1」は一覧を60件で切っているため
+    # 61で止まったままだった（2026-09-05 に発見。当面は番号がそこから続く）
+    _nums = [int(e.get("episode_num") or 0) for e in episodes]
+    ep_num = existing.get("episode_num") if existing and existing.get("episode_num") else (max(_nums) + 1 if _nums else 1)
     episodes.insert(0, {
         "date":        date_str,
         "title":       f"世界一わかりやすいAIニュース - {date_str}",
