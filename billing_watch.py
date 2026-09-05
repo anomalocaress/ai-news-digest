@@ -359,6 +359,73 @@ def notify(result: Dict) -> str:
         return "failed"
 
 
+def push_to_teraco_money(result: Dict) -> str:
+    """
+    見つけたものを teraco.money の台帳へ送る。'sent' / 'skipped' / 'failed'。
+
+    SUBSCHECK_URL（例: https://teraco-money.vercel.app）と SYNC_TOKEN があるときだけ動く。
+    既知のサービスからの請求も送る（「最後に見た日」の更新に使われる）。
+    未知の送信元は、向こうで「確認待ちの課金の気配」として画面に出る。
+    reconcile=true で、仕訳との照合も一緒に走らせる（毎朝の取込の後なので都合がいい）。
+    """
+    base = os.getenv("SUBSCHECK_URL", "").rstrip("/")
+    token = os.getenv("SYNC_TOKEN", "")
+    if not base or not token:
+        return "skipped"
+
+    ledger = load_ledger()
+    services = ledger.get("services", [])
+    name_to_key = {s.get("name"): s.get("id") for s in services}
+
+    signals: List[Dict] = []
+    for name, msgs in result["known"].items():
+        for m in msgs:
+            signals.append({
+                "kind": "EMAIL_KNOWN", "matchKey": name_to_key.get(name),
+                "source": m["from"], "subject": m["subject"],
+                "observedAt": _iso(m.get("date")), "externalId": m["id"],
+            })
+    for domain, msgs in result["unknown"].items():
+        for m in msgs:
+            signals.append({
+                "kind": "EMAIL_UNKNOWN", "source": domain, "subject": m["subject"],
+                "observedAt": _iso(m.get("date")), "externalId": m["id"],
+            })
+
+    import urllib.request
+    import urllib.error
+    payload = json.dumps({"signals": signals, "reconcile": True}).encode("utf-8")
+    req = urllib.request.Request(
+        f"{base}/api/sync/subscriptions", data=payload, method="POST",
+        headers={"Content-Type": "application/json", "x-sync-token": token},
+    )
+    try:
+        with urllib.request.urlopen(req, timeout=30) as res:
+            body = json.loads(res.read().decode("utf-8") or "{}")
+        rec = body.get("reconcile") or {}
+        print(f"☁️  teraco.money へ送りました: 追加 {body.get('inserted', 0)} / 重複 {body.get('skipped', 0)}"
+              f" / 既知に紐づけ {body.get('linked', 0)}"
+              + (f" / 仕訳照合 {rec.get('matched', 0)} 件・候補 {rec.get('candidates', 0)} 件" if rec else ""))
+        return "sent"
+    except urllib.error.HTTPError as e:
+        print(f"⚠️  teraco.money が {e.code} を返しました（SYNC_TOKEN を確認）")
+        return "failed"
+    except Exception as e:
+        print(f"⚠️  teraco.money へ送れませんでした: {type(e).__name__}")
+        return "failed"
+
+
+def _iso(date_header: Optional[str]) -> str:
+    """メールの Date ヘッダを ISO 8601 に。読めなければ今"""
+    if date_header:
+        try:
+            from email.utils import parsedate_to_datetime
+            return parsedate_to_datetime(date_header).isoformat()
+        except Exception:
+            pass
+    return datetime.now(JST).isoformat()
+
+
 def record(result: Dict, seen: Dict):
     """知らせ終わったものを既読にする。次の朝に同じことを言わないため。"""
     for group in (result["known"], result["unknown"]):
@@ -392,13 +459,16 @@ def main() -> int:
     except Exception as e:
         print(f"⚠️  記録の保存に失敗しました: {e}")
 
+    # teraco.money に台帳があるなら、そちらが正。メール通知は補助になる
+    pushed = push_to_teraco_money(result)
+
     if args.notify:
         outcome = notify(result)
-        if outcome in ("sent", "skipped"):
+        if outcome in ("sent", "skipped") and pushed != "failed":
             record(result, seen)
         else:
             # 送れなかったものは既読にしない。明日もう一度知らせる
-            print("ℹ️  通知できなかったので既読にしません（次回また知らせます）")
+            print("ℹ️  通知か同期ができなかったので既読にしません（次回また知らせます）")
 
     # 毎朝のワークフローを止めたくないので、見つかっても 0 で返す
     return 0

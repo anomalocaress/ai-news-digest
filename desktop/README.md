@@ -29,7 +29,7 @@ python desktop/build_app.py desktop/build                 # → .app と zip
 
 ## 起動すると何が起きるか
 
-1. チェッカー本体をブラウザで開く（ここは何があっても必ず通る）
+1. チェッカー本体（teraco.money の `/advice/subscriptions`）をブラウザで開く（ここは何があっても必ず通る）
 2. 手元の台帳を `service_costs.py check` で点検する
 3. 🔴 があればダイアログで止める。🟡 は通知。何も無ければ「異常なし」
 

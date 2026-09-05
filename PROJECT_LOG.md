@@ -111,8 +111,9 @@ Googleは開示を求めていない。ペナルティ対象は「AI生成かど
 
 ## 次にやること
 
-1. **Adobe Premiere の無料体験**が 8/28 終了。続けないなら前日までに解約（月3,280円）
+1. **teraco.money にサブスク台帳を反映**: `npx prisma db push` → `scripts/import-subscriptions.mjs` で22件を流し込み → GitHub Secrets に `SUBSCHECK_URL` / `SUBSCHECK_SYNC_TOKEN`（手順は teraco-money の SPEC.md）
 2. **Gemini API のお支払い方法**を 10/12 までに前払いへ切り替え（放置すると API が止まる）
+   ※ Adobe Premiere は 9/4 に交渉で月1,980円に値引きして契約済み（済）
 3. **GA4の測定ID**を取得 → `monetize_config.json` に1行
 4. **Search Console** に `sitemap.xml` を送信（91号＋88用語ページが検索対象に）
 5. **A8.net に登録** → 承認された案件のURLを設定ファイルに貼る
@@ -145,8 +146,8 @@ GitHub上に安全に残っています。続きをやるときはここから�
 | `article_builder.py` | 解説記事（`articles/*.md` → HTML） |
 | `social_kit.py` | SNS投稿文の生成 |
 | `revenue_tracker.py` | 収支の記録 |
-| `service_costs.py` / `service_costs.json` | **サブスクAPIチェッカーの台帳**。サブスク・前払い・無料体験の期限まで（→ COST_TRACKING.md） |
-| `billing_watch.py` | 毎朝、受信箱から新しい課金を見つける（→ COST_TRACKING.md） |
+| `billing_watch.py` | 毎朝、受信箱から新しい課金を見つけて **teraco.money へ送る**（→ COST_TRACKING.md） |
+| `service_costs.py` / `service_costs.sample.json` | サブスクAPIチェッカーの旧版（手元用の予備）。**本体は teraco.money の `/advice/subscriptions` に統合済み（2026-09-05）** |
 | `rerender.py` | 過去号の再描画（費用ゼロ） |
 | `WRITING.md` | 記事に自分の言葉を入れる方法 |
 | `MONETIZATION.md` | 収益化の手順 |

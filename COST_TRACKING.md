@@ -2,6 +2,16 @@
 
 「気づいたら請求が来ていた」を無くすための仕組みです。
 
+> **2026-09-05: 台帳の本体は teraco.money に移りました。**
+> 画面は https://teraco-money.vercel.app/advice/subscriptions 、仕様は teraco-money リポジトリの SPEC.md。
+> 「実際にいくら引き落とされたか」は仕訳にしか無いので、台帳もそこに置くのが正しい判断でした。
+>
+> このリポジトリに残っているのは次の2つです。
+> - `billing_watch.py` — 毎朝の GitHub Actions で受信箱を見て、結果を teraco.money へ送る（メール監視はここでしか動かせないため）
+> - `service_costs.py` / `service_costs.sample.json` — 手元で動く旧版。teraco.money が使えないときの予備
+>
+> デスクトップアイコンも teraco.money を開くように差し替え済みです。
+
 ## なぜ2つに分かれているのか
 
 このリポジトリには、お金の見え方が違う2つの帳簿があります。

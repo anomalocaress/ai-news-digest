@@ -128,4 +128,8 @@ jobs:
         env:
           GMAIL_ADDRESS: ${{ secrets.GMAIL_ADDRESS }}
           GMAIL_APP_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
+          # 台帳の本体は teraco.money 側。この2つが揃うと結果をそちらへ送る。
+          # SYNC_TOKEN は teraco-money リポジトリの Secrets と同じ値を登録する
+          SUBSCHECK_URL: ${{ secrets.SUBSCHECK_URL }}
+          SYNC_TOKEN: ${{ secrets.SUBSCHECK_SYNC_TOKEN }}
         run: python billing_watch.py --days 2 --notify

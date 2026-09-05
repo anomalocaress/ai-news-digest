@@ -9,7 +9,8 @@
 
 set -uo pipefail
 
-APP_URL="https://claude.ai/code/artifact/2d12e881-53f5-492a-b8e8-0d6fdfbbcd46"
+# 台帳の本体は teraco.money に統合した（2026-09）。ここを開けば最新が出る
+APP_URL="https://teraco-money.vercel.app/advice/subscriptions"
 TITLE="サブスクAPIチェッカー"
 
 # osascript に渡す前に、引用符とバックスラッシュを潰しておく
